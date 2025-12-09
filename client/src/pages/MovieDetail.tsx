@@ -1,6 +1,4 @@
-import Header from "../pages/Layout1";
-import Footer from "../pages/Layout2";
-import "../index.css"
+import "../index.css";
 export default function MovieDetail() {
   return (
     <div>
@@ -14,7 +12,6 @@ export default function MovieDetail() {
           }}
         >
           <div className="bg-black bg-opacity-50">
-            <Header></Header>
             <main id="movie-details" className="px-8 py-10" />
           </div>
         </div>
@@ -86,14 +83,10 @@ export default function MovieDetail() {
                 </p>
               </div>
               <div className="text-right">
-                <button
-                  className="bg-gray-600 px-4 py-2 rounded mr-2"
-                >
+                <button className="bg-gray-600 px-4 py-2 rounded mr-2">
                   Quay lại
                 </button>
-                <button
-                  className="bg-red-600 px-4 py-2 rounded"
-                >
+                <button className="bg-red-600 px-4 py-2 rounded">
                   Thanh toán
                 </button>
                 <div
@@ -106,7 +99,6 @@ export default function MovieDetail() {
             </div>
           </div>
         </main>
-        <Footer></Footer>
       </>
     </div>
   );

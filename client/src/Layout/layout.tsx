@@ -33,7 +33,7 @@ export default function Layout({ children }: LayoutProps) {
                 <img src={logo} className="w-[60px] h-[45px]" />
 
                 {/* Desktop Menu */}
-                <nav className="hidden lg:flex items-center gap-10 ml-10 text-white">
+                <nav className="lg:flex items-center gap-10 ml-10 text-white">
                     {menuItems.map((item, idx) => (
                         <span
                             key={idx}
@@ -88,7 +88,7 @@ export default function Layout({ children }: LayoutProps) {
             <main className="flex-1 mt-20">{children}</main>
 
             {/* ========================= FOOTER ========================= */}
-            <footer className="bg-black text-white py-14 mt-10">
+            <footer className="bg-black text-white py-14">
                 {/* MENU */}
                 <div className="max-w-6xl mx-auto px-6">
                     <div className="flex flex-wrap justify-center gap-x-10 gap-y-3 text-sm md:text-base font-medium">

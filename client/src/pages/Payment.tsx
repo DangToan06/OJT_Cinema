@@ -6,8 +6,6 @@ import payoo from "../assets/imgs/payoo 1.svg";
 import QRCode from "react-qr-code";
 import success from "../assets/imgs/Group.png";
 import { useNavigate } from "react-router-dom";
-import Header from "../pages/Layout1";
-import Footer from "../pages/Layout2";
 function generateRandomValue(amount: number, billId: string) {
   const qrData = `0002010102115303764...54${amount.toFixed(
     0
@@ -33,9 +31,8 @@ export default function Payment() {
     setQr(generateRandomValue(50000, Date.now.toString()));
   };
   return (
-    <div className="container-fluid relative mt-20 bg-gray-900 w-full h-min-screen">
+    <div className="container-fluid relative bg-gray-900 w-full h-min-screen">
       {/* Header */}
-      <Header></Header>
       {/* Body */}
       <div className="paymentSuccess flex flex-col justify-center items-center gap-3 hidden py-10">
         <img src={success} width="100px" height="100px" />
@@ -214,7 +211,6 @@ export default function Payment() {
         </div>
       </div>
       {/* Footer */}
-      <Footer></Footer>
     </div>
   );
 }
