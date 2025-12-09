@@ -86,7 +86,9 @@ export function ShowtimesManagement() {
     <div>
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-gray-900 mb-2">Quản lý lịch chiếu</h1>
+          <h1 className="text-gray-900 mb-2 font-bold text-2xl">
+            Quản lý lịch chiếu
+          </h1>
           <p className="text-gray-600">
             Tạo và quản lý lịch chiếu phim cho các rạp
           </p>

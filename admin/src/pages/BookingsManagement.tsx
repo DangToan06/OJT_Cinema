@@ -96,7 +96,9 @@ export function BookingsManagement() {
     <div>
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-gray-900 mb-2">Quản lý đặt vé</h1>
+          <h1 className="text-gray-900 mb-2 font-bold text-2xl">
+            Quản lý đặt vé
+          </h1>
           <p className="text-gray-600">Xem và quản lý tất cả các đơn đặt vé</p>
         </div>
         <button className="flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors">

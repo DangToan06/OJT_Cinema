@@ -64,7 +64,9 @@ export function GenresManagement() {
     <div>
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-gray-900 mb-2">Quản lý thể loại phim</h1>
+          <h1 className="text-gray-900 mb-2 font-bold text-2xl">
+            Quản lý thể loại phim
+          </h1>
           <p className="text-gray-600">
             Tạo mới, chỉnh sửa và xóa thể loại phim
           </p>

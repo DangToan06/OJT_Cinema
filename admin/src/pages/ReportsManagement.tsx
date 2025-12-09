@@ -76,7 +76,9 @@ export function ReportsManagement() {
     <div>
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-gray-900 mb-2">Báo cáo & Thống kê</h1>
+          <h1 className="text-gray-900 mb-2 font-bold text-2xl">
+            Báo cáo & Thống kê
+          </h1>
           <p className="text-gray-600">
             Xem báo cáo doanh thu và hiệu suất kinh doanh
           </p>

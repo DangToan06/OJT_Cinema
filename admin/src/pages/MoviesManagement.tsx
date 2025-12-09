@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Plus, Edit, Trash2, Search, Filter } from "lucide-react";
-import { MovieModal } from "./MovieModal";
+import { MovieModal } from "../components/MovieModal";
 
 export function MoviesManagement() {
   const [showModal, setShowModal] = useState(false);
@@ -92,7 +92,9 @@ export function MoviesManagement() {
     <div>
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-gray-900 mb-2">Quản lý phim</h1>
+          <h1 className="text-gray-900 mb-2 font-bold text-2xl">
+            Quản lý phim
+          </h1>
           <p className="text-gray-600">
             Thêm, sửa, xóa và cập nhật thông tin phim
           </p>
