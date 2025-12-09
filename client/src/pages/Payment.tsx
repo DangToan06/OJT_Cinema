@@ -12,6 +12,7 @@ import viettel from "../assets/imgs/viettel1 1.png";
 import payoo from "../assets/imgs/payoo 1.svg";
 import QRCode from "react-qr-code";
 import success from "../assets/imgs/Group.png";
+import { useNavigate } from "react-router-dom";
 function generateRandomValue(amount: number, billId: string) {
   const qrData = `0002010102115303764...54${amount.toFixed(
     0
@@ -19,6 +20,8 @@ function generateRandomValue(amount: number, billId: string) {
   return qrData;
 }
 export default function Payment() {
+  const [isPayment, setIsPayment] = useState(false);
+  const navigate = useNavigate();
   const paymentMethods = [
     { id: "vietqr", name: "VietQR", logo: "VietQR", img: vietqr },
     { id: "vnpay", name: "VNPAY", logo: "VNPAY", img: vnpay },
@@ -120,10 +123,17 @@ export default function Payment() {
         </div>
       </div>
       {/* Body */}
-      <div className="paymentSuccess flex flex-col justify-center items-center">
-          <img src={success} width="100px" height="100px"/>
-          <span className="font-bold w-50 h-8 text-white">Đặt vé thành công</span>
-          <span className="text-[#F97316]">Lưu ý: Hãy đến đúng giờ của suất chiếu và tận hưởng bộ phim</span>
+      <div className="paymentSuccess flex flex-col justify-center items-center gap-3 hidden py-10">
+        <img src={success} width="100px" height="100px" />
+        <span className="font-bold text-[24px] text-white">
+          Đặt vé thành công!
+        </span>
+        <span className="text-[#F97316]">
+          Lưu ý: Hãy đến đúng giờ của suất chiếu và tận hưởng bộ phim
+        </span>
+        <button className="h-10 px-8 py-2.5 bg-red-500 rounded-full flex justify-center items-center text-white px-40" onClick={() => {navigate("/homepage")}}>
+          Về trang chủ
+        </button>
       </div>
       <div className="py-10 flex justify-center gap-10 w-full body">
         <div className="flex flex-col gap-5">
@@ -212,7 +222,8 @@ export default function Payment() {
                   <div className="flex items-center flex-1 gap-3">
                     <input
                       className="text-base w-5 h-5 rounded-full appearance-auto accent-red-500"
-                      type="checkbox"
+                      type="radio"
+                      name="method"
                     />
                     <img src={method.img} width="64px" height="21px" />
                     {method.name}
@@ -235,7 +246,10 @@ export default function Payment() {
                 </div>
               </div>
               <QRCode
-                value={qr} size={280} fgColor="#000000" bgColor="#fff"
+                value={qr}
+                size={280}
+                fgColor="#000000"
+                bgColor="#fff"
                 className="qr hidden"
               ></QRCode>
               <div className="flex justify-between items-baseline mt-3 pt-3 border-t border-gray-800">
@@ -249,12 +263,18 @@ export default function Payment() {
               <button
                 className="w-full bg-red-600 hover:bg-red-700 text-white font-bold text-base py-2 rounded-2xl active:scale-98 transition"
                 onClick={() => {
-                  handleGenerate();
-                  document.querySelector(".price")?.classList.add("hidden");
-                  document.querySelector(".qr")?.classList.remove("hidden");
+                  if (!isPayment) {
+                    handleGenerate();
+                    document.querySelector(".price")?.classList.add("hidden");
+                    document.querySelector(".qr")?.classList.remove("hidden");
+                    setIsPayment(true);
+                  } else {
+                    document.querySelector(".paymentSuccess")?.classList.remove("hidden");
+                    document.querySelector(".body")?.classList.add("hidden");
+                  }
                 }}
               >
-                Thanh toán
+                {!isPayment ? "Thanh toán" : "Xác nhận"}
               </button>
               <button className="w-full mt-3 text-gray-400 text-center py-2 text-sm">
                 Quay lại
