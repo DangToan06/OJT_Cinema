@@ -4,6 +4,8 @@ import Layout1 from "../pages/Layout1";
 import Layout2 from "../pages/Layout2";
 import NotFoundPage from "../pages/NotFoundPage";
 import PaymentPage from "../pages/Payment";
+import TcketPrice from "../pages/TicketPrice";
+import MovieDetail from "../pages/MovieDetail";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +27,14 @@ const router = createBrowserRouter([
   {
     path: "/payment",
     element: <PaymentPage></PaymentPage>
+  },
+  {
+    path: "/ticketPrice",
+    element: <TcketPrice></TcketPrice>
+  },
+  {
+    path: "/movieDetail",
+    element: <MovieDetail></MovieDetail>
   },
 ]);
 

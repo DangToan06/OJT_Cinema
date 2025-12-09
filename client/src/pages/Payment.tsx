@@ -1,11 +1,4 @@
 import { useState } from "react";
-import logo from "../assets/imgs/image.png";
-import fb from "../assets/imgs/Facebook.png";
-import zalo from "../assets/imgs/Zalo.png";
-import ytb from "../assets/imgs/Youtube.png";
-import gp from "../assets/imgs/GG Play.png";
-import as from "../assets/imgs/App store.png";
-import tem from "../assets/imgs/Copyright.png";
 import vietqr from "../assets/imgs/079bbb2cb9bed5ffebb0429a5a70b039362828c2.png";
 import vnpay from "../assets/imgs/vnpay 1.svg";
 import viettel from "../assets/imgs/viettel1 1.png";
@@ -13,6 +6,8 @@ import payoo from "../assets/imgs/payoo 1.svg";
 import QRCode from "react-qr-code";
 import success from "../assets/imgs/Group.png";
 import { useNavigate } from "react-router-dom";
+import Header from "../pages/Layout1";
+import Footer from "../pages/Layout2";
 function generateRandomValue(amount: number, billId: string) {
   const qrData = `0002010102115303764...54${amount.toFixed(
     0
@@ -40,88 +35,7 @@ export default function Payment() {
   return (
     <div className="container-fluid relative mt-20 bg-gray-900 w-full h-min-screen">
       {/* Header */}
-      <div className="w-full h-20 bg-black fixed top-0">
-        <div className="size- left-[1073px] top-5 absolute inline-flex justify-center items-center gap-4">
-          <div
-            data-hover="false"
-            data-variant="1"
-            className="h-10 px-[33px] py-2.5 rounded-full outline-1 outline-offset- outline-white flex justify-center items-center"
-          >
-            <div className="text-center justify-center text-white text-sm font-medium font-['Montserrat'] leading-5">
-              Đăng ký
-            </div>
-          </div>
-          <div
-            data-hover="false"
-            data-variant="2"
-            className="h-10 px-8 py-2.5 bg-red-500 rounded-full flex justify-center items-center"
-          >
-            <div className="text-center justify-center text-white text-sm font-medium font-['Montserrat'] leading-5">
-              Đăng nhập
-            </div>
-          </div>
-        </div>
-        <img
-          className="w-[70px] h-[50px] left-[79.50px] top-[15.24px] absolute"
-          src={logo}
-        />
-        <div className="size- left-[205.50px] top-[28.24px] absolute inline-flex justify-start items-center gap-10">
-          <div
-            data-hover="false"
-            data-variant="4"
-            className="size- inline-flex flex-col justify-start items-start"
-          >
-            <div className="justify-center text-white text-base font-normal font-['Montserrat'] leading-6">
-              Trang chủ
-            </div>
-          </div>
-          <div
-            data-hover="false"
-            data-variant="1"
-            className="size- inline-flex flex-col justify-start items-start"
-          >
-            <div className="justify-center text-white text-base font-normal font-['Montserrat'] leading-6">
-              Lịch chiếu
-            </div>
-          </div>
-          <div
-            data-hover="false"
-            data-variant="1"
-            className="size- inline-flex flex-col justify-start items-start"
-          >
-            <div className="justify-center text-white text-base font-normal font-['Montserrat'] leading-6">
-              Tin tức
-            </div>
-          </div>
-          <div
-            data-hover="false"
-            data-variant="1"
-            className="size- inline-flex flex-col justify-start items-start"
-          >
-            <div className="justify-center text-white text-base font-normal font-['Montserrat'] leading-6">
-              Khuyến mãi
-            </div>
-          </div>
-          <div
-            data-hover="false"
-            data-variant="1"
-            className="size- inline-flex flex-col justify-start items-start"
-          >
-            <div className="justify-center text-white text-base font-normal font-['Montserrat'] leading-6">
-              Giá vé
-            </div>
-          </div>
-          <div
-            data-hover="false"
-            data-variant="1"
-            className="size- inline-flex flex-col justify-start items-start"
-          >
-            <div className="justify-center text-white text-base font-normal font-['Montserrat'] leading-6">
-              Liên hoan phim
-            </div>
-          </div>
-        </div>
-      </div>
+      <Header></Header>
       {/* Body */}
       <div className="paymentSuccess flex flex-col justify-center items-center gap-3 hidden py-10">
         <img src={success} width="100px" height="100px" />
@@ -131,7 +45,12 @@ export default function Payment() {
         <span className="text-[#F97316]">
           Lưu ý: Hãy đến đúng giờ của suất chiếu và tận hưởng bộ phim
         </span>
-        <button className="h-10 px-8 py-2.5 bg-red-500 rounded-full flex justify-center items-center text-white px-40" onClick={() => {navigate("/homepage")}}>
+        <button
+          className="h-10 px-8 py-2.5 bg-red-500 rounded-full flex justify-center items-center text-white px-40"
+          onClick={() => {
+            navigate("/homepage");
+          }}
+        >
           Về trang chủ
         </button>
       </div>
@@ -269,7 +188,9 @@ export default function Payment() {
                     document.querySelector(".qr")?.classList.remove("hidden");
                     setIsPayment(true);
                   } else {
-                    document.querySelector(".paymentSuccess")?.classList.remove("hidden");
+                    document
+                      .querySelector(".paymentSuccess")
+                      ?.classList.remove("hidden");
                     document.querySelector(".body")?.classList.add("hidden");
                   }
                 }}
@@ -293,57 +214,7 @@ export default function Payment() {
         </div>
       </div>
       {/* Footer */}
-      <div className="w-full h-[350px] bg-black flex flex-col gap-[30px] pt-10">
-        <div className="flex justify-center items-center gap-10">
-          <div className="justify-center text-white text-base font-normal font-['Montserrat'] leading-6">
-            Chính sách
-          </div>
-          <div className="justify-center text-white text-base font-normal font-['Montserrat'] leading-6">
-            Lịch chiếu
-          </div>
-          <div className="justify-center text-white text-base font-normal font-['Montserrat'] leading-6">
-            Tin tức
-          </div>
-          <div className="justify-center text-white text-base font-normal font-['Montserrat'] leading-6">
-            Giá vé
-          </div>
-          <div className="justify-center text-white text-base font-normal font-['Montserrat'] leading-6">
-            Hỏi đáp
-          </div>
-          <div className="justify-center text-white text-base font-normal font-['Montserrat'] leading-6">
-            Liên hệ
-          </div>
-        </div>
-        <div className="flex justify-center items-center gap-4">
-          <img className="size-[30px] relative rounded-sm" src={fb} />
-          <img className="size-[30px] relative" src={zalo} />
-          <img className="size-[30px] relative rounded-sm" src={ytb} />
-          <img className="w-[140px] h-[42.66px]" src={gp} />
-          <img className="w-[130px] h-[44.17px]" src={as} />
-          <img className="w-[130px] h-[49.25px]" src={tem} />
-        </div>
-        <div className="w-full flex flex-col justify-center items-center gap-2 align-middle">
-          <div className="self-stretch text-center justify-center text-white text-base font-normal font-['Montserrat'] leading-6">
-            Cơ quan chủ quản: BỘ VĂN HÓA, THỂ THAO VÀ DU LỊCH
-          </div>
-          <div className="self-stretch text-center justify-center text-white text-base font-normal font-['Montserrat'] leading-6">
-            Bản quyền thuộc Trung tâm Chiếu phim Quốc gia.
-          </div>
-          <div className="self-stretch text-center justify-center text-white text-base font-normal font-['Montserrat'] leading-6">
-            Giấy phép số: 224/GP- TTĐT ngày 31/8/2010 - Chịu trách nhiệm: Vũ Đức
-            Tùng – Giám đốc.
-          </div>
-          <div className="self-stretch text-center justify-center text-white text-base font-normal font-['Montserrat'] leading-6">
-            Địa chỉ: 87 Láng Hạ, Quận Ba Đình, Tp. Hà Nội - Điện thoại:
-            024.35141791
-          </div>
-          <div className="size- inline-flex justify-start items-center gap-1">
-            <div className="text-center justify-center text-white text-base font-normal font-['Montserrat'] leading-6">
-              © 2023 By NCC - All rights reserved.
-            </div>
-          </div>
-        </div>
-      </div>
+      <Footer></Footer>
     </div>
   );
 }
