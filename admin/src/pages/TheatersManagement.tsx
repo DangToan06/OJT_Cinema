@@ -48,7 +48,9 @@ export function TheatersManagement() {
     <div>
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-gray-900 mb-2">Quản lý rạp chiếu</h1>
+          <h1 className="text-gray-900 mb-2 font-bold text-2xl">
+            Quản lý rạp chiếu
+          </h1>
           <p className="text-gray-600">
             Thêm, chỉnh sửa và quản lý thông tin rạp chiếu
           </p>

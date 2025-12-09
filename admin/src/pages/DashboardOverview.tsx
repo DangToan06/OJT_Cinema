@@ -74,7 +74,9 @@ export function DashboardOverview() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-gray-900 mb-2">Tổng quan hệ thống</h1>
+        <h1 className="text-gray-900 mb-2 font-bold text-2xl">
+          Tổng quan hệ thống
+        </h1>
         <p className="text-gray-600">
           Thống kê tổng quan hoạt động rạp chiếu phim
         </p>

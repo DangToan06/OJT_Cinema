@@ -81,7 +81,9 @@ export function SeatsManagement() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-gray-900 mb-2">Quản lý ghế ngồi</h1>
+        <h1 className="text-gray-900 mb-2 font-bold text-2xl">
+          Quản lý ghế ngồi
+        </h1>
         <p className="text-gray-600">
           Thiết lập và quản lý sơ đồ ghế cho từng phòng chiếu
         </p>

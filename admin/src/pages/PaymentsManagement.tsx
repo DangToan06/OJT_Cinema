@@ -110,7 +110,9 @@ export function PaymentsManagement() {
     <div>
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-gray-900 mb-2">Quản lý thanh toán</h1>
+          <h1 className="text-gray-900 mb-2 font-bold text-2xl">
+            Quản lý thanh toán
+          </h1>
           <p className="text-gray-600">
             Theo dõi và quản lý các giao dịch thanh toán
           </p>

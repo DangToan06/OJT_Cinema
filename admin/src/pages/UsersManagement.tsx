@@ -79,7 +79,9 @@ export function UsersManagement() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-gray-900 mb-2">Quản lý người dùng</h1>
+        <h1 className="text-gray-900 mb-2 font-bold text-2xl">
+          Quản lý người dùng
+        </h1>
         <p className="text-gray-600">
           Xem và quản lý thông tin người dùng hệ thống
         </p>

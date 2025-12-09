@@ -60,7 +60,9 @@ export function NewsManagement() {
     <div>
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-gray-900 mb-2">Quản lý tin tức & khuyến mãi</h1>
+          <h1 className="text-gray-900 mb-2 font-bold text-2xl">
+            Quản lý tin tức & khuyến mãi
+          </h1>
           <p className="text-gray-600">
             Tạo và quản lý các chương trình khuyến mãi, tin tức
           </p>
