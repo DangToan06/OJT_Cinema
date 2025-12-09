@@ -9,12 +9,16 @@ import gp from '../assets/GG Play.png';
 import as from '../assets/App store.png';
 import tem from '../assets/Copyright.png';
 import { useNavigate } from 'react-router-dom';
+import RegisterModal from "../components/Register"
+import LoginModal from "../components/Login"
 
 interface LayoutProps {
     children: React.ReactNode;
 }
 
 export default function Layout({ children }: LayoutProps) {
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+    const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
     const menuItems = [
@@ -45,14 +49,15 @@ export default function Layout({ children }: LayoutProps) {
         },
         {
             name: 'Liên hoan phim',
-            link: "#",
+            link: "/festival",
             class: "lienhoanphim",
         }
         
     ];
 
     return (
-        <div className="w-full min-h-screen flex flex-col">
+        <div className="w-full min-h-screen flex flex-col relative">
+            <div className={`absolute w-full h-full bg-black/80 z-30 ${isLoginModalOpen || isRegisterModalOpen ? "flex" : "hidden"}`}></div>
             {/* ========================= HEADER ========================= */}
             <header className="fixed top-0 left-0 w-full bg-black h-20 z-20 flex items-center px-6 shadow-lg">
                 {/* Logo */}
@@ -75,10 +80,10 @@ export default function Layout({ children }: LayoutProps) {
 
                 {/* Buttons desktop */}
                 <div className="hidden lg:flex items-center gap-4 ml-auto">
-                    <button className="h-10 px-6 border border-white rounded-full text-white">
+                    <button className="h-10 px-6 border border-white rounded-full text-white" onClick={() => {setIsRegisterModalOpen(!isRegisterModalOpen)}}>
                         Đăng ký
                     </button>
-                    <button className="h-10 px-6 bg-red-500 rounded-full text-white">
+                    <button className="h-10 px-6 bg-red-500 rounded-full text-white" onClick={() => {setIsLoginModalOpen(!isLoginModalOpen)}}>
                         Đăng nhập
                     </button>
                 </div>
@@ -95,16 +100,22 @@ export default function Layout({ children }: LayoutProps) {
             {open && (
                 <div className="lg:hidden bg-black text-white py-4 px-6 space-y-4 mt-20 shadow-xl">
                     {menuItems.map((item, idx) => (
-                        <div key={idx} className="text-lg">
-                            {item}
-                        </div>
+                        <span
+                            key={idx}
+                            className={`cursor-pointer hover:text-red-500 transition ${location.pathname === item.link ? "text-red-500" : ""}`}
+                            onClick={() => {
+                                navigate(item.link);
+                            }}
+                        >
+                            {item.name}
+                        </span>
                     ))}
 
                     <div className="flex gap-3 pt-3">
-                        <button className="flex-1 py-2 border border-white rounded-full">
+                        <button className="flex-1 py-2 border border-white rounded-full" onClick={() => {setIsRegisterModalOpen(!isRegisterModalOpen)}}>
                             Đăng ký
                         </button>
-                        <button className="flex-1 py-2 bg-red-500 rounded-full">
+                        <button className="flex-1 py-2 bg-red-500 rounded-full" onClick={() => {setIsLoginModalOpen(!isLoginModalOpen)}}>
                             Đăng nhập
                         </button>
                     </div>
@@ -184,6 +195,8 @@ export default function Layout({ children }: LayoutProps) {
                     </div>
                 </div>
             </footer>
+            <RegisterModal isOpen={isRegisterModalOpen} onClose={() => setIsRegisterModalOpen(false)} Switch={() => setIsLoginModalOpen(true)}></RegisterModal>
+            <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)}></LoginModal>
         </div>
     );
 }
