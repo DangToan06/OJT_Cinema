@@ -3,6 +3,7 @@ import Dashboard from "../pages/Dashboard";
 import Layout1 from "../pages/Layout1";
 import Layout2 from "../pages/Layout2";
 import NotFoundPage from "../pages/NotFoundPage";
+import PaymentPage from "../pages/Payment";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: "*",
     element: <NotFoundPage></NotFoundPage>,
+  },
+  {
+    path: "/payment",
+    element: <PaymentPage></PaymentPage>
   },
 ]);
 
