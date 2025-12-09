@@ -31,10 +31,10 @@ export default function Payment() {
     setQr(generateRandomValue(50000, Date.now.toString()));
   };
   return (
-    <div className="container-fluid relative bg-gray-900 w-full h-min-screen">
+    <div className="container-fluid relative bg-gray-900 w-full h-max-screen">
       {/* Header */}
       {/* Body */}
-      <div className="paymentSuccess flex flex-col justify-center items-center gap-3 hidden py-10">
+      <div className="paymentSuccess flex flex-col justify-center items-center gap-3 hidden py-10 h-screen">
         <img src={success} width="100px" height="100px" />
         <span className="font-bold text-[24px] text-white">
           Đặt vé thành công!
@@ -51,7 +51,7 @@ export default function Payment() {
           Về trang chủ
         </button>
       </div>
-      <div className="py-10 flex justify-center gap-10 w-full body">
+      <div className="py-10 flex justify-center gap-10 w-full body h-max-screen">
         <div className="flex flex-col gap-5">
           <div className="text-white gap-3 rounded-lg bg-[#1A1D23] p-7">
             <div>Thông tin phim</div>

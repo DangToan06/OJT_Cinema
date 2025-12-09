@@ -8,6 +8,7 @@ import MovieCalendar from "../pages/MovieCalendar";
 import HomePage from "../pages/HomePage";
 import TcketPrice from "../pages/TicketPrice";
 import MovieDetail from "../pages/MovieDetail";
+import FestivalPage from "../pages/FestivalPage";
 export const routers = createBrowserRouter([
   {
     path: "/news",
@@ -58,6 +59,14 @@ export const routers = createBrowserRouter([
     element: (
       <Layout>
         <MovieDetail></MovieDetail>,
+      </Layout>
+    ),
+  },
+  {
+    path: "/festival",
+    element: (
+      <Layout>
+        <FestivalPage></FestivalPage>
       </Layout>
     ),
   },
