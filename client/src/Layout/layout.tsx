@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import React, { useState } from "react";
+import { Menu, X } from "lucide-react";
 
 import logo from '../assets/image.png';
 import fb from '../assets/Facebook.png';
@@ -13,7 +13,7 @@ import RegisterModal from "../components/Register"
 import LoginModal from "../components/Login"
 
 interface LayoutProps {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }
 
 export default function Layout({ children }: LayoutProps) {
@@ -63,20 +63,22 @@ export default function Layout({ children }: LayoutProps) {
                 {/* Logo */}
                 <img src={logo} className="w-[60px] h-[45px]" />
 
-                {/* Desktop Menu */}
-                <nav className="lg:flex items-center gap-10 ml-10 text-white">
-                    {menuItems.map((item, idx) => (
-                        <span
-                            key={idx}
-                            className={`cursor-pointer hover:text-red-500 transition ${location.pathname === item.link ? "text-red-500" : ""}`}
-                            onClick={() => {
-                                navigate(item.link);
-                            }}
-                        >
-                            {item.name}
-                        </span>
-                    ))}
-                </nav>
+        {/* Desktop Menu */}
+        <nav className="lg:flex items-center gap-10 ml-10 text-white">
+          {menuItems.map((item, idx) => (
+            <span
+              key={idx}
+              className={`cursor-pointer hover:text-red-500 transition ${
+                location.pathname === item.link ? "text-red-500" : ""
+              }`}
+              onClick={() => {
+                navigate(item.link);
+              }}
+            >
+              {item.name}
+            </span>
+          ))}
+        </nav>
 
                 {/* Buttons desktop */}
                 <div className="hidden lg:flex items-center gap-4 ml-auto">
@@ -122,71 +124,61 @@ export default function Layout({ children }: LayoutProps) {
                 </div>
             )}
 
-            {/* ========================= CONTENT ========================= */}
-            <main className="flex-1 mt-20">{children}</main>
+      {/* ========================= CONTENT ========================= */}
+      <main className="flex-1 mt-20">{children}</main>
 
-            {/* ========================= FOOTER ========================= */}
-            <footer className="bg-black text-white py-14 z-10">
-                {/* MENU */}
-                <div className="max-w-6xl mx-auto px-6">
-                    <div className="flex flex-wrap justify-center gap-x-10 gap-y-3 text-sm md:text-base font-medium">
-                        {[
-                            'Chính sách',
-                            'Lịch chiếu',
-                            'Tin tức',
-                            'Giá vé',
-                            'Hỏi đáp',
-                            'Liên hệ',
-                        ].map((item) => (
-                            <span
-                                key={item}
-                                className="cursor-pointer hover:text-red-500 transition"
-                            >
-                                {item}
-                            </span>
-                        ))}
-                    </div>
+      {/* ========================= FOOTER ========================= */}
+      <footer className="bg-black text-white py-14 z-10">
+        {/* MENU */}
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="flex flex-wrap justify-center gap-x-10 gap-y-3 text-sm md:text-base font-medium">
+            {[
+              "Chính sách",
+              "Lịch chiếu",
+              "Tin tức",
+              "Giá vé",
+              "Hỏi đáp",
+              "Liên hệ",
+            ].map((item) => (
+              <span
+                key={item}
+                className="cursor-pointer hover:text-red-500 transition"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
 
-                    {/* SOCIALS + APP STORE */}
-                    <div className="flex flex-wrap justify-center items-center gap-6 mt-10">
-                        {/* Social icons */}
-                        <img
-                            src={fb}
-                            className="w-8 h-8 cursor-pointer hover:opacity-80"
-                        />
-                        <img
-                            src={zalo}
-                            className="w-8 h-8 cursor-pointer hover:opacity-80"
-                        />
-                        <img
-                            src={ytb}
-                            className="w-8 h-8 cursor-pointer hover:opacity-80"
-                        />
+          {/* SOCIALS + APP STORE */}
+          <div className="flex flex-wrap justify-center items-center gap-6 mt-10">
+            {/* Social icons */}
+            <img src={fb} className="w-8 h-8 cursor-pointer hover:opacity-80" />
+            <img
+              src={zalo}
+              className="w-8 h-8 cursor-pointer hover:opacity-80"
+            />
+            <img
+              src={ytb}
+              className="w-8 h-8 cursor-pointer hover:opacity-80"
+            />
 
-                        {/* Store buttons */}
-                        <img
-                            src={gp}
-                            className="h-11 cursor-pointer hover:opacity-90"
-                        />
-                        <img
-                            src={as}
-                            className="h-11 cursor-pointer hover:opacity-90"
-                        />
-                        <img
-                            src={tem}
-                            className="h-[50px] cursor-pointer hover:opacity-90"
-                        />
-                    </div>
+            {/* Store buttons */}
+            <img src={gp} className="h-11 cursor-pointer hover:opacity-90" />
+            <img src={as} className="h-11 cursor-pointer hover:opacity-90" />
+            <img
+              src={tem}
+              className="h-[50px] cursor-pointer hover:opacity-90"
+            />
+          </div>
 
-                    {/* INFORMATION */}
-                    <div className="mt-12 text-center flex flex-col gap-2 text-sm md:text-base leading-relaxed opacity-90">
-                        <p>Cơ quan chủ quản: BỘ VĂN HÓA, THỂ THAO VÀ DU LỊCH</p>
-                        <p>Bản quyền thuộc Trung tâm Chiếu phim Quốc gia.</p>
-                        <p>Giấy phép số: 224/GP - TTĐT ngày 31/8/2010</p>
-                        <p>
-                            Địa chỉ: 87 Láng Hạ, Ba Đình, Hà Nội • Điện thoại:
-                            024.35141791
-                        </p>
+          {/* INFORMATION */}
+          <div className="mt-12 text-center flex flex-col gap-2 text-sm md:text-base leading-relaxed opacity-90">
+            <p>Cơ quan chủ quản: BỘ VĂN HÓA, THỂ THAO VÀ DU LỊCH</p>
+            <p>Bản quyền thuộc Trung tâm Chiếu phim Quốc gia.</p>
+            <p>Giấy phép số: 224/GP - TTĐT ngày 31/8/2010</p>
+            <p>
+              Địa chỉ: 87 Láng Hạ, Ba Đình, Hà Nội • Điện thoại: 024.35141791
+            </p>
 
                         <div className="flex justify-center items-center gap-2 mt-2">
                             
