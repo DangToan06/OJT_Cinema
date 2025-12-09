@@ -1,0 +1,301 @@
+{
+    "users": [
+        {
+            "id": "usr-1a2b3c",
+            "firstName": "Minh",
+            "lastName": "Nguyen",
+            "email": "minh@example.com",
+            "phone": "0900000001",
+            "avatarUrl": "",
+            "address": "HCM",
+            "status": "ACTIVE",
+            "roles": ["USER"],
+            "createdAt": "2025-01-01T10:00:00Z"
+        },
+        {
+            "id": "usr-9x8y7z",
+            "firstName": "Admin",
+            "lastName": "System",
+            "email": "admin@cinema.com",
+            "phone": "0900000002",
+            "status": "ACTIVE",
+            "roles": ["ADMIN"],
+            "createdAt": "2025-01-01T10:00:00Z"
+        }
+    ],
+
+    "genres": [
+        { "id": "gen-a1", "genreName": "Hành động" },
+        { "id": "gen-a2", "genreName": "Kinh dị" },
+        { "id": "gen-a3", "genreName": "Lãng mạn" }
+    ],
+
+    "movies": [
+        {
+            "id": "mov-endgame",
+            "title": "Avengers: Endgame",
+            "description": "Trận chiến cuối cùng chống Thanos.",
+            "director": "Anthony Russo",
+            "cast": ["Chris Evans", "Robert Downey Jr"],
+            "posterUrl": "/images/endgame.jpg",
+            "trailerUrl": "https://youtube.com/a",
+            "type": "3D",
+            "duration": 180,
+            "releaseDate": "2025-02-15",
+            "status": "NOW_SHOWING",
+            "genres": ["gen-a1"]
+        },
+        {
+            "id": "mov-connhot",
+            "title": "Con Nhót Mót Chồng",
+            "description": "Phim Việt Nam tình cảm hài.",
+            "director": "Thạch Thảo",
+            "cast": ["Thu Trang"],
+            "posterUrl": "/images/connhot.jpg",
+            "type": "2D",
+            "duration": 120,
+            "releaseDate": "2025-01-30",
+            "status": "COMING_SOON",
+            "genres": ["gen-a3"]
+        }
+    ],
+
+    "theaters": [
+        {
+            "id": "the-cgv-tp",
+            "name": "CGV Aeon Tân Phú",
+            "location": "Tân Phú, TP. HCM",
+            "phone": "028123456",
+            "createdAt": "2025-01-01T00:00:00Z"
+        }
+    ],
+
+    "screens": [
+        {
+            "id": "scr-room1",
+            "theaterId": "the-cgv-tp",
+            "name": "Phòng 1",
+            "seatCapacity": 40,
+            "type": "2D"
+        }
+    ],
+
+    "seats": [
+        {
+            "id": "seat-A1",
+            "screenId": "scr-room1",
+            "seatNumber": "A1",
+            "type": "STANDARD"
+        },
+        {
+            "id": "seat-A2",
+            "screenId": "scr-room1",
+            "seatNumber": "A2",
+            "type": "STANDARD"
+        },
+        {
+            "id": "seat-A3",
+            "screenId": "scr-room1",
+            "seatNumber": "A3",
+            "type": "VIP"
+        },
+        {
+            "id": "seat-A4",
+            "screenId": "scr-room1",
+            "seatNumber": "A4",
+            "type": "VIP"
+        }
+    ],
+
+    "showtimes": [
+        {
+            "id": "show-7pm",
+            "movieId": "mov-endgame",
+            "theaterId": "the-cgv-tp",
+            "screenId": "scr-room1",
+            "startTime": "2025-02-20T19:00:00Z",
+            "endTime": "2025-02-20T22:00:00Z"
+        }
+    ],
+
+    "ticket_prices": [
+        {
+            "id": "prc-std-2d",
+            "typeSeat": "STANDARD",
+            "typeMovie": "2D",
+            "price": 90000,
+            "dayType": 0
+        },
+        {
+            "id": "prc-vip-2d",
+            "typeSeat": "VIP",
+            "typeMovie": "2D",
+            "price": 120000,
+            "dayType": 1
+        }
+    ],
+
+    "bookings": [
+        {
+            "id": "book-001",
+            "userId": "usr-1a2b3c",
+            "showtimeId": "show-7pm",
+            "theaterId": "the-cgv-tp",
+            "screenId": "scr-room1",
+            "totalSeat": 2,
+            "totalPriceMovie": 180000,
+            "status": "PENDING",
+            "createdAt": "2025-02-10T12:00:00Z"
+        }
+    ],
+
+    "booking_seats": [
+        {
+            "id": "bseat-01",
+            "bookingId": "book-001",
+            "seatId": "seat-A1",
+            "seatNumber": "A1",
+            "seatType": "STANDARD",
+            "price": 90000
+        },
+        {
+            "id": "bseat-02",
+            "bookingId": "book-001",
+            "seatId": "seat-A2",
+            "seatNumber": "A2",
+            "seatType": "STANDARD",
+            "price": 90000
+        }
+    ],
+
+    "payments": [
+        {
+            "id": "pay-001",
+            "bookingId": "book-001",
+            "paymentMethod": "VNPAY",
+            "paymentStatus": "PENDING",
+            "amount": 180000
+        }
+    ],
+
+    "news": [
+        {
+            "id": "news-1",
+            "title": "Chương trình phim kỉ niệm nhân dịp 79 năm ngày Giải phóng Thủ đô",
+            "summary": "Sự kiện chiếu phim đặc biệt mừng ngày Giải phóng Thủ đô.",
+            "content": "Chi tiết chương trình sẽ được cập nhật sau.",
+            "bannerUrl": "https://images.unsplash.com/photo-1761503390713-a1fd8b8bb6c5",
+            "isPublished": true,
+            "publishedAt": "2024-10-03T00:00:00Z"
+        },
+        {
+            "id": "news-2",
+            "title": "VUI TẾT TRUNG THU - RINH QUÀ VÍ VU",
+            "summary": "Ưu đãi hấp dẫn dịp Trung Thu.",
+            "content": "Chi tiết chương trình sẽ được cập nhật sau.",
+            "bannerUrl": "https://images.unsplash.com/photo-1719706654529-ca7e2ce5a2bb",
+            "isPublished": true,
+            "publishedAt": "2024-09-13T00:00:00Z"
+        },
+        {
+            "id": "news-3",
+            "title": "Chương trình \"Suất chiếu đặc biệt\" lần đầu tiên diễn ra tại Trung tâm Chiếu phim Quốc gia",
+            "summary": "Suất chiếu đặc biệt lần đầu ra mắt.",
+            "content": "Chi tiết chương trình sẽ được cập nhật sau.",
+            "bannerUrl": "https://images.unsplash.com/photo-1739433437912-cca661ba902f",
+            "isPublished": true,
+            "publishedAt": "2024-09-09T00:00:00Z"
+        },
+        {
+            "id": "news-4",
+            "title": "SUẤT CHIẾU ĐẶC BIỆT - QUÀ TẶNG TƯNG BỪNG - GIÁ VÉ KHÔNG ĐỔI",
+            "summary": "Suất chiếu đặc biệt với quà tặng hấp dẫn.",
+            "content": "Chi tiết chương trình sẽ được cập nhật sau.",
+            "bannerUrl": "https://images.unsplash.com/photo-1761503390713-a1fd8b8bb6c5",
+            "isPublished": true,
+            "publishedAt": "2024-09-04T00:00:00Z"
+        },
+        {
+            "id": "news-5",
+            "title": "Đợt phim Kỷ niệm 79 năm Cách mạng tháng 8 và Quốc Khánh",
+            "summary": "Đợt phim kỷ niệm các sự kiện lịch sử quan trọng.",
+            "content": "Chi tiết chương trình sẽ được cập nhật sau.",
+            "bannerUrl": "https://images.unsplash.com/photo-1616108365310-0accd0de566b",
+            "isPublished": true,
+            "publishedAt": "2024-08-21T00:00:00Z"
+        },
+        {
+            "id": "news-6",
+            "title": "Tuyển dụng cộng tác viên soát vé, bán vé tại Trung tâm Chiếu phim Quốc gia",
+            "summary": "Trung tâm tuyển dụng cộng tác viên nhiều vị trí.",
+            "content": "Chi tiết chương trình sẽ được cập nhật sau.",
+            "bannerUrl": "https://images.unsplash.com/photo-1762330463032-06f873b3277c",
+            "isPublished": true,
+            "publishedAt": "2024-08-04T00:00:00Z"
+        },
+        {
+            "id": "news-7",
+            "title": "THÔNG BÁO HOÀN THÀNH CHƯƠNG TRÌNH KHẢO SÁT CƠ SỞ VẬT CHẤT NĂM 2024",
+            "summary": "Hoàn thành khảo sát cơ sở vật chất.",
+            "content": "Chi tiết chương trình sẽ được cập nhật sau.",
+            "bannerUrl": "https://images.unsplash.com/photo-1739433437912-cca661ba902f",
+            "isPublished": true,
+            "publishedAt": "2024-07-19T00:00:00Z"
+        },
+        {
+            "id": "news-8",
+            "title": "REVIEW PHIM HOẠT HÌNH HOT NHẤT HÈ NÀY - KẺ TRỘM MẶT TRĂNG 4",
+            "summary": "Review phần mới nhất của Kẻ Trộm Mặt Trăng.",
+            "content": "Chi tiết chương trình sẽ được cập nhật sau.",
+            "bannerUrl": "https://images.unsplash.com/photo-1751823886813-0cfc86cb9478",
+            "isPublished": true,
+            "publishedAt": "2024-07-13T00:00:00Z"
+        },
+        {
+            "id": "news-9",
+            "title": "Chương trình phim đặc sắc mừng Quốc khánh",
+            "summary": "Phim đặc sắc nhân ngày Quốc khánh.",
+            "content": "Chi tiết chương trình sẽ được cập nhật sau.",
+            "bannerUrl": "https://images.unsplash.com/photo-1761503390713-a1fd8b8bb6c5",
+            "isPublished": true,
+            "publishedAt": "2024-07-02T00:00:00Z"
+        },
+        {
+            "id": "news-10",
+            "title": "Khuyến mãi đặc biệt cho khách hàng thân thiết",
+            "summary": "Ưu đãi dành cho khách hàng thân thiết.",
+            "content": "Chi tiết chương trình sẽ được cập nhật sau.",
+            "bannerUrl": "https://images.unsplash.com/photo-1719706654529-ca7e2ce5a2bb",
+            "isPublished": true,
+            "publishedAt": "2024-06-25T00:00:00Z"
+        },
+        {
+            "id": "news-11",
+            "title": "Lịch chiếu phim mới nhất tháng 6",
+            "summary": "Cập nhật lịch chiếu phim mới.",
+            "content": "Chi tiết chương trình sẽ được cập nhật sau.",
+            "bannerUrl": "https://images.unsplash.com/photo-1739433437912-cca661ba902f",
+            "isPublished": true,
+            "publishedAt": "2024-06-18T00:00:00Z"
+        },
+        {
+            "id": "news-12",
+            "title": "Thông báo nghỉ lễ và lịch chiếu đặc biệt",
+            "summary": "Thông báo lịch nghỉ lễ và các suất chiếu đặc biệt.",
+            "content": "Chi tiết chương trình sẽ được cập nhật sau.",
+            "bannerUrl": "https://images.unsplash.com/photo-1616108365310-0accd0de566b",
+            "isPublished": true,
+            "publishedAt": "2024-06-10T00:00:00Z"
+        }
+    ],
+
+    "tickets": [
+        {
+            "id": "ticket-001",
+            "bookingId": "book-001",
+            "ticketPdfUrl": "/tickets/1.pdf",
+            "qrCodeData": "QRDATA123",
+            "issuedAt": "2025-02-10T12:10:00Z"
+        }
+    ]
+}
