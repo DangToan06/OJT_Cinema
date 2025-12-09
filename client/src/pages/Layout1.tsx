@@ -2,7 +2,6 @@ import logo from "../assets/imgs/image.png";
 export default function Layout1() {
   return (
     <div>
-      <div className="container-fluid relative mt-20 bg-gray-900 w-full h-min-screen">
         {/* Header */}
         <div className="w-full h-20 bg-black fixed top-0">
           <div className="size- left-[1073px] top-5 absolute inline-flex justify-center items-center gap-4">
@@ -87,6 +86,5 @@ export default function Layout1() {
           </div>
         </div>
       </div>
-    </div>
   );
 }
