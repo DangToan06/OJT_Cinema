@@ -8,6 +8,7 @@ import ytb from '../assets/Youtube.png';
 import gp from '../assets/GG Play.png';
 import as from '../assets/App store.png';
 import tem from '../assets/Copyright.png';
+import { useNavigate } from 'react-router-dom';
 
 interface LayoutProps {
     children: React.ReactNode;
@@ -15,14 +16,39 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
     const [open, setOpen] = useState(false);
-
+    const navigate = useNavigate();
     const menuItems = [
-        'Trang chủ',
-        'Lịch chiếu',
-        'Tin tức',
-        'Khuyến mãi',
-        'Giá vé',
-        'Liên hoan phim',
+        {
+            name: 'Trang chủ',
+            link: "/",
+            class: "",
+        },
+        {
+            name:'Lịch chiếu',
+            link: "/movie-calendar",
+            class: "lichchieu",
+        },
+        {
+            name: 'Tin tức',
+            link: "/news",
+            class: "tintuc",
+        },
+        {
+            name: 'Khuyến mãi',
+            link: "#",
+            class: "khuyenmai",
+        },
+        {
+            name: 'Giá vé',
+            link: "/ticketPrice",
+            class: "giave",
+        },
+        {
+            name: 'Liên hoan phim',
+            link: "#",
+            class: "lienhoanphim",
+        }
+        
     ];
 
     return (
@@ -37,11 +63,12 @@ export default function Layout({ children }: LayoutProps) {
                     {menuItems.map((item, idx) => (
                         <span
                             key={idx}
-                            className={`cursor-pointer hover:text-red-500 transition ${
-                                idx === 0 ? 'text-red-500' : ''
-                            }`}
+                            className={`cursor-pointer hover:text-red-500 transition ${location.pathname === item.link ? "text-red-500" : ""}`}
+                            onClick={() => {
+                                navigate(item.link);
+                            }}
                         >
-                            {item}
+                            {item.name}
                         </span>
                     ))}
                 </nav>
@@ -88,7 +115,7 @@ export default function Layout({ children }: LayoutProps) {
             <main className="flex-1 mt-20">{children}</main>
 
             {/* ========================= FOOTER ========================= */}
-            <footer className="bg-black text-white py-14">
+            <footer className="bg-black text-white py-14 z-10">
                 {/* MENU */}
                 <div className="max-w-6xl mx-auto px-6">
                     <div className="flex flex-wrap justify-center gap-x-10 gap-y-3 text-sm md:text-base font-medium">
