@@ -1,61 +1,67 @@
 import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
 
-import logo from "../assets/image.png";
-import fb from "../assets/Facebook.png";
-import zalo from "../assets/Zalo.png";
-import ytb from "../assets/Youtube.png";
-import gp from "../assets/GG Play.png";
-import as from "../assets/App store.png";
-import tem from "../assets/Copyright.png";
-import { useNavigate } from "react-router-dom";
+import logo from '../assets/image.png';
+import fb from '../assets/Facebook.png';
+import zalo from '../assets/Zalo.png';
+import ytb from '../assets/Youtube.png';
+import gp from '../assets/GG Play.png';
+import as from '../assets/App store.png';
+import tem from '../assets/Copyright.png';
+import { useNavigate } from 'react-router-dom';
+import RegisterModal from "../components/Register"
+import LoginModal from "../components/Login"
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 export default function Layout({ children }: LayoutProps) {
-  const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
-  const menuItems = [
-    {
-      name: "Trang chủ",
-      link: "/",
-      class: "",
-    },
-    {
-      name: "Lịch chiếu",
-      link: "/movie-calendar",
-      class: "lichchieu",
-    },
-    {
-      name: "Tin tức",
-      link: "/news",
-      class: "tintuc",
-    },
-    {
-      name: "Khuyến mãi",
-      link: "#",
-      class: "khuyenmai",
-    },
-    {
-      name: "Giá vé",
-      link: "/ticketPrice",
-      class: "giave",
-    },
-    {
-      name: "Liên hoan phim",
-      link: "/festival",
-      class: "lienhoanphim",
-    },
-  ];
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+    const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+    const [open, setOpen] = useState(false);
+    const navigate = useNavigate();
+    const menuItems = [
+        {
+            name: 'Trang chủ',
+            link: "/",
+            class: "",
+        },
+        {
+            name:'Lịch chiếu',
+            link: "/movie-calendar",
+            class: "lichchieu",
+        },
+        {
+            name: 'Tin tức',
+            link: "/news",
+            class: "tintuc",
+        },
+        {
+            name: 'Khuyến mãi',
+            link: "#",
+            class: "khuyenmai",
+        },
+        {
+            name: 'Giá vé',
+            link: "/ticketPrice",
+            class: "giave",
+        },
+        {
+            name: 'Liên hoan phim',
+            link: "/festival",
+            class: "lienhoanphim",
+        }
+        
+    ];
 
-  return (
-    <div className="w-full min-h-screen flex flex-col">
-      {/* ========================= HEADER ========================= */}
-      <header className="fixed top-0 left-0 w-full bg-black h-20 z-20 flex items-center px-6 shadow-lg">
-        {/* Logo */}
-        <img src={logo} className="w-[60px] h-[45px]" />
+    return (
+        <div className="w-full min-h-screen flex flex-col relative">
+            <div className={`absolute w-full h-full bg-black/80 z-30 ${isLoginModalOpen || isRegisterModalOpen ? "flex" : "hidden"}`}></div>
+            {/* ========================= HEADER ========================= */}
+            <header className="fixed top-0 left-0 w-full bg-black h-20 z-20 flex items-center px-6 shadow-lg">
+                {/* Logo */}
+                <img src={logo} className="w-[60px] h-[45px]" />
 
         {/* Desktop Menu */}
         <nav className="lg:flex items-center gap-10 ml-10 text-white">
@@ -74,43 +80,49 @@ export default function Layout({ children }: LayoutProps) {
           ))}
         </nav>
 
-        {/* Buttons desktop */}
-        <div className="hidden lg:flex items-center gap-4 ml-auto">
-          <button className="h-10 px-6 border border-white rounded-full text-white">
-            Đăng ký
-          </button>
-          <button className="h-10 px-6 bg-red-500 rounded-full text-white">
-            Đăng nhập
-          </button>
-        </div>
-        {/* Mobile Hamburger */}
-        <button
-          className="lg:hidden ml-auto text-white cursor-pointer"
-          onClick={() => setOpen(!open)}
-        >
-          {open ? <X size={32} /> : <Menu size={32} />}
-        </button>
-      </header>
+                {/* Buttons desktop */}
+                <div className="hidden lg:flex items-center gap-4 ml-auto">
+                    <button className="h-10 px-6 border border-white rounded-full text-white" onClick={() => {setIsRegisterModalOpen(!isRegisterModalOpen)}}>
+                        Đăng ký
+                    </button>
+                    <button className="h-10 px-6 bg-red-500 rounded-full text-white" onClick={() => {setIsLoginModalOpen(!isLoginModalOpen)}}>
+                        Đăng nhập
+                    </button>
+                </div>
+                {/* Mobile Hamburger */}
+                <button
+                    className="lg:hidden ml-auto text-white cursor-pointer"
+                    onClick={() => setOpen(!open)}
+                >
+                    {open ? <X size={32} /> : <Menu size={32} />}
+                </button>
+            </header>
 
-      {/* Mobile Dropdown Menu */}
-      {open && (
-        <div className="lg:hidden bg-black text-white py-4 px-6 space-y-4 mt-20 shadow-xl">
-          {menuItems.map((item, idx) => (
-            <div key={idx} className="text-lg">
-              {item.name}
-            </div>
-          ))}
+            {/* Mobile Dropdown Menu */}
+            {open && (
+                <div className="lg:hidden bg-black text-white py-4 px-6 space-y-4 mt-20 shadow-xl">
+                    {menuItems.map((item, idx) => (
+                        <span
+                            key={idx}
+                            className={`cursor-pointer hover:text-red-500 transition ${location.pathname === item.link ? "text-red-500" : ""}`}
+                            onClick={() => {
+                                navigate(item.link);
+                            }}
+                        >
+                            {item.name}
+                        </span>
+                    ))}
 
-          <div className="flex gap-3 pt-3">
-            <button className="flex-1 py-2 border border-white rounded-full">
-              Đăng ký
-            </button>
-            <button className="flex-1 py-2 bg-red-500 rounded-full">
-              Đăng nhập
-            </button>
-          </div>
-        </div>
-      )}
+                    <div className="flex gap-3 pt-3">
+                        <button className="flex-1 py-2 border border-white rounded-full" onClick={() => {setIsRegisterModalOpen(!isRegisterModalOpen)}}>
+                            Đăng ký
+                        </button>
+                        <button className="flex-1 py-2 bg-red-500 rounded-full" onClick={() => {setIsLoginModalOpen(!isLoginModalOpen)}}>
+                            Đăng nhập
+                        </button>
+                    </div>
+                </div>
+            )}
 
       {/* ========================= CONTENT ========================= */}
       <main className="flex-1 mt-20">{children}</main>
@@ -168,12 +180,15 @@ export default function Layout({ children }: LayoutProps) {
               Địa chỉ: 87 Láng Hạ, Ba Đình, Hà Nội • Điện thoại: 024.35141791
             </p>
 
-            <div className="flex justify-center items-center gap-2 mt-2">
-              <span>&copy; 2023 By NCC • All rights reserved.</span>
-            </div>
-          </div>
+                        <div className="flex justify-center items-center gap-2 mt-2">
+                            
+                            <span>&copy; 2023 By NCC • All rights reserved.</span>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <RegisterModal isOpen={isRegisterModalOpen} onClose={() => setIsRegisterModalOpen(false)} Switch={() => setIsLoginModalOpen(true)}></RegisterModal>
+            <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)}></LoginModal>
         </div>
-      </footer>
-    </div>
-  );
+    );
 }
