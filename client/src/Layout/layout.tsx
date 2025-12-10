@@ -128,7 +128,7 @@ export default function Layout({ children }: LayoutProps) {
       <main className="flex-1 mt-20">{children}</main>
 
       {/* ========================= FOOTER ========================= */}
-      <footer className="bg-black text-white py-14 z-10">
+      <footer className="bg-black text-white py-10 z-10">
         {/* MENU */}
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex flex-wrap justify-center gap-x-10 gap-y-3 text-sm md:text-base font-medium">
