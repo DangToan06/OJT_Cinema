@@ -6,10 +6,11 @@ import priceSlice from "../slice/price.slice";
 
 export const store = configureStore({
   reducer: {
-    news:newsStore,
+    news: newsStore,
     movie: movieSlice,
     genres: genresReducer,
     price: priceSlice,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
