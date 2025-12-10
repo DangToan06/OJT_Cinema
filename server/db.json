@@ -205,19 +205,102 @@
     }
   ],
   "news": [
-    {
-      "id": 1,
-      "title": "Khuyến mãi Mùa Hè",
-      "content": "Giảm giá 50% vé xem phim cho học sinh sinh viên.",
-      "created_at": "2023-06-01T08:00:00Z",
-      "updated_at": "2023-06-01T08:00:00Z"
-    },
-    {
-      "id": 2,
-      "title": "Ra mắt ứng dụng đặt vé mới",
-      "content": "Trải nghiệm đặt vé nhanh chóng tiện lợi qua Mobile App.",
-      "created_at": "2023-07-01T08:00:00Z",
-      "updated_at": "2023-07-01T08:00:00Z"
-    }
-  ]
+  {
+    "id": "news-1",
+    "title": "Chương trình phim kỉ niệm nhân dịp 79 năm ngày Giải phóng Thủ đô",
+    "content": "Chi tiết chương trình sẽ được cập nhật sau.",
+    "created_at": "2024-10-03T00:00:00Z",
+    "updated_at": "2024-10-03T00:00:00Z",
+    "bannerUrl": "https://images.unsplash.com/photo-1761503390713-a1fd8b8bb6c5"
+  },
+  {
+    "id": "news-2",
+    "title": "VUI TẾT TRUNG THU - RINH QUÀ VÍ VU",
+    "content": "Chi tiết chương trình sẽ được cập nhật sau.",
+    "created_at": "2024-09-13T00:00:00Z",
+    "updated_at": "2024-09-13T00:00:00Z",
+    "bannerUrl": "https://images.unsplash.com/photo-1719706654529-ca7e2ce5a2bb"
+  },
+  {
+    "id": "news-3",
+    "title": "Chương trình \"Suất chiếu đặc biệt\" lần đầu tiên diễn ra tại Trung tâm Chiếu phim Quốc gia",
+    "content": "Chi tiết chương trình sẽ được cập nhật sau.",
+    "created_at": "2024-09-09T00:00:00Z",
+    "updated_at": "2024-09-09T00:00:00Z",
+    "bannerUrl": "https://images.unsplash.com/photo-1739433437912-cca661ba902f"
+  },
+  {
+    "id": "news-4",
+    "title": "SUẤT CHIẾU ĐẶC BIỆT - QUÀ TẶNG TƯNG BỪNG - GIÁ VÉ KHÔNG ĐỔI",
+    "content": "Chi tiết chương trình sẽ được cập nhật sau.",
+    "created_at": "2024-09-04T00:00:00Z",
+    "updated_at": "2024-09-04T00:00:00Z",
+    "bannerUrl": "https://images.unsplash.com/photo-1761503390713-a1fd8b8bb6c5"
+  },
+  {
+    "id": "news-5",
+    "title": "Đợt phim Kỷ niệm 79 năm Cách mạng tháng 8 và Quốc Khánh",
+    "content": "Chi tiết chương trình sẽ được cập nhật sau.",
+    "created_at": "2024-08-21T00:00:00Z",
+    "updated_at": "2024-08-21T00:00:00Z",
+    "bannerUrl": "https://images.unsplash.com/photo-1616108365310-0accd0de566b"
+  },
+  {
+    "id": "news-6",
+    "title": "Tuyển dụng cộng tác viên soát vé, bán vé tại Trung tâm Chiếu phim Quốc gia",
+    "content": "Chi tiết chương trình sẽ được cập nhật sau.",
+    "created_at": "2024-08-04T00:00:00Z",
+    "updated_at": "2024-08-04T00:00:00Z",
+    "bannerUrl": "https://images.unsplash.com/photo-1762330463032-06f873b3277c"
+  },
+  {
+    "id": "news-7",
+    "title": "THÔNG BÁO HOÀN THÀNH CHƯƠNG TRÌNH KHẢO SÁT CƠ SỞ VẬT CHẤT NĂM 2024",
+    "content": "Chi tiết chương trình sẽ được cập nhật sau.",
+    "created_at": "2024-07-19T00:00:00Z",
+    "updated_at": "2024-07-19T00:00:00Z",
+    "bannerUrl": "https://images.unsplash.com/photo-1739433437912-cca661ba902f"
+  },
+  {
+    "id": "news-8",
+    "title": "REVIEW PHIM HOẠT HÌNH HOT NHẤT HÈ NÀY - KẺ TRỘM MẶT TRĂNG 4",
+    "content": "Chi tiết chương trình sẽ được cập nhật sau.",
+    "created_at": "2024-07-13T00:00:00Z",
+    "updated_at": "2024-07-13T00:00:00Z",
+    "bannerUrl": "https://images.unsplash.com/photo-1751823886813-0cfc86cb9478"
+  },
+  {
+    "id": "news-9",
+    "title": "Chương trình phim đặc sắc mừng Quốc khánh",
+    "content": "Chi tiết chương trình sẽ được cập nhật sau.",
+    "created_at": "2024-07-02T00:00:00Z",
+    "updated_at": "2024-07-02T00:00:00Z",
+    "bannerUrl": "https://images.unsplash.com/photo-1761503390713-a1fd8b8bb6c5"
+  },
+  {
+    "id": "news-10",
+    "title": "Khuyến mãi đặc biệt cho khách hàng thân thiết",
+    "content": "Chi tiết chương trình sẽ được cập nhật sau.",
+    "created_at": "2024-06-25T00:00:00Z",
+    "updated_at": "2024-06-25T00:00:00Z",
+    "bannerUrl": "https://images.unsplash.com/photo-1719706654529-ca7e2ce5a2bb"
+  },
+  {
+    "id": "news-11",
+    "title": "Lịch chiếu phim mới nhất tháng 6",
+    "content": "Chi tiết chương trình sẽ được cập nhật sau.",
+    "created_at": "2024-06-18T00:00:00Z",
+    "updated_at": "2024-06-18T00:00:00Z",
+    "bannerUrl": "https://images.unsplash.com/photo-1739433437912-cca661ba902f"
+  },
+  {
+    "id": "news-12",
+    "title": "Thông báo nghỉ lễ và lịch chiếu đặc biệt",
+    "content": "Chi tiết chương trình sẽ được cập nhật sau.",
+    "created_at": "2024-06-10T00:00:00Z",
+    "updated_at": "2024-06-10T00:00:00Z",
+    "bannerUrl": "https://images.unsplash.com/photo-1616108365310-0accd0de566b"
+  }
+]
+
 }
