@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addNewMovie, getAllMovies } from "../../api/movie.api";
+import { addNewMovie, deleteMovie, getAllMovies } from "../../api/movie.api";
 import type { InitialStateType, Movie } from "../../util/type.util";
 
 const initialState: InitialStateType<Movie> = {
@@ -27,6 +27,9 @@ const movieSlice = createSlice({
       })
       .addCase(addNewMovie.fulfilled, (state, action) => {
         state.data.push(action.payload);
+      })
+      .addCase(deleteMovie.fulfilled, (state, action) => {
+        state.data = state.data.filter((movie) => movie.id !== action.payload);
       });
   },
 });

@@ -6,7 +6,7 @@ import { useAppDispatch } from "../hook/useRedux";
 import { v4 as uuidv4 } from "uuid";
 
 interface MovieModalProps {
-  movie: Movie;
+  movie: Movie | undefined;
   onClose: () => void;
 }
 

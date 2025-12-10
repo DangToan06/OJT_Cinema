@@ -28,8 +28,8 @@ export const updateMovie = createAsyncThunk(
 
 export const deleteMovie = createAsyncThunk(
   "movies/deleteMovie",
-  async (id: number) => {
-    const response = await axiosInstance.delete(`movies/${id}`);
-    return response.data;
+  async (id: string) => {
+    await axiosInstance.delete(`movies/${id}`);
+    return id;
   }
 );

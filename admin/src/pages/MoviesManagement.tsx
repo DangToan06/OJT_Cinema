@@ -3,11 +3,11 @@ import { Plus, Edit, Trash2, Search, Filter } from "lucide-react";
 import { MovieModal } from "../components/MovieModal";
 import type { Movie } from "../util/type.util";
 import { useAppDispatch, useAppSelector } from "../hook/useRedux";
-import { getAllMovies } from "../api/movie.api";
+import { deleteMovie, getAllMovies } from "../api/movie.api";
 
 export function MoviesManagement() {
   const [showModal, setShowModal] = useState(false);
-  const [editingMovie, setEditingMovie] = useState(false);
+  const [editingMovie, setEditingMovie] = useState<Movie | undefined>();
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
   const { data: movies, status: movieStatus } = useAppSelector(
@@ -25,13 +25,13 @@ export function MoviesManagement() {
   const handleEdit = (movie: Movie) => {
     console.log(movie);
 
-    setEditingMovie(false);
+    setEditingMovie(movie);
     setShowModal(true);
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     if (confirm("Bạn có chắc muốn xóa phim này?")) {
-      console.log("Delete movie:", id);
+      dispatch(deleteMovie(id));
     }
   };
 
@@ -61,7 +61,7 @@ export function MoviesManagement() {
         </div>
         <button
           onClick={() => {
-            setEditingMovie(false);
+            setEditingMovie(undefined);
             setShowModal(true);
           }}
           className="flex items-center gap-2 bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors"
@@ -166,7 +166,7 @@ export function MoviesManagement() {
           movie={editingMovie}
           onClose={() => {
             setShowModal(false);
-            setEditingMovie(false);
+            setEditingMovie(movies[0]);
           }}
         />
       )}
