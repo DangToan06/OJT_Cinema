@@ -67,6 +67,24 @@
           ]
         }
       ]
+    },
+    {
+      "first_name": "huy ",
+      "last_name": "tôn",
+      "email": "huy@gmail.com",
+      "phone": "0123781242",
+      "password": "123456",
+      "avatar": "",
+      "address": "",
+      "status": "ACTIVE",
+      "role": [
+        {
+          "id": 2,
+          "role_name": "user"
+        }
+      ],
+      "bookings": [],
+      "id": 3
     }
   ],
   "theaters": [
