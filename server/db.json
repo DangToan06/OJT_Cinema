@@ -85,6 +85,24 @@
       ],
       "bookings": [],
       "id": 3
+    },
+    {
+      "first_name": "huy",
+      "last_name": "ngu",
+      "email": "huy1@gmail.com",
+      "phone": "0274712412",
+      "password": "123456",
+      "avatar": "",
+      "address": "",
+      "status": "ACTIVE",
+      "role": [
+        {
+          "id": 2,
+          "role_name": "user"
+        }
+      ],
+      "bookings": [],
+      "id": 4
     }
   ],
   "theaters": [
@@ -764,16 +782,16 @@
   ],
   "genres": [
     {
-      "id": 1,
-      "genre_name": "Hành động"
+      "genreName": "huy occhoooo",
+      "id": 12
     },
     {
-      "id": 2,
-      "genre_name": "Kinh dị"
+      "genreName": "huy yêu rikkei",
+      "id": 15
     },
     {
-      "id": 3,
-      "genre_name": "Tình cảm"
+      "genreName": "huy yêu tươi",
+      "id": 16
     }
   ],
   "ticket_prices": [
