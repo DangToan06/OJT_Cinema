@@ -1,19 +1,22 @@
 import { createBrowserRouter } from "react-router-dom";
 import NotFoundPage from "../pages/NotFoundPage";
 import { DashboardOverview } from "../pages/DashboardOverview";
-import { BookingsManagement } from "../pages/BookingsManagement";
+
 import { MoviesManagement } from "../pages/MoviesManagement";
 import { GenresManagement } from "../pages/GenresManagement";
-import { TheatersManagement } from "../pages/TheatersManagement";
+
+import { ShowtimesManagement } from "../pages/ShowtimesManagement";
+
+import { NewsManagement } from "../pages/NewsManagement";
+import Layout from "../layout/Layout";
+import { BookingsManagement } from "../pages/BookingsManagement";
 import { ScreensManagement } from "../pages/ScreensManagement";
 import { SeatsManagement } from "../pages/SeatsManagement";
-import { ShowtimesManagement } from "../pages/ShowtimesManagement";
 import { PricingManagement } from "../pages/PricingManagement";
-import { NewsManagement } from "../pages/NewsManagement";
 import { UsersManagement } from "../pages/UsersManagement";
 import { PaymentsManagement } from "../pages/PaymentsManagement";
 import { ReportsManagement } from "../pages/ReportsManagement";
-import Layout from "../layout/Layout";
+import { TheatersManagement } from "../pages/TheatersManagement";
 
 export const routers = createBrowserRouter([
   {
