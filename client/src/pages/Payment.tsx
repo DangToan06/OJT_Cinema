@@ -6,6 +6,7 @@ import payoo from "../assets/imgs/payoo 1.svg";
 import QRCode from "react-qr-code";
 import success from "../assets/imgs/Group.png";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 function generateRandomValue(amount: number, billId: string) {
   const qrData = `0002010102115303764...54${amount.toFixed(
     0
@@ -15,18 +16,26 @@ function generateRandomValue(amount: number, billId: string) {
 export default function Payment() {
   const [isPayment, setIsPayment] = useState(false);
   const navigate = useNavigate();
-  const paymentMethods = [
-    { id: "vietqr", name: "VietQR", logo: "VietQR", img: vietqr },
-    { id: "vnpay", name: "VNPAY", logo: "VNPAY", img: vnpay },
+  const [qr, setQr] = useState(generateRandomValue(50000, Date.now.toString()));
+  const [paymentMethods, setPaymentMethods] = useState([
+    {
+      id: "vietqr",
+      name: "VietQR",
+      logo: "VietQR",
+      img: vietqr,
+      selected: false,
+    },
+    { id: "vnpay", name: "VNPAY", logo: "VNPAY", img: vnpay, selected: false },
     {
       id: "viettel",
-      name: "Viettel Money",
+      name: "ViettelMoney",
       logo: "Viettel Money",
       img: viettel,
+      selected: false,
     },
-    { id: "payoo", name: "Payoo", logo: "Payoo", img: payoo },
-  ];
-  const [qr, setQr] = useState(generateRandomValue(50000, Date.now.toString()));
+    { id: "payoo", name: "Payoo", logo: "Payoo", img: payoo, selected: false },
+  ]);
+
   const handleGenerate = () => {
     setQr(generateRandomValue(50000, Date.now.toString()));
   };
@@ -34,7 +43,7 @@ export default function Payment() {
     <div className="container-fluid relative bg-gray-900 w-full h-max-screen">
       {/* Header */}
       {/* Body */}
-      <div className="paymentSuccess flex flex-col justify-center items-center gap-3 hidden py-10 h-screen">
+      <div className="paymentSuccess flex-col justify-center items-center gap-3 hidden py-10 h-screen">
         <img src={success} width="100px" height="100px" />
         <span className="font-bold text-[24px] text-white">
           Đặt vé thành công!
@@ -45,7 +54,7 @@ export default function Payment() {
         <button
           className="h-10 px-8 py-2.5 bg-red-500 rounded-full flex justify-center items-center text-white px-40"
           onClick={() => {
-            navigate("/homepage");
+            navigate("/");
           }}
         >
           Về trang chủ
@@ -132,14 +141,28 @@ export default function Payment() {
               {paymentMethods.map((method) => (
                 <label
                   key={method.id}
-                  className={`flex items-center h-16 px-4 rounded-xl border-2 cursor-pointer transition-all`}
+                  className={`flex items-center h-16 px-4 rounded-xl border-2 cursor-pointer transition-all ${
+                    method.selected ? "border-red-500" : ""
+                  }`}
                 >
-                  <div className="w-3" /> {/* chỗ trống thay cho radio */}
-                  <div className="flex items-center flex-1 gap-3">
+                  <div
+                    className={`flex items-center flex-1 gap-3 ${
+                      method.selected ? "border-red-500" : ""
+                    }`}
+                  >
                     <input
                       className="text-base w-5 h-5 rounded-full appearance-auto accent-red-500"
                       type="radio"
                       name="method"
+                      onClick={() => {
+                        setPaymentMethods((prev) =>
+                          prev.map((p) =>
+                            p.id === method.id
+                              ? { ...p, selected: true }
+                              : { ...p, selected: false }
+                          )
+                        );
+                      }}
                     />
                     <img src={method.img} width="64px" height="21px" />
                     {method.name}
@@ -180,14 +203,27 @@ export default function Payment() {
                 className="w-full bg-red-600 hover:bg-red-700 text-white font-bold text-base py-2 rounded-2xl active:scale-98 transition"
                 onClick={() => {
                   if (!isPayment) {
-                    handleGenerate();
-                    document.querySelector(".price")?.classList.add("hidden");
-                    document.querySelector(".qr")?.classList.remove("hidden");
-                    setIsPayment(true);
+                    if (paymentMethods.some((p) => p.selected)) {
+                      handleGenerate();
+                      document.querySelector(".price")?.classList.add("hidden");
+                      document.querySelector(".qr")?.classList.remove("hidden");
+                      setIsPayment(true);
+                    } else {
+                      Swal.fire({
+                        position: "center",
+                        icon: "error",
+                        title: "Vui lòng chọn ngân hàng thanh toán!",
+                        showConfirmButton: false,
+                        timer: 1500,
+                      });
+                    }
                   } else {
                     document
                       .querySelector(".paymentSuccess")
                       ?.classList.remove("hidden");
+                    document
+                      .querySelector(".paymentSuccess")
+                      ?.classList.add("flex");
                     document.querySelector(".body")?.classList.add("hidden");
                   }
                 }}

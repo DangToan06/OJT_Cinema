@@ -40,7 +40,7 @@ export default function Layout({ children }: LayoutProps) {
   ];
   return (
     <div className="flex h-screen bg-gray-50">
-      <aside className="w-64 bg-gray-900 text-white flex flex-col">
+      <aside className="w-64 bg-gray-900 text-white flex flex-col h-full">
         <div className="p-6">
           <div className="flex items-center gap-3">
             <Film className="w-8 h-8 text-red-500" />
