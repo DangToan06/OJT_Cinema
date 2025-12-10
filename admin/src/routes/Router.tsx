@@ -24,6 +24,14 @@ export const routers = createBrowserRouter([
       </Layout>
     ),
   },
+  {
+    // path: "bookings",
+    element: (
+      <Layout>
+        <BookingsManagement></BookingsManagement>
+      </Layout>
+    ),
+  },
   // {
   //   path: "bookings",
   //   element: (
@@ -45,6 +53,30 @@ export const routers = createBrowserRouter([
     element: (
       <Layout>
         <GenresManagement></GenresManagement>
+      </Layout>
+    ),
+  },
+  {
+    // path: "theaters",
+    element: (
+      <Layout>
+        <TheatersManagement></TheatersManagement>
+      </Layout>
+    ),
+  },
+  {
+    // path: "screens",
+    element: (
+      <Layout>
+        <ScreensManagement></ScreensManagement>
+      </Layout>
+    ),
+  },
+  {
+    // path: "seats",
+    element: (
+      <Layout>
+        <SeatsManagement></SeatsManagement>
       </Layout>
     ),
   },
@@ -80,6 +112,14 @@ export const routers = createBrowserRouter([
       </Layout>
     ),
   },
+  {
+    // path: "pricing",
+    element: (
+      <Layout>
+        <PricingManagement></PricingManagement>
+      </Layout>
+    ),
+  },
   // {
   //   path: "pricing",
   //   element: (
@@ -93,6 +133,30 @@ export const routers = createBrowserRouter([
     element: (
       <Layout>
         <NewsManagement></NewsManagement>
+      </Layout>
+    ),
+  },
+  {
+    // path: "users",
+    element: (
+      <Layout>
+        <UsersManagement></UsersManagement>
+      </Layout>
+    ),
+  },
+  {
+    // path: "payments",
+    element: (
+      <Layout>
+        <PaymentsManagement></PaymentsManagement>
+      </Layout>
+    ),
+  },
+  {
+    // path: "reports",
+    element: (
+      <Layout>
+        <ReportsManagement></ReportsManagement>
       </Layout>
     ),
   },

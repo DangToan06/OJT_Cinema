@@ -1,127 +1,122 @@
+// src/components/Login.tsx
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-type Login = {
+
+type LoginProps = {
   isOpen: boolean;
   onClose: () => void;
+  Switch: () => void;
 };
-export default function Login({ isOpen, onClose }: Login) {
-  const navigate = useNavigate();
 
+export default function Login({ isOpen, onClose, Switch }: LoginProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState<{ email?: string; password?: string }>(
-    {}
-  );
+  const [errors, setErrors] = useState<{ server?: string }>({});
+  const [isLoading, setIsLoading] = useState(false);
 
-  const validateForm = () => {
-    const newErrors: { email?: string; password?: string } = {};
+  const handleLogin = async () => {
+    setIsLoading(true);
+    setErrors({});
 
-    if (!email.trim()) {
-      newErrors.email = "Email không được để trống";
-    } else if (!/^\S+@\S+\.\S+$/.test(email)) {
-      newErrors.email = "Email không hợp lệ";
+    try {
+      const res = await fetch("http://localhost:8080/users");
+      const users = await res.json();
+
+      const user = users.find(
+        (u: any) =>
+          u.email.toLowerCase() === email.toLowerCase() &&
+          u.password === password
+      );
+
+      if (!user) {
+        setErrors({ server: "Email hoặc mật khẩu không đúng" });
+        setIsLoading(false);
+        return;
+      }
+
+      localStorage.setItem("user", JSON.stringify(user));
+
+      Swal.fire({
+        icon: "success",
+        title: `Chào mừng ${user.first_name || user.firstName} ${user.last_name || user.lastName}!`,
+        toast: true,
+        position: "top-end",
+        timer: 2000,
+        background: "#1e293b",
+        color: "#fff",
+      }).then(() => {
+        onClose();
+        window.location.href = "/";
+      });
+    } catch (err) {
+      setErrors({ server: "Không kết nối được server" });
+    } finally {
+      setIsLoading(false);
     }
-
-    if (!password.trim()) {
-      newErrors.password = "Mật khẩu không được để trống";
-    } else if (password.length < 6) {
-      newErrors.password = "Mật khẩu phải từ 6 ký tự trở lên";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
   };
 
-  const handleLogin = () => {
-    if (!validateForm()) return;
-    Swal.fire({
-      position: "top-end",
-      icon: "success",
-      title: "Đăng kí thành công!",
-      showConfirmButton: false,
-      timer: 1500,
-      customClass: {
-        popup: "swal-small-popup",
-        title: "swal-small-title",
-        icon: "swal-small-icon",
-      },
-    }).then(onClose);
-  };
+  if (!isOpen) return null;
 
   return (
-    <div
-      className={`min-h-screen ${
-        isOpen ? "flex" : "hidden"
-      } flex items-center justify-center px-4 fixed z-50 w-full transition-all ease-linear`}
-    >
-      <div className="relative bg-[#1e293b]/90 backdrop-blur-lg rounded-3xl p-8 w-full max-w-md shadow-2xl border border-white/5">
-        {/* Nút đóng - bấm là về trang chủ hoặc login (tùy bạn) */}
+    <div className="fixed inset-0 z-50 flex items-center justify-center px-4" onClick={onClose}>
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+
+      <div
+        className="relative bg-[#1e293b]/95 backdrop-blur-lg rounded-3xl p-8 w-full max-w-md shadow-2xl border border-white/10"
+        onClick={(e) => e.stopPropagation()}
+      >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl leading-none"
+          className="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl"
         >
           ×
         </button>
 
-        <h2 className="text-3xl font-bold text-white text-center mb-10">
-          Đăng nhập
-        </h2>
+        <h2 className="text-3xl font-bold text-white text-center mb-10">Đăng nhập</h2>
 
         <div className="space-y-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Email
-            </label>
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-5 py-4 bg-[#334155]/50 border border-gray-600 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
-            />
-            {errors.email && (
-              <p className="text-red-400 text-sm mt-2">{errors.email}</p>
-            )}
-          </div>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-5 py-4 bg-[#334155]/50 border border-gray-600 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500"
+          />
 
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Mật khẩu
-            </label>
-            <input
-              type="password"
-              placeholder="Mật khẩu"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-5 py-4 bg-[#334155]/50 border border-gray-600 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
-            />
-            {errors.password && (
-              <p className="text-red-400 text-sm mt-2">{errors.password}</p>
-            )}
-          </div>
+          <input
+            type="password"
+            placeholder="Mật khẩu"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full px-5 py-4 bg-[#334155]/50 border border-gray-600 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500"
+          />
 
-          <div className="text-right">
-            <a href="#" className="text-red-400 text-sm hover:underline">
-              Quên mật khẩu?
-            </a>
-          </div>
+          {errors.server && (
+            <p className="text-red-400 text-center font-medium">{errors.server}</p>
+          )}
 
           <button
             onClick={handleLogin}
-            className="w-full py-4 bg-linear-to-r bg-red-500 text-white font-semibold text-lg rounded-full hover:from-red-700 hover:to-pink-700 transition shadow-lg cursor-pointer"
+            disabled={isLoading}
+            style={{
+              background: isLoading ? "#666" : "linear-gradient(to right, #dc2626, #ec4899)",
+            }}
+            className="w-full py-4 text-white font-bold text-lg rounded-full shadow-2xl hover:shadow-pink-500/50 active:scale-95 transition-all"
           >
-            Đăng nhập
+            {isLoading ? "Đang đăng nhập..." : "Đăng nhập"}
           </button>
 
           <p className="text-center text-gray-400">
-            Bạn chưa có tài khoản?{" "}
-            <span
-              onClick={() => navigate("/register")}
-              className="text-red-400 font-medium cursor-pointer hover:underline"
+            Chưa có tài khoản?{" "}
+            <button
+              onClick={() => {
+                onClose();
+                Switch();
+              }}
+              className="text-red-400 font-medium hover:underline"
             >
-              Đăng ký
-            </span>
+              Đăng ký ngay
+            </button>
           </p>
         </div>
       </div>
