@@ -1,20 +1,133 @@
 {
-    "users": [
+  "users": [
+    {
+      "id": 1,
+      "first_name": "Admin",
+      "last_name": "System",
+      "email": "admin@cinema.com",
+      "password": "123456",
+      "avatar": "https://example.com/avatars/admin.jpg",
+      "phone": "0901234567",
+      "address": "123 Hanoi, Vietnam",
+      "status": "ACTIVE",
+      "created_at": "2023-01-01T10:00:00Z",
+      "updated_at": "2023-01-01T10:00:00Z",
+      "role": {
+        "id": 1,
+        "role_name": "admin"
+      },
+      "bookings": []
+    },
+    {
+      "id": 2,
+      "first_name": "Nguyen",
+      "last_name": "Van A",
+      "email": "vana@gmail.com",
+      "password": "123456",
+      "avatar": "https://example.com/avatars/user2.jpg",
+      "phone": "0987654321",
+      "address": "456 Danang, Vietnam",
+      "status": "ACTIVE",
+      "created_at": "2023-05-15T14:30:00Z",
+      "updated_at": "2023-05-15T14:30:00Z",
+      "role": {
+        "id": 2,
+        "role_name": "user"
+      },
+      "bookings": [
         {
-            "id": "1",
-            "first_name": "Admin",
-            "last_name": "System",
-            "email": "admin@cinema.com",
-            "password": "123456",
-            "avatar": "https://example.com/avatars/admin.jpg",
-            "phone": "0901234567",
-            "address": "123 Hanoi, Vietnam",
-            "status": "ACTIVE",
-            "created_at": "2023-01-01T10:00:00Z",
-            "updated_at": "2023-01-01T10:00:00Z",
-            "role": {
-                "id": 1,
-                "role_name": "admin"
+          "id": 101,
+          "showtime_id": 1,
+          "total_seat": 2,
+          "total_price_movie": 300000,
+          "created_at": "2023-10-15T09:30:00Z",
+          "payment": {
+            "id": 1,
+            "payment_method": "VNPAY",
+            "payment_status": "COMPLETED",
+            "payment_time": "2023-10-15T09:35:00Z",
+            "amount": 300000,
+            "transaction_id": "VNP12345678"
+          },
+          "booking_details": [
+            {
+              "id": 1,
+              "seat_id": 3,
+              "quantity": 1,
+              "created_at": "2023-10-15T09:30:00Z",
+              "updated_at": "2023-10-15T09:30:00Z"
+            },
+            {
+              "id": 2,
+              "seat_id": 2,
+              "quantity": 1,
+              "created_at": "2023-10-15T09:30:00Z",
+              "updated_at": "2023-10-15T09:30:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "first_name": "huy ",
+      "last_name": "tôn",
+      "email": "huy@gmail.com",
+      "phone": "0123781242",
+      "password": "123456",
+      "avatar": "",
+      "address": "",
+      "status": "ACTIVE",
+      "role": [
+        {
+          "id": 2,
+          "role_name": "user"
+        }
+      ],
+      "bookings": [],
+      "id": 3
+    },
+    {
+      "first_name": "huy",
+      "last_name": "ngu",
+      "email": "huy1@gmail.com",
+      "phone": "0274712412",
+      "password": "123456",
+      "avatar": "",
+      "address": "",
+      "status": "ACTIVE",
+      "role": [
+        {
+          "id": 2,
+          "role_name": "user"
+        }
+      ],
+      "bookings": [],
+      "id": 4
+    }
+  ],
+  "theaters": [
+    {
+      "id": 1,
+      "name": "CGV Vincom Ba Trieu",
+      "location": "191 Ba Trieu, Hai Ba Trung, Hanoi",
+      "phone": "02439743333",
+      "created_at": "2022-12-01T00:00:00Z",
+      "updated_at": "2022-12-01T00:00:00Z",
+      "screens": [
+        {
+          "id": 1,
+          "name": "IMAX Screen 1",
+          "seat_capacity": 100,
+          "created_at": "2022-12-01T00:00:00Z",
+          "updated_at": "2022-12-01T00:00:00Z",
+          "seats": [
+            {
+              "id": 1,
+              "seat_number": "A1",
+              "is_variable": false,
+              "type": "STANDARD",
+              "created_at": "2022-12-01T00:00:00Z",
+              "updated_at": "2022-12-01T00:00:00Z"
             },
             "bookings": []
         },
@@ -86,157 +199,666 @@
             "bookings": [],
             "id": "3"
         }
-    ],
-    "theaters": [
+      ]
+    }
+  ],
+  "movies": [
+    {
+      "id": "1",
+      "title": "Avengers: Endgame",
+      "description": "Biệt đội siêu anh hùng tái hợp để chống lại Thanos.",
+      "author": "Anthony Russo, Joe Russo",
+      "image": "https://example.com/posters/avengers.jpg",
+      "trailer": "https://youtube.com/watch?v=TcMBFSGVi1c",
+      "type": "3D",
+      "duration": 181,
+      "genres_movie": [
         {
-            "id": "1",
-            "name": "CGV Vincom Ba Trieu",
-            "location": "191 Ba Trieu, Hai Ba Trung, Hanoi",
-            "phone": "02439743333",
-            "created_at": "2022-12-01T00:00:00Z",
-            "updated_at": "2022-12-01T00:00:00Z",
-            "screens": [
-                {
-                    "id": 1,
-                    "name": "IMAX Screen 1",
-                    "seat_capacity": 100,
-                    "created_at": "2022-12-01T00:00:00Z",
-                    "updated_at": "2022-12-01T00:00:00Z",
-                    "seats": [
-                        {
-                            "id": 1,
-                            "seat_number": "A1",
-                            "is_variable": false,
-                            "type": "STANDARD",
-                            "created_at": "2022-12-01T00:00:00Z",
-                            "updated_at": "2022-12-01T00:00:00Z"
-                        },
-                        {
-                            "id": 2,
-                            "seat_number": "A2",
-                            "is_variable": false,
-                            "type": "STANDARD",
-                            "created_at": "2022-12-01T00:00:00Z",
-                            "updated_at": "2022-12-01T00:00:00Z"
-                        },
-                        {
-                            "id": 3,
-                            "seat_number": "E5",
-                            "is_variable": true,
-                            "type": "VIP",
-                            "created_at": "2022-12-01T00:00:00Z",
-                            "updated_at": "2022-12-01T00:00:00Z"
-                        }
-                    ]
-                },
-                {
-                    "id": 2,
-                    "name": "Standard Screen 2",
-                    "seat_capacity": 80,
-                    "created_at": "2022-12-01T00:00:00Z",
-                    "updated_at": "2022-12-01T00:00:00Z",
-                    "seats": []
-                }
-            ]
+          "id": 1,
+          "genre_name": "Hành động"
         }
-    ],
-    "movies": [
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2019-04-26",
+      "created_at": "2023-06-01T08:00:00Z",
+      "updated_at": "2023-06-01T08:00:00Z",
+      "showtimes": [
         {
-            "id": "1",
-            "title": "Avengers: Endgame",
-            "description": "Biệt đội siêu anh hùng tái hợp để chống lại Thanos.",
-            "author": "Anthony Russo, Joe Russo",
-            "image": "https://example.com/posters/avengers.jpg",
-            "trailer": "https://youtube.com/watch?v=TcMBFSGVi1c",
-            "type": "3D",
-            "duration": 181,
-            "genres_movie": [
-                {
-                    "id": 1,
-                    "genre_name": "Hành động"
-                }
-            ],
-            "status": "SAPCHIEU",
-            "release_date": "2019-04-26",
-            "created_at": "2023-06-01T08:00:00Z",
-            "updated_at": "2023-06-01T08:00:00Z",
-            "showtimes": [
-                {
-                    "id": 1,
-                    "screen_id": 1,
-                    "start_time": "2023-10-20T19:00:00Z",
-                    "end_time": "2023-10-20T22:00:00Z",
-                    "created_at": "2023-10-10T10:00:00Z",
-                    "updated_at": "2023-10-10T10:00:00Z"
-                }
-            ]
+          "id": 1,
+          "screen_id": 1,
+          "start_time": "2023-10-20T19:00:00Z",
+          "end_time": "2023-10-20T22:00:00Z",
+          "created_at": "2023-10-10T10:00:00Z",
+          "updated_at": "2023-10-10T10:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Titanic",
+      "description": "Câu chuyện tình yêu lãng mạn trên con tàu định mệnh.",
+      "author": "James Cameron",
+      "image": "https://example.com/posters/titanic.jpg",
+      "trailer": "https://youtube.com/watch?v=JQ8PF7X6qXw",
+      "type": "2D",
+      "duration": 195,
+      "genres_movie": [
+        {
+          "id": 3,
+          "genre_name": "Tình cảm"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "1997-12-19",
+      "created_at": "2023-06-02T09:00:00Z",
+      "updated_at": "2023-06-02T09:00:00Z",
+      "showtimes": [
+        {
+          "id": 2,
+          "screen_id": 2,
+          "start_time": "2023-10-20T20:00:00Z",
+          "end_time": "2023-10-20T23:15:00Z",
+          "created_at": "2023-10-10T10:00:00Z",
+          "updated_at": "2023-10-10T10:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "title": "Avatar: The Way of Water",
+      "description": "Jake Sully cùng gia đình khám phá vùng biển của Pandora.",
+      "author": "James Cameron",
+      "image": "https://example.com/posters/avatar2.jpg",
+      "trailer": "https://youtube.com/watch?v=d9MyqFCDZwM",
+      "type": "3D",
+      "duration": 192,
+      "genres_movie": [
+        {
+          "id": 4,
+          "genre_name": "Khoa học viễn tưởng"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2022-12-16",
+      "created_at": "2023-06-03T10:00:00Z",
+      "updated_at": "2023-06-03T10:00:00Z",
+      "showtimes": [
+        {
+          "id": 3,
+          "screen_id": 1,
+          "start_time": "2023-10-21T18:00:00Z",
+          "end_time": "2023-10-21T21:15:00Z",
+          "created_at": "2023-10-11T10:00:00Z",
+          "updated_at": "2023-10-11T10:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "title": "Oppenheimer",
+      "description": "Câu chuyện về cha đẻ của bom nguyên tử J. Robert Oppenheimer.",
+      "author": "Christopher Nolan",
+      "image": "https://example.com/posters/oppenheimer.jpg",
+      "trailer": "https://youtube.com/watch?v=uYPbbksJxIg",
+      "type": "2D",
+      "duration": 180,
+      "genres_movie": [
+        {
+          "id": 5,
+          "genre_name": "Lịch sử"
         },
         {
-            "id": "2",
-            "title": "Titanic",
-            "description": "Câu chuyện tình yêu lãng mạn trên con tàu định mệnh.",
-            "author": "James Cameron",
-            "image": "https://example.com/posters/titanic.jpg",
-            "trailer": "https://youtube.com/watch?v=JQ8PF7X6qXw",
-            "type": "2D",
-            "duration": 195,
-            "genres_movie": [
-                {
-                    "id": 3,
-                    "genre_name": "Tình cảm"
-                }
-            ],
-            "status": "DANGCHIEU",
-            "release_date": "1997-12-19",
-            "created_at": "2023-06-02T09:00:00Z",
-            "updated_at": "2023-06-02T09:00:00Z",
-            "showtimes": [
-                {
-                    "id": 2,
-                    "screen_id": 2,
-                    "start_time": "2023-10-20T20:00:00Z",
-                    "end_time": "2023-10-20T23:15:00Z",
-                    "created_at": "2023-10-10T10:00:00Z",
-                    "updated_at": "2023-10-10T10:00:00Z"
-                }
-            ]
+          "id": 6,
+          "genre_name": "Tâm lý"
         }
-    ],
-    "genres": [
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2023-07-21",
+      "created_at": "2023-07-01T08:00:00Z",
+      "updated_at": "2023-07-01T08:00:00Z",
+      "showtimes": [
         {
-            "id": "1",
-            "genre_name": "Hành động"
+          "id": 4,
+          "screen_id": 3,
+          "start_time": "2023-10-21T19:30:00Z",
+          "end_time": "2023-10-21T22:30:00Z",
+          "created_at": "2023-10-11T11:00:00Z",
+          "updated_at": "2023-10-11T11:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "title": "Barbie",
+      "description": "Barbie và Ken có cơ hội khám phá thế giới thực.",
+      "author": "Greta Gerwig",
+      "image": "https://example.com/posters/barbie.jpg",
+      "trailer": "https://youtube.com/watch?v=pBk4NYhWNMM",
+      "type": "2D",
+      "duration": 114,
+      "genres_movie": [
+        {
+          "id": 7,
+          "genre_name": "Hài hước"
         },
         {
-            "id": "2",
-            "genre_name": "Kinh dị"
+          "id": 8,
+          "genre_name": "Gia đình"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2023-07-21",
+      "created_at": "2023-07-02T09:00:00Z",
+      "updated_at": "2023-07-02T09:00:00Z",
+      "showtimes": [
+        {
+          "id": 5,
+          "screen_id": 2,
+          "start_time": "2023-10-21T14:00:00Z",
+          "end_time": "2023-10-21T16:00:00Z",
+          "created_at": "2023-10-12T08:00:00Z",
+          "updated_at": "2023-10-12T08:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "title": "The Nun II",
+      "description": "Sơ Irene một lần nữa đối mặt với Valak - ác quỷ ma sơ.",
+      "author": "Michael Chaves",
+      "image": "https://example.com/posters/thenun2.jpg",
+      "trailer": "https://youtube.com/watch?v=QF-oyCwaArU",
+      "type": "2D",
+      "duration": 110,
+      "genres_movie": [
+        {
+          "id": 2,
+          "genre_name": "Kinh dị"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2023-09-08",
+      "created_at": "2023-08-20T08:00:00Z",
+      "updated_at": "2023-08-20T08:00:00Z",
+      "showtimes": [
+        {
+          "id": 6,
+          "screen_id": 4,
+          "start_time": "2023-10-21T23:00:00Z",
+          "end_time": "2023-10-22T01:00:00Z",
+          "created_at": "2023-10-13T10:00:00Z",
+          "updated_at": "2023-10-13T10:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "title": "Dune: Part Two",
+      "description": "Paul Atreides tập hợp đội quân Fremen để trả thù cho gia tộc.",
+      "author": "Denis Villeneuve",
+      "image": "https://example.com/posters/dune2.jpg",
+      "trailer": "https://youtube.com/watch?v=Way9Dexny3w",
+      "type": "3D",
+      "duration": 166,
+      "genres_movie": [
+        {
+          "id": 4,
+          "genre_name": "Khoa học viễn tưởng"
         },
         {
-            "id": "3",
-            "genre_name": "Tình cảm"
+          "id": 1,
+          "genre_name": "Hành động"
         }
-    ],
-    "ticket_prices": [
+      ],
+      "status": "SAPCHIEU",
+      "release_date": "2024-03-01",
+      "created_at": "2023-09-01T10:00:00Z",
+      "updated_at": "2023-09-01T10:00:00Z",
+      "showtimes": []
+    },
+    {
+      "id": "8",
+      "title": "Spider-Man: Across the Spider-Verse",
+      "description": "Miles Morales du hành qua đa vũ trụ và gặp gỡ các Người Nhện khác.",
+      "author": "Joaquim Dos Santos",
+      "image": "https://example.com/posters/spiderman.jpg",
+      "trailer": "https://youtube.com/watch?v=cqGjhVJWtEg",
+      "type": "2D",
+      "duration": 140,
+      "genres_movie": [
         {
-            "id": "1",
-            "type_seat": "STANDARD",
-            "type_movie": "2D",
-            "price": 80000,
-            "day_type": 0,
-            "start_time": "08:00:00",
-            "end_time": "17:00:00"
+          "id": 9,
+          "genre_name": "Hoạt hình"
         },
         {
-            "id": "2",
-            "type_seat": "VIP",
-            "type_movie": "3D",
-            "price": 150000,
-            "day_type": 1,
-            "start_time": "17:00:00",
-            "end_time": "23:00:00"
+          "id": 1,
+          "genre_name": "Hành động"
         }
-    ],
-    "news": [
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2023-06-02",
+      "created_at": "2023-05-15T09:00:00Z",
+      "updated_at": "2023-05-15T09:00:00Z",
+      "showtimes": [
+        {
+          "id": 7,
+          "screen_id": 2,
+          "start_time": "2023-10-22T10:00:00Z",
+          "end_time": "2023-10-22T12:30:00Z",
+          "created_at": "2023-10-14T08:00:00Z",
+          "updated_at": "2023-10-14T08:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "9",
+      "title": "Mission: Impossible - Dead Reckoning",
+      "description": "Ethan Hunt và đội IMF thực hiện nhiệm vụ nguy hiểm nhất từ trước đến nay.",
+      "author": "Christopher McQuarrie",
+      "image": "https://example.com/posters/missionimpossible7.jpg",
+      "trailer": "https://youtube.com/watch?v=avz06PDqDbM",
+      "type": "2D",
+      "duration": 163,
+      "genres_movie": [
+        {
+          "id": 1,
+          "genre_name": "Hành động"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2023-07-12",
+      "created_at": "2023-06-20T08:00:00Z",
+      "updated_at": "2023-06-20T08:00:00Z",
+      "showtimes": [
+        {
+          "id": 8,
+          "screen_id": 1,
+          "start_time": "2023-10-22T15:00:00Z",
+          "end_time": "2023-10-22T17:45:00Z",
+          "created_at": "2023-10-14T09:00:00Z",
+          "updated_at": "2023-10-14T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "title": "Kung Fu Panda 4",
+      "description": "Po trở thành Thần Long Đại Hiệp và tìm kiếm người kế vị.",
+      "author": "Mike Mitchell",
+      "image": "https://example.com/posters/kungfupanda4.jpg",
+      "trailer": "https://youtube.com/watch?v=_inKs4eeHiI",
+      "type": "3D",
+      "duration": 94,
+      "genres_movie": [
+        {
+          "id": 9,
+          "genre_name": "Hoạt hình"
+        },
+        {
+          "id": 7,
+          "genre_name": "Hài hước"
+        }
+      ],
+      "status": "SAPCHIEU",
+      "release_date": "2024-03-08",
+      "created_at": "2023-10-01T08:00:00Z",
+      "updated_at": "2023-10-01T08:00:00Z",
+      "showtimes": []
+    },
+    {
+      "id": "11",
+      "title": "Interstellar",
+      "description": "Hành trình xuyên không gian tìm kiếm hành tinh mới cho nhân loại.",
+      "author": "Christopher Nolan",
+      "image": "https://example.com/posters/interstellar.jpg",
+      "trailer": "https://youtube.com/watch?v=zSWdZVtXT7E",
+      "type": "2D",
+      "duration": 169,
+      "genres_movie": [
+        {
+          "id": 4,
+          "genre_name": "Khoa học viễn tưởng"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2014-11-07",
+      "created_at": "2023-09-10T08:00:00Z",
+      "updated_at": "2023-09-10T08:00:00Z",
+      "showtimes": [
+        {
+          "id": 9,
+          "screen_id": 3,
+          "start_time": "2023-10-23T19:00:00Z",
+          "end_time": "2023-10-23T21:50:00Z",
+          "created_at": "2023-10-15T08:00:00Z",
+          "updated_at": "2023-10-15T08:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "title": "The Godfather",
+      "description": "Ông trùm Don Vito Corleone trao lại đế chế tội phạm cho con trai.",
+      "author": "Francis Ford Coppola",
+      "image": "https://example.com/posters/godfather.jpg",
+      "trailer": "https://youtube.com/watch?v=sY1S34973zA",
+      "type": "2D",
+      "duration": 175,
+      "genres_movie": [
+        {
+          "id": 10,
+          "genre_name": "Tội phạm"
+        }
+      ],
+      "status": "SAPCHIEU",
+      "release_date": "1972-03-24",
+      "created_at": "2023-10-05T08:00:00Z",
+      "updated_at": "2023-10-05T08:00:00Z",
+      "showtimes": []
+    },
+    {
+      "id": "13",
+      "title": "Parasite",
+      "description": "Gia đình nghèo khó xâm nhập vào cuộc sống của một gia đình giàu có.",
+      "author": "Bong Joon Ho",
+      "image": "https://example.com/posters/parasite.jpg",
+      "trailer": "https://youtube.com/watch?v=5xH0HfJHsaY",
+      "type": "2D",
+      "duration": 132,
+      "genres_movie": [
+        {
+          "id": 6,
+          "genre_name": "Tâm lý"
+        },
+        {
+          "id": 11,
+          "genre_name": "Giật gân"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2019-05-30",
+      "created_at": "2023-09-15T08:00:00Z",
+      "updated_at": "2023-09-15T08:00:00Z",
+      "showtimes": [
+        {
+          "id": 10,
+          "screen_id": 2,
+          "start_time": "2023-10-23T20:00:00Z",
+          "end_time": "2023-10-23T22:15:00Z",
+          "created_at": "2023-10-16T09:00:00Z",
+          "updated_at": "2023-10-16T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "14",
+      "title": "Frozen II",
+      "description": "Elsa cùng Anna và những người bạn đi tìm nguồn gốc sức mạnh băng giá.",
+      "author": "Chris Buck, Jennifer Lee",
+      "image": "https://example.com/posters/frozen2.jpg",
+      "trailer": "https://youtube.com/watch?v=Zi4LMpSDccc",
+      "type": "3D",
+      "duration": 103,
+      "genres_movie": [
+        {
+          "id": 9,
+          "genre_name": "Hoạt hình"
+        },
+        {
+          "id": 8,
+          "genre_name": "Gia đình"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2019-11-22",
+      "created_at": "2023-09-20T08:00:00Z",
+      "updated_at": "2023-09-20T08:00:00Z",
+      "showtimes": [
+        {
+          "id": 11,
+          "screen_id": 1,
+          "start_time": "2023-10-24T10:00:00Z",
+          "end_time": "2023-10-24T11:45:00Z",
+          "created_at": "2023-10-17T08:00:00Z",
+          "updated_at": "2023-10-17T08:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "15",
+      "title": "John Wick: Chapter 4",
+      "description": "John Wick tìm cách đánh bại High Table để giành lại tự do.",
+      "author": "Chad Stahelski",
+      "image": "https://example.com/posters/johnwick4.jpg",
+      "trailer": "https://youtube.com/watch?v=qEVUtrk8_B4",
+      "type": "2D",
+      "duration": 169,
+      "genres_movie": [
+        {
+          "id": 1,
+          "genre_name": "Hành động"
+        },
+        {
+          "id": 10,
+          "genre_name": "Tội phạm"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2023-03-24",
+      "created_at": "2023-04-01T08:00:00Z",
+      "updated_at": "2023-04-01T08:00:00Z",
+      "showtimes": [
+        {
+          "id": 12,
+          "screen_id": 4,
+          "start_time": "2023-10-24T21:00:00Z",
+          "end_time": "2023-10-24T23:50:00Z",
+          "created_at": "2023-10-17T09:00:00Z",
+          "updated_at": "2023-10-17T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "16",
+      "title": "Aquaman and the Lost Kingdom",
+      "description": "Aquaman phải hợp tác với em trai để cứu Atlantis.",
+      "author": "James Wan",
+      "image": "https://example.com/posters/aquaman2.jpg",
+      "trailer": "https://youtube.com/watch?v=FV3bqvOHRQo",
+      "type": "3D",
+      "duration": 124,
+      "genres_movie": [
+        {
+          "id": 1,
+          "genre_name": "Hành động"
+        },
+        {
+          "id": 4,
+          "genre_name": "Khoa học viễn tưởng"
+        }
+      ],
+      "status": "SAPCHIEU",
+      "release_date": "2023-12-22",
+      "created_at": "2023-10-10T08:00:00Z",
+      "updated_at": "2023-10-10T08:00:00Z",
+      "showtimes": []
+    },
+    {
+      "id": "17",
+      "title": "La La Land",
+      "description": "Câu chuyện tình yêu giữa một nhạc sĩ jazz và một nữ diễn viên trẻ.",
+      "author": "Damien Chazelle",
+      "image": "https://example.com/posters/lalaland.jpg",
+      "trailer": "https://youtube.com/watch?v=0pdqf4P9MB8",
+      "type": "2D",
+      "duration": 128,
+      "genres_movie": [
+        {
+          "id": 3,
+          "genre_name": "Tình cảm"
+        },
+        {
+          "id": 12,
+          "genre_name": "Âm nhạc"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2016-12-09",
+      "created_at": "2023-09-25T08:00:00Z",
+      "updated_at": "2023-09-25T08:00:00Z",
+      "showtimes": [
+        {
+          "id": 13,
+          "screen_id": 2,
+          "start_time": "2023-10-25T19:00:00Z",
+          "end_time": "2023-10-25T21:10:00Z",
+          "created_at": "2023-10-18T08:00:00Z",
+          "updated_at": "2023-10-18T08:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "18",
+      "title": "It",
+      "description": "Nhóm trẻ em đối mặt với tên hề ma quái Pennywise.",
+      "author": "Andy Muschietti",
+      "image": "https://example.com/posters/it.jpg",
+      "trailer": "https://youtube.com/watch?v=xKJmEC5ieOk",
+      "type": "2D",
+      "duration": 135,
+      "genres_movie": [
+        {
+          "id": 2,
+          "genre_name": "Kinh dị"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2017-09-08",
+      "created_at": "2023-09-28T08:00:00Z",
+      "updated_at": "2023-09-28T08:00:00Z",
+      "showtimes": [
+        {
+          "id": 14,
+          "screen_id": 4,
+          "start_time": "2023-10-25T22:00:00Z",
+          "end_time": "2023-10-26T00:15:00Z",
+          "created_at": "2023-10-18T09:00:00Z",
+          "updated_at": "2023-10-18T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "19",
+      "title": "Black Panther",
+      "description": "T'Challa trở về Wakanda để thừa kế ngai vàng và bảo vệ đất nước.",
+      "author": "Ryan Coogler",
+      "image": "https://example.com/posters/blackpanther.jpg",
+      "trailer": "https://youtube.com/watch?v=xjDjIWPwcPU",
+      "type": "3D",
+      "duration": 134,
+      "genres_movie": [
+        {
+          "id": 1,
+          "genre_name": "Hành động"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2018-02-16",
+      "created_at": "2023-09-30T08:00:00Z",
+      "updated_at": "2023-09-30T08:00:00Z",
+      "showtimes": [
+        {
+          "id": 15,
+          "screen_id": 1,
+          "start_time": "2023-10-26T18:30:00Z",
+          "end_time": "2023-10-26T20:45:00Z",
+          "created_at": "2023-10-19T08:00:00Z",
+          "updated_at": "2023-10-19T08:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "20",
+      "title": "Coco",
+      "description": "Cậu bé Miguel bước vào Vùng Đất Linh Hồn để tìm lại cội nguồn âm nhạc.",
+      "author": "Lee Unkrich",
+      "image": "https://example.com/posters/coco.jpg",
+      "trailer": "https://youtube.com/watch?v=Ga6RYejo6Hk",
+      "type": "2D",
+      "duration": 105,
+      "genres_movie": [
+        {
+          "id": 9,
+          "genre_name": "Hoạt hình"
+        },
+        {
+          "id": 8,
+          "genre_name": "Gia đình"
+        }
+      ],
+      "status": "SAPCHIEU",
+      "release_date": "2017-11-22",
+      "created_at": "2023-10-10T08:00:00Z",
+      "updated_at": "2023-10-10T08:00:00Z",
+      "showtimes": []
+    },
+    {
+      "title": "huybeo",
+      "description": "df",
+      "author": "",
+      "image": "",
+      "trailer": "",
+      "type": "2D",
+      "duration": 120,
+      "genres_movie": [
+        {
+          "id": 2,
+          "genre_name": "Kinh dị"
+        }
+      ],
+      "status": "SAPCHIEU",
+      "release_date": "2025-12-09",
+      "created_at": "",
+      "updated_at": "",
+      "id": "465ccf3f-7a7d-41ee-9c74-723b0da9d487",
+      "showtimes": []
+    }
+  ],
+  "genres": [
+    {
+      "genreName": "huy occhoooo",
+      "id": 12
+    },
+    {
+      "genreName": "huy yêu rikkei",
+      "id": 15
+    },
+    {
+      "genreName": "huy yêu tươi",
+      "id": 16
+    }
+  ],
+  "ticket_prices": [
+    {
+      "id": 1,
+      "type_seat": "STANDARD",
+      "type_movie": "2D",
+      "price": 80000,
+      "day_type": 0,
+      "start_time": "08:00:00",
+      "end_time": "17:00:00"
+    },
+    {
+      "id": 2,
+      "type_seat": "VIP",
+      "type_movie": "3D",
+      "price": 150000,
+      "day_type": 1,
+      "start_time": "17:00:00",
+      "end_time": "23:00:00"
+    }
+  ],
+  "news": [
         {
             "id": "news-1",
             "title": "Chương trình phim kỉ niệm 79 năm ngày giải phóng thủ đô",

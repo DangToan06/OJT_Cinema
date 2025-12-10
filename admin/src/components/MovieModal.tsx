@@ -1,28 +1,86 @@
 import { X } from "lucide-react";
-import { useState } from "react";
+import React, { useState } from "react";
+import type { Movie, MovieGenre } from "../util/type.util";
+import { addNewMovie } from "../api/movie.api";
+import { useAppDispatch } from "../hook/useRedux";
+import { v4 as uuidv4 } from "uuid";
 
 interface MovieModalProps {
-  movie: any;
+  movie: Movie;
   onClose: () => void;
 }
 
 export function MovieModal({ movie, onClose }: MovieModalProps) {
-  const [formData, setFormData] = useState({
+  const idRandom = uuidv4();
+  const dateNow = new Date();
+  const [formData, setFormData] = useState<Movie>({
     title: movie?.title || "",
-    genre: movie?.genre || "",
-    duration: movie?.duration || "",
-    releaseDate: movie?.releaseDate || "",
-    status: movie?.status || "Sắp chiếu",
-    rating: movie?.rating || "",
-    poster: movie?.poster || "",
-    trailer: movie?.trailer || "",
     description: movie?.description || "",
+    author: movie?.author || "",
+    image: movie?.image || "",
+    trailer: movie?.trailer || "",
+    type: movie?.type || "2D",
+    duration: movie?.duration || 120,
+    genres_movie: movie?.genres_movie || [],
+    status: movie?.status || "SAPCHIEU",
+    release_date: movie?.release_date || "",
+    created_at: movie?.created_at || dateNow.toISOString(),
+    updated_at: movie?.updated_at || dateNow.toISOString(),
+    id: movie?.id || idRandom,
+    showtimes: movie?.showtimes || [],
   });
+
+  const dispatch = useAppDispatch();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Saving movie:", formData);
+    if (
+      !formData.title ||
+      !formData.duration ||
+      !formData.release_date ||
+      !formData.description ||
+      !formData.genres_movie
+    ) {
+      alert("Vui lòng điền đầy đủ các trường bắt buộc.");
+      return;
+    } else {
+      dispatch(addNewMovie(formData));
+    }
+
     onClose();
+  };
+
+  const AVAILABLE_GENRES = [
+    {
+      id: 1,
+      genre_name: "Hành động",
+    },
+    {
+      id: 2,
+      genre_name: "Kinh dị",
+    },
+    {
+      id: 3,
+      genre_name: "Tình cảm",
+    },
+  ];
+
+  const [openGenreDropdown, setOpenGenreDropdown] = useState(false);
+
+  const toggleGenre = (genre: MovieGenre) => {
+    let newGenres;
+    if (formData.genres_movie.includes(genre)) {
+      newGenres = formData.genres_movie.filter((item) => item !== genre);
+    } else {
+      newGenres = [...formData.genres_movie, genre];
+    }
+    setFormData({ ...formData, genres_movie: newGenres });
+  };
+
+  const removeGenre = (e: React.MouseEvent, genre: MovieGenre) => {
+    e.stopPropagation();
+    const newGenres = formData.genres_movie.filter((item) => item !== genre);
+    setFormData({ ...formData, genres_movie: newGenres });
   };
 
   return (
@@ -56,18 +114,81 @@ export function MovieModal({ movie, onClose }: MovieModalProps) {
               />
             </div>
 
-            <div>
+            <div className="mb-4">
               <label className="block text-gray-700 mb-2">Thể loại *</label>
-              <input
-                type="text"
-                required
-                value={formData.genre}
-                onChange={(e) =>
-                  setFormData({ ...formData, genre: e.target.value })
-                }
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
-                placeholder="VD: Hành động, Khoa học viễn tưởng"
-              />
+
+              <div className="relative">
+                <div
+                  onClick={() => setOpenGenreDropdown(!openGenreDropdown)}
+                  className="w-full min-h-[42px] px-4 py-2 border border-gray-300 rounded-lg cursor-pointer flex flex-wrap gap-2 items-center bg-white focus-within:ring-2 focus-within:ring-red-500 focus-within:border-transparent"
+                >
+                  {formData.genres_movie.length === 0 ? (
+                    <span className="text-gray-400">Chọn thể loại...</span>
+                  ) : (
+                    formData.genres_movie.map((genre, index) => (
+                      <span
+                        key={index}
+                        className="bg-red-100 text-red-700 px-2 py-1 rounded-md text-sm font-medium flex items-center gap-1"
+                      >
+                        {genre.genre_name}
+                        <button
+                          type="button"
+                          onClick={(e) => removeGenre(e, genre)}
+                          className="hover:text-red-900 focus:outline-none"
+                        >
+                          &times;
+                        </button>
+                      </span>
+                    ))
+                  )}
+
+                  <div className="ml-auto text-gray-400">
+                    <svg
+                      className={`w-4 h-4 transition-transform ${
+                        openGenreDropdown ? "rotate-180" : ""
+                      }`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M19 9l-7 7-7-7"
+                      ></path>
+                    </svg>
+                  </div>
+                </div>
+
+                {openGenreDropdown && (
+                  <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                    {AVAILABLE_GENRES.map((genre) => (
+                      <div
+                        key={genre.id}
+                        onClick={() => toggleGenre(genre)}
+                        className={`px-4 py-2 cursor-pointer flex justify-between items-center hover:bg-gray-100 ${
+                          formData.genres_movie.includes(genre)
+                            ? "bg-red-50 text-red-700 font-medium"
+                            : "text-gray-700"
+                        }`}
+                      >
+                        {genre.genre_name}
+                        {formData.genres_movie.includes(genre) && (
+                          <span className="text-red-500">✓</span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {openGenreDropdown && (
+                <div
+                  className="fixed inset-0 z-0"
+                  onClick={() => setOpenGenreDropdown(false)}
+                ></div>
+              )}
             </div>
 
             <div>
@@ -79,7 +200,7 @@ export function MovieModal({ movie, onClose }: MovieModalProps) {
                 required
                 value={formData.duration}
                 onChange={(e) =>
-                  setFormData({ ...formData, duration: e.target.value })
+                  setFormData({ ...formData, duration: Number(e.target.value) })
                 }
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                 placeholder="120"
@@ -93,9 +214,9 @@ export function MovieModal({ movie, onClose }: MovieModalProps) {
               <input
                 type="date"
                 required
-                value={formData.releaseDate}
+                value={formData.release_date}
                 onChange={(e) =>
-                  setFormData({ ...formData, releaseDate: e.target.value })
+                  setFormData({ ...formData, release_date: e.target.value })
                 }
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
               />
@@ -116,30 +237,13 @@ export function MovieModal({ movie, onClose }: MovieModalProps) {
               </select>
             </div>
 
-            <div>
-              <label className="block text-gray-700 mb-2">Đánh giá *</label>
-              <input
-                type="number"
-                step="0.1"
-                min="0"
-                max="10"
-                required
-                value={formData.rating}
-                onChange={(e) =>
-                  setFormData({ ...formData, rating: e.target.value })
-                }
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
-                placeholder="8.5"
-              />
-            </div>
-
             <div className="md:col-span-2">
               <label className="block text-gray-700 mb-2">URL Poster</label>
               <input
                 type="url"
-                value={formData.poster}
+                value={formData.image}
                 onChange={(e) =>
-                  setFormData({ ...formData, poster: e.target.value })
+                  setFormData({ ...formData, image: e.target.value })
                 }
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                 placeholder="https://example.com/poster.jpg"

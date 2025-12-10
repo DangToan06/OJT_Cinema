@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllMovies } from "../../api/movie.api";
+import { addNewMovie, getAllMovies } from "../../api/movie.api";
+import type { InitialStateType, Movie } from "../../util/type.util";
 
-const initialState = {
+const initialState: InitialStateType<Movie> = {
   status: "idle",
   data: [],
   error: null,
@@ -14,15 +15,18 @@ const movieSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getAllMovies.pending, (state) => {
-        state.status = "loading";
+        state.status = "pending";
       })
       .addCase(getAllMovies.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.status = "success";
         state.data = action.payload;
       })
       .addCase(getAllMovies.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(addNewMovie.fulfilled, (state, action) => {
+        state.data.push(action.payload);
       });
   },
 });
