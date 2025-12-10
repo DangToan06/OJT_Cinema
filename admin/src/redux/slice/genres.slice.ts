@@ -1,4 +1,4 @@
-// src/redux/slice/genres.slice.ts
+
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   fetchGenres,
