@@ -39,7 +39,7 @@ export default function Layout({ children }: LayoutProps) {
         },
         {
             name: 'Khuyến mãi',
-            link: "#",
+            link: "promotions",
             class: "khuyenmai",
         },
         {

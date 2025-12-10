@@ -113,7 +113,7 @@ export const routers = createBrowserRouter([
     ),
   },
   {
-    // path: "pricing",
+    path: "pricing",
     element: (
       <Layout>
         <PricingManagement></PricingManagement>
