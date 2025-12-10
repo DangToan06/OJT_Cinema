@@ -1,87 +1,47 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Plus, Edit, Trash2, Search, Filter } from "lucide-react";
 import { MovieModal } from "../components/MovieModal";
+import type { Movie } from "../util/type.util";
+import { useAppDispatch, useAppSelector } from "../hook/useRedux";
+import { getAllMovies } from "../api/movie.api";
 
 export function MoviesManagement() {
   const [showModal, setShowModal] = useState(false);
-  const [editingMovie, setEditingMovie] = useState<any>(null);
+  const [editingMovie, setEditingMovie] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
+  const { data: movies, status: movieStatus } = useAppSelector(
+    (state) => state.movie
+  );
 
-  const movies = [
-    {
-      id: 1,
-      title: "Avengers: Endgame",
-      genre: "Hành động, Khoa học viễn tưởng",
-      duration: 181,
-      releaseDate: "2025-04-26",
-      status: "Đang chiếu",
-      rating: 8.4,
-      poster:
-        "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=400&h=600&fit=crop",
-      description:
-        "Sau sự kiện tàn khốc của Infinity War, các Avengers tập hợp lần cuối để đảo ngược hành động của Thanos.",
-    },
-    {
-      id: 2,
-      title: "Spider-Man: No Way Home",
-      genre: "Hành động, Phiêu lưu",
-      duration: 148,
-      releaseDate: "2025-12-17",
-      status: "Đang chiếu",
-      rating: 8.7,
-      poster:
-        "https://images.unsplash.com/photo-1635805737707-575885ab0820?w=400&h=600&fit=crop",
-      description:
-        "Peter Parker tìm kiếm sự giúp đỡ của Doctor Strange khi danh tính của anh bị tiết lộ.",
-    },
-    {
-      id: 3,
-      title: "The Batman",
-      genre: "Hành động, Tội phạm, Bí ẩn",
-      duration: 176,
-      releaseDate: "2025-03-04",
-      status: "Sắp chiếu",
-      rating: 7.9,
-      poster:
-        "https://images.unsplash.com/photo-1509347528160-9a9e33742cdb?w=400&h=600&fit=crop",
-      description:
-        "Batman khám phá tham nhũng ở Gotham City và liên hệ của nó với gia đình mình.",
-    },
-    {
-      id: 4,
-      title: "Avatar: The Way of Water",
-      genre: "Khoa học viễn tưởng, Phiêu lưu",
-      duration: 192,
-      releaseDate: "2025-12-16",
-      status: "Ngừng chiếu",
-      rating: 7.8,
-      poster:
-        "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?w=400&h=600&fit=crop",
-      description:
-        "Jake Sully và gia đình của anh phải đối mặt với những thách thức mới trên hành tinh Pandora.",
-    },
-  ];
+  const dispatch = useAppDispatch();
 
-  const handleEdit = (movie: any) => {
-    setEditingMovie(movie);
+  useEffect(() => {
+    if (movieStatus === "idle") {
+      dispatch(getAllMovies());
+    }
+  }, [dispatch, movieStatus]);
+
+  const handleEdit = (movie: Movie) => {
+    console.log(movie);
+
+    setEditingMovie(false);
     setShowModal(true);
   };
 
   const handleDelete = (id: number) => {
     if (confirm("Bạn có chắc muốn xóa phim này?")) {
-      // Handle delete
       console.log("Delete movie:", id);
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "Đang chiếu":
+      case "DANGCHIEU":
         return "bg-green-100 text-green-700";
-      case "Sắp chiếu":
+      case "SAPCHIEU":
         return "bg-blue-100 text-blue-700";
-      case "Ngừng chiếu":
+      case "NGƯNGCHIEU":
         return "bg-gray-100 text-gray-700";
       default:
         return "bg-gray-100 text-gray-700";
@@ -101,7 +61,7 @@ export function MoviesManagement() {
         </div>
         <button
           onClick={() => {
-            setEditingMovie(null);
+            setEditingMovie(false);
             setShowModal(true);
           }}
           className="flex items-center gap-2 bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors"
@@ -141,14 +101,14 @@ export function MoviesManagement() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-6">
-          {movies.map((movie) => (
+          {movies.map((movie: Movie) => (
             <div
               key={movie.id}
               className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
             >
               <div className="relative aspect-[2/3] overflow-hidden">
                 <img
-                  src={movie.poster}
+                  src={`https://picsum.photos/id/${movie.id}/300`}
                   alt={movie.title}
                   className="w-full h-full object-cover"
                 />
@@ -158,7 +118,11 @@ export function MoviesManagement() {
                       movie.status
                     )}`}
                   >
-                    {movie.status}
+                    {movie.status === "DANGCHIEU"
+                      ? "Đang chiếu"
+                      : movie.status === "SAPCHIEU"
+                      ? "Sắp chiếu"
+                      : "Ngừng chiếu"}
                   </span>
                 </div>
               </div>
@@ -167,13 +131,13 @@ export function MoviesManagement() {
                   {movie.title}
                 </h3>
                 <p className="text-sm text-gray-600 mb-2 line-clamp-1">
-                  {movie.genre}
+                  {movie.genres_movie
+                    .map((genre) => genre.genre_name)
+                    .join(", ")}
                 </p>
                 <div className="flex items-center justify-between text-sm text-gray-600 mb-3">
                   <span>{movie.duration} phút</span>
-                  <span className="flex items-center gap-1">
-                    ⭐ {movie.rating}
-                  </span>
+                  <span className="flex items-center gap-1">⭐ 7.6</span>
                 </div>
                 <div className="flex gap-2">
                   <button
@@ -202,7 +166,7 @@ export function MoviesManagement() {
           movie={editingMovie}
           onClose={() => {
             setShowModal(false);
-            setEditingMovie(null);
+            setEditingMovie(false);
           }}
         />
       )}
