@@ -120,14 +120,14 @@ export const routers = createBrowserRouter([
       </Layout>
     ),
   },
-  // {
-  //   path: "pricing",
-  //   element: (
-  //     <Layout>
-  //       <PricingManagement></PricingManagement>
-  //     </Layout>
-  //   ),
-  // },
+  {
+    path: "pricing",
+    element: (
+      <Layout>
+        <PricingManagement></PricingManagement>
+      </Layout>
+    ),
+  },
   {
     path: "news",
     element: (

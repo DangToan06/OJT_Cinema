@@ -4,3 +4,5 @@ export interface InitialStateType<T> {
   error: null | undefined | string;
 
 }
+
+interface Movie
