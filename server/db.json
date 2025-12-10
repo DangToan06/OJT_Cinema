@@ -132,6 +132,13 @@
       "trailer": "https://youtube.com/watch?v=TcMBFSGVi1c",
       "type": "3D",
       "duration": 181,
+      "genres_movie": [
+        {
+          "id": 1,
+          "genre_name": "Hành động"
+        }
+      ],
+      "status":"SAPCHIEU",
       "release_date": "2019-04-26",
       "created_at": "2023-06-01T08:00:00Z",
       "updated_at": "2023-06-01T08:00:00Z",
@@ -155,6 +162,13 @@
       "trailer": "https://youtube.com/watch?v=JQ8PF7X6qXw",
       "type": "2D",
       "duration": 195,
+      "genres_movie": [
+        {
+          "id": 3,
+          "genre_name": "Tình cảm"
+        }
+      ],
+      "status":"DANGCHIEU",
       "release_date": "1997-12-19",
       "created_at": "2023-06-02T09:00:00Z",
       "updated_at": "2023-06-02T09:00:00Z",
