@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 export default function ChooseTicket() {
   const [seats, setSeats] = useState<string[]>([]);
   const [stopRender, setStopRender] = useState(true);
+  const [showing, setShowing] = useState(false);
   const [minutes, setMinutes] = useState(10);
   const [seconds, setSeconds] = useState(0);
   const [hour, setHour] = useState("");
@@ -26,28 +27,28 @@ export default function ChooseTicket() {
   ]);
   axios
     .get(
-      `http://localhost:8080/choosingItem/?id=${
-        window.location.href.split("?")[1]
-      }`
+      `http://localhost:8080/movie/?id=${window.location.href.split("?")[1]}`
     )
     .then((res) => setData(res.data));
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setSeconds((prevSec) => {
-        if (prevSec === 0) {
-          setMinutes((prev) => {
-            if (prev === 0) {
-              clearTimeout(timer);
-            }
-            return minutes - 1;
-          });
-          return 59;
-        }
-        return prevSec - 1;
-      });
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, [minutes, seconds]);
+    if (showing) {
+      const timer = setTimeout(() => {
+        setSeconds((prevSec) => {
+          if (prevSec === 0) {
+            setMinutes((prev) => {
+              if (prev === 0) {
+                clearTimeout(timer);
+              }
+              return minutes - 1;
+            });
+            return 59;
+          }
+          return prevSec - 1;
+        });
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [minutes, seconds, showing]);
   const renderSeats = () => {
     let temp = "";
     const rows = ["A", "B", "C", "D", "E", "F", "G", "H", "K"];
@@ -59,15 +60,15 @@ export default function ChooseTicket() {
         result.push(temp);
       });
     });
-    setSeats(result)
+    setSeats(result);
   };
+
   useEffect(() => {
     if (stopRender) {
       renderSeats();
     }
     setStopRender(false);
   }, []);
-
   return (
     <div className="bg-black text-white font-sans">
       {/* BACKGROUND WRAPPER */}
@@ -136,7 +137,7 @@ export default function ChooseTicket() {
         </div>
         <div className="text-sm">{data[0].release.split("/")[2]}</div>
       </div>
-      <main className="px-8 bg-gray-950 opacity-80 flex flex-col justify-center items-center gap-5">
+      <main className="px-8 bg-gray-900 opacity-80 flex flex-col justify-center items-center gap-5">
         {/* DATE + SHOWTIME */}
         <p className="text-lg text-orange-400 text-center">
           <span className="font-semibold text-[15px]">
@@ -152,60 +153,67 @@ export default function ChooseTicket() {
               value={d}
               onClick={(e) => {
                 setHour(e.currentTarget.value);
+                setShowing(true);
               }}
             >
               {d}
             </button>
           ))}
         </div>
-        <div className="flex justify-between w-full px-[150px]">
-          <div>Giờ chiếu: {hour}</div>
-          <div>
-            Thời gian chọn ghế: {minutes}:
-            {seconds == 0
-              ? seconds + "0"
-              : seconds < 10
-              ? "0" + seconds
-              : seconds}
+        <div className={`${showing ? "" : "hidden"}`}>
+          <div className="flex justify-between w-full mb-5">
+            <div>Giờ chiếu: {hour}</div>
+            <div className="border-red-600 rounded-md p-1 border-2">
+              Thời gian chọn ghế: {minutes}:
+              {seconds == 0
+                ? seconds + "0"
+                : seconds < 10
+                ? "0" + seconds
+                : seconds}
+            </div>
           </div>
-        </div>
-        {/* SEAT SECTION */}
-        <div id="seat-section" className="pb-10">
-          <div className="flex justify-center mb-4">
-            <img
-              src={screen}
-              width="888px"
-              className="max-h-32 rounded shadow-lg "
-            />
-          </div>
-
-          <div className="mb-10 flex flex-col justify-center items-center">
-            <h2 className="text-xl font-bold text-center mb-4">
-              Phòng chiếu số 2
-            </h2>
-
-            <div
-            id="seat"
-              className={`flex justify-between items-center gap-2 mb-4 w-[${40 * 15 + 8* 14}px] flex-wrap`}
-            >
-              {seats.map((seat) => (
-                <button className={`size-10 bg-[#252A31] rounded-md text-center`}>{seat}</button>
-              ))}
+          {/* SEAT SECTION */}
+          <div id="seat-section" className="pb-10">
+            <div className="flex justify-center mb-4">
+              <img
+                src={screen}
+                width="888px"
+                className="max-h-32 rounded shadow-lg "
+              />
             </div>
 
-            <div className="flex justify-center gap-4 text-xs mb-4">
-              <div className="seat booked"></div> Đã đặt
-              <div className="seat selected"></div> Ghế bạn chọn
-              <div className="seat available"></div> Ghế thường
-              <div className="seat vip"></div> Ghế VIP
-              <div className="seat double"></div> Ghế đôi
-            </div>
+            <div className="mb-10 flex flex-col justify-center items-center">
+              <h2 className="text-xl font-bold text-center mb-4">
+                Phòng chiếu số 2
+              </h2>
 
+              <div
+                id="seat"
+                className={`flex justify-between items-center gap-2 mb-4 w-[${
+                  40 * 15 + 8 * 14
+                }px] flex-wrap`}
+              >
+                {seats.map((seat) => (
+                  <button
+                    className={`size-10 bg-[#252A31] rounded-md text-center`}
+                  >
+                    {seat}
+                  </button>
+                ))}
+              </div>
+
+              <div className="flex justify-center gap-6 text-xs mb-4 items-center text-[16px]">
+                <div className="bg-gray-700 size-10 rounded-md text-gray-500 flex justify-center items-center text-[20px]">x</div> Đã đặt
+                <div className="size-10 rounded-md bg-[#007AFF]"></div> Ghế bạn chọn
+                <div className="size-10 rounded-md bg-gray-700"></div> Ghế thường
+                <div className="bg-[#F97316] size-10 rounded-md"></div> Ghế VIP
+                <div className="bg-[#DC2626] size-10 rounded-md"></div> Ghế đôi
+              </div>
             </div>
             <div className="text-sm mb-4">
               <p>
                 Ghế đã chọn:
-                <span id="selected-seats" className="text-green-400 ml-1">
+                <span className="text-green-400 ml-1">
                   Chưa có ghế nào
                 </span>
               </p>
@@ -234,6 +242,7 @@ export default function ChooseTicket() {
               >
                 Bạn cần đăng nhập tài khoản để thanh toán.
               </div>
+            </div>
           </div>
         </div>
       </main>

@@ -25,7 +25,7 @@ export default function MovieCalendar() {
   const [movies, setMovies] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:8080/choosingItem")
+      .get("http://localhost:8080/movie")
       .then((res) => setMovies(res.data));
   }, [movies]);
 
