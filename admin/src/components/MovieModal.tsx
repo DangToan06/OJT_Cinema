@@ -1,9 +1,13 @@
 import { X } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import type { Movie, MovieGenre } from "../util/type.util";
-import { addNewMovie } from "../api/movie.api";
+import { addNewMovie, updateMovie } from "../api/movie.api";
 import { useAppDispatch } from "../hook/useRedux";
 import { v4 as uuidv4 } from "uuid";
+import { toast } from "react-toastify";
+import type { RootState } from "../redux/store/store";
+import { fetchGenres } from "../api/genres.api";
+import { useSelector } from "react-redux";
 
 interface MovieModalProps {
   movie: Movie | undefined;
@@ -32,38 +36,43 @@ export function MovieModal({ movie, onClose }: MovieModalProps) {
 
   const dispatch = useAppDispatch();
 
+  const { data: genresMovie } = useSelector((state: RootState) => state.genres);
+
+  useEffect(() => {
+    dispatch(fetchGenres());
+  }, [dispatch]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (
-      !formData.title ||
-      !formData.duration ||
-      !formData.release_date ||
-      !formData.description ||
-      !formData.genres_movie
-    ) {
-      alert("Vui lòng điền đầy đủ các trường bắt buộc.");
+    console.log(formData.title);
+
+    if (formData.title === "") {
+      toast.error("Vui lòng điền các trường bắt buộc!", {
+        position: "top-right",
+        autoClose: 3000,
+        theme: "colored",
+      });
       return;
     } else {
-      dispatch(addNewMovie(formData));
+      if (!movie) {
+        dispatch(addNewMovie(formData));
+        toast.success("Thêm mới thành công!", {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "colored",
+        });
+      } else {
+        toast.success("Cập nhật thành công!", {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "colored",
+        });
+        dispatch(updateMovie({ id: formData.id, movieData: formData }));
+      }
     }
 
     onClose();
   };
-
-  const AVAILABLE_GENRES = [
-    {
-      id: 1,
-      genre_name: "Hành động",
-    },
-    {
-      id: 2,
-      genre_name: "Kinh dị",
-    },
-    {
-      id: 3,
-      genre_name: "Tình cảm",
-    },
-  ];
 
   const [openGenreDropdown, setOpenGenreDropdown] = useState(false);
 
@@ -104,7 +113,6 @@ export function MovieModal({ movie, onClose }: MovieModalProps) {
               <label className="block text-gray-700 mb-2">Tên phim *</label>
               <input
                 type="text"
-                required
                 value={formData.title}
                 onChange={(e) =>
                   setFormData({ ...formData, title: e.target.value })
@@ -130,7 +138,7 @@ export function MovieModal({ movie, onClose }: MovieModalProps) {
                         key={index}
                         className="bg-red-100 text-red-700 px-2 py-1 rounded-md text-sm font-medium flex items-center gap-1"
                       >
-                        {genre.genre_name}
+                        {genre.genreName}
                         <button
                           type="button"
                           onClick={(e) => removeGenre(e, genre)}
@@ -163,7 +171,7 @@ export function MovieModal({ movie, onClose }: MovieModalProps) {
 
                 {openGenreDropdown && (
                   <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto">
-                    {AVAILABLE_GENRES.map((genre) => (
+                    {genresMovie.map((genre) => (
                       <div
                         key={genre.id}
                         onClick={() => toggleGenre(genre)}
@@ -173,7 +181,7 @@ export function MovieModal({ movie, onClose }: MovieModalProps) {
                             : "text-gray-700"
                         }`}
                       >
-                        {genre.genre_name}
+                        {genre.genreName}
                         {formData.genres_movie.includes(genre) && (
                           <span className="text-red-500">✓</span>
                         )}
@@ -197,7 +205,6 @@ export function MovieModal({ movie, onClose }: MovieModalProps) {
               </label>
               <input
                 type="number"
-                required
                 value={formData.duration}
                 onChange={(e) =>
                   setFormData({ ...formData, duration: Number(e.target.value) })
@@ -213,7 +220,6 @@ export function MovieModal({ movie, onClose }: MovieModalProps) {
               </label>
               <input
                 type="date"
-                required
                 value={formData.release_date}
                 onChange={(e) =>
                   setFormData({ ...formData, release_date: e.target.value })
@@ -266,7 +272,6 @@ export function MovieModal({ movie, onClose }: MovieModalProps) {
             <div className="md:col-span-2">
               <label className="block text-gray-700 mb-2">Mô tả *</label>
               <textarea
-                required
                 rows={4}
                 value={formData.description}
                 onChange={(e) =>
