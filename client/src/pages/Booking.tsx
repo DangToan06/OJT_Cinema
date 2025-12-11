@@ -14,6 +14,8 @@ export type Showtime = {
 export type Seat = {
   seat: string;
   booked: boolean;
+  price: number;
+  type: string;
 };
 export type Movie = {
   id: string;
@@ -43,7 +45,7 @@ export default function ChooseTicket() {
   const [minutes, setMinutes] = useState(10);
   const [seconds, setSeconds] = useState(0);
   const [hour, setHour] = useState("");
-  const [isLogin, setIsLogin] = useState(false);
+  const [choosingSeats, setChoosingSeats] = useState<Seat[]>([]);
 
   const [data, setData] = useState<Movie | null>(null);
   useEffect(() => {
@@ -73,6 +75,17 @@ export default function ChooseTicket() {
       };
     });
   };
+  useEffect(() => {
+    setChoosingSeats([]);
+    data?.showtimes.map((p) => {
+      p.seats.map((s) => {
+        if (s.booked) {
+          const seatBeenChoosing: Seat = { seat: s.seat, booked: s.booked, price: s.price, type: s.type };
+          setChoosingSeats((prev) => [...prev, seatBeenChoosing]);
+        }
+      });
+    });
+  }, [data?.showtimes]);
   useEffect(() => {
     if (showing) {
       const timer = setTimeout(() => {
@@ -234,8 +247,8 @@ export default function ChooseTicket() {
                         ? "bg-blue-600"
                         : "hover:bg-green-400 transition-all ease-linear"
                     } `}
-                    onClick={() => {hancleClick(seats.seat);
-                      data?.showtimes[s]
+                    onClick={() => {
+                      hancleClick(seats.seat);
                     }}
                   >
                     {seats.seat}
@@ -259,14 +272,17 @@ export default function ChooseTicket() {
             <div className="text-sm mb-4">
               <p>
                 Ghế đã chọn:
-                <span className="text-green-400 ml-1">Chưa có ghế nào</span>
+                <span className="text-green-400 ml-1">
+                  {choosingSeats.map((s, id) =>
+                    id + 1 === choosingSeats.length ? s.seat : s.seat + ","
+                  )}
+                </span>
               </p>
               <p>
                 Tổng tiền:
                 <span id="total-price" className="text-yellow-400 ml-1">
-                  0
-                </span>{" "}
-                đ
+                  {choosingSeats.reduce((sum, curr) => sum + curr.price, 0).toLocaleString('vi', {style : 'currency', currency : 'VND'})}
+                </span>
               </p>
             </div>
 
@@ -278,12 +294,7 @@ export default function ChooseTicket() {
                 Thanh toán
               </button>
 
-              <div
-                id="login-warning"
-                className={`text-red-600 text-sm mt-2 ${
-                  isLogin ? "hidden" : "block"
-                }`}
-              >
+              <div id="login-warning" className={`text-red-600 text-sm mt-2`}>
                 Bạn cần đăng nhập tài khoản để thanh toán.
               </div>
             </div>
