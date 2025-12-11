@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hook/useRedux";
+
 import MovieCard from "./MovieCard";
 import { getAllMovies } from "../../api/movie.api";
 
