@@ -17,10 +17,15 @@ import { UsersManagement } from "../pages/UsersManagement";
 import { PaymentsManagement } from "../pages/PaymentsManagement";
 import { ReportsManagement } from "../pages/ReportsManagement";
 import { TheatersManagement } from "../pages/TheatersManagement";
+import AdminLogin from "../pages/AdminLogin";
 
 export const routers = createBrowserRouter([
   {
     path: "/",
+    element: <AdminLogin />,
+  },
+  {
+    path: "dashboard",
     element: (
       <Layout>
         <DashboardOverview></DashboardOverview>

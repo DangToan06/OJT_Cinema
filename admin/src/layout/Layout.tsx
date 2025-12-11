@@ -24,7 +24,7 @@ export default function Layout({ children }: LayoutProps) {
   const navigate = useNavigate();
   const currentPath = location.pathname.replace("/", "");
   const menuItems = [
-    { id: "", label: "Tổng quan", icon: LayoutDashboard },
+    { id: "dashboard", label: "Tổng quan", icon: LayoutDashboard },
     { id: "movies", label: "Quản lý phim", icon: Film },
     { id: "genres", label: "Thể loại phim", icon: Tags },
     { id: "theaters", label: "Rạp chiếu", icon: Building2 },

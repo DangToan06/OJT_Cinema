@@ -1,7 +1,5 @@
-
-
 interface MovieCardProps {
-  id: number;
+  id: string;
   title: string;
   image: string;
   type: string;
