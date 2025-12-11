@@ -43,272 +43,762 @@
   ],
   "movies": [
     {
-      "id": "mov-endgame",
+      "id": "1",
       "title": "Avengers: Endgame",
-      "description": "Trận chiến cuối cùng chống Thanos.",
-      "director": "Anthony Russo",
-      "cast": [
-        "Chris Evans",
-        "Robert Downey Jr"
-      ],
-      "posterUrl": "/images/endgame.jpg",
-      "trailerUrl": "https://youtube.com/a",
+      "description": "Biệt đội siêu anh hùng tái hợp để chống lại Thanos.",
+      "author": "Anthony Russo, Joe Russo",
+      "image": "https://example.com/posters/avengers.jpg",
+      "trailer": "https://youtube.com/watch?v=TcMBFSGVi1c",
       "type": "3D",
-      "duration": 180,
-      "releaseDate": "2025-02-15",
-      "status": "NOW_SHOWING",
-      "genres": [
-        "gen-a1"
+      "duration": 181,
+      "genres_movie": [
+        {
+          "id": 1,
+          "genre_name": "Hành động"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2019-04-26",
+      "created_at": "2023-06-01T08:00:00Z",
+      "updated_at": "2023-06-01T08:00:00Z",
+      "showtimes": [
+        {
+          "id": 1,
+          "screen_id": 1,
+          "start_time": "2023-10-20T19:00:00Z",
+          "end_time": "2023-10-20T22:00:00Z",
+          "created_at": "2023-10-10T10:00:00Z",
+          "updated_at": "2023-10-10T10:00:00Z"
+        }
       ]
     },
     {
-      "id": "mov-connhot",
-      "title": "Con Nhót Mót Chồng",
-      "description": "Phim Việt Nam tình cảm hài.",
-      "director": "Thạch Thảo",
-      "cast": [
-        "Thu Trang"
+      "id": "2",
+      "title": "Titanic",
+      "description": "Câu chuyện tình yêu lãng mạn trên con tàu định mệnh.",
+      "author": "James Cameron",
+      "image": "https://example.com/posters/titanic.jpg",
+      "trailer": "https://youtube.com/watch?v=JQ8PF7X6qXw",
+      "type": "2D",
+      "duration": 195,
+      "genres_movie": [
+        {
+          "id": 3,
+          "genre_name": "Tình cảm"
+        }
       ],
-      "posterUrl": "/images/connhot.jpg",
+      "status": "DANGCHIEU",
+      "release_date": "1997-12-19",
+      "created_at": "2023-06-02T09:00:00Z",
+      "updated_at": "2023-06-02T09:00:00Z",
+      "showtimes": [
+        {
+          "id": 2,
+          "screen_id": 2,
+          "start_time": "2023-10-20T20:00:00Z",
+          "end_time": "2023-10-20T23:15:00Z",
+          "created_at": "2023-10-10T10:00:00Z",
+          "updated_at": "2023-10-10T10:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "title": "Avatar: The Way of Water",
+      "description": "Jake Sully cùng gia đình khám phá vùng biển của Pandora.",
+      "author": "James Cameron",
+      "image": "https://example.com/posters/avatar2.jpg",
+      "trailer": "https://youtube.com/watch?v=d9MyqFCDZwM",
+      "type": "3D",
+      "duration": 192,
+      "genres_movie": [
+        {
+          "id": 4,
+          "genre_name": "Khoa học viễn tưởng"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2022-12-16",
+      "created_at": "2023-06-03T10:00:00Z",
+      "updated_at": "2023-06-03T10:00:00Z",
+      "showtimes": [
+        {
+          "id": 3,
+          "screen_id": 1,
+          "start_time": "2023-10-21T18:00:00Z",
+          "end_time": "2023-10-21T21:15:00Z",
+          "created_at": "2023-10-11T10:00:00Z",
+          "updated_at": "2023-10-11T10:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "title": "Oppenheimer",
+      "description": "Câu chuyện về cha đẻ của bom nguyên tử J. Robert Oppenheimer.",
+      "author": "Christopher Nolan",
+      "image": "https://example.com/posters/oppenheimer.jpg",
+      "trailer": "https://youtube.com/watch?v=uYPbbksJxIg",
+      "type": "2D",
+      "duration": 180,
+      "genres_movie": [
+        {
+          "id": 5,
+          "genre_name": "Lịch sử"
+        },
+        {
+          "id": 6,
+          "genre_name": "Tâm lý"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2023-07-21",
+      "created_at": "2023-07-01T08:00:00Z",
+      "updated_at": "2023-07-01T08:00:00Z",
+      "showtimes": [
+        {
+          "id": 4,
+          "screen_id": 3,
+          "start_time": "2023-10-21T19:30:00Z",
+          "end_time": "2023-10-21T22:30:00Z",
+          "created_at": "2023-10-11T11:00:00Z",
+          "updated_at": "2023-10-11T11:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "title": "Barbie",
+      "description": "Barbie và Ken có cơ hội khám phá thế giới thực.",
+      "author": "Greta Gerwig",
+      "image": "https://example.com/posters/barbie.jpg",
+      "trailer": "https://youtube.com/watch?v=pBk4NYhWNMM",
+      "type": "2D",
+      "duration": 114,
+      "genres_movie": [
+        {
+          "id": 7,
+          "genre_name": "Hài hước"
+        },
+        {
+          "id": 8,
+          "genre_name": "Gia đình"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2023-07-21",
+      "created_at": "2023-07-02T09:00:00Z",
+      "updated_at": "2023-07-02T09:00:00Z",
+      "showtimes": [
+        {
+          "id": 5,
+          "screen_id": 2,
+          "start_time": "2023-10-21T14:00:00Z",
+          "end_time": "2023-10-21T16:00:00Z",
+          "created_at": "2023-10-12T08:00:00Z",
+          "updated_at": "2023-10-12T08:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "title": "The Nun II",
+      "description": "Sơ Irene một lần nữa đối mặt với Valak - ác quỷ ma sơ.",
+      "author": "Michael Chaves",
+      "image": "https://example.com/posters/thenun2.jpg",
+      "trailer": "https://youtube.com/watch?v=QF-oyCwaArU",
+      "type": "2D",
+      "duration": 110,
+      "genres_movie": [
+        {
+          "id": 2,
+          "genre_name": "Kinh dị"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2023-09-08",
+      "created_at": "2023-08-20T08:00:00Z",
+      "updated_at": "2023-08-20T08:00:00Z",
+      "showtimes": [
+        {
+          "id": 6,
+          "screen_id": 4,
+          "start_time": "2023-10-21T23:00:00Z",
+          "end_time": "2023-10-22T01:00:00Z",
+          "created_at": "2023-10-13T10:00:00Z",
+          "updated_at": "2023-10-13T10:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "title": "Dune: Part Two",
+      "description": "Paul Atreides tập hợp đội quân Fremen để trả thù cho gia tộc.",
+      "author": "Denis Villeneuve",
+      "image": "https://example.com/posters/dune2.jpg",
+      "trailer": "https://youtube.com/watch?v=Way9Dexny3w",
+      "type": "3D",
+      "duration": 166,
+      "genres_movie": [
+        {
+          "id": 4,
+          "genre_name": "Khoa học viễn tưởng"
+        },
+        {
+          "id": 1,
+          "genre_name": "Hành động"
+        }
+      ],
+      "status": "SAPCHIEU",
+      "release_date": "2024-03-01",
+      "created_at": "2023-09-01T10:00:00Z",
+      "updated_at": "2023-09-01T10:00:00Z",
+      "showtimes": []
+    },
+    {
+      "id": "8",
+      "title": "Spider-Man: Across the Spider-Verse",
+      "description": "Miles Morales du hành qua đa vũ trụ và gặp gỡ các Người Nhện khác.",
+      "author": "Joaquim Dos Santos",
+      "image": "https://example.com/posters/spiderman.jpg",
+      "trailer": "https://youtube.com/watch?v=cqGjhVJWtEg",
+      "type": "2D",
+      "duration": 140,
+      "genres_movie": [
+        {
+          "id": 9,
+          "genre_name": "Hoạt hình"
+        },
+        {
+          "id": 1,
+          "genre_name": "Hành động"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2023-06-02",
+      "created_at": "2023-05-15T09:00:00Z",
+      "updated_at": "2023-05-15T09:00:00Z",
+      "showtimes": [
+        {
+          "id": 7,
+          "screen_id": 2,
+          "start_time": "2023-10-22T10:00:00Z",
+          "end_time": "2023-10-22T12:30:00Z",
+          "created_at": "2023-10-14T08:00:00Z",
+          "updated_at": "2023-10-14T08:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "9",
+      "title": "Mission: Impossible - Dead Reckoning",
+      "description": "Ethan Hunt và đội IMF thực hiện nhiệm vụ nguy hiểm nhất từ trước đến nay.",
+      "author": "Christopher McQuarrie",
+      "image": "https://example.com/posters/missionimpossible7.jpg",
+      "trailer": "https://youtube.com/watch?v=avz06PDqDbM",
+      "type": "2D",
+      "duration": 163,
+      "genres_movie": [
+        {
+          "id": 1,
+          "genre_name": "Hành động"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2023-07-12",
+      "created_at": "2023-06-20T08:00:00Z",
+      "updated_at": "2023-06-20T08:00:00Z",
+      "showtimes": [
+        {
+          "id": 8,
+          "screen_id": 1,
+          "start_time": "2023-10-22T15:00:00Z",
+          "end_time": "2023-10-22T17:45:00Z",
+          "created_at": "2023-10-14T09:00:00Z",
+          "updated_at": "2023-10-14T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "title": "Kung Fu Panda 4",
+      "description": "Po trở thành Thần Long Đại Hiệp và tìm kiếm người kế vị.",
+      "author": "Mike Mitchell",
+      "image": "https://example.com/posters/kungfupanda4.jpg",
+      "trailer": "https://youtube.com/watch?v=_inKs4eeHiI",
+      "type": "3D",
+      "duration": 94,
+      "genres_movie": [
+        {
+          "id": 9,
+          "genre_name": "Hoạt hình"
+        },
+        {
+          "id": 7,
+          "genre_name": "Hài hước"
+        }
+      ],
+      "status": "SAPCHIEU",
+      "release_date": "2024-03-08",
+      "created_at": "2023-10-01T08:00:00Z",
+      "updated_at": "2023-10-01T08:00:00Z",
+      "showtimes": []
+    },
+    {
+      "id": "11",
+      "title": "Interstellar",
+      "description": "Hành trình xuyên không gian tìm kiếm hành tinh mới cho nhân loại.",
+      "author": "Christopher Nolan",
+      "image": "https://example.com/posters/interstellar.jpg",
+      "trailer": "https://youtube.com/watch?v=zSWdZVtXT7E",
+      "type": "2D",
+      "duration": 169,
+      "genres_movie": [
+        {
+          "id": 4,
+          "genre_name": "Khoa học viễn tưởng"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2014-11-07",
+      "created_at": "2023-09-10T08:00:00Z",
+      "updated_at": "2023-09-10T08:00:00Z",
+      "showtimes": [
+        {
+          "id": 9,
+          "screen_id": 3,
+          "start_time": "2023-10-23T19:00:00Z",
+          "end_time": "2023-10-23T21:50:00Z",
+          "created_at": "2023-10-15T08:00:00Z",
+          "updated_at": "2023-10-15T08:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "title": "The Godfather",
+      "description": "Ông trùm Don Vito Corleone trao lại đế chế tội phạm cho con trai.",
+      "author": "Francis Ford Coppola",
+      "image": "https://example.com/posters/godfather.jpg",
+      "trailer": "https://youtube.com/watch?v=sY1S34973zA",
+      "type": "2D",
+      "duration": 175,
+      "genres_movie": [
+        {
+          "id": 10,
+          "genre_name": "Tội phạm"
+        }
+      ],
+      "status": "SAPCHIEU",
+      "release_date": "1972-03-24",
+      "created_at": "2023-10-05T08:00:00Z",
+      "updated_at": "2023-10-05T08:00:00Z",
+      "showtimes": []
+    },
+    {
+      "id": "13",
+      "title": "Parasite",
+      "description": "Gia đình nghèo khó xâm nhập vào cuộc sống của một gia đình giàu có.",
+      "author": "Bong Joon Ho",
+      "image": "https://example.com/posters/parasite.jpg",
+      "trailer": "https://youtube.com/watch?v=5xH0HfJHsaY",
+      "type": "2D",
+      "duration": 132,
+      "genres_movie": [
+        {
+          "id": 6,
+          "genre_name": "Tâm lý"
+        },
+        {
+          "id": 11,
+          "genre_name": "Giật gân"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2019-05-30",
+      "created_at": "2023-09-15T08:00:00Z",
+      "updated_at": "2023-09-15T08:00:00Z",
+      "showtimes": [
+        {
+          "id": 10,
+          "screen_id": 2,
+          "start_time": "2023-10-23T20:00:00Z",
+          "end_time": "2023-10-23T22:15:00Z",
+          "created_at": "2023-10-16T09:00:00Z",
+          "updated_at": "2023-10-16T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "14",
+      "title": "Frozen II",
+      "description": "Elsa cùng Anna và những người bạn đi tìm nguồn gốc sức mạnh băng giá.",
+      "author": "Chris Buck, Jennifer Lee",
+      "image": "https://example.com/posters/frozen2.jpg",
+      "trailer": "https://youtube.com/watch?v=Zi4LMpSDccc",
+      "type": "3D",
+      "duration": 103,
+      "genres_movie": [
+        {
+          "id": 9,
+          "genre_name": "Hoạt hình"
+        },
+        {
+          "id": 8,
+          "genre_name": "Gia đình"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2019-11-22",
+      "created_at": "2023-09-20T08:00:00Z",
+      "updated_at": "2023-09-20T08:00:00Z",
+      "showtimes": [
+        {
+          "id": 11,
+          "screen_id": 1,
+          "start_time": "2023-10-24T10:00:00Z",
+          "end_time": "2023-10-24T11:45:00Z",
+          "created_at": "2023-10-17T08:00:00Z",
+          "updated_at": "2023-10-17T08:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "15",
+      "title": "John Wick: Chapter 4",
+      "description": "John Wick tìm cách đánh bại High Table để giành lại tự do.",
+      "author": "Chad Stahelski",
+      "image": "https://example.com/posters/johnwick4.jpg",
+      "trailer": "https://youtube.com/watch?v=qEVUtrk8_B4",
+      "type": "2D",
+      "duration": 169,
+      "genres_movie": [
+        {
+          "id": 1,
+          "genre_name": "Hành động"
+        },
+        {
+          "id": 10,
+          "genre_name": "Tội phạm"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2023-03-24",
+      "created_at": "2023-04-01T08:00:00Z",
+      "updated_at": "2023-04-01T08:00:00Z",
+      "showtimes": [
+        {
+          "id": 12,
+          "screen_id": 4,
+          "start_time": "2023-10-24T21:00:00Z",
+          "end_time": "2023-10-24T23:50:00Z",
+          "created_at": "2023-10-17T09:00:00Z",
+          "updated_at": "2023-10-17T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "16",
+      "title": "Aquaman and the Lost Kingdom",
+      "description": "Aquaman phải hợp tác với em trai để cứu Atlantis.",
+      "author": "James Wan",
+      "image": "https://example.com/posters/aquaman2.jpg",
+      "trailer": "https://youtube.com/watch?v=FV3bqvOHRQo",
+      "type": "3D",
+      "duration": 124,
+      "genres_movie": [
+        {
+          "id": 1,
+          "genre_name": "Hành động"
+        },
+        {
+          "id": 4,
+          "genre_name": "Khoa học viễn tưởng"
+        }
+      ],
+      "status": "SAPCHIEU",
+      "release_date": "2023-12-22",
+      "created_at": "2023-10-10T08:00:00Z",
+      "updated_at": "2023-10-10T08:00:00Z",
+      "showtimes": []
+    },
+    {
+      "id": "17",
+      "title": "La La Land",
+      "description": "Câu chuyện tình yêu giữa một nhạc sĩ jazz và một nữ diễn viên trẻ.",
+      "author": "Damien Chazelle",
+      "image": "https://example.com/posters/lalaland.jpg",
+      "trailer": "https://youtube.com/watch?v=0pdqf4P9MB8",
+      "type": "2D",
+      "duration": 128,
+      "genres_movie": [
+        {
+          "id": 3,
+          "genre_name": "Tình cảm"
+        },
+        {
+          "id": 12,
+          "genre_name": "Âm nhạc"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2016-12-09",
+      "created_at": "2023-09-25T08:00:00Z",
+      "updated_at": "2023-09-25T08:00:00Z",
+      "showtimes": [
+        {
+          "id": 13,
+          "screen_id": 2,
+          "start_time": "2023-10-25T19:00:00Z",
+          "end_time": "2023-10-25T21:10:00Z",
+          "created_at": "2023-10-18T08:00:00Z",
+          "updated_at": "2023-10-18T08:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "18",
+      "title": "It",
+      "description": "Nhóm trẻ em đối mặt với tên hề ma quái Pennywise.",
+      "author": "Andy Muschietti",
+      "image": "https://example.com/posters/it.jpg",
+      "trailer": "https://youtube.com/watch?v=xKJmEC5ieOk",
+      "type": "2D",
+      "duration": 135,
+      "genres_movie": [
+        {
+          "id": 2,
+          "genre_name": "Kinh dị"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2017-09-08",
+      "created_at": "2023-09-28T08:00:00Z",
+      "updated_at": "2023-09-28T08:00:00Z",
+      "showtimes": [
+        {
+          "id": 14,
+          "screen_id": 4,
+          "start_time": "2023-10-25T22:00:00Z",
+          "end_time": "2023-10-26T00:15:00Z",
+          "created_at": "2023-10-18T09:00:00Z",
+          "updated_at": "2023-10-18T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "19",
+      "title": "Black Panther",
+      "description": "T'Challa trở về Wakanda để thừa kế ngai vàng và bảo vệ đất nước.",
+      "author": "Ryan Coogler",
+      "image": "https://example.com/posters/blackpanther.jpg",
+      "trailer": "https://youtube.com/watch?v=xjDjIWPwcPU",
+      "type": "3D",
+      "duration": 134,
+      "genres_movie": [
+        {
+          "id": 1,
+          "genre_name": "Hành động"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2018-02-16",
+      "created_at": "2023-09-30T08:00:00Z",
+      "updated_at": "2023-09-30T08:00:00Z",
+      "showtimes": [
+        {
+          "id": 15,
+          "screen_id": 1,
+          "start_time": "2023-10-26T18:30:00Z",
+          "end_time": "2023-10-26T20:45:00Z",
+          "created_at": "2023-10-19T08:00:00Z",
+          "updated_at": "2023-10-19T08:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "20",
+      "title": "Coco",
+      "description": "Cậu bé Miguel bước vào Vùng Đất Linh Hồn để tìm lại cội nguồn âm nhạc.",
+      "author": "Lee Unkrich",
+      "image": "https://example.com/posters/coco.jpg",
+      "trailer": "https://youtube.com/watch?v=Ga6RYejo6Hk",
+      "type": "2D",
+      "duration": 105,
+      "genres_movie": [
+        {
+          "id": 9,
+          "genre_name": "Hoạt hình"
+        },
+        {
+          "id": 8,
+          "genre_name": "Gia đình"
+        }
+      ],
+      "status": "SAPCHIEU",
+      "release_date": "2017-11-22",
+      "created_at": "2023-10-10T08:00:00Z",
+      "updated_at": "2023-10-10T08:00:00Z",
+      "showtimes": []
+    },
+    {
+      "title": "huybeo",
+      "description": "df",
+      "author": "",
+      "image": "",
+      "trailer": "",
       "type": "2D",
       "duration": 120,
-      "releaseDate": "2025-01-30",
-      "status": "COMING_SOON",
-      "genres": [
-        "gen-a3"
-      ]
+      "genres_movie": [
+        {
+          "id": 2,
+          "genre_name": "Kinh dị"
+        }
+      ],
+      "status": "SAPCHIEU",
+      "release_date": "2025-12-09",
+      "created_at": "",
+      "updated_at": "",
+      "id": "465ccf3f-7a7d-41ee-9c74-723b0da9d487",
+      "showtimes": []
     }
   ],
-  "theaters": [
+  "genres": [
     {
-      "id": "the-cgv-tp",
-      "name": "CGV Aeon Tân Phú",
-      "location": "Tân Phú, TP. HCM",
-      "phone": "028123456",
-      "createdAt": "2025-01-01T00:00:00Z"
-    }
-  ],
-  "screens": [
-    {
-      "id": "scr-room1",
-      "theaterId": "the-cgv-tp",
-      "name": "Phòng 1",
-      "seatCapacity": 40,
-      "type": "2D"
-    }
-  ],
-  "seats": [
-    {
-      "id": "seat-A1",
-      "screenId": "scr-room1",
-      "seatNumber": "A1",
-      "type": "STANDARD"
+      "genreName": "huy occhoooo",
+      "id": 12
     },
     {
-      "id": "seat-A2",
-      "screenId": "scr-room1",
-      "seatNumber": "A2",
-      "type": "STANDARD"
+      "genreName": "huy yêu rikkei",
+      "id": 15
     },
     {
-      "id": "seat-A3",
-      "screenId": "scr-room1",
-      "seatNumber": "A3",
-      "type": "VIP"
-    },
-    {
-      "id": "seat-A4",
-      "screenId": "scr-room1",
-      "seatNumber": "A4",
-      "type": "VIP"
-    }
-  ],
-  "showtimes": [
-    {
-      "id": "show-7pm",
-      "movieId": "mov-endgame",
-      "theaterId": "the-cgv-tp",
-      "screenId": "scr-room1",
-      "startTime": "2025-02-20T19:00:00Z",
-      "endTime": "2025-02-20T22:00:00Z"
+      "genreName": "huy yêu tươi",
+      "id": 16
     }
   ],
   "ticket_prices": [
     {
-      "id": "prc-std-2d",
-      "typeSeat": "STANDARD",
-      "typeMovie": "2D",
-      "price": 90000,
-      "dayType": 0
+      "id": 1,
+      "type_seat": "STANDARD",
+      "type_movie": "2D",
+      "price": 80000,
+      "day_type": 0,
+      "start_time": "08:00:00",
+      "end_time": "17:00:00"
     },
     {
-      "id": "prc-vip-2d",
-      "typeSeat": "VIP",
-      "typeMovie": "2D",
-      "price": 120000,
-      "dayType": 1
-    }
-  ],
-  "bookings": [
-    {
-      "id": "book-001",
-      "userId": "usr-1a2b3c",
-      "showtimeId": "show-7pm",
-      "theaterId": "the-cgv-tp",
-      "screenId": "scr-room1",
-      "totalSeat": 2,
-      "totalPriceMovie": 180000,
-      "status": "PENDING",
-      "createdAt": "2025-02-10T12:00:00Z"
-    }
-  ],
-  "booking_seats": [
-    {
-      "id": "bseat-01",
-      "bookingId": "book-001",
-      "seatId": "seat-A1",
-      "seatNumber": "A1",
-      "seatType": "STANDARD",
-      "price": 90000
-    },
-    {
-      "id": "bseat-02",
-      "bookingId": "book-001",
-      "seatId": "seat-A2",
-      "seatNumber": "A2",
-      "seatType": "STANDARD",
-      "price": 90000
-    }
-  ],
-  "payments": [
-    {
-      "id": "pay-001",
-      "bookingId": "book-001",
-      "paymentMethod": "VNPAY",
-      "paymentStatus": "PENDING",
-      "amount": 180000
+      "id": 2,
+      "type_seat": "VIP",
+      "type_movie": "3D",
+      "price": 150000,
+      "day_type": 1,
+      "start_time": "17:00:00",
+      "end_time": "23:00:00"
     }
   ],
   "news": [
-    {
-      "id": "news-1",
-      "title": "Chương trình phim kỉ niệm nhân dịp 79 năm ngày Giải phóng Thủ đô",
-      "summary": "Sự kiện chiếu phim đặc biệt mừng ngày Giải phóng Thủ đô.",
-      "content": "Chi tiết chương trình sẽ được cập nhật sau.",
-      "bannerUrl": "https://images.unsplash.com/photo-1761503390713-a1fd8b8bb6c5",
-      "isPublished": true,
-      "publishedAt": "2024-10-03T00:00:00Z"
-    },
-    {
-      "id": "news-2",
-      "title": "VUI TẾT TRUNG THU - RINH QUÀ VÍ VU",
-      "summary": "Ưu đãi hấp dẫn dịp Trung Thu.",
-      "content": "Chi tiết chương trình sẽ được cập nhật sau.",
-      "bannerUrl": "https://images.unsplash.com/photo-1719706654529-ca7e2ce5a2bb",
-      "isPublished": true,
-      "publishedAt": "2024-09-13T00:00:00Z"
-    },
-    {
-      "id": "news-3",
-      "title": "Chương trình \"Suất chiếu đặc biệt\" lần đầu tiên diễn ra tại Trung tâm Chiếu phim Quốc gia",
-      "summary": "Suất chiếu đặc biệt lần đầu ra mắt.",
-      "content": "Chi tiết chương trình sẽ được cập nhật sau.",
-      "bannerUrl": "https://images.unsplash.com/photo-1739433437912-cca661ba902f",
-      "isPublished": true,
-      "publishedAt": "2024-09-09T00:00:00Z"
-    },
-    {
-      "id": "news-4",
-      "title": "SUẤT CHIẾU ĐẶC BIỆT - QUÀ TẶNG TƯNG BỪNG - GIÁ VÉ KHÔNG ĐỔI",
-      "summary": "Suất chiếu đặc biệt với quà tặng hấp dẫn.",
-      "content": "Chi tiết chương trình sẽ được cập nhật sau.",
-      "bannerUrl": "https://images.unsplash.com/photo-1761503390713-a1fd8b8bb6c5",
-      "isPublished": true,
-      "publishedAt": "2024-09-04T00:00:00Z"
-    },
-    {
-      "id": "news-5",
-      "title": "Đợt phim Kỷ niệm 79 năm Cách mạng tháng 8 và Quốc Khánh",
-      "summary": "Đợt phim kỷ niệm các sự kiện lịch sử quan trọng.",
-      "content": "Chi tiết chương trình sẽ được cập nhật sau.",
-      "bannerUrl": "https://images.unsplash.com/photo-1616108365310-0accd0de566b",
-      "isPublished": true,
-      "publishedAt": "2024-08-21T00:00:00Z"
-    },
-    {
-      "id": "news-6",
-      "title": "Tuyển dụng cộng tác viên soát vé, bán vé tại Trung tâm Chiếu phim Quốc gia",
-      "summary": "Trung tâm tuyển dụng cộng tác viên nhiều vị trí.",
-      "content": "Chi tiết chương trình sẽ được cập nhật sau.",
-      "bannerUrl": "https://images.unsplash.com/photo-1762330463032-06f873b3277c",
-      "isPublished": true,
-      "publishedAt": "2024-08-04T00:00:00Z"
-    },
-    {
-      "id": "news-7",
-      "title": "THÔNG BÁO HOÀN THÀNH CHƯƠNG TRÌNH KHẢO SÁT CƠ SỞ VẬT CHẤT NĂM 2024",
-      "summary": "Hoàn thành khảo sát cơ sở vật chất.",
-      "content": "Chi tiết chương trình sẽ được cập nhật sau.",
-      "bannerUrl": "https://images.unsplash.com/photo-1739433437912-cca661ba902f",
-      "isPublished": true,
-      "publishedAt": "2024-07-19T00:00:00Z"
-    },
-    {
-      "id": "news-8",
-      "title": "REVIEW PHIM HOẠT HÌNH HOT NHẤT HÈ NÀY - KẺ TRỘM MẶT TRĂNG 4",
-      "summary": "Review phần mới nhất của Kẻ Trộm Mặt Trăng.",
-      "content": "Chi tiết chương trình sẽ được cập nhật sau.",
-      "bannerUrl": "https://images.unsplash.com/photo-1751823886813-0cfc86cb9478",
-      "isPublished": true,
-      "publishedAt": "2024-07-13T00:00:00Z"
-    },
-    {
-      "id": "news-9",
-      "title": "Chương trình phim đặc sắc mừng Quốc khánh",
-      "summary": "Phim đặc sắc nhân ngày Quốc khánh.",
-      "content": "Chi tiết chương trình sẽ được cập nhật sau.",
-      "bannerUrl": "https://images.unsplash.com/photo-1761503390713-a1fd8b8bb6c5",
-      "isPublished": true,
-      "publishedAt": "2024-07-02T00:00:00Z"
-    },
-    {
-      "id": "news-10",
-      "title": "Khuyến mãi đặc biệt cho khách hàng thân thiết",
-      "summary": "Ưu đãi dành cho khách hàng thân thiết.",
-      "content": "Chi tiết chương trình sẽ được cập nhật sau.",
-      "bannerUrl": "https://images.unsplash.com/photo-1719706654529-ca7e2ce5a2bb",
-      "isPublished": true,
-      "publishedAt": "2024-06-25T00:00:00Z"
-    },
-    {
-      "id": "news-11",
-      "title": "Lịch chiếu phim mới nhất tháng 6",
-      "summary": "Cập nhật lịch chiếu phim mới.",
-      "content": "Chi tiết chương trình sẽ được cập nhật sau.",
-      "bannerUrl": "https://images.unsplash.com/photo-1739433437912-cca661ba902f",
-      "isPublished": true,
-      "publishedAt": "2024-06-18T00:00:00Z"
-    },
-    {
-      "id": "news-12",
-      "title": "Thông báo nghỉ lễ và lịch chiếu đặc biệt",
-      "summary": "Thông báo lịch nghỉ lễ và các suất chiếu đặc biệt.",
-      "content": "Chi tiết chương trình sẽ được cập nhật sau.",
-      "bannerUrl": "https://images.unsplash.com/photo-1616108365310-0accd0de566b",
-      "isPublished": true,
-      "publishedAt": "2024-06-10T00:00:00Z"
-    }
-  ],
-  "tickets": [
-    {
-      "id": "ticket-001",
-      "bookingId": "book-001",
-      "ticketPdfUrl": "/tickets/1.pdf",
-      "qrCodeData": "QRDATA123",
-      "issuedAt": "2025-02-10T12:10:00Z"
-    }
-  ],
-  "choosingItem": [
+        {
+            "id": "news-1",
+            "title": "Chương trình phim kỉ niệm 79 năm ngày giải phóng thủ đô",
+            "content": "Chương trình phim đặc biệt được tổ chức nhằm kỉ niệm 79 năm ngày giải phóng thủ đô.",
+            "created_at": "2025-10-03T00:00:00Z",
+            "bannerUrl": "https://images.unsplash.com/photo-1761503390713-a1fd8b8bb6c5",
+            "category": "news",
+            "dayBegin": "2025-10-01T00:00:00Z",
+            "dayEnd": "2025-10-10T00:00:00Z"
+        },
+        {
+            "id": "promo-1",
+            "title": "Vui tết trung thu - rinh quà ví vu",
+            "content": "Khách hàng tham gia chương trình trung thu sẽ nhận được nhiều phần quà hấp dẫn.",
+            "created_at": "2025-09-13T00:00:00Z",
+            "bannerUrl": "https://images.unsplash.com/photo-1719706654529-ca7e2ce5a2bb",
+            "category": "promotion",
+            "dayBegin": "2025-12-15T00:00:00Z",
+            "dayEnd": "2025-12-25T00:00:00Z"
+        },
+        {
+            "id": "promo-2",
+            "title": "Suất chiếu đặc biệt - quà tặng tưng bừng",
+            "content": "Tham gia suất chiếu đặc biệt để nhận nhiều phần quà giá trị.",
+            "created_at": "2025-09-04T00:00:00Z",
+            "bannerUrl": "https://images.unsplash.com/photo-1761503390713-a1fd8b8bb6c5",
+            "category": "promotion",
+            "dayBegin": "2025-12-01T00:00:00Z",
+            "dayEnd": "2025-12-08T00:00:00Z"
+        },
+        {
+            "id": "news-3",
+            "title": "Đợt phim kỉ niệm 79 năm cách mạng tháng 8 và quốc khánh",
+            "content": "Trung tâm chiếu phim quốc gia tổ chức đợt phim đặc biệt nhân dịp quốc khánh.",
+            "created_at": "2025-08-21T00:00:00Z",
+            "bannerUrl": "https://images.unsplash.com/photo-1616108365310-0accd0de566b",
+            "category": "news",
+            "dayBegin": "2025-08-25T00:00:00Z",
+            "dayEnd": "2025-09-05T00:00:00Z"
+        },
+        {
+            "id": "news-4",
+            "title": "Tuyển dụng cộng tác viên soát vé và bán vé",
+            "content": "Trung tâm chiếu phim quốc gia tuyển cộng tác viên làm việc linh hoạt theo ca.",
+            "created_at": "2025-08-04T00:00:00Z",
+            "bannerUrl": "https://images.unsplash.com/photo-1762330463032-06f873b3277c",
+            "category": "news",
+            "dayBegin": "2025-12-01T00:00:00Z",
+            "dayEnd": "2025-12-20T00:00:00Z"
+        },
+        {
+            "id": "news-5",
+            "title": "Thông báo hoàn thành khảo sát cơ sở vật chất",
+            "content": "Trung tâm đã hoàn thành công tác kiểm tra, bảo trì và nâng cấp cơ sở vật chất.",
+            "created_at": "2025-07-19T00:00:00Z",
+            "bannerUrl": "https://images.unsplash.com/photo-1739433437912-cca661ba902f",
+            "category": "news",
+            "dayBegin": "2025-07-01T00:00:00Z",
+            "dayEnd": "2025-07-10T00:00:00Z"
+        },
+        {
+            "id": "news-6",
+            "title": "Review phim hot nhất mùa hè này - kẻ trộm mặt trăng 4",
+            "content": "Một bộ phim hoạt hình nổi bật của mùa hè, phù hợp với mọi độ tuổi.",
+            "created_at": "2025-07-13T00:00:00Z",
+            "bannerUrl": "https://images.unsplash.com/photo-1751823886813-0cfc86cb9478",
+            "category": "news",
+            "dayBegin": "2025-12-10T00:00:00Z",
+            "dayEnd": "2025-12-20T00:00:00Z"
+        },
+        {
+            "id": "promo-3",
+            "title": "Khuyến mãi đặc biệt cho khách hàng thân thiết",
+            "content": "Chương trình tri ân khách hàng thân thiết với nhiều ưu đãi hấp dẫn.",
+            "created_at": "2025-06-25T00:00:00Z",
+            "bannerUrl": "https://images.unsplash.com/photo-1719706654529-ca7e2ce5a2bb",
+            "category": "promotion",
+            "dayBegin": "2025-12-05T00:00:00Z",
+            "dayEnd": "2025-12-31T00:00:00Z"
+        },
+        {
+            "id": "ff45e6bf-b712-480c-8044-73b2c268c3f7",
+            "title": "Thiên sứ nhà bên session 2 sắp ra mắt trong sự mong ngóng của độc giả",
+            "content": "“Thiên sứ nhà bên” là bộ phim mới nhất dự kiến ra mắt vào tháng 4/2026, khai thác câu chuyện nhẹ nhàng nhưng đầy cảm xúc về một thiên sứ bất ngờ xuất hiện trong cuộc sống của một chàng trai bình thường. Từ những hiểu lầm ban đầu, cả hai dần bước vào hành trình chữa lành, trưởng thành và khám phá ý nghĩa thật sự của hạnh phúc. Bộ phim hứa hẹn mang đến nhiều khoảnh khắc ấm áp, hài hước và chạm đến trái tim khán giả.",
+            "created_at": "2025-12-10T12:25:23Z",
+            "bannerUrl": "https://gamelade.vn/wp-content/uploads/2025/01/432771220_707646224913385_6294921803938452994_n-1-1024x580.jpg",
+            "category": "news",
+            "dayBegin": "2026-04-01",
+            "dayEnd": "2026-04-30"
+        },
+        {
+            "id": "dd316299-8ea1-4133-b6d0-8fdfb6cf15e6",
+            "title": "Giảm giá vé xem anime 30%: \"Arya bàn bên thỉnh thoảng lại trêu ghẹo tôi bằng tiếng Nga\"",
+            "content": "\"Arya bàn bên thỉnh thoảng lại trêu ghẹo tôi bằng tiếng Nga\" là bộ phim học đường hài – lãng mạn xoay quanh câu chuyện của một nam sinh bình thường nhưng vô tình trở thành ‘đối tượng trêu chọc’ của cô bạn bàn bên bí ẩn. Cô gái có thói quen nói những câu tiếng Nga khó hiểu, mỗi lần như vậy lại khiến cậu bối rối không biết nên phản ứng thế nào. Tưởng chỉ là những trò đùa vô hại, nhưng càng tiếp xúc, cậu càng nhận ra đằng sau những câu nói ngẫu hứng ấy là một câu chuyện riêng mà cô ấy luôn cố che giấu. Bộ phim dẫn dắt khán giả qua những tình huống dở khóc dở cười, từ những trò trêu chọc đáng yêu đến khoảnh khắc ấm áp, nơi hai tâm hồn trẻ tuổi dần trở nên gần gũi hơn.",
+            "created_at": "2025-12-10T13:44:06Z",
+            "bannerUrl": "https://i.ytimg.com/vi/iN6kitNy-iA/maxresdefault.jpg",
+            "category": "promotion",
+            "dayBegin": "2025-12-09",
+            "dayEnd": "2026-01-01"
+        },
+    "movie": [
     {
       "id": "1",
       "title": "AI OÁN TRONG VƯỜN XUÂN - T18",
@@ -385,5 +875,6 @@
       "actor": "Van Barr Jr. - Nasim Benelkour - Gerard Caster",
       "description": "Vào mùa xuân năm thứ hai, trong khi Nhật Bản đang bị tàn phá bởi các cuộc chiến, một người đàn ông bí ẩn bất ngờ xuất hiện có tên là Dark Might. Đối mặt với Deku và những người bạn, hắn tự xưng mình là biểu tượng mới thay thế All Might với tuyên bố hùng hồn: \"Tiếp theo là đến lượt ta!\". Với dã tâm của mình, Dark Might sử dụng năng lực để"
     }
+  ]
   ]
 }
