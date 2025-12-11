@@ -1,35 +1,78 @@
 import axios from "axios";
 import screen from "../assets/imgs/screen 1.png";
 import { useEffect, useState } from "react";
+export type Genre = {
+  id: number;
+  genre_name: string;
+};
+export type Showtime = {
+  id: number;
+  time: string;
+  booking: [];
+  seats: Seat[];
+};
+export type Seat = {
+  seat: string;
+  booked: boolean;
+};
+export type Movie = {
+  id: string;
+  title: string;
+  description: string;
+  author: string;
+  image: string;
+  trailer: string;
+  type: string;
+  age: number;
+  duration: number;
+  origin: string; // phút
+  genres_movie: Genre[];
+  status: string; // "DANGCHIEU" | "SAPCHIEU" ...
+  release_date: string; // YYYY-MM-DD
+  created_at: string;
+  updated_at: string;
+  showtimes: Showtime[];
+};
 export default function ChooseTicket() {
-  const [seats, setSeats] = useState<string[]>([]);
-  const [stopRender, setStopRender] = useState(true);
+  const text = [
+    "K - Phim được phổ biến đến người xem dưới 13 tuổi và có người bảo hộ đi kèm",
+    "T16 - Phim được phổ biến đến người xem từ đủ 16 tuổi trở lên (16+)",
+    "T18 - Phim được phổ biến đến người xem từ đủ 18 tuổi trở lên (18+)",
+  ];
   const [showing, setShowing] = useState(false);
   const [minutes, setMinutes] = useState(10);
   const [seconds, setSeconds] = useState(0);
   const [hour, setHour] = useState("");
   const [isLogin, setIsLogin] = useState(false);
-  const [data, setData] = useState([
-    {
-      id: 0,
-      title: "",
-      origin: "",
-      release: "",
-      duration: "",
-      genre: "",
-      age: "",
-      poster: "",
-      time: [],
-      author: "",
-      actor: "",
-      description: "",
-    },
-  ]);
-  axios
-    .get(
-      `http://localhost:8080/movie/?id=${window.location.href.split("?")[1]}`
-    )
-    .then((res) => setData(res.data));
+
+  const [data, setData] = useState<Movie | null>(null);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/movies/${window.location.href.split("?")[1]}`)
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((err) => console.error("Lỗi fetch phim:", err));
+  }, []);
+
+  const hancleClick = (seatCode: string) => {
+    setData((prev) => {
+      if (!prev) return null;
+      return {
+        ...prev,
+        showtimes: prev.showtimes.map((st) =>
+          st.time === hour
+            ? {
+                ...st,
+                seats: st.seats.map((seat) =>
+                  seat.seat === seatCode ? { ...seat, booked: true } : seat
+                ),
+              }
+            : st
+        ),
+      };
+    });
+  };
   useEffect(() => {
     if (showing) {
       const timer = setTimeout(() => {
@@ -49,69 +92,57 @@ export default function ChooseTicket() {
       return () => clearTimeout(timer);
     }
   }, [minutes, seconds, showing]);
-  const renderSeats = () => {
-    let temp = "";
-    const rows = ["A", "B", "C", "D", "E", "F", "G", "H", "K"];
-    const number = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-    const result: string[] = [];
-    rows.forEach((row) => {
-      number.forEach((num) => {
-        temp = row + num;
-        result.push(temp);
-      });
-    });
-    setSeats(result);
-  };
 
-  useEffect(() => {
-    if (stopRender) {
-      renderSeats();
-    }
-    setStopRender(false);
-  }, []);
   return (
     <div className="bg-black text-white font-sans">
       {/* BACKGROUND WRAPPER */}
       <div
         className="relative bg-cover bg-center"
         style={{
-          backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0) 60%, #121212), url(${data[0].poster})`,
+          backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0) 60%, #121212), url("https://th.bing.com/th/id/R.1199dc6273680f175fd9b06c9c36d08a?rik=%2fKp12KVFsHU89w&pid=ImgRaw&r=0")`,
         }}
       >
         <div className="bg-black bg-opacity-60">
-          {/* MOVIE DETAILS */}
+          {/* MOVIEs DETAILS */}
           <main
-            id="movie-details"
+            id="movies-details"
             className="flex justify-center items-center px-40"
           >
             <div className="flex flex-col lg:flex-row items-start gap-6 mb-10 p-4 rounded-xl shadow text-white">
               <img
-                src={data[0].poster}
+                src={data?.image}
                 alt="Poster phim"
                 className="w-full lg:w-1/4 max-w-xs rounded-lg shadow-md"
               />
               <div className="flex-1">
-                <h2 className="text-3xl font-semibold mb-2">{data[0].title}</h2>
+                <h2 className="text-3xl font-semibold mb-2">{data?.title}</h2>
                 <p className="text-sm text-gray-300 mb-2">
-                  <div className="font-medium flex gap-8">
-                    <span>{data[0].genre}</span>
-                    <span>{data[0].origin}</span>
-                    <span>{data[0].duration}</span>
-                    <span>Đạo diễn: {data[0].author}</span>
+                  <div className="font-medium flex gap-8 text-start">
+                    <span>{data?.genres_movie?.map((g) => g.genre_name)}</span>
+                    <span>{data?.origin}</span>
+                    <span>{data?.duration}</span>
+                    <span>Đạo diễn: {data?.author}</span>
                   </div>
                 </p>
-                <p className="text-gray-300">Diễn viên: {data[0].actor}</p>
+                <p className="text-gray-300">Diễn viên: {data?.author}</p>
                 <p className="mb-2 text-gray-300">
                   <span className="font-medium">Khởi chiếu: </span>
-                  {data[0].release}
+                  {data?.release_date}
                 </p>
                 <p className="text-xs text-red-400 italic mb-2">
-                  Kiểm duyệt: {data[0].age}
+                  Kiểm duyệt:{" "}
+                  {data?.age === 13
+                    ? `${text[0]}`
+                    : data?.age === 16
+                    ? `${text[1]}`
+                    : data?.age === 18
+                    ? `${text[2]}`
+                    : ""}
                 </p>
-                <p>{data[0].description}</p>
+                <p>{data?.description}</p>
                 <div className="mt-4 flex gap-4 items-center">
                   <a
-                    href="https://chieuphimquocgia.com.vn/movies/10415"
+                    href="https://chieuphimquocgia.com.vn/moviess/10415"
                     className="text-white underline text-sm font-medium"
                   >
                     Chi tiết nội dung
@@ -131,13 +162,11 @@ export default function ChooseTicket() {
 
       {/* CONTENT */}
       <div className="bg-[#101012] p-6 rounded text-center flex flex-col w-full">
-        <div className="text-sm">{data[0].release.split("/")[0]}</div>
-        <div className="text-2xl font-bold">
-          {data[0].release.split("/")[1]}
-        </div>
-        <div className="text-sm">{data[0].release.split("/")[2]}</div>
+        <div className="text-sm">{}</div>
+        <div className="text-2xl font-bold">{}</div>
+        <div className="text-sm">{}</div>
       </div>
-      <main className="px-8 bg-gray-900 opacity-80 flex flex-col justify-center items-center gap-5">
+      <main className="px-8 bg-gray-900 opacity-80 flex flex-col justify-center items-center gap-5 py-10">
         {/* DATE + SHOWTIME */}
         <p className="text-lg text-orange-400 text-center">
           <span className="font-semibold text-[15px]">
@@ -146,17 +175,19 @@ export default function ChooseTicket() {
           </span>
         </p>
         <div className="flex flex-row justify-between items-center gap-4 flex-wrap w-4xl">
-          {data[0].time.map((d, id) => (
+          {data?.showtimes.map((d, id) => (
             <button
-              className="border-[#1E293B] border-2 rounded-4xl px-14 py-2"
+              className={`border-[#1E293B] border-2 rounded-4xl px-14 py-2 ${
+                d.time === hour ? "bg-[#1E293B]" : ""
+              }`}
               key={id}
-              value={d}
+              value={d.time}
               onClick={(e) => {
                 setHour(e.currentTarget.value);
                 setShowing(true);
               }}
             >
-              {d}
+              {d.time}
             </button>
           ))}
         </div>
@@ -193,19 +224,34 @@ export default function ChooseTicket() {
                   40 * 15 + 8 * 14
                 }px] flex-wrap`}
               >
-                {seats.map((seat) => (
+                {data?.showtimes[
+                  data?.showtimes.findIndex((t) => t.time === hour)
+                ]?.seats.map((seats) => (
                   <button
-                    className={`size-10 bg-[#252A31] rounded-md text-center`}
+                    disabled={seats.booked}
+                    className={`size-10 bg-[#252A31] rounded-md text-center ${
+                      seats.booked
+                        ? "bg-blue-600"
+                        : "hover:bg-green-400 transition-all ease-linear"
+                    } `}
+                    onClick={() => {hancleClick(seats.seat);
+                      data?.showtimes[s]
+                    }}
                   >
-                    {seat}
+                    {seats.seat}
                   </button>
                 ))}
               </div>
 
               <div className="flex justify-center gap-6 text-xs mb-4 items-center text-[16px]">
-                <div className="bg-gray-700 size-10 rounded-md text-gray-500 flex justify-center items-center text-[20px]">x</div> Đã đặt
-                <div className="size-10 rounded-md bg-[#007AFF]"></div> Ghế bạn chọn
-                <div className="size-10 rounded-md bg-gray-700"></div> Ghế thường
+                <div className="bg-gray-700 size-10 rounded-md text-gray-500 flex justify-center items-center text-[20px]">
+                  x
+                </div>{" "}
+                Đã đặt
+                <div className="size-10 rounded-md bg-[#007AFF]"></div> Ghế bạn
+                chọn
+                <div className="size-10 rounded-md bg-gray-700"></div> Ghế
+                thường
                 <div className="bg-[#F97316] size-10 rounded-md"></div> Ghế VIP
                 <div className="bg-[#DC2626] size-10 rounded-md"></div> Ghế đôi
               </div>
@@ -213,9 +259,7 @@ export default function ChooseTicket() {
             <div className="text-sm mb-4">
               <p>
                 Ghế đã chọn:
-                <span className="text-green-400 ml-1">
-                  Chưa có ghế nào
-                </span>
+                <span className="text-green-400 ml-1">Chưa có ghế nào</span>
               </p>
               <p>
                 Tổng tiền:

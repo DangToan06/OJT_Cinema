@@ -2,21 +2,38 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import red from "../assets/red.png";
 import { useNavigate } from "react-router-dom";
+type Genre = {
+  id: number;
+  genre_name: string;
+};
+type Showtime = {
+  id: number;
+  time: string;
+};
 type Movie = {
-  id: 0;
-  title: "";
-  origin: "";
-  release: "";
-  duration: "";
-  genre: "";
-  age: "";
-  poster: "";
-  time: [];
-  author: "";
-  actor: "";
-  description: "";
+  id: string;
+  title: string;
+  description: string;
+  author: string;
+  image: string;
+  trailer: string;
+  type: string;
+  age: number;
+  duration: number;
+  origin: string; // phút
+  genres_movie: Genre[];
+  status: string; // "DANGCHIEU" | "SAPCHIEU" ...
+  release_date: string; // YYYY-MM-DD
+  created_at: string;
+  updated_at: string;
+  showtimes: Showtime[];
 };
 export default function MovieCalendar() {
+  const text = [
+    "K - Phim được phổ biến đến người xem dưới 13 tuổi và có người bảo hộ đi kèm",
+    "T16 - Phim được phổ biến đến người xem từ đủ 16 tuổi trở lên (16+)",
+    "T18 - Phim được phổ biến đến người xem từ đủ 18 tuổi trở lên (18+)",
+  ];
   const navigate = useNavigate();
   const dates = ["12-11-2024", "13-11-2024", "14-11-2024", "15-11-2024"];
 
@@ -25,7 +42,7 @@ export default function MovieCalendar() {
   const [movies, setMovies] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:8080/movie")
+      .get("http://localhost:8080/movies")
       .then((res) => setMovies(res.data));
   }, [movies]);
 
@@ -72,7 +89,7 @@ export default function MovieCalendar() {
           >
             {/* Poster */}
             <img
-              src={m.poster}
+              src={m.image}
               alt={m.title}
               className="w-40 h-56 rounded-lg object-cover"
             />
@@ -86,7 +103,7 @@ export default function MovieCalendar() {
             <div className="flex-1 flex flex-col justify-between">
               <div>
                 <p className="text-sm text-gray-400 mb-1">
-                  {m.genre} • {m.duration}
+                  {m.genres_movie.map((g) => g.genre_name)} • {m.duration} phút
                 </p>
 
                 <h3 className="font-semibold text-lg">{m.title}</h3>
@@ -94,18 +111,28 @@ export default function MovieCalendar() {
                 <p className="text-sm text-gray-300 mt-2">
                   Xuất xứ: {m.origin}
                 </p>
-                <p className="text-sm text-gray-300">Khởi chiếu: {m.release}</p>
+                <p className="text-sm text-gray-300">
+                  Khởi chiếu: {m.release_date}
+                </p>
 
-                <p className="text-sm text-red-400 mt-2">{m.age}</p>
+                <p className="text-sm text-red-400 mt-2">
+                  {m.age === 13
+                    ? `${text[0]}`
+                    : m.age === 16
+                    ? `${text[1]}`
+                    : m.age === 18
+                    ? `${text[2]}`
+                    : ""}
+                </p>
 
                 {/* Time buttons */}
                 <div className="flex flex-wrap gap-2 mt-3">
-                  {m.time.map((t, idx) => (
+                  {m.showtimes.map((t, idx) => (
                     <button
                       key={idx}
                       className="px-3 py-1 rounded-lg border border-gray-500 hover:border-white transition"
                     >
-                      {t}
+                      {t.time}
                     </button>
                   ))}
                 </div>
