@@ -1,3 +1,4 @@
+
 import MovieCard from "./MovieCard";
 
 const movies = [
