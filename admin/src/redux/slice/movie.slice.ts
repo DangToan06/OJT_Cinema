@@ -1,30 +1,68 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllMovies } from "../../api/movie.api";
+import {
+  addNewMovie,
+  deleteMovie,
+  fetchMovies,
+  updateMovie,
+} from "../../api/movie.api";
+import type { InitialStateType, Movie } from "../../util/type.util";
 
-const initialState = {
+interface MovieState extends InitialStateType<Movie> {
+  totalMovies: number;
+}
+
+const initialState: MovieState = {
   status: "idle",
   data: [],
   error: null,
+  totalMovies: 0,
 };
 
 const movieSlice = createSlice({
   name: "movies",
   initialState,
-  reducers: {},
+  reducers: {
+    resetMovieState: (state) => {
+      state.status = "idle";
+      state.data = [];
+    },
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(getAllMovies.pending, (state) => {
-        state.status = "loading";
+      .addCase(fetchMovies.pending, (state) => {
+        state.status = "pending";
+        state.error = null;
       })
-      .addCase(getAllMovies.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.data = action.payload;
+      .addCase(fetchMovies.fulfilled, (state, action) => {
+        state.status = "success";
+        state.data = action.payload.data;
+        state.totalMovies = action.payload.total;
       })
-      .addCase(getAllMovies.rejected, (state, action) => {
+      .addCase(fetchMovies.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message;
+        state.error = action.error.message || "Lỗi tải danh sách phim";
+      })
+
+      .addCase(addNewMovie.fulfilled, (state, action) => {
+        state.data.unshift(action.payload);
+        state.totalMovies += 1;
+      })
+
+      .addCase(deleteMovie.fulfilled, (state, action) => {
+        state.data = state.data.filter((movie) => movie.id !== action.payload);
+        state.totalMovies -= 1;
+      })
+
+      .addCase(updateMovie.fulfilled, (state, action) => {
+        const index = state.data.findIndex(
+          (movie) => movie.id === action.payload.id
+        );
+        if (index !== -1) {
+          state.data[index] = action.payload;
+        }
       });
   },
 });
 
+export const { resetMovieState } = movieSlice.actions;
 export default movieSlice.reducer;
