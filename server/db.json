@@ -797,7 +797,8 @@
             "category": "promotion",
             "dayBegin": "2025-12-09",
             "dayEnd": "2026-01-01"
-        },
+        }
+      ],
     "movie": [
     {
       "id": "1",
@@ -875,6 +876,5 @@
       "actor": "Van Barr Jr. - Nasim Benelkour - Gerard Caster",
       "description": "Vào mùa xuân năm thứ hai, trong khi Nhật Bản đang bị tàn phá bởi các cuộc chiến, một người đàn ông bí ẩn bất ngờ xuất hiện có tên là Dark Might. Đối mặt với Deku và những người bạn, hắn tự xưng mình là biểu tượng mới thay thế All Might với tuyên bố hùng hồn: \"Tiếp theo là đến lượt ta!\". Với dã tâm của mình, Dark Might sử dụng năng lực để"
     }
-  ]
   ]
 }

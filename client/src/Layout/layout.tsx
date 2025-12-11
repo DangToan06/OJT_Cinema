@@ -180,22 +180,18 @@ export default function Layout({ children }: LayoutProps) {
         </button>
       </header>
 
-      {/* ========================= FOOTER ========================= */}
-      <footer className="bg-black text-white py-10 z-10">
-        {/* MENU */}
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="flex flex-wrap justify-center gap-x-10 gap-y-3 text-sm md:text-base font-medium">
-            {[
-              "Chính sách",
-              "Lịch chiếu",
-              "Tin tức",
-              "Giá vé",
-              "Hỏi đáp",
-              "Liên hệ",
-            ].map((item) => (
-              <span
-                key={item}
-                className="cursor-pointer hover:text-red-500 transition"
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden fixed top-20 left-0 w-full bg-black/95 backdrop-blur z-30 py-6 px-6 shadow-2xl">
+          <nav className="space-y-4 mb-6">
+            {menuItems.map((item) => (
+              <button
+                key={item.name}
+                onClick={() => {
+                  navigate(item.link);
+                  setMobileMenuOpen(false);
+                }}
+                className="block w-full text-left py-3 text-white hover:text-red-500 transition text-lg font-medium"
               >
                 {item.name}
               </button>
