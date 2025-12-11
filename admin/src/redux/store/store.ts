@@ -3,6 +3,8 @@ import { newsStore } from "../slice/news.slice";
 import movieSlice from "../slice/movie.slice";
 import genresReducer from "../slice/genres.slice";
 import priceSlice from "../slice/price.slice";
+import { theaterStore } from "../slice/theater.slice";
+import { screenStore } from "../slice/screen.slice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +12,8 @@ export const store = configureStore({
     movie: movieSlice,
     genres: genresReducer,
     price: priceSlice,
+    theater: theaterStore,
+    screen:screenStore,
   },
 });
 

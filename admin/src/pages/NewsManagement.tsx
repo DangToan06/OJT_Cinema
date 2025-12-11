@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../hook/useRedux';
 import { createNews, deleteNews, getAllNews } from '../api/news.api';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
+import { notify } from '../util/toast';
 dayjs.extend(utc);
 
 export function NewsManagement() {
@@ -42,6 +43,11 @@ export function NewsManagement() {
 
         setFormData(newData);
         dispatch(createNews(newData));
+        if (formData.category === 'news') {
+            notify.success('Tạo tin tức thành công');
+        } else if (formData.category === 'promotion') {
+            notify.success('Tạo khuyến mãi thành công');
+        }
         setShowModal(false);
     };
 
@@ -57,7 +63,7 @@ export function NewsManagement() {
 
     const handleConfirmDelete = () => {
         dispatch(deleteNews(selectedItem!.id));
-
+        notify.success('Xóa tin tức thành công');
         setShowDeleteModal(false);
         setSelectedItem(null);
     };
@@ -93,10 +99,10 @@ export function NewsManagement() {
         <div>
             <div className="flex items-center justify-between mb-8">
                 <div>
-                    <h1 className="text-gray-900 mb-2 font-bold text-2xl">
+                    <h1 className="text-gray-200 mb-2 font-bold text-2xl">
                         Quản lý tin tức & khuyến mãi
                     </h1>
-                    <p className="text-gray-600">
+                    <p className="text-gray-300 text-[18px]">
                         Tạo và quản lý các chương trình khuyến mãi, tin tức
                     </p>
                 </div>
@@ -115,7 +121,7 @@ export function NewsManagement() {
                     return (
                         <div
                             key={item.id}
-                            className="group bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100"
+                            className="group bg-gray-800 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-400 cursor-default"
                         >
                             <div className="relative">
                                 <div className="aspect-video overflow-hidden">
@@ -138,19 +144,19 @@ export function NewsManagement() {
                             </div>
 
                             <div className="p-2 flex flex-col gap-[5px]">
-                                <h3 className="text-[18px] font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
-                                    {item.title.length > 60
-                                        ? item.title.slice(0, 60) + '...'
+                                <h3 className="text-[18px] font-semibold text-gray-300 group-hover:text-[#d4a003] transition-colors">
+                                    {item.title.length > 55
+                                        ? item.title.slice(0, 55) + '...'
                                         : item.title}
                                 </h3>
 
-                                <p className="text-gray-600 text-sm leading-relaxed">
+                                <p className="text-gray-400 text-sm leading-relaxed">
                                     {item.content.length > 81
                                         ? item.content.slice(0, 80) + '...'
                                         : item.content}
                                 </p>
 
-                                <div className="flex items-center gap-4 text-sm text-gray-500">
+                                <div className="flex items-center gap-4 text-sm text-gray-400">
                                     <div className="flex items-center gap-1.5">
                                         <Calendar className="w-4 h-4" />
                                         <span>
@@ -159,7 +165,7 @@ export function NewsManagement() {
                                                 .format('DD/MM/YYYY')}
                                         </span>
                                     </div>
-                                    <span className="text-gray-300">→</span>
+                                    <span className="text-gray-400">→</span>
                                     <div className="flex items-center gap-1.5">
                                         <Calendar className="w-4 h-4" />
                                         <span>
@@ -179,15 +185,22 @@ export function NewsManagement() {
                                         <span>lượt xem</span>
                                     </div>
 
-                                    <div className="flex gap-2">
-                                        <button className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 hover:scale-110">
+                                    <div className="flex gap-2 p-2">
+                                        <button
+                                            className="text-blue-600 rounded-lg transition-all duration-200 hover:scale-110 cursor-pointer"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                            }}
+                                        >
                                             <Edit className="w-4 h-4" />
                                         </button>
+
                                         <button
-                                            className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200 hover:scale-110"
-                                            onClick={() =>
-                                                handleDeleteClick(item)
-                                            }
+                                            className="text-red-600 rounded-lg transition-all duration-200 hover:scale-110 cursor-pointer"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleDeleteClick(item);
+                                            }}
                                         >
                                             <Trash2 className="w-4 h-4" />
                                         </button>
