@@ -663,20 +663,6 @@
       "showtimes": []
     }
   ],
-  "genres": [
-    {
-      "genreName": "huy occhoooo",
-      "id": 12
-    },
-    {
-      "genreName": "huy yêu rikkei",
-      "id": 15
-    },
-    {
-      "genreName": "huy yêu tươi",
-      "id": 16
-    }
-  ],
   "ticket_prices": [
     {
       "id": 1,
