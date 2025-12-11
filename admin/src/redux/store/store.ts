@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import genresReducer from "../slice/genres.slice";
-import priceSlice from "../slice/price.slice";
+import priceReducer from "../slice/price.slice";
+import showtimesReducer from "../slice/showtimes.slice"; 
 
 export const store = configureStore({
   reducer: {
     genres: genresReducer,
-    price: priceSlice,
+    price: priceReducer,
+    showtimes: showtimesReducer,
   },
 });
 
