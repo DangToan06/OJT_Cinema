@@ -1,15 +1,26 @@
-import { createSlice } from "@reduxjs/toolkit";
+
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   fetchGenres,
   createGenre,
   updateGenre,
   deleteGenre,
 } from "../../api/genres.api";
-import type { InitialStateType, MovieGenre } from "../../util/type.util";
 
-const initialState: InitialStateType<MovieGenre> = {
-  data: [],
-  status: "idle",
+export interface Genre {
+  id: string;
+  genreName: string;
+}
+
+interface GenresState {
+  list: Genre[];
+  loading: boolean;
+  error: string | null;
+}
+
+const initialState: GenresState = {
+  list: [],
+  loading: false,
   error: null,
 };
 
@@ -20,40 +31,37 @@ const genresSlice = createSlice({
   extraReducers: (builder) => {
     builder
       // FETCH
-
       .addCase(fetchGenres.pending, (state) => {
-        state.status = "pending";
+        state.loading = true;
         state.error = null;
       })
-      .addCase(fetchGenres.fulfilled, (state, action) => {
-        state.status = "success";
-        state.data = action.payload;
+      .addCase(fetchGenres.fulfilled, (state, action: PayloadAction<Genre[]>) => {
+        state.loading = false;
+        state.list = action.payload;
       })
       .addCase(fetchGenres.rejected, (state, action) => {
-        state.status = "failed";
+        state.loading = false;
         state.error = action.payload as string;
       })
 
       // ADD
 
-      .addCase(createGenre.fulfilled, (state, action) => {
-        state.data.unshift(action.payload);
+      .addCase(createGenre.fulfilled, (state, action: PayloadAction<Genre>) => {
+        state.list.unshift(action.payload);
       })
 
-      // UPDATE
+      // UPDATE 
 
-      .addCase(updateGenre.fulfilled, (state, action) => {
-        const index = state.data.findIndex((g) => g.id === action.payload.id);
+      .addCase(updateGenre.fulfilled, (state, action: PayloadAction<Genre>) => {
+        const index = state.list.findIndex((g) => g.id === action.payload.id);
         if (index !== -1) {
-          state.data[index] = action.payload;
+          state.list[index] = action.payload;
         }
       })
 
       // DELETE
-      .addCase(deleteGenre.fulfilled, (state, action) => {
-        state.data = state.data.filter(
-          (g) => Number(g.id) !== Number(action.payload)
-        );
+      .addCase(deleteGenre.fulfilled, (state, action: PayloadAction<string>) => {
+        state.list = state.list.filter((g) => g.id !== action.payload);
       });
   },
 });
