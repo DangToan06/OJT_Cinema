@@ -44,7 +44,7 @@ export default function MovieCalendar() {
     axios
       .get("http://localhost:8080/movies")
       .then((res) => setMovies(res.data));
-  }, [movies]);
+  }, []);
 
   return (
     <div className="w-full min-h-screen bg-[#0f1217] text-white px-6 py-10">
