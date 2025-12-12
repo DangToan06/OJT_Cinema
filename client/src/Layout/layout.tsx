@@ -8,9 +8,9 @@ import gp from '../assets/GG Play.png';
 import as from '../assets/App store.png';
 import tem from '../assets/Copyright.png';
 import { useNavigate } from 'react-router-dom';
-import Login from '../components/Login';
-import Register from '../components/Register';
-import Swal from 'sweetalert2';
+import LoginModal from "../components/Login";
+import RegisterModal from "../components/Register";
+import Swal from "sweetalert2";
 
 interface LayoutProps {
     children: React.ReactNode;
@@ -118,25 +118,24 @@ export default function Layout({ children }: LayoutProps) {
                     ))}
                 </nav>
 
-                {/* Desktop: User Info hoặc Login/Register */}
-                <div className="hidden lg:flex items-center gap-6 ml-auto">
-                    {user ? (
-                        <div className="flex items-center gap-6">
-                            {/* Avatar + Tên + Role*/}
-                            <div className="flex items-center gap-4 bg-gray-800/70 backdrop-blur px-5 py-2 rounded-full border border-white/20 hover:bg-gray-800/90 transition">
-                                {/* Avatar*/}
-                                {user.avatar ? (
-                                    <img
-                                        src={user.avatar}
-                                        alt="Avatar"
-                                        className="w-9 h-9 rounded-full object-cover border-2 border-white/30"
-                                    />
-                                ) : (
-                                    <div className="w-9 h-9 bg-gradient-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md">
-                                        {(user.first_name ||
-                                            '?')[0].toUpperCase()}
-                                    </div>
-                                )}
+        {/* Desktop: User Info hoặc Login/Register */}
+        <div className="hidden lg:flex items-center gap-6 ml-auto">
+          {user ? (
+            <div className="flex items-center gap-6">
+                {/* Avatar + Tên + Role*/}
+                <div className="flex items-center gap-4 bg-gray-800/70 backdrop-blur px-5 py-2 rounded-full border border-white/20 hover:bg-gray-800/90 transition">
+                  {/* Avatar*/}
+                  {user.avatar ? (
+                    <img
+                      src={user.avatar}
+                      alt="Avatar"
+                      className="w-9 h-9 rounded-full object-cover border-2 border-white/30"
+                    />
+                  ) : (
+                    <div className="w-9 h-9 bg-linear-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md">
+                      {(user.first_name || "?")[0].toUpperCase()}
+                    </div>
+                  )}
 
                                 {/* Tên + Role */}
                                 <div className="flex flex-col gap-1">
@@ -326,8 +325,83 @@ export default function Layout({ children }: LayoutProps) {
                 Switch={() => {
                     setIsRegisterModalOpen(false);
                     setIsLoginModalOpen(true);
-                }}
+                    setMobileMenuOpen(false);
+                  }}
+                  className="w-full py-4 bg-red-600 hover:bg-red-700 rounded-xl text-white font-bold transition"
+                >
+                  Đăng nhập
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* CONTENT */}
+      <main className="flex-1 mt-20">{children}</main>
+
+      {/* ========================= FOOTER ========================= */}
+      <footer className="bg-black text-white py-14 z-10">
+        {/* MENU */}
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="flex flex-wrap justify-center gap-x-10 gap-y-3 text-sm md:text-base font-medium">
+            {[
+              "Chính sách",
+              "Lịch chiếu",
+              "Tin tức",
+              "Giá vé",
+              "Hỏi đáp",
+              "Liên hệ",
+            ].map((item) => (
+              <span
+                key={item}
+                className="cursor-pointer hover:text-red-500 transition"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+
+          {/* SOCIALS + APP STORE */}
+          <div className="flex flex-wrap justify-center items-center gap-6 mt-10">
+            {/* Social icons */}
+            <img src={fb} className="w-8 h-8 cursor-pointer hover:opacity-80" />
+            <img
+              src={zalo}
+              className="w-8 h-8 cursor-pointer hover:opacity-80"
             />
+            <img
+              src={ytb}
+              className="w-8 h-8 cursor-pointer hover:opacity-80"
+            />
+
+            {/* Store buttons */}
+            <img src={gp} className="h-11 cursor-pointer hover:opacity-90" />
+            <img src={as} className="h-11 cursor-pointer hover:opacity-90" />
+            <img
+              src={tem}
+              className="h-[50px] cursor-pointer hover:opacity-90"
+            />
+          </div>
+
+          {/* INFORMATION */}
+          <div className="mt-12 text-center flex flex-col gap-2 text-sm md:text-base leading-relaxed opacity-90">
+            <p>Cơ quan chủ quản: BỘ VĂN HÓA, THỂ THAO VÀ DU LỊCH</p>
+            <p>Bản quyền thuộc Trung tâm Chiếu phim Quốc gia.</p>
+            <p>Giấy phép số: 224/GP - TTĐT ngày 31/8/2010</p>
+            <p>
+              Địa chỉ: 87 Láng Hạ, Ba Đình, Hà Nội • Điện thoại: 024.35141791
+            </p>
+
+                        <div className="flex justify-center items-center gap-2 mt-2">
+                            
+                            <span>&copy; 2023 By NCC • All rights reserved.</span>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <RegisterModal isOpen={isRegisterModalOpen} onClose={() => setIsRegisterModalOpen(false)} Switch={() => setIsLoginModalOpen(true)}></RegisterModal>
+            <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} Switch={() => setIsRegisterModalOpen(true)}></LoginModal>
         </div>
     );
 }

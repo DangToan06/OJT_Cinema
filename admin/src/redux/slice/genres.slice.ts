@@ -1,3 +1,4 @@
+
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   fetchGenres,
@@ -30,18 +31,14 @@ const genresSlice = createSlice({
   extraReducers: (builder) => {
     builder
       // FETCH
-
       .addCase(fetchGenres.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(
-        fetchGenres.fulfilled,
-        (state, action: PayloadAction<Genre[]>) => {
-          state.loading = false;
-          state.list = action.payload;
-        }
-      )
+      .addCase(fetchGenres.fulfilled, (state, action: PayloadAction<Genre[]>) => {
+        state.loading = false;
+        state.list = action.payload;
+      })
       .addCase(fetchGenres.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
@@ -53,7 +50,7 @@ const genresSlice = createSlice({
         state.list.unshift(action.payload);
       })
 
-      // UPDATE
+      // UPDATE 
 
       .addCase(updateGenre.fulfilled, (state, action: PayloadAction<Genre>) => {
         const index = state.list.findIndex((g) => g.id === action.payload.id);
@@ -63,12 +60,9 @@ const genresSlice = createSlice({
       })
 
       // DELETE
-      .addCase(
-        deleteGenre.fulfilled,
-        (state, action: PayloadAction<string>) => {
-          state.list = state.list.filter((g) => g.id !== action.payload);
-        }
-      );
+      .addCase(deleteGenre.fulfilled, (state, action: PayloadAction<string>) => {
+        state.list = state.list.filter((g) => g.id !== action.payload);
+      });
   },
 });
 

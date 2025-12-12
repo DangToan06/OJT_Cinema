@@ -1,7 +1,5 @@
-
-
 interface MovieCardProps {
-  id: number;
+  id: string;
   title: string;
   image: string;
   type: string;
@@ -15,8 +13,12 @@ export default function MovieCard({
   type,
   release_date,
 }: MovieCardProps) {
+  
   return (
-    <div key={id} className="text-white flex flex-col gap-3 cursor-pointer">
+    <div
+      key={id}
+      className="text-white flex flex-col gap-3 cursor-pointer"
+    >
       <div className="relative overflow-hidden rounded-lg shadow-md bg-[#0f1214]">
         <img
           src={image}

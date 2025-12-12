@@ -5,15 +5,16 @@ import genresReducer from "../slice/genres.slice";
 import priceSlice from "../slice/price.slice";
 import { theaterStore } from "../slice/theater.slice";
 import { screenStore } from "../slice/screen.slice";
+import priceReducer from "../slice/price.slice";
+import showtimesReducer from "../slice/showtimes.slice"; 
 
 export const store = configureStore({
   reducer: {
     news: newsStore,
     movie: movieSlice,
     genres: genresReducer,
-    price: priceSlice,
-    theater: theaterStore,
-    screen:screenStore,
+    price: priceReducer,
+    showtimes: showtimesReducer,
   },
 });
 
