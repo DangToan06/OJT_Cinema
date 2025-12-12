@@ -203,6 +203,105 @@
       ]
     }
   ],
+   "ticket_prices": [
+    {
+      "id": 1,
+      "type_seat": "STANDARD",
+      "type_movie": "2D",
+      "price": 90000,
+      "day_type": 0,
+      "start_time": "08:00:00",
+      "end_time": "17:00:00"
+    },
+    {
+      "id": 2,
+      "type_seat": "VIP",
+      "type_movie": "3D",
+      "price": 150000,
+      "day_type": 1,
+      "start_time": "17:00:00",
+      "end_time": "23:00:00"
+    }
+  ],
+  "seat_types": [
+    {
+      "id": 1,
+      "name": "Ghế Standard",
+      "base_price": 75000
+    },
+    {
+      "id": 2,
+      "name": "Ghế VIP",
+      "base_price": 120000
+    },
+    {
+      "id": 3,
+      "name": "Ghế Sweetbox",
+      "base_price": 200000
+    }
+  ],
+  "screen_types": [
+    {
+      "id": 1,
+      "name": "Phòng 2D",
+      "surcharge": 0
+    },
+    {
+      "id": 2,
+      "name": "Phòng 3D",
+      "surcharge": 30000
+    },
+    {
+      "id": 3,
+      "name": "Phòng IMAX",
+      "surcharge": 60000
+    },
+    {
+      "id": 4,
+      "name": "Phòng 4DX",
+      "surcharge": 80000
+    }
+  ],
+  "day_multipliers": [
+    {
+      "id": 1,
+      "name": "Ngày thường (T2-T5)",
+      "multiplier": 1
+    },
+    {
+      "id": 2,
+      "name": "Cuối tuần (T6-CN)",
+      "multiplier": 1.2
+    },
+    {
+      "id": 3,
+      "name": "Ngày lễ",
+      "multiplier": 1.5
+    }
+  ],
+  "time_discounts": [
+    {
+      "id": 1,
+      "name": "Suất sáng (trước 12h)",
+      "discount": 30000
+    },
+    {
+      "id": 2,
+      "name": "Suất chiều (12h-17h)",
+      "discount": 0
+    },
+    {
+      "id": 3,
+      "name": "Suất tối (17h-22h)",
+      "discount": 0
+    },
+    {
+      "id": 4,
+      "name": "Suất khuya (sau 22h)",
+      "discount": 15000
+    }
+  ],
+
   "movies": [
     {
       "id": "1",
