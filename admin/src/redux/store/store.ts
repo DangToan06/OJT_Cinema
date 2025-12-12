@@ -1,20 +1,21 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { newsStore } from "../slice/news.slice";
+import newsSlice from "../slice/news.slice";
 import movieSlice from "../slice/movie.slice";
 import genresReducer from "../slice/genres.slice";
-import priceSlice from "../slice/price.slice";
-import { theaterStore } from "../slice/theater.slice";
-import { screenStore } from "../slice/screen.slice";
 import priceReducer from "../slice/price.slice";
-import showtimesReducer from "../slice/showtimes.slice"; 
+import showtimesReducer from "../slice/showtimes.slice";
+import theaterSlice from "../slice/theater.slice";
+import screenSlice from "../slice/screen.slice";
 
 export const store = configureStore({
   reducer: {
-    news: newsStore,
     movie: movieSlice,
     genres: genresReducer,
     price: priceReducer,
     showtimes: showtimesReducer,
+    theater: theaterSlice,
+    news: newsSlice,
+    screens: screenSlice,
   },
 });
 
