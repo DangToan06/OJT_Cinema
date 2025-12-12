@@ -9,13 +9,14 @@
       "avatar": "https://example.com/avatars/admin.jpg",
       "phone": "0901234567",
       "address": "123 Hanoi, Vietnam",
-      "status": "BLOCKED",
+      "status": "ACTIVE",
       "created_at": "2023-01-01T10:00:00Z",
       "updated_at": "2023-01-01T10:00:00Z",
       "role": {
         "id": 1,
         "role_name": "admin"
-      }
+      },
+      "bookings": []
     },
     {
       "id": 2,
@@ -32,10 +33,18 @@
       "role": {
         "id": 2,
         "role_name": "user"
-      }
+      },
+      "bookings": [
+        {
+          "id": 2,
+          "seat_id": 2,
+          "quantity": 1,
+          "created_at": "2023-10-15T09:30:00Z",
+          "updated_at": "2023-10-15T09:30:00Z"
+        }
+      ]
     },
     {
-      "id": 3,
       "first_name": "huy ",
       "last_name": "tôn",
       "email": "huy@gmail.com",
@@ -49,10 +58,11 @@
           "id": 2,
           "role_name": "user"
         }
-      ]
+      ],
+      "bookings": [],
+      "id": 3
     },
     {
-      "id": 4,
       "first_name": "huy",
       "last_name": "ngu",
       "email": "huy1@gmail.com",
@@ -66,12 +76,14 @@
           "id": 2,
           "role_name": "user"
         }
-      ]
+      ],
+      "bookings": [],
+      "id": 4
     }
   ],
   "theaters": [
     {
-      "id": "1",
+      "id": 1,
       "name": "CGV Vincom Ba Trieu",
       "location": "191 Ba Trieu, Hai Ba Trung, Hanoi",
       "phone": "02439743333",
@@ -111,7 +123,40 @@
           "role": {
             "id": 2,
             "role_name": "user"
-          }
+          },
+          "bookings": [
+            {
+              "id": 101,
+              "showtime_id": 1,
+              "total_seat": 2,
+              "total_price_movie": 300000,
+              "created_at": "2023-10-15T09:30:00Z",
+              "payment": {
+                "id": 1,
+                "payment_method": "VNPAY",
+                "payment_status": "COMPLETED",
+                "payment_time": "2023-10-15T09:35:00Z",
+                "amount": 300000,
+                "transaction_id": "VNP12345678"
+              },
+              "booking_details": [
+                {
+                  "id": 1,
+                  "seat_id": 3,
+                  "quantity": 1,
+                  "created_at": "2023-10-15T09:30:00Z",
+                  "updated_at": "2023-10-15T09:30:00Z"
+                },
+                {
+                  "id": 2,
+                  "seat_id": 2,
+                  "quantity": 1,
+                  "created_at": "2023-10-15T09:30:00Z",
+                  "updated_at": "2023-10-15T09:30:00Z"
+                }
+              ]
+            }
+          ]
         },
         {
           "first_name": "huy ",
@@ -134,130 +179,115 @@
       ]
     }
   ],
-  "bookings": [
-    {
-      "id": 1,
-      "user_id": 1,
-      "showtime_id": 1,
-      "total_seat": 1,
-      "total_price_movie": 75000,
-      "created_at": "2022-12-01T00:00:00Z"
-    },
-    {
-      "id": 2,
-      "user_id": 2,
-      "showtime_id": 1,
-      "total_seat": 1,
-      "total_price_movie": 75000,
-      "created_at": "2022-12-01T00:00:00Z"
-    },
-    {
-      "id": 3,
-      "user_id": 3,
-      "showtime_id": 1,
-      "total_seat": 1,
-      "total_price_movie": 75000,
-      "created_at": "2022-12-01T00:00:00Z"
-    }
-  ],
   "ticket_prices": [
     {
-      "id": "1",
+      "id": 1,
       "type_seat": "STANDARD",
       "type_movie": "2D",
-      "price": 80000000,
+      "price": 80000,
       "day_type": 0,
       "start_time": "08:00:00",
       "end_time": "17:00:00"
     },
     {
-      "id": "2",
+      "id": 2,
       "type_seat": "VIP",
       "type_movie": "3D",
-      "price": 150000,
+      "price": 110000,
+      "day_type": 1,
+      "start_time": "17:00:00",
+      "end_time": "23:00:00"
+    },
+    {
+      "id": 3,
+      "type_seat": "SweetBox",
+      "type_movie": "3D",
+      "price": 120000,
       "day_type": 1,
       "start_time": "17:00:00",
       "end_time": "23:00:00"
     }
+
   ],
   "seat_types": [
     {
-      "id": "1",
+      "id": 1,
       "name": "Ghế Standard",
-      "base_price": 70000
+      "base_price": 80000
     },
     {
-      "id": "2",
+      "id": 2,
       "name": "Ghế VIP",
-      "base_price": 120000
+      "base_price": 110000
     },
     {
-      "id": "3",
+      "id": 3,
       "name": "Ghế Sweetbox",
-      "base_price": 200000
+      "base_price": 120000
     }
   ],
   "screen_types": [
     {
-      "id": "1",
+      "id": 1,
       "name": "Phòng 2D",
       "surcharge": 0
     },
     {
-      "id": "2",
+      "id": 2,
       "name": "Phòng 3D",
       "surcharge": 30000
     },
     {
-      "id": "3",
+      "id": 3,
       "name": "Phòng IMAX",
       "surcharge": 60000
     },
     {
-      "id": "4",
+      "id": 4,
       "name": "Phòng 4DX",
       "surcharge": 80000
     }
   ],
   "day_multipliers": [
     {
-      "id": "1",
+      "id": 1,
       "name": "Ngày thường (T2-T5)",
       "multiplier": 1
     },
     {
-      "id": "2",
+      "id": 2,
       "name": "Cuối tuần (T6-CN)",
       "multiplier": 1.2
     },
     {
-      "id": "3",
+      "id": 3,
       "name": "Ngày lễ",
       "multiplier": 1.5
     }
   ],
   "time_discounts": [
     {
-      "id": "1",
+      "id": 1,
       "name": "Suất sáng (trước 12h)",
       "discount": 30000
     },
     {
-      "id": "2",
+      "id": 2,
       "name": "Suất chiều (12h-17h)",
       "discount": 0
     },
     {
-      "id": "3",
+      "id": 3,
       "name": "Suất tối (17h-22h)",
       "discount": 0
     },
     {
-      "id": "4",
+      "id": 4,
       "name": "Suất khuya (sau 22h)",
       "discount": 15000
     }
   ],
+
   "movies": [
     {
       "id": "1",
@@ -376,6 +406,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -466,6 +497,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -556,6 +588,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -646,6 +679,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -736,6 +770,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -826,6 +861,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -916,6 +952,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -1006,6 +1043,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -1098,6 +1136,7 @@
             }
           ]
         },
+
         {
           "id": 3,
           "time": "15:00",
@@ -1193,6 +1232,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -1283,6 +1323,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -1373,6 +1414,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -1463,6 +1505,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -1553,6 +1596,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -1643,6 +1687,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -1733,6 +1778,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -1823,6 +1869,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -1915,6 +1962,7 @@
             }
           ]
         },
+
         {
           "id": 5,
           "time": "23:00",
@@ -2010,6 +2058,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -2100,6 +2149,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -2190,6 +2240,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -2280,6 +2331,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -2370,6 +2422,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -2460,6 +2513,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -2550,6 +2604,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -2640,6 +2695,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -2851,6 +2907,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -2941,6 +2998,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -3031,6 +3089,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -3121,6 +3180,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -3211,6 +3271,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -3301,6 +3362,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -3391,6 +3453,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -3481,6 +3544,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -3573,6 +3637,7 @@
             }
           ]
         },
+
         {
           "id": 3,
           "time": "15:00",
@@ -3668,6 +3733,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -3758,6 +3824,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -3848,6 +3915,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -3938,6 +4006,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -4028,6 +4097,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -4118,6 +4188,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -4208,6 +4279,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -4298,6 +4370,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -4390,6 +4463,7 @@
             }
           ]
         },
+
         {
           "id": 5,
           "time": "23:00",
@@ -4485,6 +4559,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -4575,6 +4650,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -4665,6 +4741,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -4755,6 +4832,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -4845,6 +4923,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -4935,6 +5014,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -5025,6 +5105,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -5115,6 +5196,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -5326,6 +5408,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -5416,6 +5499,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -5506,6 +5590,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -5596,6 +5681,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -5686,6 +5772,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -5776,6 +5863,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -5866,6 +5954,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -5956,6 +6045,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -6048,6 +6138,7 @@
             }
           ]
         },
+
         {
           "id": 3,
           "time": "15:00",
@@ -6143,6 +6234,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -6233,6 +6325,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -6323,6 +6416,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -6413,6 +6507,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -6503,6 +6598,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -6593,6 +6689,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -6683,6 +6780,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -6773,6 +6871,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -6865,6 +6964,7 @@
             }
           ]
         },
+
         {
           "id": 5,
           "time": "23:00",
@@ -6960,6 +7060,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -7050,6 +7151,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -7140,6 +7242,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -7230,6 +7333,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -7320,6 +7424,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -7410,6 +7515,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -7500,6 +7606,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -7590,6 +7697,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -7805,6 +7913,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -7895,6 +8004,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -7985,6 +8095,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -8075,6 +8186,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -8165,6 +8277,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -8255,6 +8368,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -8345,6 +8459,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -8435,6 +8550,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -8527,6 +8643,7 @@
             }
           ]
         },
+
         {
           "id": 3,
           "time": "15:00",
@@ -8622,6 +8739,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -8712,6 +8830,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -8802,6 +8921,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -8892,6 +9012,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -8982,6 +9103,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -9072,6 +9194,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -9162,6 +9285,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -9252,6 +9376,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -9344,6 +9469,7 @@
             }
           ]
         },
+
         {
           "id": 5,
           "time": "23:00",
@@ -9439,6 +9565,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -9529,6 +9656,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -9619,6 +9747,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -9709,6 +9838,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -9799,6 +9929,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -9889,6 +10020,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -9979,6 +10111,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -10069,6 +10202,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -10284,6 +10418,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -10374,6 +10509,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -10464,6 +10600,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -10554,6 +10691,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -10644,6 +10782,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -10734,6 +10873,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -10824,6 +10964,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -10914,6 +11055,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -11006,6 +11148,7 @@
             }
           ]
         },
+
         {
           "id": 3,
           "time": "15:00",
@@ -11101,6 +11244,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -11191,6 +11335,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -11281,6 +11426,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -11371,6 +11517,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -11461,6 +11608,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -11551,6 +11699,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -11641,6 +11790,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -11731,6 +11881,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -11823,6 +11974,7 @@
             }
           ]
         },
+
         {
           "id": 5,
           "time": "23:00",
@@ -11918,6 +12070,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -12008,6 +12161,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -12098,6 +12252,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -12188,6 +12343,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -12278,6 +12434,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -12368,6 +12525,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -12458,6 +12616,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -12548,6 +12707,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -12759,6 +12919,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -12849,6 +13010,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -12939,6 +13101,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -13029,6 +13192,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -13119,6 +13283,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -13209,6 +13374,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -13299,6 +13465,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -13389,6 +13556,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -13481,6 +13649,7 @@
             }
           ]
         },
+
         {
           "id": 3,
           "time": "15:00",
@@ -13576,6 +13745,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -13666,6 +13836,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -13756,6 +13927,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -13846,6 +14018,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -13936,6 +14109,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -14026,6 +14200,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -14116,6 +14291,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -14206,6 +14382,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -14298,6 +14475,7 @@
             }
           ]
         },
+
         {
           "id": 5,
           "time": "23:00",
@@ -14393,6 +14571,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -14483,6 +14662,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -14573,6 +14753,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -14663,6 +14844,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -14753,6 +14935,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -14843,6 +15026,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -14933,6 +15117,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -15023,6 +15208,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -15238,6 +15424,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -15328,6 +15515,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -15418,6 +15606,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -15508,6 +15697,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -15598,6 +15788,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -15688,6 +15879,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -15778,6 +15970,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -15868,6 +16061,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -15960,6 +16154,7 @@
             }
           ]
         },
+
         {
           "id": 3,
           "time": "15:00",
@@ -16055,6 +16250,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -16145,6 +16341,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -16235,6 +16432,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -16325,6 +16523,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -16415,6 +16614,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -16505,6 +16705,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -16595,6 +16796,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -16685,6 +16887,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -16777,6 +16980,7 @@
             }
           ]
         },
+
         {
           "id": 5,
           "time": "23:00",
@@ -16872,6 +17076,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -16962,6 +17167,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -17052,6 +17258,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -17142,6 +17349,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -17232,6 +17440,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -17322,6 +17531,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -17412,6 +17622,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -17502,6 +17713,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -17717,6 +17929,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -17807,6 +18020,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -17897,6 +18111,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -17987,6 +18202,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -18077,6 +18293,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -18167,6 +18384,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -18257,6 +18475,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -18347,6 +18566,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -18439,6 +18659,7 @@
             }
           ]
         },
+
         {
           "id": 3,
           "time": "15:00",
@@ -18534,6 +18755,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -18624,6 +18846,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -18714,6 +18937,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -18804,6 +19028,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -18894,6 +19119,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -18984,6 +19210,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -19074,6 +19301,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -19164,6 +19392,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -19256,6 +19485,7 @@
             }
           ]
         },
+
         {
           "id": 5,
           "time": "23:00",
@@ -19351,6 +19581,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -19441,6 +19672,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -19531,6 +19763,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -19621,6 +19854,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -19711,6 +19945,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -19801,6 +20036,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -19891,6 +20127,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -19981,6 +20218,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -20192,6 +20430,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -20282,6 +20521,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -20372,6 +20612,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -20462,6 +20703,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -20552,6 +20794,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -20642,6 +20885,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -20732,6 +20976,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -20822,6 +21067,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -20914,6 +21160,7 @@
             }
           ]
         },
+
         {
           "id": 3,
           "time": "15:00",
@@ -21009,6 +21256,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -21099,6 +21347,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -21189,6 +21438,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -21279,6 +21529,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -21369,6 +21620,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -21459,6 +21711,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -21549,6 +21802,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -21639,6 +21893,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -21731,6 +21986,7 @@
             }
           ]
         },
+
         {
           "id": 5,
           "time": "23:00",
@@ -21826,6 +22082,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -21916,6 +22173,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -22006,6 +22264,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -22096,6 +22355,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -22186,6 +22446,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -22276,6 +22537,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -22366,6 +22628,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -22456,6 +22719,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -22671,6 +22935,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -22761,6 +23026,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -22851,6 +23117,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -22941,6 +23208,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -23031,6 +23299,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -23121,6 +23390,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -23211,6 +23481,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -23301,6 +23572,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -23393,6 +23665,7 @@
             }
           ]
         },
+
         {
           "id": 3,
           "time": "15:00",
@@ -23488,6 +23761,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -23578,6 +23852,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -23668,6 +23943,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -23758,6 +24034,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -23848,6 +24125,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -23938,6 +24216,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -24028,6 +24307,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -24118,6 +24398,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -24210,6 +24491,7 @@
             }
           ]
         },
+
         {
           "id": 5,
           "time": "23:00",
@@ -24305,6 +24587,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -24395,6 +24678,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -24485,6 +24769,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -24575,6 +24860,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -24665,6 +24951,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -24755,6 +25042,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -24845,6 +25133,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -24935,6 +25224,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -25146,6 +25436,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -25236,6 +25527,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -25326,6 +25618,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -25416,6 +25709,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -25506,6 +25800,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -25596,6 +25891,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -25686,6 +25982,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -25776,6 +26073,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -25868,6 +26166,7 @@
             }
           ]
         },
+
         {
           "id": 3,
           "time": "15:00",
@@ -25963,6 +26262,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -26053,6 +26353,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -26143,6 +26444,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -26233,6 +26535,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -26323,6 +26626,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -26413,6 +26717,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -26503,6 +26808,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -26593,6 +26899,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -26685,6 +26992,7 @@
             }
           ]
         },
+
         {
           "id": 5,
           "time": "23:00",
@@ -26780,6 +27088,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -26870,6 +27179,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -26960,6 +27270,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -27050,6 +27361,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -27140,6 +27452,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -27230,6 +27543,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -27320,6 +27634,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -27410,6 +27725,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -27621,6 +27937,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -27711,6 +28028,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -27801,6 +28119,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -27891,6 +28210,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -27981,6 +28301,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -28071,6 +28392,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -28161,6 +28483,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -28251,6 +28574,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -28343,6 +28667,7 @@
             }
           ]
         },
+
         {
           "id": 3,
           "time": "15:00",
@@ -28438,6 +28763,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -28528,6 +28854,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -28618,6 +28945,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -28708,6 +29036,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -28798,6 +29127,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -28888,6 +29218,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -28978,6 +29309,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -29068,6 +29400,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -29160,6 +29493,7 @@
             }
           ]
         },
+
         {
           "id": 5,
           "time": "23:00",
@@ -29255,6 +29589,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -29345,6 +29680,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -29435,6 +29771,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -29525,6 +29862,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -29615,6 +29953,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -29705,6 +30044,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -29795,6 +30135,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -29885,6 +30226,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -30100,6 +30442,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -30190,6 +30533,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -30280,6 +30624,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -30370,6 +30715,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -30460,6 +30806,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -30550,6 +30897,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -30640,6 +30988,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -30730,6 +31079,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -30822,6 +31172,7 @@
             }
           ]
         },
+
         {
           "id": 3,
           "time": "15:00",
@@ -30917,6 +31268,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -31007,6 +31359,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -31097,6 +31450,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -31187,6 +31541,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -31277,6 +31632,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -31367,6 +31723,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -31457,6 +31814,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -31547,6 +31905,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -31639,6 +31998,7 @@
             }
           ]
         },
+
         {
           "id": 5,
           "time": "23:00",
@@ -31734,6 +32094,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -31824,6 +32185,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -31914,6 +32276,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -32004,6 +32367,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -32094,6 +32458,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -32184,6 +32549,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -32274,6 +32640,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -32364,6 +32731,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -32579,6 +32947,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -32669,6 +33038,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -32759,6 +33129,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -32849,6 +33220,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -32939,6 +33311,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -33029,6 +33402,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -33119,6 +33493,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -33209,6 +33584,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -33301,6 +33677,7 @@
             }
           ]
         },
+
         {
           "id": 3,
           "time": "15:00",
@@ -33396,6 +33773,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -33486,6 +33864,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -33576,6 +33955,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -33666,6 +34046,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -33756,6 +34137,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -33846,6 +34228,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -33936,6 +34319,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -34026,6 +34410,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -34118,6 +34503,7 @@
             }
           ]
         },
+
         {
           "id": 5,
           "time": "23:00",
@@ -34213,6 +34599,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -34303,6 +34690,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -34393,6 +34781,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -34483,6 +34872,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -34573,6 +34963,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -34663,6 +35054,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -34753,6 +35145,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -34843,6 +35236,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -35058,6 +35452,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -35148,6 +35543,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -35238,6 +35634,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -35328,6 +35725,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -35418,6 +35816,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -35508,6 +35907,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -35598,6 +35998,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -35688,6 +36089,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -35780,6 +36182,7 @@
             }
           ]
         },
+
         {
           "id": 3,
           "time": "15:00",
@@ -35875,6 +36278,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -35965,6 +36369,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -36055,6 +36460,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -36145,6 +36551,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -36235,6 +36642,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -36325,6 +36733,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -36415,6 +36824,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -36505,6 +36915,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -36597,6 +37008,7 @@
             }
           ]
         },
+
         {
           "id": 5,
           "time": "23:00",
@@ -36692,6 +37104,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -36782,6 +37195,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -36872,6 +37286,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -36962,6 +37377,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -37052,6 +37468,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -37142,6 +37559,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -37232,6 +37650,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -37322,6 +37741,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -37537,6 +37957,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -37627,6 +38048,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -37717,6 +38139,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -37807,6 +38230,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -37897,6 +38321,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -37987,6 +38412,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -38077,6 +38503,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -38167,6 +38594,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -38259,6 +38687,7 @@
             }
           ]
         },
+
         {
           "id": 3,
           "time": "15:00",
@@ -38354,6 +38783,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -38444,6 +38874,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -38534,6 +38965,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -38624,6 +39056,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -38714,6 +39147,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -38804,6 +39238,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -38894,6 +39329,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -38984,6 +39420,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -39076,6 +39513,7 @@
             }
           ]
         },
+
         {
           "id": 5,
           "time": "23:00",
@@ -39171,6 +39609,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -39261,6 +39700,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -39351,6 +39791,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -39441,6 +39882,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -39531,6 +39973,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -39621,6 +40064,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -39711,6 +40155,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -39801,6 +40246,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -40016,6 +40462,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -40106,6 +40553,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -40196,6 +40644,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -40286,6 +40735,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -40376,6 +40826,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -40466,6 +40917,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -40556,6 +41008,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -40646,6 +41099,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -40738,6 +41192,7 @@
             }
           ]
         },
+
         {
           "id": 3,
           "time": "15:00",
@@ -40833,6 +41288,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -40923,6 +41379,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -41013,6 +41470,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -41103,6 +41561,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -41193,6 +41652,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -41283,6 +41743,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -41373,6 +41834,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -41463,6 +41925,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -41555,6 +42018,7 @@
             }
           ]
         },
+
         {
           "id": 5,
           "time": "23:00",
@@ -41650,6 +42114,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -41740,6 +42205,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -41830,6 +42296,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -41920,6 +42387,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -42010,6 +42478,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -42100,6 +42569,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -42190,6 +42660,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -42280,6 +42751,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -42491,6 +42963,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -42581,6 +43054,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -42671,6 +43145,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -42761,6 +43236,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -42851,6 +43327,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -42941,6 +43418,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -43031,6 +43509,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -43121,6 +43600,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -43213,6 +43693,7 @@
             }
           ]
         },
+
         {
           "id": 3,
           "time": "15:00",
@@ -43308,6 +43789,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -43398,6 +43880,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -43488,6 +43971,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -43578,6 +44062,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -43668,6 +44153,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -43758,6 +44244,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -43848,6 +44335,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -43938,6 +44426,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -44030,6 +44519,7 @@
             }
           ]
         },
+
         {
           "id": 5,
           "time": "23:00",
@@ -44125,6 +44615,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -44215,6 +44706,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -44305,6 +44797,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -44395,6 +44888,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -44485,6 +44979,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -44575,6 +45070,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -44665,6 +45161,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -44755,6 +45252,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -44966,6 +45464,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -45056,6 +45555,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -45146,6 +45646,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -45236,6 +45737,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -45326,6 +45828,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -45416,6 +45919,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -45506,6 +46010,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -45596,6 +46101,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -45688,6 +46194,7 @@
             }
           ]
         },
+
         {
           "id": 3,
           "time": "15:00",
@@ -45783,6 +46290,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -45873,6 +46381,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -45963,6 +46472,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -46053,6 +46563,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -46143,6 +46654,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -46233,6 +46745,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -46323,6 +46836,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -46413,6 +46927,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -46505,6 +47020,7 @@
             }
           ]
         },
+
         {
           "id": 5,
           "time": "23:00",
@@ -46600,6 +47116,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -46690,6 +47207,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -46780,6 +47298,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -46870,6 +47389,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -46960,6 +47480,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -47050,6 +47571,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -47140,6 +47662,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -47230,6 +47753,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -47445,6 +47969,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -47535,6 +48060,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -47625,6 +48151,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -47715,6 +48242,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -47805,6 +48333,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -47895,6 +48424,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -47985,6 +48515,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -48075,6 +48606,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -48167,6 +48699,7 @@
             }
           ]
         },
+
         {
           "id": 3,
           "time": "15:00",
@@ -48262,6 +48795,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -48352,6 +48886,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -48442,6 +48977,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -48532,6 +49068,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -48622,6 +49159,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -48712,6 +49250,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -48802,6 +49341,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -48892,6 +49432,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -48984,6 +49525,7 @@
             }
           ]
         },
+
         {
           "id": 5,
           "time": "23:00",
@@ -49079,6 +49621,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "B1",
               "booked": false,
@@ -49169,6 +49712,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "C1",
               "booked": false,
@@ -49259,6 +49803,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "D1",
               "booked": false,
@@ -49349,6 +49894,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "E1",
               "booked": false,
@@ -49439,6 +49985,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "F1",
               "booked": false,
@@ -49529,6 +50076,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "G1",
               "booked": false,
@@ -49619,6 +50167,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "H1",
               "booked": false,
@@ -49709,6 +50258,7 @@
               "price": 80000,
               "type": "standard"
             },
+
             {
               "seat": "K1",
               "booked": false,
@@ -49807,15 +50357,15 @@
   "genres": [
     {
       "genreName": "huy occhoooo",
-      "id": "12"
+      "id": 12
     },
     {
       "genreName": "huy yêu rikkei",
-      "id": "15"
+      "id": 15
     },
     {
       "genreName": "huy yêu tươi",
-      "id": "16"
+      "id": 16
     }
   ],
   "news": [
@@ -49920,6 +50470,7 @@
       "dayEnd": "2026-01-01"
     }
   ],
+
   "showtimes": [
     {
       "movie": "Spider-Man: No Way Home",
@@ -49932,7 +50483,7 @@
       "availableSeats": 150,
       "totalSeats": 150,
       "status": "active",
-      "id": "2"
+      "id": 2
     },
     {
       "movie": "Avengers: Endgame",
@@ -49945,7 +50496,7 @@
       "availableSeats": 150,
       "totalSeats": 150,
       "status": "active",
-      "id": "3"
+      "id": 3
     },
     {
       "movie": "Spider-Man: No Way Home",
@@ -49958,7 +50509,7 @@
       "availableSeats": 150,
       "totalSeats": 150,
       "status": "active",
-      "id": "4"
+      "id": 4
     }
   ]
 }
