@@ -214,7 +214,16 @@
       "id": 2,
       "type_seat": "VIP",
       "type_movie": "3D",
-      "price": 150000,
+      "price": 110000,
+      "day_type": 1,
+      "start_time": "17:00:00",
+      "end_time": "23:00:00"
+    },
+    {
+      "id": 3,
+      "type_seat": "SweetBox",
+      "type_movie": "3D",
+      "price": 120000,
       "day_type": 1,
       "start_time": "17:00:00",
       "end_time": "23:00:00"
@@ -224,17 +233,17 @@
     {
       "id": 1,
       "name": "Ghế Standard",
-      "base_price": 75000
+      "base_price": 80000
     },
     {
       "id": 2,
       "name": "Ghế VIP",
-      "base_price": 120000
+      "base_price": 110000
     },
     {
       "id": 3,
       "name": "Ghế Sweetbox",
-      "base_price": 200000
+      "base_price": 120000
     }
   ],
   "screen_types": [

@@ -11,11 +11,13 @@ export const store = configureStore({
   reducer: {
     movie: movieSlice,
     genres: genresReducer,
-    price: priceReducer,
+    price: priceSlice,
     showtimes: showtimesReducer,
     theater: theaterSlice,
     news: newsSlice,
     screens: screenSlice,
+    user: userSlice,
+    booking: bookingSlice,
   },
 });
 
