@@ -129,7 +129,76 @@
               "created_at": "2022-12-01T00:00:00Z",
               "updated_at": "2022-12-01T00:00:00Z"
             }
+          ],
+          "bookings": []
+        },
+        {
+          "id": "2",
+          "first_name": "Nguyen",
+          "last_name": "Van A",
+          "email": "vana@gmail.com",
+          "password": "123456",
+          "avatar": "https://example.com/avatars/user2.jpg",
+          "phone": "0987654321",
+          "address": "456 Danang, Vietnam",
+          "status": "ACTIVE",
+          "created_at": "2023-05-15T14:30:00Z",
+          "updated_at": "2023-05-15T14:30:00Z",
+          "role": {
+            "id": 2,
+            "role_name": "user"
+          },
+          "bookings": [
+            {
+              "id": 101,
+              "showtime_id": 1,
+              "total_seat": 2,
+              "total_price_movie": 300000,
+              "created_at": "2023-10-15T09:30:00Z",
+              "payment": {
+                "id": 1,
+                "payment_method": "VNPAY",
+                "payment_status": "COMPLETED",
+                "payment_time": "2023-10-15T09:35:00Z",
+                "amount": 300000,
+                "transaction_id": "VNP12345678"
+              },
+              "booking_details": [
+                {
+                  "id": 1,
+                  "seat_id": 3,
+                  "quantity": 1,
+                  "created_at": "2023-10-15T09:30:00Z",
+                  "updated_at": "2023-10-15T09:30:00Z"
+                },
+                {
+                  "id": 2,
+                  "seat_id": 2,
+                  "quantity": 1,
+                  "created_at": "2023-10-15T09:30:00Z",
+                  "updated_at": "2023-10-15T09:30:00Z"
+                }
+              ]
+            }
           ]
+        },
+        {
+          "first_name": "huy ",
+          "last_name": "tôn",
+          "email": "huy@gmail.com",
+          "phone": "0123781242",
+          "password": "123456",
+          "avatar": "",
+          "address": "",
+          "status": "ACTIVE",
+          "role": [
+            {
+              "id": 2,
+              "role_name": "user"
+            }
+          ],
+          "bookings": [],
+          "id": "3"
         }
       ]
     }
@@ -3960,6 +4029,7 @@
       ]
     },
     {
+      "id": "9",
       "title": "Mission: Impossible - Dead Reckoning",
       "description": "Ethan Hunt và đội IMF thực hiện nhiệm vụ nguy hiểm nhất từ trước đến nay.",
       "author": "Christopher McQuarrie",
@@ -3979,7 +4049,6 @@
       "release_date": "2023-07-12",
       "created_at": "2023-06-20T08:00:00Z",
       "updated_at": "2023-06-20T08:00:00Z",
-      "id": "9",
       "showtimes": [
         {
           "id": 1,
@@ -4444,7 +4513,6 @@
       "trailer": "https://youtube.com/watch?v=_inKs4eeHiI",
       "type": "3D",
       "duration": 94,
-
       "age": 13,
       "origin": "Mẽo",
       "genres_movie": [
@@ -8753,7 +8821,7 @@
       "trailer": "https://youtube.com/watch?v=xjDjIWPwcPU",
       "type": "3D",
       "duration": 134,
-      "age": 13,
+      "age": 16,
       "origin": "Mẽo",
       "genres_movie": [
         {
@@ -9229,7 +9297,7 @@
       "trailer": "https://youtube.com/watch?v=Ga6RYejo6Hk",
       "type": "2D",
       "duration": 105,
-      "age": 16,
+      "age": 13,
       "origin": "Mẽo",
       "genres_movie": [
         {
@@ -9703,16 +9771,16 @@
   ],
   "genres": [
     {
-      "genreName": "Hành động",
-      "id": 1
+      "genreName": "huy occhoooo",
+      "id": 12
     },
     {
-      "genreName": "Khoa học viễn tưởng",
-      "id": 2
+      "genreName": "huy yêu rikkei",
+      "id": 15
     },
     {
-      "genreName": "Kinh dị",
-      "id": 3
+      "genreName": "huy yêu tươi",
+      "id": 16
     }
   ],
   "ticket_prices": [
@@ -9879,6 +9947,47 @@
       "id": 4,
       "name": "Suất khuya (sau 22h)",
       "discount": 15000
+    }
+  ],
+  "showtimes": [
+    {
+      "movie": "Spider-Man: No Way Home",
+      "theater": "Galaxy Cinema Nguyễn Du",
+      "screen": "Phòng 1 (120 ghế - 2D)",
+      "date": "2025-12-12",
+      "startTime": "10:56",
+      "endTime": "13:56",
+      "price": 123123,
+      "availableSeats": 150,
+      "totalSeats": 150,
+      "status": "active",
+      "id": 2
+    },
+    {
+      "movie": "Avengers: Endgame",
+      "theater": "CGV Vincom Center",
+      "screen": "Phòng 1 (120 ghế - 2D)",
+      "date": "2025-12-24",
+      "startTime": "11:10",
+      "endTime": "14:10",
+      "price": 666666,
+      "availableSeats": 150,
+      "totalSeats": 150,
+      "status": "active",
+      "id": 3
+    },
+    {
+      "movie": "Spider-Man: No Way Home",
+      "theater": "CGV Vincom Center",
+      "screen": "Phòng 1 (120 ghế - 2D)",
+      "date": "2025-12-10",
+      "startTime": "16:08",
+      "endTime": "19:08",
+      "price": 5555566,
+      "availableSeats": 150,
+      "totalSeats": 150,
+      "status": "active",
+      "id": 4
     }
   ]
 }

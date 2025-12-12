@@ -1,107 +1,163 @@
-import { useState } from "react";
+'use client';
+
+import { useEffect, useState } from "react";
 import { Plus, Edit, Trash2, Calendar, Clock, AlertCircle } from "lucide-react";
+import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../redux/store/store";
+import { createShowtime, deleteShowtime, fetchShowtimes, updateShowtime } from "../api/showtimes.api";
+// import { createShowtime, deleteShowtime, fetchShowtimes, updateShowtime } from "../redux/slice/showtimes.slice";
+
+interface ShowtimeForm {
+  movie: string;
+  theater: string;
+  screen: string;
+  date: string;
+  startTime: string;
+  price: string;
+}
 
 export function ShowtimesManagement() {
-  const [showtimes] = useState([
-    {
-      id: 1,
-      movie: "Avengers: Endgame",
-      theater: "CGV Vincom Center",
-      screen: "Phòng 1",
-      date: "2025-12-10",
-      startTime: "10:00",
-      endTime: "13:01",
-      price: 75000,
-      availableSeats: 85,
-      totalSeats: 120,
-      status: "active",
-    },
-    {
-      id: 2,
-      movie: "Avengers: Endgame",
-      theater: "CGV Vincom Center",
-      screen: "Phòng 1",
-      date: "2025-12-10",
-      startTime: "13:30",
-      endTime: "16:31",
-      price: 90000,
-      availableSeats: 110,
-      totalSeats: 120,
-      status: "active",
-    },
-    {
-      id: 3,
-      movie: "Spider-Man: No Way Home",
-      theater: "Lotte Cinema Keangnam",
-      screen: "Phòng 2",
-      date: "2025-12-10",
-      startTime: "14:00",
-      endTime: "16:28",
-      price: 85000,
-      availableSeats: 142,
-      totalSeats: 180,
-      status: "active",
-    },
-    {
-      id: 4,
-      movie: "The Batman",
-      theater: "Galaxy Cinema Nguyễn Du",
-      screen: "Phòng 1",
-      date: "2025-12-10",
-      startTime: "19:30",
-      endTime: "22:26",
-      price: 100000,
-      availableSeats: 35,
-      totalSeats: 100,
-      status: "active",
-    },
-    {
-      id: 5,
-      movie: "Avatar 2",
-      theater: "CGV Vincom Center",
-      screen: "Phòng VIP",
-      date: "2025-12-10",
-      startTime: "20:00",
-      endTime: "23:12",
-      price: 150000,
-      availableSeats: 68,
-      totalSeats: 80,
-      status: "active",
-    },
-  ]);
+  const dispatch = useDispatch<AppDispatch>();
+  const { data: showtimes, loading } = useSelector((state: RootState) => state.showtimes);
 
   const [showModal, setShowModal] = useState(false);
+  const [editingShowtime, setEditingShowtime] = useState<any>(null);
   const [filterDate, setFilterDate] = useState("2025-12-10");
+  const [submitted, setSubmitted] = useState(false);
 
-  const filteredShowtimes = showtimes.filter((s) => s.date === filterDate);
+  const [form, setForm] = useState<ShowtimeForm>({
+    movie: "",
+    theater: "",
+    screen: "",
+    date: "",
+    startTime: "",
+    price: "",
+  });
+
+  useEffect(() => {
+    dispatch(fetchShowtimes());
+  }, [dispatch]);
+
+  const filteredShowtimes = Array.isArray(showtimes)
+    ? showtimes.filter((s) => s.date === filterDate)
+    : [];
 
   const getOccupancyColor = (available: number, total: number) => {
     const percentage = ((total - available) / total) * 100;
-    if (percentage >= 80) return "text-red-600";
-    if (percentage >= 50) return "text-orange-600";
-    return "text-green-600";
+    if (percentage >= 80) return "text-red-600 font-semibold";
+    if (percentage >= 50) return "text-orange-600 font-semibold";
+    return "text-green-600 font-semibold";
   };
 
+  const openAddModal = () => {
+    setEditingShowtime(null);
+    setForm({ movie: "", theater: "", screen: "", date: "", startTime: "", price: "" });
+    setShowModal(true);
+  };
+
+  const openEditModal = (showtime: any) => {
+    setEditingShowtime(showtime);
+    setForm({
+      movie: showtime.movie,
+      theater: showtime.theater,
+      screen: showtime.screen,
+      date: showtime.date,
+      startTime: showtime.startTime,
+      price: showtime.price.toString(),
+    });
+    setShowModal(true);
+  };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true); 
+
+    if (!form.movie || !form.theater || !form.screen || !form.date || !form.startTime || !form.price || Number(form.price) < 10000) {
+      return; 
+    }
+
+    const price = Number(form.price);
+    if (isNaN(price) || price < 10000) {
+      Swal.fire("Lỗi", "Giá vé phải lớn hơn 10.000đ", "error");
+      return;
+    }
+
+    // Tính giờ kết thúc 
+    const [hours, minutes] = form.startTime.split(":").map(Number);
+    const totalMinutes = hours * 60 + minutes + 180;
+    const endHours = Math.floor(totalMinutes / 60).toString().padStart(2, "0");
+    const endMinutes = (totalMinutes % 60).toString().padStart(2, "0");
+    const endTime = `${endHours}:${endMinutes}`;
+
+    const totalSeats = form.screen.includes("VIP") ? 80 : form.screen.includes("2") ? 150 : 120;
+
+    const payload = {
+      movie: form.movie,
+      theater: form.theater,
+      screen: form.screen,
+      date: form.date,
+      startTime: form.startTime,
+      endTime,
+      price,
+      availableSeats: totalSeats,
+      totalSeats,
+      status: "active",
+    };
+
+    if (editingShowtime) {
+      await dispatch(updateShowtime({ id: editingShowtime.id, data: payload }));
+      Swal.fire("Thành công!", "Cập nhật suất chiếu thành công", "success");
+    } else {
+      await dispatch(createShowtime(payload));
+      Swal.fire("Thành công!", "Thêm suất chiếu mới thành công", "success");
+    }
+
+    setShowModal(false);
+    setForm({ movie: "", theater: "", screen: "", date: "", startTime: "", price: "" });
+    setEditingShowtime(null);
+  };
+
+  const handleDelete = (id: number) => {
+    Swal.fire({
+      title: "Xóa suất chiếu?",
+      text: "Hành động này không thể hoàn tác!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Xóa luôn",
+      cancelButtonText: "Hủy",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteShowtime(id));
+        Swal.fire("Đã xóa!", "Suất chiếu đã bị xóa", "success");
+      }
+    });
+  };
+
+  if (loading) {
+    return <div className="p-10 text-center text-xl">Đang tải lịch chiếu...</div>;
+  }
+
   return (
-    <div>
+    <div className="p-6">
+      {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-gray-900 mb-2 font-bold text-2xl">
-            Quản lý lịch chiếu
-          </h1>
-          <p className="text-gray-600">
-            Tạo và quản lý lịch chiếu phim cho các rạp
-          </p>
+          <h1 className="text-gray-900 mb-2 font-bold text-2xl">Quản lý lịch chiếu</h1>
+          <p className="text-gray-600">Tạo và quản lý lịch chiếu phim cho các rạp</p>
         </div>
         <button
-          onClick={() => setShowModal(true)}
-          className="flex items-center gap-2 bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors"
+          onClick={openAddModal}
+          className="flex items-center gap-2 bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors cursor-pointer"
         >
           <Plus className="w-5 h-5" />
           Thêm suất chiếu
         </button>
       </div>
 
+      {/* Filter + Table */}
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
         <div className="p-6 border-b border-gray-200 flex items-center gap-4">
           <Calendar className="w-5 h-5 text-gray-400" />
@@ -111,7 +167,7 @@ export function ShowtimesManagement() {
             onChange={(e) => setFilterDate(e.target.value)}
             className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
           />
-          <span className="text-gray-600">
+          <span className="text-gray-600 font-medium">
             {filteredShowtimes.length} suất chiếu
           </span>
         </div>
@@ -120,165 +176,218 @@ export function ShowtimesManagement() {
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-4 text-left text-gray-600">Phim</th>
-                <th className="px-6 py-4 text-left text-gray-600">
-                  Rạp & Phòng
-                </th>
-                <th className="px-6 py-4 text-left text-gray-600">Giờ chiếu</th>
-                <th className="px-6 py-4 text-left text-gray-600">Giá vé</th>
-                <th className="px-6 py-4 text-left text-gray-600">Ghế trống</th>
-                <th className="px-6 py-4 text-right text-gray-600">Thao tác</th>
+                <th className="px-6 py-4 text-left text-gray-600 font-medium">Phim</th>
+                <th className="px-6 py-4 text-left text-gray-600 font-medium">Rạp & Phòng</th>
+                <th className="px-6 py-4 text-left text-gray-600 font-medium">Giờ chiếu</th>
+                <th className="px-6 py-4 text-left text-gray-600 font-medium">Giá vé</th>
+                <th className="px-6 py-4 text-left text-gray-600 font-medium">Ghế trống</th>
+                <th className="px-6 py-4 text-right text-gray-600 font-medium">Thao tác</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {filteredShowtimes.map((showtime) => (
-                <tr key={showtime.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4">
-                    <p className="text-gray-900">{showtime.movie}</p>
-                  </td>
-                  <td className="px-6 py-4">
-                    <p className="text-gray-900">{showtime.theater}</p>
-                    <p className="text-sm text-gray-500">{showtime.screen}</p>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-2 text-gray-900">
-                      <Clock className="w-4 h-4" />
-                      {showtime.startTime} - {showtime.endTime}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 text-gray-900">
-                    {showtime.price.toLocaleString()} ₫
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-2">
-                      <span
-                        className={getOccupancyColor(
-                          showtime.availableSeats,
-                          showtime.totalSeats
-                        )}
-                      >
-                        {showtime.availableSeats}/{showtime.totalSeats}
-                      </span>
-                      {showtime.availableSeats < 20 && (
-                        <AlertCircle className="w-4 h-4 text-red-500" />
-                      )}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center justify-end gap-2">
-                      <button className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
-                        <Edit className="w-5 h-5" />
-                      </button>
-                      <button className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors">
-                        <Trash2 className="w-5 h-5" />
-                      </button>
-                    </div>
+              {filteredShowtimes.length === 0 ? (
+                <tr>
+                  <td colSpan={6} className="px-6 py-12 text-center text-gray-500">
+                    Không có suất chiếu nào trong ngày này
                   </td>
                 </tr>
-              ))}
+              ) : (
+                filteredShowtimes.map((showtime) => (
+                  <tr key={showtime.id} className="hover:bg-gray-50 transition">
+                    <td className="px-6 py-4 text-gray-900 font-medium">{showtime.movie}</td>
+                    <td className="px-6 py-4">
+                      <p className="text-gray-900 font-medium">{showtime.theater}</p>
+                      <p className="text-sm text-gray-500">{showtime.screen}</p>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-2 text-gray-900">
+                        <Clock className="w-4 h-4" />
+                        {showtime.startTime} - {showtime.endTime}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 text-gray-900 font-medium">
+                      {showtime.price.toLocaleString("vi-VN")} ₫
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className={getOccupancyColor(showtime.availableSeats, showtime.totalSeats)}>
+                        {showtime.availableSeats}/{showtime.totalSeats}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center justify-end gap-2">
+                        <button
+                          onClick={() => openEditModal(showtime)}
+                          className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors cursor-pointer"
+                        >
+                          <Edit className="w-5 h-5" />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(showtime.id)}
+                          className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
+                        >
+                          <Trash2 className="w-5 h-5" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
       </div>
 
+      {/* Modal add*/}
+        
+           {/* Modal – Validate chỉ hiện đỏ khi ấn Tạo mà chưa nhập */}
       {showModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4">
-              <h2 className="text-gray-900">Thêm suất chiếu mới</h2>
+              <h2 className="text-xl font-bold text-gray-900">
+                {editingShowtime ? "Sửa suất chiếu" : "Thêm suất chiếu mới"}
+              </h2>
             </div>
-            <form className="p-6 space-y-6">
-              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 flex items-start gap-3">
-                <AlertCircle className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
-                <div className="text-sm text-yellow-800">
-                  <p>Hệ thống sẽ tự động kiểm tra xung đột lịch chiếu</p>
-                  <p className="text-yellow-600 mt-1">
-                    Đảm bảo phòng chiếu không trùng thời gian với suất chiếu
-                    khác
-                  </p>
-                </div>
-              </div>
 
-              <div>
-                <label className="block text-gray-700 mb-2">Chọn phim *</label>
-                <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
-                  <option value="">Chọn phim</option>
-                  <option value="1">Avengers: Endgame</option>
-                  <option value="2">Spider-Man: No Way Home</option>
-                  <option value="3">The Batman</option>
-                  <option value="4">Avatar 2</option>
-                </select>
-              </div>
-
+            <form onSubmit={handleSubmit} className="p-6 space-y-6">
+              {/* State để biết đã submit chưa */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* PHIM */}
                 <div>
-                  <label className="block text-gray-700 mb-2">Chọn rạp *</label>
-                  <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+                  <label className="block text-gray-700 mb-2 font-medium">Chọn phim *</label>
+                  <select
+                    value={form.movie}
+                    onChange={(e) => setForm({ ...form, movie: e.target.value })}
+                    className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 ${
+                      submitted && !form.movie ? "border-red-500" : "border-gray-300"
+                    }`}
+                  >
+                    <option value="">Chọn phim</option>
+                    <option>Avengers: Endgame</option>
+                    <option>Spider-Man: No Way Home</option>
+                    <option>The Batman</option>
+                    <option>Avatar: The Way of Water</option>
+                    <option>Deadpool & Wolverine</option>
+                  </select>
+                  {submitted && !form.movie && (
+                    <p className="text-red-500 text-sm mt-1">Vui lòng chọn phim</p>
+                  )}
+                </div>
+
+                {/* RẠP */}
+                <div>
+                  <label className="block text-gray-700 mb-2 font-medium">Chọn rạp *</label>
+                  <select
+                    value={form.theater}
+                    onChange={(e) => setForm({ ...form, theater: e.target.value })}
+                    className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 ${
+                      submitted && !form.theater ? "border-red-500" : "border-gray-300"
+                    }`}
+                  >
                     <option value="">Chọn rạp</option>
-                    <option value="1">CGV Vincom Center</option>
-                    <option value="2">Lotte Cinema Keangnam</option>
-                    <option value="3">Galaxy Cinema Nguyễn Du</option>
+                    <option>CGV Vincom Center</option>
+                    <option>Lotte Cinema Keangnam</option>
+                    <option>Galaxy Cinema Nguyễn Du</option>
+                    <option>Beta Cinemas Thanh Xuân</option>
                   </select>
+                  {submitted && !form.theater && (
+                    <p className="text-red-500 text-sm mt-1">Vui lòng chọn rạp</p>
+                  )}
                 </div>
 
+                {/* PHÒNG */}
                 <div>
-                  <label className="block text-gray-700 mb-2">
-                    Chọn phòng *
-                  </label>
-                  <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+                  <label className="block text-gray-700 mb-2 font-medium">Chọn phòng *</label>
+                  <select
+                    value={form.screen}
+                    onChange={(e) => setForm({ ...form, screen: e.target.value })}
+                    className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 ${
+                      submitted && !form.screen ? "border-red-500" : "border-gray-300"
+                    }`}
+                  >
                     <option value="">Chọn phòng</option>
-                    <option value="1">Phòng 1 (120 ghế - 2D)</option>
-                    <option value="2">Phòng 2 (150 ghế - 3D)</option>
-                    <option value="3">Phòng VIP (80 ghế - IMAX)</option>
+                    <option>Phòng 1 (120 ghế - 2D)</option>
+                    <option>Phòng 2 (150 ghế - 3D)</option>
+                    <option>Phòng VIP (80 ghế - IMAX)</option>
                   </select>
+                  {submitted && !form.screen && (
+                    <p className="text-red-500 text-sm mt-1">Vui lòng chọn phòng</p>
+                  )}
                 </div>
 
+                {/* NGÀY */}
                 <div>
-                  <label className="block text-gray-700 mb-2">
-                    Ngày chiếu *
-                  </label>
+                  <label className="block text-gray-700 mb-2 font-medium">Ngày chiếu *</label>
                   <input
                     type="date"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                    value={form.date}
+                    onChange={(e) => setForm({ ...form, date: e.target.value })}
+                    className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 ${
+                      submitted && !form.date ? "border-red-500" : "border-gray-300"
+                    }`}
                   />
+                  {submitted && !form.date && (
+                    <p className="text-red-500 text-sm mt-1">Vui lòng chọn ngày chiếu</p>
+                  )}
                 </div>
 
+                {/* GIỜ */}
                 <div>
-                  <label className="block text-gray-700 mb-2">
-                    Giờ bắt đầu *
-                  </label>
+                  <label className="block text-gray-700 mb-2 font-medium">Giờ bắt đầu *</label>
                   <input
                     type="time"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                    value={form.startTime}
+                    onChange={(e) => setForm({ ...form, startTime: e.target.value })}
+                    className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 ${
+                      submitted && !form.startTime ? "border-red-500" : "border-gray-300"
+                    }`}
                   />
+                  {submitted && !form.startTime && (
+                    <p className="text-red-500 text-sm mt-1">Vui lòng chọn giờ bắt đầu</p>
+                  )}
+                </div>
+
+                {/* GIÁ VÉ */}
+                <div>
+                  <label className="block text-gray-700 mb-2 font-medium">Giá vé (₫) *</label>
+                  <input
+                    type="number"
+                    value={form.price}
+                    onChange={(e) => setForm({ ...form, price: e.target.value })}
+                    className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 ${
+                      submitted && (!form.price || Number(form.price) < 10000)
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    }`}
+                    placeholder="75000"
+                    min="10000"
+                  />
+                  {submitted && !form.price && (
+                    <p className="text-red-500 text-sm mt-1">Vui lòng nhập giá vé</p>
+                  )}
+                  {submitted && form.price && Number(form.price) < 10000 && (
+                    <p className="text-red-500 text-sm mt-1">Giá vé phải ≥ 10.000đ</p>
+                  )}
                 </div>
               </div>
 
-              <div>
-                <label className="block text-gray-700 mb-2">Giá vé (₫) *</label>
-                <input
-                  type="number"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
-                  placeholder="75000"
-                />
-                <p className="text-sm text-gray-500 mt-1">
-                  Giá cơ bản, sẽ tính thêm phụ phí theo loại ghế
-                </p>
-              </div>
-
-              <div className="flex gap-3 pt-4">
+              {/* Nút */}
+              <div className="flex gap-3 pt-6">
                 <button
                   type="button"
-                  onClick={() => setShowModal(false)}
+                  onClick={() => {
+                    setShowModal(false);
+                    setSubmitted(false); 
+                  }}
                   className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
                 >
                   Hủy
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                  className="flex-1 px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium"
                 >
-                  Tạo suất chiếu
+                  {editingShowtime ? "Cập nhật" : "Tạo suất chiếu"}
                 </button>
               </div>
             </form>
