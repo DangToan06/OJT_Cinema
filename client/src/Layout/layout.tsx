@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Menu, X, LogOut, User } from "lucide-react";
+import { Menu, X, LogOut } from "lucide-react";
 import logo from '../assets/image.png';
 import fb from '../assets/Facebook.png';
 import zalo from '../assets/Zalo.png';
@@ -8,8 +8,8 @@ import gp from '../assets/GG Play.png';
 import as from '../assets/App store.png';
 import tem from '../assets/Copyright.png';
 import { useNavigate } from 'react-router-dom';
-import Login from "../components/Login";
-import Register from "../components/Register";
+import LoginModal from "../components/Login";
+import RegisterModal from "../components/Register";
 import Swal from "sweetalert2";
 
 interface LayoutProps {
@@ -128,7 +128,7 @@ export default function Layout({ children }: LayoutProps) {
                       className="w-9 h-9 rounded-full object-cover border-2 border-white/30"
                     />
                   ) : (
-                    <div className="w-9 h-9 bg-gradient-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md">
+                    <div className="w-9 h-9 bg-linear-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md">
                       {(user.first_name || "?")[0].toUpperCase()}
                     </div>
                   )}
@@ -205,7 +205,7 @@ export default function Layout({ children }: LayoutProps) {
                   {user.avatar ? (
                     <img src={user.avatar} alt="Avatar" className="w-14 h-14 rounded-full object-cover" />
                   ) : (
-                    <div className="w-14 h-14 bg-gradient-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white font-bold text-2xl">
+                    <div className="w-14 h-14 bg-linear-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white font-bold text-2xl">
                       {(user.first_name || "?")[0].toUpperCase()}
                     </div>
                   )}
@@ -255,40 +255,68 @@ export default function Layout({ children }: LayoutProps) {
       {/* CONTENT */}
       <main className="flex-1 mt-20">{children}</main>
 
-      {/* FOOTER */}
-      <footer className="bg-black text-white py-14">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <div className="flex flex-wrap justify-center gap-8 mb-10">
-            <img src={fb} className="w-10 h-10 cursor-pointer hover:opacity-80" alt="Facebook" />
-            <img src={zalo} className="w-10 h-10 cursor-pointer hover:opacity-80" alt="Zalo" />
-            <img src={ytb} className="w-10 h-10 cursor-pointer hover:opacity-80" alt="Youtube" />
-            <img src={gp} className="h-12 cursor-pointer hover:opacity-90" alt="Google Play" />
-            <img src={as} className="h-12 cursor-pointer hover:opacity-90" alt="App Store" />
-            <img src={tem} className="h-14 cursor-pointer hover:opacity-90" alt="Copyright" />
+      {/* ========================= FOOTER ========================= */}
+      <footer className="bg-black text-white py-14 z-10">
+        {/* MENU */}
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="flex flex-wrap justify-center gap-x-10 gap-y-3 text-sm md:text-base font-medium">
+            {[
+              "Chính sách",
+              "Lịch chiếu",
+              "Tin tức",
+              "Giá vé",
+              "Hỏi đáp",
+              "Liên hệ",
+            ].map((item) => (
+              <span
+                key={item}
+                className="cursor-pointer hover:text-red-500 transition"
+              >
+                {item}
+              </span>
+            ))}
           </div>
-          <p className="text-gray-400 text-sm">
-            © 2025 Trung tâm Chiếu phim Quốc gia • All rights reserved.
-          </p>
-        </div>
-      </footer>
 
-      {/* MODALS */}
-      <Login
-        isOpen={isLoginModalOpen}
-        onClose={() => setIsLoginModalOpen(false)}
-        Switch={() => {
-          setIsLoginModalOpen(false);
-          setIsRegisterModalOpen(true);
-        }}
-      />
-      <Register
-        isOpen={isRegisterModalOpen}
-        onClose={() => setIsRegisterModalOpen(false)}
-        Switch={() => {
-          setIsRegisterModalOpen(false);
-          setIsLoginModalOpen(true);
-        }}
-      />
-    </div>
-  );
+          {/* SOCIALS + APP STORE */}
+          <div className="flex flex-wrap justify-center items-center gap-6 mt-10">
+            {/* Social icons */}
+            <img src={fb} className="w-8 h-8 cursor-pointer hover:opacity-80" />
+            <img
+              src={zalo}
+              className="w-8 h-8 cursor-pointer hover:opacity-80"
+            />
+            <img
+              src={ytb}
+              className="w-8 h-8 cursor-pointer hover:opacity-80"
+            />
+
+            {/* Store buttons */}
+            <img src={gp} className="h-11 cursor-pointer hover:opacity-90" />
+            <img src={as} className="h-11 cursor-pointer hover:opacity-90" />
+            <img
+              src={tem}
+              className="h-[50px] cursor-pointer hover:opacity-90"
+            />
+          </div>
+
+          {/* INFORMATION */}
+          <div className="mt-12 text-center flex flex-col gap-2 text-sm md:text-base leading-relaxed opacity-90">
+            <p>Cơ quan chủ quản: BỘ VĂN HÓA, THỂ THAO VÀ DU LỊCH</p>
+            <p>Bản quyền thuộc Trung tâm Chiếu phim Quốc gia.</p>
+            <p>Giấy phép số: 224/GP - TTĐT ngày 31/8/2010</p>
+            <p>
+              Địa chỉ: 87 Láng Hạ, Ba Đình, Hà Nội • Điện thoại: 024.35141791
+            </p>
+
+                        <div className="flex justify-center items-center gap-2 mt-2">
+                            
+                            <span>&copy; 2023 By NCC • All rights reserved.</span>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <RegisterModal isOpen={isRegisterModalOpen} onClose={() => setIsRegisterModalOpen(false)} Switch={() => setIsLoginModalOpen(true)}></RegisterModal>
+            <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} Switch={() => setIsRegisterModalOpen(true)}></LoginModal>
+        </div>
+    );
 }

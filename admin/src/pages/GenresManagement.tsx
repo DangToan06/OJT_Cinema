@@ -1,15 +1,22 @@
-
 import { useEffect, useState } from "react";
 import { Plus, Edit, Trash2 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../redux/store/store";
-import { createGenre, deleteGenre, fetchGenres, updateGenre } from "../api/genres.api";
+import {
+  createGenre,
+  deleteGenre,
+  fetchGenres,
+  updateGenre,
+} from "../api/genres.api";
 import Swal from "sweetalert2";
+import type { MovieGenre } from "../util/type.util";
 
 export function GenresManagement() {
   const dispatch = useDispatch<AppDispatch>();
 
-  const { list: genres, loading } = useSelector((state: RootState) => state.genres);
+  const { data: genres, status } = useSelector(
+    (state: RootState) => state.genres
+  );
 
   const [showModal, setShowModal] = useState(false);
   const [editingGenre, setEditingGenre] = useState<any>(null);
@@ -31,77 +38,77 @@ export function GenresManagement() {
     setShowModal(true);
   };
 
-const handleSave = async () => {
-  if (!genreName.trim()) {
-    Swal.fire({
-      icon: "warning",
-      title: "Lỗi",
-      text: "Tên thể loại không được để trống",
-      timer: 2000,
-      toast: true,
-      position: "top-end",
-    });
-    return;
-  }
-
-  const nameToCheck = genreName.trim().toLowerCase();
-
-  //KIỂM TRA TRÙNG TÊN KHI THÊM
-  if (!editingGenre) {
-    const isDuplicate = genres.some(
-      (g) => g.genreName.trim().toLowerCase() === nameToCheck
-    );
-
-    if (isDuplicate) {
+  const handleSave = async () => {
+    if (!genreName.trim()) {
       Swal.fire({
-        icon: "error",
-        title: "Thể loại đã tồn tại!",
-        text: "Vui lòng nhập tên khác.",
+        icon: "warning",
+        title: "Lỗi",
+        text: "Tên thể loại không được để trống",
         timer: 2000,
         toast: true,
         position: "top-end",
       });
       return;
     }
-  }
 
-  // KIỂM TRA TRÙNG TÊN KHI SỬA
-  if (editingGenre) {
-    const isDuplicate = genres.some(
-      (g) =>
-        g.id !== editingGenre.id &&
-        g.genreName.trim().toLowerCase() === nameToCheck
-    );
+    const nameToCheck = genreName.trim().toLowerCase();
 
-          if (isDuplicate) {
-            Swal.fire({
-              icon: "error",
-              title: "Tên thể loại đã tồn tại!",
-              text: "Vui lòng nhập tên khác.",
-              timer: 2000,
-              toast: true,
-              position: "top-end",
-            });
-            return;
-          }
-        }
+    //KIỂM TRA TRÙNG TÊN KHI THÊM
+    if (!editingGenre) {
+      const isDuplicate = genres.some(
+        (g) => g.genreName.trim().toLowerCase() === nameToCheck
+      );
 
-        // GỌI API
-        if (editingGenre) {
-          dispatch(updateGenre({ id: editingGenre.id, genreName: genreName.trim() }));
-        } else {
-          dispatch(createGenre(genreName.trim()));
-        }
+      if (isDuplicate) {
+        Swal.fire({
+          icon: "error",
+          title: "Thể loại đã tồn tại!",
+          text: "Vui lòng nhập tên khác.",
+          timer: 2000,
+          toast: true,
+          position: "top-end",
+        });
+        return;
+      }
+    }
 
-        setShowModal(false);
-        setGenreName("");
-        setEditingGenre(null);
-      };
+    // KIỂM TRA TRÙNG TÊN KHI SỬA
+    if (editingGenre) {
+      const isDuplicate = genres.some(
+        (g) =>
+          g.id !== editingGenre.id &&
+          g.genreName.trim().toLowerCase() === nameToCheck
+      );
 
-  const handleDelete = async (id: string) => {
+      if (isDuplicate) {
+        Swal.fire({
+          icon: "error",
+          title: "Tên thể loại đã tồn tại!",
+          text: "Vui lòng nhập tên khác.",
+          timer: 2000,
+          toast: true,
+          position: "top-end",
+        });
+        return;
+      }
+    }
 
+    // GỌI API
+    if (editingGenre) {
+      dispatch(
+        updateGenre({ id: editingGenre.id, genreName: genreName.trim() })
+      );
+    } else {
+      dispatch(createGenre(genreName.trim()));
+    }
+
+    setShowModal(false);
+    setGenreName("");
+    setEditingGenre(null);
+  };
+
+  const handleDelete = async (id: number) => {
     const result = await Swal.fire({
-
       title: "Xóa thể loại?",
       text: "Bạn có chắc chắn muốn xóa ?",
       icon: "warning",
@@ -140,7 +147,7 @@ const handleSave = async () => {
 
         {/* Bảng dữ liệu */}
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-          {loading ? (
+          {status === "idle" ? (
             <div className="p-16 text-center">
               <div className="inline-block animate-spin rounded-full h-10 w-10 border-4 border-red-600 border-t-transparent"></div>
               <p className="mt-4 text-gray-600">Đang tải dữ liệu...</p>
@@ -150,22 +157,36 @@ const handleSave = async () => {
               <table className="w-full">
                 <thead className="bg-gray-50 border-b">
                   <tr>
-                    <th className="px-6 py-4 text-left text-sm font-medium text-gray-700">ID</th>
-                    <th className="px-6 py-4 text-left text-sm font-medium text-gray-700">Tên thể loại</th>
-                    <th className="px-6 py-4 text-left text-sm font-medium text-gray-700">Số lượng phim</th>
-                    <th className="px-6 py-4 text-right text-sm font-medium text-gray-700">Thao tác</th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-gray-700">
+                      ID
+                    </th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-gray-700">
+                      Tên thể loại
+                    </th>
+                    <th className="px-6 py-4 text-left text-sm font-medium text-gray-700">
+                      Số lượng phim
+                    </th>
+                    <th className="px-6 py-4 text-right text-sm font-medium text-gray-700">
+                      Thao tác
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
                   {genres.length === 0 ? (
                     <tr>
-                      <td colSpan={4} className="text-center py-16 text-gray-500">
+                      <td
+                        colSpan={4}
+                        className="text-center py-16 text-gray-500"
+                      >
                         Chưa có thể loại nào
                       </td>
                     </tr>
                   ) : (
-                    genres.map((genre, index) => (
-                      <tr key={genre.id} className="hover:bg-gray-50 transition-colors">
+                    genres.map((genre: MovieGenre, index: number) => (
+                      <tr
+                        key={genre.id}
+                        className="hover:bg-gray-50 transition-colors"
+                      >
                         <td className="px-6 py-4 text-gray-900 font-medium">
                           #{index + 1}
                         </td>
@@ -173,7 +194,7 @@ const handleSave = async () => {
                           {genre.genreName}
                         </td>
                         <td className="px-6 py-4 text-gray-600 font-medium">
-                        {Math.floor(Math.random() * 50) + 1}
+                          12
                         </td>
                         <td className="px-6 py-4">
                           <div className="flex justify-end gap-3">
