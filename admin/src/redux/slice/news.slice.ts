@@ -37,7 +37,7 @@ const newsSlice = createSlice({
             .addCase(
                 createNews.fulfilled,
                 (state, action: PayloadAction<News>) => {
-                    state.newsList.push(action.payload);
+                    state.newsList.unshift(action.payload);
                 }
             )
             .addCase(
