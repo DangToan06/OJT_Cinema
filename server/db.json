@@ -15,8 +15,7 @@
       "role": {
         "id": 1,
         "role_name": "admin"
-      },
-      "bookings": []
+      }
     },
     {
       "id": 2,
@@ -33,16 +32,7 @@
       "role": {
         "id": 2,
         "role_name": "user"
-      },
-      "bookings": [
-        {
-          "id": 2,
-          "seat_id": 2,
-          "quantity": 1,
-          "created_at": "2023-10-15T09:30:00Z",
-          "updated_at": "2023-10-15T09:30:00Z"
-        }
-      ]
+      }
     },
     {
       "first_name": "huy ",
@@ -59,7 +49,6 @@
           "role_name": "user"
         }
       ],
-      "bookings": [],
       "id": 3
     },
     {
@@ -77,8 +66,33 @@
           "role_name": "user"
         }
       ],
-      "bookings": [],
       "id": 4
+    }
+  ],
+  "bookings": [
+    {
+      "id": "1",
+      "user_id": 2,
+      "showtime_id": 1,
+      "total_seat": 1,
+      "total_price_movie": 75000,
+      "created_at": "2022-12-01T00:00:00Z"
+    },
+    {
+      "id": "2",
+      "user_id": 2,
+      "showtime_id": 1,
+      "total_seat": 1,
+      "total_price_movie": 75000,
+      "created_at": "2022-12-01T00:00:00Z"
+    },
+    {
+      "id": "3",
+      "user_id": 3,
+      "showtime_id": 1,
+      "total_seat": 1,
+      "total_price_movie": 75000,
+      "created_at": "2022-12-01T00:00:00Z"
     }
   ],
   "theaters": [
@@ -202,7 +216,7 @@
   ],
   "ticket_prices": [
     {
-      "id": 1,
+      "id": "1",
       "type_seat": "STANDARD",
       "type_movie": "2D",
       "price": 80000000,
@@ -211,7 +225,7 @@
       "end_time": "17:00:00"
     },
     {
-      "id": 2,
+      "id": "2",
       "type_seat": "VIP",
       "type_movie": "3D",
       "price": 110000,
@@ -220,7 +234,7 @@
       "end_time": "23:00:00"
     },
     {
-      "id": 3,
+      "id": "3",
       "type_seat": "SweetBox",
       "type_movie": "3D",
       "price": 120000,
@@ -231,78 +245,78 @@
   ],
   "seat_types": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Ghế Standard",
-      "base_price": 80000
+      "base_price": 70000
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Ghế VIP",
       "base_price": 110000
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Ghế Sweetbox",
       "base_price": 120000
     }
   ],
   "screen_types": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Phòng 2D",
       "surcharge": 0
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Phòng 3D",
       "surcharge": 30000
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Phòng IMAX",
       "surcharge": 60000
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Phòng 4DX",
       "surcharge": 80000
     }
   ],
   "day_multipliers": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Ngày thường (T2-T5)",
       "multiplier": 1
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Cuối tuần (T6-CN)",
       "multiplier": 1.2
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Ngày lễ",
       "multiplier": 1.5
     }
   ],
   "time_discounts": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Suất sáng (trước 12h)",
       "discount": 30000
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Suất chiều (12h-17h)",
       "discount": 0
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Suất tối (17h-22h)",
       "discount": 0
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Suất khuya (sau 22h)",
       "discount": 15000
     }
@@ -334,19 +348,16 @@
           "id": 1,
           "time": "07:00",
           "booking": []
-          
         },
         {
           "id": 3,
           "time": "15:00",
           "booking": []
-          
         },
         {
           "id": 5,
           "time": "23:00",
           "booking": []
-          
         }
       ]
     },
@@ -376,19 +387,16 @@
           "id": 1,
           "time": "07:00",
           "booking": []
-          
         },
         {
           "id": 3,
           "time": "15:00",
           "booking": []
-          
         },
         {
           "id": 5,
           "time": "23:00",
           "booking": []
-          
         }
       ]
     },
@@ -418,19 +426,16 @@
           "id": 1,
           "time": "07:00",
           "booking": []
-          
         },
         {
           "id": 3,
           "time": "15:00",
           "booking": []
-          
         },
         {
           "id": 5,
           "time": "23:00",
           "booking": []
-          
         }
       ]
     },
@@ -464,19 +469,16 @@
           "id": 1,
           "time": "07:00",
           "booking": []
-          
         },
         {
           "id": 3,
           "time": "15:00",
           "booking": []
-          
         },
         {
           "id": 5,
           "time": "23:00",
           "booking": []
-          
         }
       ]
     },
@@ -510,19 +512,16 @@
           "id": 1,
           "time": "07:00",
           "booking": []
-          
         },
         {
           "id": 3,
           "time": "15:00",
           "booking": []
-          
         },
         {
           "id": 5,
           "time": "23:00",
           "booking": []
-          
         }
       ]
     },
@@ -552,19 +551,16 @@
           "id": 1,
           "time": "07:00",
           "booking": []
-          
         },
         {
           "id": 3,
           "time": "15:00",
           "booking": []
-          
         },
         {
           "id": 5,
           "time": "23:00",
           "booking": []
-          
         }
       ]
     },
@@ -598,19 +594,16 @@
           "id": 1,
           "time": "07:00",
           "booking": []
-          
         },
         {
           "id": 3,
           "time": "15:00",
           "booking": []
-          
         },
         {
           "id": 5,
           "time": "23:00",
           "booking": []
-          
         }
       ]
     },
@@ -644,19 +637,16 @@
           "id": 1,
           "time": "07:00",
           "booking": []
-          
         },
         {
           "id": 3,
           "time": "15:00",
           "booking": []
-          
         },
         {
           "id": 5,
           "time": "23:00",
           "booking": []
-          
         }
       ]
     },
@@ -686,19 +676,16 @@
           "id": 1,
           "time": "07:00",
           "booking": []
-          
         },
         {
           "id": 3,
           "time": "15:00",
           "booking": []
-          
         },
         {
           "id": 5,
           "time": "23:00",
           "booking": []
-          
         }
       ]
     },
@@ -732,19 +719,16 @@
           "id": 1,
           "time": "07:00",
           "booking": []
-          
         },
         {
           "id": 3,
           "time": "15:00",
           "booking": []
-          
         },
         {
           "id": 5,
           "time": "23:00",
           "booking": []
-          
         }
       ]
     },
@@ -774,19 +758,16 @@
           "id": 1,
           "time": "07:00",
           "booking": []
-          
         },
         {
           "id": 3,
           "time": "15:00",
           "booking": []
-          
         },
         {
           "id": 5,
           "time": "23:00",
           "booking": []
-          
         }
       ]
     },
@@ -816,19 +797,16 @@
           "id": 1,
           "time": "07:00",
           "booking": []
-          
         },
         {
           "id": 3,
           "time": "15:00",
           "booking": []
-          
         },
         {
           "id": 5,
           "time": "23:00",
           "booking": []
-          
         }
       ]
     },
@@ -862,19 +840,16 @@
           "id": 1,
           "time": "07:00",
           "booking": []
-          
         },
         {
           "id": 3,
           "time": "15:00",
           "booking": []
-          
         },
         {
           "id": 5,
           "time": "23:00",
           "booking": []
-          
         }
       ]
     },
@@ -908,19 +883,16 @@
           "id": 1,
           "time": "07:00",
           "booking": []
-          
         },
         {
           "id": 3,
           "time": "15:00",
           "booking": []
-          
         },
         {
           "id": 5,
           "time": "23:00",
           "booking": []
-          
         }
       ]
     },
@@ -954,19 +926,16 @@
           "id": 1,
           "time": "07:00",
           "booking": []
-          
         },
         {
           "id": 3,
           "time": "15:00",
           "booking": []
-          
         },
         {
           "id": 5,
           "time": "23:00",
           "booking": []
-          
         }
       ]
     },
@@ -1000,19 +969,16 @@
           "id": 1,
           "time": "07:00",
           "booking": []
-          
         },
         {
           "id": 3,
           "time": "15:00",
           "booking": []
-          
         },
         {
           "id": 5,
           "time": "23:00",
           "booking": []
-          
         }
       ]
     },
@@ -1046,19 +1012,16 @@
           "id": 1,
           "time": "07:00",
           "booking": []
-          
         },
         {
           "id": 3,
           "time": "15:00",
           "booking": []
-          
         },
         {
           "id": 5,
           "time": "23:00",
           "booking": []
-          
         }
       ]
     },
@@ -1088,19 +1051,16 @@
           "id": 1,
           "time": "07:00",
           "booking": []
-          
         },
         {
           "id": 3,
           "time": "15:00",
           "booking": []
-          
         },
         {
           "id": 5,
           "time": "23:00",
           "booking": []
-          
         }
       ]
     },
@@ -1130,19 +1090,16 @@
           "id": 1,
           "time": "07:00",
           "booking": []
-          
         },
         {
           "id": 3,
           "time": "15:00",
           "booking": []
-          
         },
         {
           "id": 5,
           "time": "23:00",
           "booking": []
-          
         }
       ]
     },
@@ -1176,19 +1133,16 @@
           "id": 1,
           "time": "07:00",
           "booking": []
-          
         },
         {
           "id": 3,
           "time": "15:00",
           "booking": []
-          
         },
         {
           "id": 5,
           "time": "23:00",
           "booking": []
-          
         }
       ]
     }
@@ -1196,15 +1150,15 @@
   "genres": [
     {
       "genreName": "Hành động",
-      "id": 1
+      "id": "1"
     },
     {
       "genreName": "Kinh dị",
-      "id": 2
+      "id": "2"
     },
     {
       "genreName": "Romantic",
-      "id": 3
+      "id": "3"
     }
   ],
   "news": [
@@ -1321,7 +1275,7 @@
       "availableSeats": 150,
       "totalSeats": 150,
       "status": "active",
-      "id": 2
+      "id": "2"
     },
     {
       "movie": "Avengers: Endgame",
@@ -1334,7 +1288,7 @@
       "availableSeats": 150,
       "totalSeats": 150,
       "status": "active",
-      "id": 3
+      "id": "3"
     },
     {
       "movie": "Spider-Man: No Way Home",
@@ -1347,7 +1301,7 @@
       "availableSeats": 150,
       "totalSeats": 150,
       "status": "active",
-      "id": 4
+      "id": "4"
     }
   ],
   "screens": [
