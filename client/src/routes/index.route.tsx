@@ -7,9 +7,8 @@ import NotFoundPage from "../pages/NotFoundPage";
 import MovieCalendar from "../pages/MovieCalendar";
 import HomePage from "../pages/HomePage";
 import TcketPrice from "../pages/TicketPrice";
-import MovieDetail from "../pages/MovieDetail";
 import FestivalPage from "../pages/FestivalPage";
-import Booking from "../pages/Booking"
+import Booking from "../pages/Booking";
 import Promotions from "../pages/Promotions";
 export const routers = createBrowserRouter([
   {
@@ -57,14 +56,6 @@ export const routers = createBrowserRouter([
     ),
   },
   {
-    path: "/movieDetail",
-    element: (
-      <Layout>
-        <MovieDetail></MovieDetail>,
-      </Layout>
-    ),
-  },
-  {
     path: "/festival",
     element: (
       <Layout>
@@ -84,8 +75,8 @@ export const routers = createBrowserRouter([
     path: "/promotions",
     element: (
       <Layout>
-        <Promotions/>
+        <Promotions />
       </Layout>
-    )
-  }
+    ),
+  },
 ]);

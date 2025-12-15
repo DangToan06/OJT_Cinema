@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import {
     Plus,
     Edit,
@@ -12,10 +12,10 @@ import {
     Theater,
 } from 'lucide-react';
 import type {
-    InitialScreenState,
-    IScreen,
-} from '../interfaces/screen.interface';
-import { useAppDispatch, useAppSelector } from '../hook/useRedux';
+  InitialScreenState,
+  IScreen,
+} from "../interfaces/screen.interface";
+import { useAppDispatch, useAppSelector } from "../hook/useRedux";
 import {
     deleteScreen,
     getAllScreens,
@@ -47,7 +47,7 @@ export function ScreensManagement() {
         return matchesTheater && matchesSearch;
     });
 
-    const theaters = [...new Set(dataScreens.screens.map((s) => s.theater))];
+  const theaters = [...new Set(dataScreens.screens.map((s) => s.theater))];
 
     const getTypeColor = (type: string | null) => {
         switch (type) {
@@ -84,10 +84,10 @@ export function ScreensManagement() {
         notify.success('Cập nhật trạng thái phòng chiếu thành công');
     };
 
-    const handleDeleteClick = (screen: IScreen) => {
-        setScreenToDelete(screen);
-        setShowDeleteModal(true);
-    };
+  const handleDeleteClick = (screen: IScreen) => {
+    setScreenToDelete(screen);
+    setShowDeleteModal(true);
+  };
 
     const handleConfirmDelete = () => {
         if (screenToDelete) {
@@ -97,10 +97,10 @@ export function ScreensManagement() {
         }
     };
 
-    const handleCancelDelete = () => {
-        setShowDeleteModal(false);
-        setScreenToDelete(null);
-    };
+  const handleCancelDelete = () => {
+    setShowDeleteModal(false);
+    setScreenToDelete(null);
+  };
 
     return (
         <div className="min-h-screen">
@@ -427,8 +427,27 @@ export function ScreensManagement() {
                             </div>
                         </div>
                     </div>
+                  </div>
                 </div>
-            )}
+              </div>
+
+              {/* Buttons */}
+              <div className="flex gap-3">
+                <button
+                  onClick={handleCancelDelete}
+                  className="flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-all cursor-pointer"
+                >
+                  Hủy
+                </button>
+                <button
+                  onClick={handleConfirmDelete}
+                  className="flex-1 px-6 py-3 bg-linear-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold rounded-xl transition-all hover:scale-105 hover:shadow-xl cursor-pointer"
+                >
+                  Xóa Phòng
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
     );
 }

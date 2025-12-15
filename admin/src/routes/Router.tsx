@@ -1,190 +1,156 @@
 import { createBrowserRouter } from "react-router-dom";
 import NotFoundPage from "../pages/NotFoundPage";
 import { DashboardOverview } from "../pages/DashboardOverview";
-
+import { BookingsManagement } from "../pages/BookingsManagement";
 import { MoviesManagement } from "../pages/MoviesManagement";
 import { GenresManagement } from "../pages/GenresManagement";
-
-import { ShowtimesManagement } from "../pages/ShowtimesManagement";
-
-import { NewsManagement } from "../pages/NewsManagement";
-import Layout from "../layout/Layout";
-import { BookingsManagement } from "../pages/BookingsManagement";
+import { TheatersManagement } from "../pages/TheatersManagement";
 import { ScreensManagement } from "../pages/ScreensManagement";
 import { SeatsManagement } from "../pages/SeatsManagement";
 import { PricingManagement } from "../pages/PricingManagement";
+import { NewsManagement } from "../pages/NewsManagement";
 import { UsersManagement } from "../pages/UsersManagement";
 import { PaymentsManagement } from "../pages/PaymentsManagement";
 import { ReportsManagement } from "../pages/ReportsManagement";
-import { TheatersManagement } from "../pages/TheatersManagement";
+import Layout from "../layout/Layout";
+import { ShowtimesManagement } from "../pages/ShowtimesManagement";
+import AdminLogin from "../pages/AdminLogin";
+import PrivateRouter from "./PrivateRouter";
 
 export const routers = createBrowserRouter([
   {
-    path: "/",
+    path: "login",
+    element: <AdminLogin></AdminLogin>,
+  },
+  {
+    path: "",
     element: (
-      <Layout>
-        <DashboardOverview></DashboardOverview>
-      </Layout>
+      <PrivateRouter>
+        <Layout>
+          <DashboardOverview></DashboardOverview>
+        </Layout>
+      </PrivateRouter>
     ),
   },
   {
     path: "bookings",
     element: (
-      <Layout>
-        <BookingsManagement></BookingsManagement>
-      </Layout>
-    ),
-  },
-  {
-    path: "bookings",
-    element: (
-      <Layout>
-        <BookingsManagement></BookingsManagement>
-      </Layout>
+      <PrivateRouter>
+        <Layout>
+          <BookingsManagement></BookingsManagement>
+        </Layout>
+      </PrivateRouter>
     ),
   },
   {
     path: "movies",
     element: (
-      <Layout>
-        <MoviesManagement></MoviesManagement>
-      </Layout>
+      <PrivateRouter>
+        <Layout>
+          <MoviesManagement></MoviesManagement>
+        </Layout>
+      </PrivateRouter>
     ),
   },
   {
     path: "genres",
     element: (
-      <Layout>
-        <GenresManagement></GenresManagement>
-      </Layout>
+      <PrivateRouter>
+        <Layout>
+          <GenresManagement></GenresManagement>
+        </Layout>
+      </PrivateRouter>
     ),
   },
   {
     path: "theaters",
     element: (
-      <Layout>
-        <TheatersManagement></TheatersManagement>
-      </Layout>
+      <PrivateRouter>
+        <Layout>
+          <TheatersManagement></TheatersManagement>
+        </Layout>
+      </PrivateRouter>
     ),
   },
   {
     path: "screens",
     element: (
-      <Layout>
-        <ScreensManagement></ScreensManagement>
-      </Layout>
+      <PrivateRouter>
+        <Layout>
+          <ScreensManagement></ScreensManagement>
+        </Layout>
+      </PrivateRouter>
     ),
   },
   {
     path: "seats",
     element: (
-      <Layout>
-        <SeatsManagement></SeatsManagement>
-      </Layout>
-    ),
-  },
-  {
-    path: "theaters",
-    element: (
-      <Layout>
-        <TheatersManagement></TheatersManagement>
-      </Layout>
-    ),
-  },
-  {
-    path: "screens",
-    element: (
-      <Layout>
-        <ScreensManagement></ScreensManagement>
-      </Layout>
-    ),
-  },
-  {
-    path: "seats",
-    element: (
-      <Layout>
-        <SeatsManagement></SeatsManagement>
-      </Layout>
+      <PrivateRouter>
+        <Layout>
+          <SeatsManagement></SeatsManagement>
+        </Layout>
+      </PrivateRouter>
     ),
   },
   {
     path: "showtimes",
     element: (
-      <Layout>
-        <ShowtimesManagement></ShowtimesManagement>
-      </Layout>
+      <PrivateRouter>
+        <Layout>
+          <ShowtimesManagement></ShowtimesManagement>
+        </Layout>
+      </PrivateRouter>
     ),
   },
   {
     path: "pricing",
     element: (
-      <Layout>
-        <PricingManagement></PricingManagement>
-      </Layout>
-    ),
-  },
-  {
-    path: "pricing",
-    element: (
-      <Layout>
-        <PricingManagement></PricingManagement>
-      </Layout>
+      <PrivateRouter>
+        <Layout>
+          <PricingManagement></PricingManagement>
+        </Layout>
+      </PrivateRouter>
     ),
   },
   {
     path: "news",
     element: (
-      <Layout>
-        <NewsManagement></NewsManagement>
-      </Layout>
+      <PrivateRouter>
+        <Layout>
+          <NewsManagement></NewsManagement>
+        </Layout>
+      </PrivateRouter>
     ),
   },
   {
     path: "users",
     element: (
-      <Layout>
-        <UsersManagement></UsersManagement>
-      </Layout>
+      <PrivateRouter>
+        <Layout>
+          <UsersManagement></UsersManagement>
+        </Layout>
+      </PrivateRouter>
     ),
   },
   {
     path: "payments",
     element: (
-      <Layout>
-        <PaymentsManagement></PaymentsManagement>
-      </Layout>
+      <PrivateRouter>
+        {" "}
+        <Layout>
+          <PaymentsManagement></PaymentsManagement>
+        </Layout>
+      </PrivateRouter>
     ),
   },
   {
     path: "reports",
     element: (
-      <Layout>
-        <ReportsManagement></ReportsManagement>
-      </Layout>
-    ),
-  },
-  {
-    path: "users",
-    element: (
-      <Layout>
-        <UsersManagement></UsersManagement>
-      </Layout>
-    ),
-  },
-  {
-    path: "payments",
-    element: (
-      <Layout>
-        <PaymentsManagement></PaymentsManagement>
-      </Layout>
-    ),
-  },
-  {
-    path: "reports",
-    element: (
-      <Layout>
-        <ReportsManagement></ReportsManagement>
-      </Layout>
+      <PrivateRouter>
+        <Layout>
+          <ReportsManagement></ReportsManagement>
+        </Layout>
+      </PrivateRouter>
     ),
   },
   {

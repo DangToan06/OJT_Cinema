@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "sweetalert2": "^11.26.4",
-    "uuid": "^13.0.0"
-  }
-}

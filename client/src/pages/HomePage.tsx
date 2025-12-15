@@ -4,7 +4,6 @@ import ShowingList from "../components/HomePage/ShowingList";
 import PromoList from "../components/HomePage/PromotionList";
 import EventList from "../components/HomePage/EventList";
 
-
 export default function HomePage() {
   return (
     <div className="bg-[#0b0f12] text-white h-min-screen font-[Montserrat]">
@@ -23,7 +22,7 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
-          <ShowingList />
+          <ShowingList statusMovie="DANGCHIEU" />
 
           <div className="flex items-center justify-between">
             <div className="flex items-center text-lg font-semibold">
@@ -36,12 +35,14 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
-          <ShowingList />
+          <ShowingList statusMovie="SAPCHIEU" />
         </div>
 
         <aside className="w-[20%] flex flex-col gap-4">
           <div className="flex justify-between items-center">
-            <h3 className="text-white text-lg font-semibold text-start m-0">Khuyến mãi</h3>
+            <h3 className="text-white text-lg font-semibold text-start m-0">
+              Khuyến mãi
+            </h3>
             <Link to={""} className="text-sm text-gray-300 hover:underline">
               Xem tất cả
             </Link>

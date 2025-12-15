@@ -1,16 +1,22 @@
-// PricingManagement.tsx
 import { useEffect, useState } from "react";
 import { Edit, Save } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "../hook/useRedux";
-import { fetchAllPricing, updateDayMultiplier, updateScreenType, updateSeatType, updateTimeDiscount } from "../redux/slice/price.slice";
+import {
+  fetchAllPricing,
+  updateDayMultiplier,
+  updateScreenType,
+  updateSeatType,
+  updateTimeDiscount,
+} from "../redux/slice/price.slice";
 
 export function PricingManagement() {
   const dispatch = useAppDispatch();
-  const { seatTypes, screenTypes, dayMultipliers, timeDiscounts, loading } = useAppSelector(
-    (state) => state.price
-  );
+  const { seatTypes, screenTypes, dayMultipliers, timeDiscounts, loading } =
+    useAppSelector((state) => state.price);
 
-  const [editing, setEditing] = useState<{ type: string; id: number } | null>(null);
+  const [editing, setEditing] = useState<{ type: string; id: number } | null>(
+    null
+  );
   const [tempValue, setTempValue] = useState<number>(0);
 
   useEffect(() => {
@@ -50,14 +56,22 @@ export function PricingManagement() {
   };
 
   if (loading) {
-    return <div className="text-center py-10 text-gray-500">Đang tải cấu hình giá...</div>;
+    return (
+      <div className="text-center py-10 text-gray-500">
+        Đang tải cấu hình giá...
+      </div>
+    );
   }
 
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-gray-900 mb-2 font-bold text-2xl">Quản lý giá vé</h1>
-        <p className="text-gray-600">Cấu hình bảng giá vé theo loại ghế, phòng chiếu và thời gian</p>
+        <h1 className="text-gray-900 mb-2 font-bold text-2xl">
+          Quản lý giá vé
+        </h1>
+        <p className="text-gray-600">
+          Cấu hình bảng giá vé theo loại ghế, phòng chiếu và thời gian
+        </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
@@ -95,11 +109,21 @@ export function PricingManagement() {
                       </td>
                       <td className="py-4 text-right">
                         {editing?.type === "seat" && editing.id === seat.id ? (
-                          <button onClick={() => handleSave("seat", seat, "base_price")} className="text-green-600">
+                          <button
+                            onClick={() =>
+                              handleSave("seat", seat, "base_price")
+                            }
+                            className="text-green-600"
+                          >
                             <Save className="w-5 h-5" />
                           </button>
                         ) : (
-                          <button onClick={() => handleEdit("seat", seat.id, seat.base_price)} className="text-blue-600">
+                          <button
+                            onClick={() =>
+                              handleEdit("seat", seat.id, seat.base_price)
+                            }
+                            className="text-blue-600"
+                          >
                             <Edit className="w-5 h-5" />
                           </button>
                         )}
@@ -121,7 +145,9 @@ export function PricingManagement() {
                 <thead>
                   <tr className="border-b border-gray-200">
                     <th className="pb-3 text-left text-gray-600">Loại phòng</th>
-                    <th className="pb-3 text-right text-gray-600">Phụ phí (₫)</th>
+                    <th className="pb-3 text-right text-gray-600">
+                      Phụ phí (₫)
+                    </th>
                     <th className="pb-3 text-right text-gray-600">Thao tác</th>
                   </tr>
                 </thead>
@@ -130,7 +156,8 @@ export function PricingManagement() {
                     <tr key={screen.id}>
                       <td className="py-4 text-gray-900">{screen.name}</td>
                       <td className="py-4 text-right">
-                        {editing?.type === "screen" && editing.id === screen.id ? (
+                        {editing?.type === "screen" &&
+                        editing.id === screen.id ? (
                           <input
                             type="number"
                             value={tempValue}
@@ -145,12 +172,23 @@ export function PricingManagement() {
                         )}
                       </td>
                       <td className="py-4 text-right">
-                        {editing?.type === "screen" && editing.id === screen.id ? (
-                          <button onClick={() => handleSave("screen", screen, "surcharge")} className="text-green-600">
+                        {editing?.type === "screen" &&
+                        editing.id === screen.id ? (
+                          <button
+                            onClick={() =>
+                              handleSave("screen", screen, "surcharge")
+                            }
+                            className="text-green-600"
+                          >
                             <Save className="w-5 h-5" />
                           </button>
                         ) : (
-                          <button onClick={() => handleEdit("screen", screen.id, screen.surcharge)} className="text-blue-600">
+                          <button
+                            onClick={() =>
+                              handleEdit("screen", screen.id, screen.surcharge)
+                            }
+                            className="text-blue-600"
+                          >
                             <Edit className="w-5 h-5" />
                           </button>
                         )}
@@ -196,11 +234,19 @@ export function PricingManagement() {
                       </td>
                       <td className="py-4 text-right">
                         {editing?.type === "day" && editing.id === day.id ? (
-                          <button onClick={() => handleSave("day", day, "multiplier")} className="text-green-600">
+                          <button
+                            onClick={() => handleSave("day", day, "multiplier")}
+                            className="text-green-600"
+                          >
                             <Save className="w-5 h-5" />
                           </button>
                         ) : (
-                          <button onClick={() => handleEdit("day", day.id, day.multiplier)} className="text-blue-600">
+                          <button
+                            onClick={() =>
+                              handleEdit("day", day.id, day.multiplier)
+                            }
+                            className="text-blue-600"
+                          >
                             <Edit className="w-5 h-5" />
                           </button>
                         )}
@@ -222,7 +268,9 @@ export function PricingManagement() {
                 <thead>
                   <tr className="border-b border-gray-200">
                     <th className="pb-3 text-left text-gray-600">Khung giờ</th>
-                    <th className="pb-3 text-right text-gray-600">Giảm giá (₫)</th>
+                    <th className="pb-3 text-right text-gray-600">
+                      Giảm giá (₫)
+                    </th>
                     <th className="pb-3 text-right text-gray-600">Thao tác</th>
                   </tr>
                 </thead>
@@ -247,11 +295,19 @@ export function PricingManagement() {
                       </td>
                       <td className="py-4 text-right">
                         {editing?.type === "time" && editing.id === slot.id ? (
-                          <button onClick={() => handleSave("time", slot, "discount")} className="text-green-600">
+                          <button
+                            onClick={() => handleSave("time", slot, "discount")}
+                            className="text-green-600"
+                          >
                             <Save className="w-5 h-5" />
                           </button>
                         ) : (
-                          <button onClick={() => handleEdit("time", slot.id, slot.discount)} className="text-blue-600">
+                          <button
+                            onClick={() =>
+                              handleEdit("time", slot.id, slot.discount)
+                            }
+                            className="text-blue-600"
+                          >
                             <Edit className="w-5 h-5" />
                           </button>
                         )}
@@ -303,7 +359,8 @@ export function PricingManagement() {
               </div>
               <div className="pt-4">
                 <p className="text-xs text-gray-500">
-                  Công thức: (Giá ghế + Phụ phí phòng) × Hệ số ngày - Giảm giá giờ
+                  Công thức: (Giá ghế + Phụ phí phòng) × Hệ số ngày - Giảm giá
+                  giờ
                 </p>
               </div>
             </div>

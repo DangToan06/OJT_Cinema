@@ -1,4 +1,4 @@
-import type { ID, MovieType } from "./enums";
+import type { ID } from "./enums";
 
 /**
  * Thể loại phim (hành động, kinh dị, lãng mạn…)
@@ -12,34 +12,44 @@ export interface Genre {
  * Thông tin phim hiển thị ở trang danh sách và trang chi tiết
  */
 export interface Movie {
-  id: ID;
+  id: string;
   title: string;
-  description?: string;
-  director?: string;
-  cast?: string[]; // danh sách diễn viên
-  posterUrl?: string;
-  trailerUrl?: string;
-  type?: MovieType; // 2D / 3D
-  duration?: number; // thời lượng phim (phút)
-  releaseDate?: string;
-  status?: 'NOW_SHOWING' | 'COMING_SOON' | 'STOPPED';
-  genres?: Genre[];
-  createdAt?: string;
-  updatedAt?: string;
+  description: string;
+  author: string;
+  image: string;
+  trailer: string;
+  type: "2D" | "3D" | string;
+  duration: number;
+  genres_movie: MovieGenre[];
+  status: "SAPCHIEU" | "DANGCHIEU" | string;
+  release_date: string;
+  created_at: string;
+  updated_at: string;
+  showtimes: Showtime[];
 }
 
-/**
- * Dữ liệu khi admin tạo phim mới
- */
-export interface MovieCreateDTO {
-  title: string;
-  description?: string;
-  director?: string;
-  cast?: string[];
-  posterUrl?: string;
-  trailerUrl?: string;
-  type?: MovieType;
-  duration?: number;
-  releaseDate?: string;
-  genreIds?: ID[];
+export interface MovieGenre {
+  id: number;
+  genre_name: string;
 }
+export interface Showtime {
+  id: number;
+  screen_id: number;
+  start_time: string;
+  end_time: string;
+  created_at: string;
+  updated_at: string;
+}
+
+// export interface MovieCreateDTO {
+//   title: string;
+//   description?: string;
+//   director?: string;
+//   cast?: string[];
+//   posterUrl?: string;
+//   trailerUrl?: string;
+//   type?: MovieType;
+//   duration?: number;
+//   releaseDate?: string;
+//   genreIds?: ID[];
+// }
