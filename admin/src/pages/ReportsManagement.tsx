@@ -74,7 +74,7 @@ export function ReportsManagement() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 py-8">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-8xl mx-auto px-4">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-2xl font-bold text-white mb-2">

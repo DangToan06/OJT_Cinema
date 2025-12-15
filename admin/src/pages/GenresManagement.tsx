@@ -19,7 +19,7 @@ export function GenresManagement() {
   );
 
   const [showModal, setShowModal] = useState(false);
-  const [editingGenre, setEditingGenre] = useState<any>(null);
+  const [editingGenre, setEditingGenre] = useState<MovieGenre | null>(null);
   const [genreName, setGenreName] = useState("");
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export function GenresManagement() {
     setShowModal(true);
   };
 
-  const handleEdit = (genre: any) => {
+  const handleEdit = (genre: MovieGenre) => {
     setEditingGenre(genre);
     setGenreName(genre.genreName);
     setShowModal(true);
@@ -102,7 +102,7 @@ export function GenresManagement() {
     setEditingGenre(null);
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     const result = await Swal.fire({
       title: "Xóa thể loại?",
       text: "Bạn có chắc chắn muốn xóa?",
@@ -120,7 +120,7 @@ export function GenresManagement() {
 
   return (
     <div className="min-h-screen bg-[#0f172a] py-8">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="max-w-8xl mx-auto px-4">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
