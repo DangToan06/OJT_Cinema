@@ -74,7 +74,7 @@ export const updateGenre = createAsyncThunk<
 });
 
 // XÓA
-export const deleteGenre = createAsyncThunk<number, number>(
+export const deleteGenre = createAsyncThunk<string, string>(
   "genres/delete",
   async (id, { rejectWithValue }) => {
     try {

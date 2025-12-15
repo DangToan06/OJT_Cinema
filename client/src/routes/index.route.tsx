@@ -8,7 +8,7 @@ import MovieCalendar from "../pages/MovieCalendar";
 import HomePage from "../pages/HomePage";
 import TcketPrice from "../pages/TicketPrice";
 import FestivalPage from "../pages/FestivalPage";
-import Booking from "../pages/Booking"
+import Booking from "../pages/Booking";
 import Promotions from "../pages/Promotions";
 import FestivalDetails from "../pages/FestivalDetail";
 import NewsDetail from "../pages/NewDetail";
@@ -78,7 +78,7 @@ export const routers = createBrowserRouter([
     path: "/promotions",
     element: (
       <Layout>
-        <Promotions/>
+        <Promotions />
       </Layout>
     )
   },

@@ -1,19 +1,23 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { newsStore } from "../slice/news.slice";
+import newsSlice from "../slice/news.slice";
 import movieSlice from "../slice/movie.slice";
 import genresReducer from "../slice/genres.slice";
-import showtimesReducer from "../slice/showtimes.slice"; 
-import userSlice from "../slice/user.slice";
+import showtimesReducer from "../slice/showtimes.slice";
+import theaterSlice from "../slice/theater.slice";
+import screenSlice from "../slice/screen.slice";
 import priceSlice from "../slice/price.slice";
+import userSlice from "../slice/user.slice";
 import bookingSlice from "../slice/booking.slice";
 
 export const store = configureStore({
   reducer: {
-    news: newsStore,
     movie: movieSlice,
     genres: genresReducer,
-    price: priceSlice,
     showtimes: showtimesReducer,
+    theater: theaterSlice,
+    news: newsSlice,
+    screens: screenSlice,
+    price: priceSlice,
     user: userSlice,
     booking: bookingSlice,
   },

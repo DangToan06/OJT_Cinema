@@ -5,7 +5,7 @@ export interface InitialStateType<T> {
 }
 
 export interface MovieGenre {
-  id: number;
+  id: string;
   genreName: string;
 }
 

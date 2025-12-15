@@ -73,48 +73,54 @@ export function DashboardOverview() {
 
   return (
     <div>
+      {/* Header */}
       <div className="mb-8">
-        <h1 className="text-gray-900 mb-2 font-bold text-2xl">
+        <h1 className="text-white mb-2 font-bold text-2xl">
           Tổng quan hệ thống
         </h1>
-        <p className="text-gray-600">
+        <p className="text-gray-400">
           Thống kê tổng quan hoạt động rạp chiếu phim
         </p>
       </div>
 
+      {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {stats.map((stat) => {
           const Icon = stat.icon;
           return (
             <div
               key={stat.label}
-              className="bg-white rounded-lg shadow-sm p-6 border border-gray-200"
+              className="bg-[#1e2939] rounded-lg p-6 border border-gray-700"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className={`${stat.color} p-3 rounded-lg`}>
                   <Icon className="w-6 h-6 text-white" />
                 </div>
-                <span className="text-green-600 text-sm">{stat.trend}</span>
+                <span className="text-green-400 text-sm">{stat.trend}</span>
               </div>
-              <div>
-                <p className="text-gray-600 text-sm mb-1">{stat.label}</p>
-                <p className="text-gray-900">{stat.value}</p>
-              </div>
+
+              <p className="text-gray-400 text-sm mb-1">{stat.label}</p>
+              <p className="text-white text-xl font-semibold">{stat.value}</p>
             </div>
           );
         })}
       </div>
 
+      {/* Charts + Top movies */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
-          <h2 className="text-gray-900 mb-4">Doanh thu 7 ngày qua</h2>
+        {/* Revenue */}
+        <div className="bg-[#1e2939] rounded-lg p-6 border border-gray-700">
+          <h2 className="text-white mb-4 font-semibold">
+            Doanh thu 7 ngày qua
+          </h2>
+
           <div className="space-y-3">
             {["T2", "T3", "T4", "T5", "T6", "T7", "CN"].map((day, index) => {
               const values = [45, 52, 48, 65, 72, 85, 78];
               return (
                 <div key={day} className="flex items-center gap-3">
-                  <span className="text-gray-600 w-8">{day}</span>
-                  <div className="flex-1 bg-gray-100 rounded-full h-8 overflow-hidden">
+                  <span className="text-gray-400 w-8">{day}</span>
+                  <div className="flex-1 bg-[#2a3a4f] rounded-full h-8 overflow-hidden">
                     <div
                       className="bg-gradient-to-r from-red-500 to-red-600 h-full flex items-center justify-end pr-3 text-white text-sm"
                       style={{ width: `${values[index]}%` }}
@@ -128,8 +134,10 @@ export function DashboardOverview() {
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
-          <h2 className="text-gray-900 mb-4">Top phim bán chạy</h2>
+        {/* Top movies */}
+        <div className="bg-[#1e2939] rounded-lg p-6 border border-gray-700">
+          <h2 className="text-white mb-4 font-semibold">Top phim bán chạy</h2>
+
           <div className="space-y-4">
             {[
               { title: "Avengers: Endgame", sales: 2340, revenue: "234M" },
@@ -142,58 +150,66 @@ export function DashboardOverview() {
               { title: "The Batman", sales: 1620, revenue: "162M" },
             ].map((movie, index) => (
               <div key={movie.title} className="flex items-center gap-4">
-                <div className="w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center font-semibold">
                   {index + 1}
                 </div>
+
                 <div className="flex-1">
-                  <p className="text-gray-900">{movie.title}</p>
-                  <p className="text-sm text-gray-500">{movie.sales} vé</p>
+                  <p className="text-white">{movie.title}</p>
+                  <p className="text-sm text-gray-400">{movie.sales} vé</p>
                 </div>
-                <p className="text-gray-900">{movie.revenue} ₫</p>
+
+                <p className="text-white font-medium">{movie.revenue} ₫</p>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-        <div className="p-6 border-b border-gray-200">
-          <h2 className="text-gray-900">Đặt vé gần đây</h2>
+      {/* Recent bookings */}
+      <div className="bg-[#1e2939] rounded-lg border border-gray-700">
+        <div className="p-6 border-b border-gray-700">
+          <h2 className="text-white font-semibold">Đặt vé gần đây</h2>
         </div>
+
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50">
+            <thead className="border-b border-gray-700">
               <tr>
-                <th className="px-6 py-3 text-left text-gray-600">ID</th>
-                <th className="px-6 py-3 text-left text-gray-600">Phim</th>
-                <th className="px-6 py-3 text-left text-gray-600">
-                  Khách hàng
-                </th>
-                <th className="px-6 py-3 text-left text-gray-600">Rạp</th>
-                <th className="px-6 py-3 text-left text-gray-600">
-                  Suất chiếu
-                </th>
-                <th className="px-6 py-3 text-left text-gray-600">Ghế</th>
-                <th className="px-6 py-3 text-left text-gray-600">
-                  Trạng thái
-                </th>
+                {[
+                  "ID",
+                  "Phim",
+                  "Khách hàng",
+                  "Rạp",
+                  "Suất chiếu",
+                  "Ghế",
+                  "Trạng thái",
+                ].map((h) => (
+                  <th
+                    key={h}
+                    className="px-6 py-3 text-left text-gray-400 text-sm"
+                  >
+                    {h}
+                  </th>
+                ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
+
+            <tbody className="divide-y divide-gray-700">
               {recentBookings.map((booking) => (
-                <tr key={booking.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 text-gray-900">#{booking.id}</td>
-                  <td className="px-6 py-4 text-gray-900">{booking.movie}</td>
-                  <td className="px-6 py-4 text-gray-600">{booking.user}</td>
-                  <td className="px-6 py-4 text-gray-600">{booking.theater}</td>
-                  <td className="px-6 py-4 text-gray-600">{booking.time}</td>
-                  <td className="px-6 py-4 text-gray-600">{booking.seats}</td>
+                <tr key={booking.id} className="hover:bg-[#263445] transition">
+                  <td className="px-6 py-4 text-white">#{booking.id}</td>
+                  <td className="px-6 py-4 text-white">{booking.movie}</td>
+                  <td className="px-6 py-4 text-gray-400">{booking.user}</td>
+                  <td className="px-6 py-4 text-gray-400">{booking.theater}</td>
+                  <td className="px-6 py-4 text-gray-400">{booking.time}</td>
+                  <td className="px-6 py-4 text-gray-400">{booking.seats}</td>
                   <td className="px-6 py-4">
                     <span
                       className={`px-3 py-1 rounded-full text-sm ${
                         booking.status === "Đã thanh toán"
-                          ? "bg-green-100 text-green-700"
-                          : "bg-yellow-100 text-yellow-700"
+                          ? "bg-green-500/20 text-green-400"
+                          : "bg-yellow-500/20 text-yellow-400"
                       }`}
                     >
                       {booking.status}

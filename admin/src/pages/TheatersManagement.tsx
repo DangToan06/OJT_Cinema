@@ -34,7 +34,7 @@ export function TheatersManagement() {
         if (dataTheaters.theaters.length === 0) {
             dispatch(getAllTheaters());
         }
-    });
+    }, [dispatch, dataTheaters.theaters.length]);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
