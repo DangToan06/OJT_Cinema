@@ -14,7 +14,7 @@ export const getAllScreens = createAsyncThunk(
 export const updateScreenStatus = createAsyncThunk(
     'screen/updateScreenStatus',
     async (data: UpdateStatusData) => {
-        await axiosInstance.patch(`screens/${data.id}`);
+        await axiosInstance.patch(`screens/${data.id}`, { status: data.status });
         return data;
     }
 );
