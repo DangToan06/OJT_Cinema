@@ -1314,81 +1314,743 @@
       "name": "Phòng 1",
       "theater": "CGV Vincom Center",
       "theaterId": "8f4d5c4e-2b7e-4e9b-9c12-4f9a2d3b7c91",
-      "capacity": 120,
-      "type": "2D",
-      "status": "Hoạt động"
+      "type": "Standard",
+      "row": 2,
+      "column": 2,
+      "capacity": 4,
+      "status": "Đang hoạt động"
     },
     {
       "id": "4e32a0d1-8b4c-41b6-a0c7-f98ab4f25e33",
       "name": "Phòng 2",
       "theater": "CGV Vincom Center",
       "theaterId": "8f4d5c4e-2b7e-4e9b-9c12-4f9a2d3b7c91",
-      "capacity": 150,
-      "type": "3D",
-      "status": "Hoạt động"
+      "type": "Standard",
+      "row": 6,
+      "column": 10,
+      "capacity": 60,
+      "status": "Đang hoạt động"
     },
     {
       "id": "9ac8c2eb-76f1-4cd4-9d41-7b30ceaffb52",
       "name": "Phòng VIP",
       "theater": "CGV Vincom Center",
       "theaterId": "8f4d5c4e-2b7e-4e9b-9c12-4f9a2d3b7c91",
-      "capacity": 80,
       "type": "IMAX",
-      "status": "Hoạt động"
+      "row": 6,
+      "column": 12,
+      "capacity": 72,
+      "status": "Đang hoạt động"
     },
     {
       "id": "3fd4a01b-7720-4e13-8f4a-64c22f579c44",
       "name": "Phòng 1",
       "theater": "Lotte Cinema Keangnam",
       "theaterId": "f2b1a9d7-5c3f-48f7-b0ea-9b4c1d26d442",
-      "capacity": 200,
-      "type": "2D",
-      "status": "Hoạt động"
+      "type": "Standard",
+      "row": 6,
+      "column": 10,
+      "capacity": 60,
+      "status": "Đang hoạt động"
     },
     {
       "id": "e6f8011c-08ad-45d0-a1e8-009d834c2f55",
       "name": "Phòng 2",
       "theater": "Lotte Cinema Keangnam",
       "theaterId": "f2b1a9d7-5c3f-48f7-b0ea-9b4c1d26d442",
-      "capacity": 180,
-      "type": "3D",
-      "status": "Hoạt động"
+      "type": "Standard",
+      "row": 5,
+      "column": 9,
+      "capacity": 45,
+      "status": "Đang hoạt động"
     },
     {
       "id": "6b90e72d-eaf1-4c52-bc34-5d5d30a53388",
       "name": "Phòng 3",
       "theater": "Lotte Cinema Keangnam",
       "theaterId": "f2b1a9d7-5c3f-48f7-b0ea-9b4c1d26d442",
-      "capacity": 160,
-      "type": "4DX",
-      "status": "Bảo trì"
+      "type": "Large",
+      "row": 8,
+      "column": 14,
+      "capacity": 112,
+      "status": "Ngừng hoạt động"
     },
     {
       "id": "c9f4f522-9d73-4b91-a8f1-99af08b26cd7",
       "name": "Phòng 1",
       "theater": "Galaxy Cinema Nguyễn Du",
       "theaterId": "3c98d15e-7ef2-4a30-a9ea-2b7cd44e1e12",
-      "capacity": 100,
-      "type": "2D",
-      "status": "Hoạt động"
+      "type": "Standard",
+      "row": 5,
+      "column": 8,
+      "capacity": 40,
+      "status": "Đang hoạt động"
     },
     {
       "id": "f0b8a2eb-2178-4ec0-9e87-329d1e3cb1f3",
       "name": "Phòng 2",
       "theater": "Galaxy Cinema Nguyễn Du",
       "theaterId": "3c98d15e-7ef2-4a30-a9ea-2b7cd44e1e12",
-      "capacity": 120,
-      "type": "3D",
-      "status": "Hoạt động"
+      "type": "Standard",
+      "row": 6,
+      "column": 9,
+      "capacity": 54,
+      "status": "Đang hoạt động"
     },
     {
       "id": "b3835b3b-5b42-4d4a-9b4a-c39c8406f597",
-      "name": "phong 3",
+      "name": "Phòng 3",
       "theater": "Beta Cinema Mỹ Đình",
-      "capacity": 60,
       "theaterId": "14cb22b1-b6d0-45e3-a2e2-62cbe7455314",
-      "type": "2D",
+      "type": "Mini",
+      "row": 3,
+      "column": 5,
+      "capacity": 15,
       "status": "Đang hoạt động"
+    }
+  ],
+  "seat_map": [
+    {
+      "screenId": "b7c1d9d4-3e8f-4a9c-9f21-d2e0a1c7f411",
+      "seats": [
+        {
+          "row": "A",
+          "number": 1,
+          "type": "vip",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 2,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 1,
+          "type": "vip",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 2,
+          "type": "sweetbox",
+          "booked": false
+        }
+      ],
+      "id": "0288d183-88f6-47e2-a1ad-f6c500104be2"
+    },
+    {
+      "screenId": "4e32a0d1-8b4c-41b6-a0c7-f98ab4f25e33",
+      "seats": [
+        {
+          "row": "A",
+          "number": 1,
+          "type": "vip",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 2,
+          "type": "disabled",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 3,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 4,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 5,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 6,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 7,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 8,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 9,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 10,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 1,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 2,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 3,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 4,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 5,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 6,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 7,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 8,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 9,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 10,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 1,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 2,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 3,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 4,
+          "type": "sweetbox",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 5,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 6,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 7,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 8,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 9,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 10,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 1,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 2,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 3,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 4,
+          "type": "vip",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 5,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 6,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 7,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 8,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 9,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 10,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 1,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 2,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 3,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 4,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 5,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 6,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 7,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 8,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 9,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 10,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "F",
+          "number": 1,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "F",
+          "number": 2,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "F",
+          "number": 3,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "F",
+          "number": 4,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "F",
+          "number": 5,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "F",
+          "number": 6,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "F",
+          "number": 7,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "F",
+          "number": 8,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "F",
+          "number": 9,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "F",
+          "number": 10,
+          "type": "standard",
+          "booked": false
+        }
+      ],
+      "id": "8bb18081-585d-4745-b1c2-448adcdf3e15"
+    },
+    {
+      "screenId": "c9f4f522-9d73-4b91-a8f1-99af08b26cd7",
+      "seats": [
+        {
+          "row": "A",
+          "number": 1,
+          "type": "sweetbox",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 2,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 3,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 4,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 5,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 6,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 7,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 8,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 1,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 2,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 3,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 4,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 5,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 6,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 7,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 8,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 1,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 2,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 3,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 4,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 5,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 6,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 7,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 8,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 1,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 2,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 3,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 4,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 5,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 6,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 7,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 8,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 1,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 2,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 3,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 4,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 5,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 6,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 7,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 8,
+          "type": "standard",
+          "booked": false
+        }
+      ],
+      "id": "b4b7a8f3-2ed1-4a8c-b6ae-3918c2db518f"
     }
   ]
 }
