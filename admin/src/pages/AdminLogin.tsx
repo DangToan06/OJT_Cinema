@@ -5,6 +5,8 @@ import {
   LockOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -22,7 +24,15 @@ export default function AdminLogin() {
     if (values.email === "admin@cinema.com" && values.password === "admin123") {
       const mockToken = btoa(`${values.email}:boMayLaAdmin`);
       localStorage.setItem("token", mockToken);
-      window.location.href = "/";
+
+      toast.success("Đăng nhập thành công ", {
+        position: "top-right",
+        autoClose: 1000,
+      });
+
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 1200);
     } else {
       setError("Email hoặc mật khẩu không đúng. Vui lòng thử lại.");
     }
@@ -42,6 +52,8 @@ export default function AdminLogin() {
         padding: "16px",
       }}
     >
+      <ToastContainer theme="colored" />
+
       <div style={{ width: "100%", maxWidth: "450px" }}>
         <div style={{ textAlign: "center", marginBottom: "32px" }}>
           <div
@@ -91,7 +103,6 @@ export default function AdminLogin() {
               <Input
                 prefix={<UserOutlined style={{ color: "#9ca3af" }} />}
                 placeholder="admin@cinema.com"
-                autoComplete="email"
               />
             </Form.Item>
 
@@ -103,7 +114,6 @@ export default function AdminLogin() {
               <Input.Password
                 prefix={<LockOutlined style={{ color: "#9ca3af" }} />}
                 placeholder="••••••••"
-                autoComplete="current-password"
               />
             </Form.Item>
 
@@ -157,7 +167,9 @@ export default function AdminLogin() {
             >
               <div style={{ marginBottom: "4px" }}>
                 <Text style={{ color: "#6b7280" }}>Email: </Text>
-                <Text style={{ color: "#374151" }}>admin@cinema.com</Text>
+                <Text style={{ color: "#374151" }}>
+                  admin@cinema.com
+                </Text>
               </div>
               <div>
                 <Text style={{ color: "#6b7280" }}>Mật khẩu: </Text>

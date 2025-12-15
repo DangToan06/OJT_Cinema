@@ -230,19 +230,25 @@ export default function Layout({ children }: LayoutProps) {
             </div>
           ) : (
             <>
-              <button
-                onClick={() => setIsRegisterModalOpen(true)}
-                className="px-7 py-3 border border-white rounded-full text-white hover:bg-white/10 transition font-medium"
-              >
-                Đăng ký
-              </button>
-              <button
-                onClick={() => setIsLoginModalOpen(true)}
-                className="px-7 py-3 bg-red-600 hover:bg-red-700 rounded-full text-white font-medium transition shadow-md"
-              >
-                Đăng nhập
-              </button>
-            </>
+             <button
+            onClick={() => setIsRegisterModalOpen(true)}
+            className="px-7 py-3 border border-white rounded-full text-white font-medium
+                      transition-all duration-300 ease-out
+                      hover:scale-105 hover:bg-white/10 active:scale-95"
+          >
+            Đăng ký
+          </button>
+
+          <button
+            onClick={() => setIsLoginModalOpen(true)}
+            className="px-7 py-3 bg-red-600 rounded-full text-white font-medium shadow-md
+                      transition-all duration-300 ease-out
+                      hover:scale-105 hover:bg-red-700 active:scale-95"
+          >
+            Đăng nhập
+          </button>
+
+        </>
           )}
         </div>
 

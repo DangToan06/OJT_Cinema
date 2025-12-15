@@ -11,6 +11,6 @@ export default function PrivateRouter({ children }: IPrivateRouter) {
   return isLogged && atob(isLogged) === "admin@cinema.com:boMayLaAdmin" ? (
     children
   ) : (
-    <Navigate to="login" replace></Navigate>
+    <Navigate to="/login" replace></Navigate>
   );
 }

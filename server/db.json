@@ -1301,7 +1301,7 @@
       "date": "2025-12-10",
       "startTime": "16:08",
       "endTime": "19:08",
-      "price": 5555566,
+      "price": 56789,
       "availableSeats": 150,
       "totalSeats": 150,
       "status": "active",
@@ -1316,7 +1316,7 @@
       "theaterId": "8f4d5c4e-2b7e-4e9b-9c12-4f9a2d3b7c91",
       "capacity": 120,
       "type": "2D",
-      "status": "Hoạt động"
+      "status": "Ngừng hoạt động"
     },
     {
       "id": "4e32a0d1-8b4c-41b6-a0c7-f98ab4f25e33",
