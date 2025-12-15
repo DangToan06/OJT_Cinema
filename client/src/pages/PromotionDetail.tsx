@@ -4,7 +4,7 @@ import axios from "axios";
 export default function NewsDetail() {
   const [news, setNews] = useState<News | null>(null);
   useEffect(() => {
-    axios.get(`http://localhost:8080/news/news-${window.location.href.split("?")[1]}`)
+    axios.get(`http://localhost:8080/news/promo-${window.location.href.split("?")[1]}`)
     .then((res) => setNews(res.data))
     .catch(() => {alert("get data error")})
   }, [])

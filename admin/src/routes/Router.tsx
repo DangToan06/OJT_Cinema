@@ -34,14 +34,6 @@ export const routers = createBrowserRouter([
     ),
   },
   {
-    path: "bookings",
-    element: (
-      <Layout>
-        <BookingsManagement></BookingsManagement>
-      </Layout>
-    ),
-  },
-  {
     path: "movies",
     element: (
       <Layout>
@@ -54,30 +46,6 @@ export const routers = createBrowserRouter([
     element: (
       <Layout>
         <GenresManagement></GenresManagement>
-      </Layout>
-    ),
-  },
-  {
-    path: "theaters",
-    element: (
-      <Layout>
-        <TheatersManagement></TheatersManagement>
-      </Layout>
-    ),
-  },
-  {
-    path: "screens",
-    element: (
-      <Layout>
-        <ScreensManagement></ScreensManagement>
-      </Layout>
-    ),
-  },
-  {
-    path: "seats",
-    element: (
-      <Layout>
-        <SeatsManagement></SeatsManagement>
       </Layout>
     ),
   },

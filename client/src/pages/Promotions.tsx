@@ -1,18 +1,47 @@
-import React from "react";
-import PromtionList from "../components/Promotions/PromotionList";
+import { useEffect, useState } from "react";
+import PromotionCard from "../components/Card/PromotionCard"
+import axios from "axios";
+import type { News } from "../types/news.interface";
 
 export default function Promotions() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
+  const [newsData, setNewsData] = useState<News[]>([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/news")
+      .then((res) => setNewsData(res.data));
+  }, []);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = newsData
+    .filter((n) => n.category == "promotion")
+    .slice(indexOfFirstItem, indexOfLastItem);
   return (
-    <div className="p-20 bg-black text-white">
+    <div className="p-20 bg-[#1a1d29] text-white">
       <p className="text-center text-3xl font-bold mb-20">Khuyến mãi</p>
-      <div>
-        <PromtionList />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        {currentItems.map((item,id) => (
+          <PromotionCard
+          key={id}
+          id={id + 1}
+          image={item.bannerUrl}
+          title={item.title}
+          date={item.created_at.split("T")[0]}
+          />
+        ))}
       </div>
       <div className="flex justify-end gap-4 font-semibold">
-        <button className="border px-3 py-2 rounded-md border-[#1E293B] hover:bg-[#1E293B]">
+        <button
+          className="border px-3 py-2 rounded-md border-[#1E293B] hover:bg-[#1E293B]"
+          onClick={() => setCurrentPage(currentPage - 1)}
+        >
           Quay lại
         </button>
-        <button className="border px-3 py-2 rounded-md border-[#1E293B] hover:bg-[#1E293B]">
+        <button
+          className="border px-3 py-2 rounded-md border-[#1E293B] hover:bg-[#1E293B]"
+          onClick={() => setCurrentPage(currentPage + 1)}
+        >
           Tiếp theo
         </button>
       </div>

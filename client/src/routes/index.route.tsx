@@ -12,6 +12,7 @@ import Booking from "../pages/Booking"
 import Promotions from "../pages/Promotions";
 import FestivalDetails from "../pages/FestivalDetail";
 import NewsDetail from "../pages/NewDetail";
+import PromotionDetail from "../pages/PromotionDetail";
 export const routers = createBrowserRouter([
   {
     path: "/news",
@@ -94,6 +95,14 @@ export const routers = createBrowserRouter([
     element: (
       <Layout>
         <NewsDetail/>
+      </Layout>
+    )
+  },
+  {
+    path: "/promotionDetail",
+    element: (
+      <Layout>
+        <PromotionDetail/>
       </Layout>
     )
   },
