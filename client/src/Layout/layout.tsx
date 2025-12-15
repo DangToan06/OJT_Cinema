@@ -19,10 +19,12 @@ interface LayoutProps {
 }
 
 interface UserInfo {
+  id?: string;
   first_name?: string;
   last_name?: string;
   email?: string;
   avatar?: string;
+  status?: string;
   role?: { role_name: string };
 }
 
@@ -35,20 +37,104 @@ export default function Layout({ children }: LayoutProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Lấy user từ localStorage
-  useEffect(() => {
-    const savedUser = localStorage.getItem('user');
-    if (savedUser) {
-      try {
-        setUser(JSON.parse(savedUser));
-      } catch {
-        localStorage.removeItem('user');
-      }
+  const performLogout = (reason: 'manual' | 'blocked') => {
+    localStorage.removeItem('user');
+    setUser(null);
+
+    if (reason === 'blocked') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Tài khoản bị chặn',
+        text: 'Tài khoản của bạn đã bị chặn , bạn đã bị đăng xuất ',
+        confirmButtonText: 'OK',
+        background: '#1e293b',
+        color: '#fff',
+        customClass: {
+          popup: 'rounded-2xl',
+          confirmButton: 'px-6 py-3 rounded-xl font-medium',
+        },
+      });
+    } else {
+      Swal.fire({
+        icon: 'success',
+        title: 'Đã đăng xuất thành công!',
+        toast: true,
+        position: 'top-end',
+        timer: 2000,
+        showConfirmButton: false,
+        background: '#1e293b',
+        color: '#fff',
+      });
     }
+    navigate('/');
+  };
+
+  // Kiểm tra trạng thái user từ server
+  const checkUserStatus = async () => {
+    const savedUser = localStorage.getItem('user');
+    if (!savedUser) {
+      setUser(null);
+      return;
+    }
+
+    try {
+      const parsedUser: UserInfo = JSON.parse(savedUser);
+      if (!parsedUser.id) {
+        performLogout('manual');
+        return;
+      }
+
+      const res = await fetch(`http://localhost:8080/users/${parsedUser.id}`);
+      if (!res.ok) {
+        performLogout('manual');
+        return;
+      }
+
+      const currentUser = await res.json();
+
+      if (currentUser.status === 'BLOCKED') {
+        performLogout('blocked');
+      } else {
+        // Cập nhật lại thông tin user nếu có thay đổi
+        setUser(currentUser);
+        localStorage.setItem('user', JSON.stringify(currentUser));
+      }
+    } catch (err) {
+      console.error('Lỗi khi kiểm tra trạng thái tài khoản:', err);
+    }
+  };
+
+  useEffect(() => {
+    checkUserStatus();
   }, []);
 
-  // Đăng xuất
-  const handleLogout = async () => {
+
+  useEffect(() => {
+    const handleFocus = () => checkUserStatus();
+    window.addEventListener('focus', handleFocus);
+    return () => window.removeEventListener('focus', handleFocus);
+  }, []);
+
+
+  useEffect(() => {
+    if (!user) return;
+
+    const interval = setInterval(() => {
+      checkUserStatus();
+    }, 30000);
+
+    return () => clearInterval(interval);
+  }, [user]);
+
+
+  useEffect(() => {
+    if (user) {
+      checkUserStatus();
+    }
+  }, [location.pathname, mobileMenuOpen]);
+
+  // Xử lý đăng xuất
+  const handleManualLogout = async () => {
     const result = await Swal.fire({
       title: 'Đăng xuất?',
       text: 'Bạn có chắc chắn muốn đăng xuất khỏi tài khoản?',
@@ -68,19 +154,7 @@ export default function Layout({ children }: LayoutProps) {
     });
 
     if (result.isConfirmed) {
-      localStorage.removeItem('user');
-      setUser(null);
-      Swal.fire({
-        icon: 'success',
-        title: 'Đã đăng xuất thành công!',
-        toast: true,
-        position: 'top-end',
-        timer: 2000,
-        showConfirmButton: false,
-        background: '#1e293b',
-        color: '#fff',
-      });
-      navigate('/');
+      performLogout('manual');
     }
   };
 
@@ -131,25 +205,23 @@ export default function Layout({ children }: LayoutProps) {
                     className="w-9 h-9 rounded-full object-cover border-2 border-white/30"
                   />
                 ) : (
-                  <div className="w-9 h-9 bg-linear-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md">
+                  <div className="w-9 h-9 bg-gradient-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md">
                     {(user.first_name || '?')[0].toUpperCase()}
                   </div>
                 )}
 
                 <div className="flex flex-col gap-1">
                   <span className="text-white font-semibold text-sm leading-tight">
-                    {user.first_name} {user.last_name}
+                    {user.first_name || ''} {user.last_name || ''}
                   </span>
                   <span className="text-gray-400 text-xs">
-                    {user.role?.role_name === 'admin'
-                      ? 'Quản trị viên'
-                      : 'Khách hàng'}
+                    {user.role?.role_name === 'admin' ? 'Quản trị viên' : 'Khách hàng'}
                   </span>
                 </div>
               </div>
 
               <button
-                onClick={handleLogout}
+                onClick={handleManualLogout}
                 className="flex items-center gap-3 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-full transition-all shadow-lg hover:shadow-red-600/50 font-medium"
               >
                 <LogOut className="w-5 h-5" />
@@ -212,23 +284,21 @@ export default function Layout({ children }: LayoutProps) {
                       className="w-14 h-14 rounded-full object-cover"
                     />
                   ) : (
-                    <div className="w-14 h-14 bg-linear-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white font-bold text-2xl">
+                    <div className="w-14 h-14 bg-gradient-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white font-bold text-2xl">
                       {(user.first_name || '?')[0].toUpperCase()}
                     </div>
                   )}
                   <div>
                     <p className="text-white font-bold text-xl">
-                      {user.first_name} {user.last_name}
+                      {user.first_name || ''} {user.last_name || ''}
                     </p>
                     <p className="text-gray-400">
-                      {user.role?.role_name === 'admin'
-                        ? 'Quản trị viên'
-                        : 'Khách hàng'}
+                      {user.role?.role_name === 'admin' ? 'Quản trị viên' : 'Khách hàng'}
                     </p>
                   </div>
                 </div>
                 <button
-                  onClick={handleLogout}
+                  onClick={handleManualLogout}
                   className="w-full py-4 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold flex items-center justify-center gap-3 transition"
                 >
                   <LogOut className="w-6 h-6" />
@@ -267,26 +337,23 @@ export default function Layout({ children }: LayoutProps) {
       {/* FOOTER */}
       <footer className="bg-black text-white py-14 z-10">
         <div className="max-w-6xl mx-auto px-6">
-          {/* Menu */}
           <div className="flex flex-wrap justify-center gap-x-10 gap-y-3 text-sm md:text-base font-medium">
-            {['Chính sách','Lịch chiếu','Tin tức','Giá vé','Hỏi đáp','Liên hệ'].map((item) => (
+            {['Chính sách', 'Lịch chiếu', 'Tin tức', 'Giá vé', 'Hỏi đáp', 'Liên hệ'].map((item) => (
               <span key={item} className="cursor-pointer hover:text-red-500 transition">
                 {item}
               </span>
             ))}
           </div>
 
-          {/* Social + Store */}
           <div className="flex flex-wrap justify-center items-center gap-6 mt-10">
-            <img src={fb} className="w-8 h-8 cursor-pointer hover:opacity-80" />
-            <img src={zalo} className="w-8 h-8 cursor-pointer hover:opacity-80" />
-            <img src={ytb} className="w-8 h-8 cursor-pointer hover:opacity-80" />
-            <img src={gp} className="h-11 cursor-pointer hover:opacity-90" />
-            <img src={as} className="h-11 cursor-pointer hover:opacity-90" />
-            <img src={tem} className="h-[50px] cursor-pointer hover:opacity-90" />
+            <img src={fb} className="w-8 h-8 cursor-pointer hover:opacity-80" alt="Facebook" />
+            <img src={zalo} className="w-8 h-8 cursor-pointer hover:opacity-80" alt="Zalo" />
+            <img src={ytb} className="w-8 h-8 cursor-pointer hover:opacity-80" alt="Youtube" />
+            <img src={gp} className="h-11 cursor-pointer hover:opacity-90" alt="Google Play" />
+            <img src={as} className="h-11 cursor-pointer hover:opacity-90" alt="App Store" />
+            <img src={tem} className="h-[50px] cursor-pointer hover:opacity-90" alt="Copyright" />
           </div>
 
-          {/* Info */}
           <div className="mt-12 text-center flex flex-col gap-2 text-sm md:text-base leading-relaxed opacity-90">
             <p>Cơ quan chủ quản: BỘ VĂN HÓA, THỂ THAO VÀ DU LỊCH</p>
             <p>Bản quyền thuộc Trung tâm Chiếu phim Quốc gia.</p>
