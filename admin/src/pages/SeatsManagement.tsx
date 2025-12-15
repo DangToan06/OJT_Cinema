@@ -95,7 +95,6 @@ export function SeatsManagement() {
     return typeConfig?.color || "bg-slate-500";
   };
 
-  // Tính kích thước ghế động dựa trên số cột
   const getSeatSize = (columns: number) => {
     if (columns >= 18) return "w-6 h-6";
     if (columns >= 14) return "w-7 h-7";
@@ -117,9 +116,9 @@ export function SeatsManagement() {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-950 via-slate-900 to-slate-950 p-6">
+    <div className="min-h-screen bg-gray-900 p-8">
       <div className="mb-8">
-        <h1 className="mb-2 font-bold text-3xl bg-linear-to-r from-white to-slate-300 bg-clip-text text-transparent">
+        <h1 className="text-white mb-2 font-bold text-3xl tracking-tight">
           Quản lý ghế ngồi
         </h1>
         <p className="text-slate-400">
@@ -128,9 +127,7 @@ export function SeatsManagement() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        {/* Sidebar */}
         <div className="lg:col-span-1 space-y-6">
-          {/* Theater Selector */}
           <div className="bg-linear-to-br from-slate-800/60 to-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-4">
               <MapPin className="w-5 h-5 text-rose-400" />
@@ -173,7 +170,6 @@ export function SeatsManagement() {
             </div>
           </div>
 
-          {/* Screen Selector */}
           {selectedTheaterId && (
             <div className="bg-linear-to-br from-slate-800/60 to-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-5">
               <div className="flex items-center gap-2 mb-4">
@@ -219,7 +215,6 @@ export function SeatsManagement() {
             </div>
           )}
 
-          {/* Seat Types Legend */}
           <div className="bg-linear-to-br from-slate-800/60 to-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-5">
             <h3 className="text-slate-100 font-semibold mb-4">Loại ghế</h3>
             <div className="space-y-3">
@@ -245,12 +240,10 @@ export function SeatsManagement() {
           </div>
         </div>
 
-        {/* Main Content */}
         <div className="lg:col-span-3">
           <div className="bg-linear-to-br from-slate-800/60 to-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6">
             {currentScreen ? (
               <>
-                {/* Screen Display */}
                 <div className="mb-8">
                   <div className="relative">
                     <div className="bg-linear-to-b from-slate-700 via-slate-600 to-slate-500 text-white text-center py-4 rounded-2xl shadow-2xl mb-3">
@@ -265,7 +258,6 @@ export function SeatsManagement() {
                   </p>
                 </div>
 
-                {/* Seats Grid */}
                 <div className="overflow-x-auto pb-4">
                   <div className="inline-flex flex-col items-center gap-3 min-w-full justify-center">
                     {[...Array(currentScreen.row)].map((_, rowIndex) => {
@@ -325,7 +317,6 @@ export function SeatsManagement() {
                   </div>
                 </div>
 
-                {/* Statistics */}
                 <div className="mt-8 pt-6 border-t border-slate-700/50">
                   <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-sm">
                     <div className="bg-slate-900/50 rounded-xl p-3 border border-slate-700/30">
@@ -405,7 +396,6 @@ export function SeatsManagement() {
         </div>
       </div>
 
-      {/* Custom Scrollbar Styles */}
       <style>{`
                 .custom-scrollbar::-webkit-scrollbar {
                     width: 6px;

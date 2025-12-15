@@ -119,12 +119,11 @@ export function GenresManagement() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0f172a] py-8">
-      <div className="max-w-8xl mx-auto px-4">
-        {/* Header */}
+    <div className="min-h-screen bg-gray-900 p-8">
+      <div className="max-w-8xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-white mb-2 font-bold text-2xl">
+            <h1 className="text-white mb-2 font-bold text-3xl tracking-tight">
               Quản lý thể loại phim
             </h1>
             <p className="text-gray-400">
@@ -140,7 +139,6 @@ export function GenresManagement() {
           </button>
         </div>
 
-        {/* Table */}
         <div className="bg-[#1e2939] rounded-lg border border-gray-700 overflow-hidden">
           {status === "idle" ? (
             <div className="p-16 text-center">
@@ -216,7 +214,6 @@ export function GenresManagement() {
           )}
         </div>
 
-        {/* Modal */}
         {showModal && (
           <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50">
             <div className="bg-[#1e2939] rounded-2xl shadow-2xl max-w-md w-full p-8 border border-gray-700">

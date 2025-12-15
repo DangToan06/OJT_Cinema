@@ -37,7 +37,7 @@ export default function PaginationComp({
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: "#ef4444", // đỏ cinema
+          colorPrimary: "#ef4444",
           colorText: "#ffffff",
           colorTextSecondary: "#9ca3af",
           colorBgContainer: "#1e2939",

@@ -72,10 +72,10 @@ export function DashboardOverview() {
   ];
 
   return (
-    <div>
+    <div className="p-8 bg-gray-900">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-white mb-2 font-bold text-2xl">
+        <h1 className="text-white mb-2 font-bold text-3xl tracking-tight">
           Tổng quan hệ thống
         </h1>
         <p className="text-gray-400">

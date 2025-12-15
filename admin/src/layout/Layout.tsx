@@ -13,15 +13,10 @@ import {
   Ticket,
   Users,
 } from "lucide-react";
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
-interface LayoutProps {
-  children: React.ReactNode;
-}
-
-export default function Layout({ children }: LayoutProps) {
+export default function Layout() {
   const navigate = useNavigate();
   const currentPath = location.pathname.replace("/", "");
   const menuItems = [
@@ -86,7 +81,7 @@ export default function Layout({ children }: LayoutProps) {
         </div>
       </aside>
       <main className="flex-1 overflow-y-auto">
-        <div className="p-8">
+        <div>
           <ToastContainer
             position="top-right"
             autoClose={1000}
@@ -97,7 +92,7 @@ export default function Layout({ children }: LayoutProps) {
             draggable
             theme="colored"
           />
-          {children}
+          <Outlet></Outlet>
         </div>
       </main>
     </div>

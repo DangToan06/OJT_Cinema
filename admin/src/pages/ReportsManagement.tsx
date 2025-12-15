@@ -73,11 +73,11 @@ export function ReportsManagement() {
   const maxRevenue = Math.max(...revenueData.map((d) => d.revenue));
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 py-8">
-      <div className="max-w-8xl mx-auto px-4">
+    <div className="min-h-screen bg-gray-900 text-gray-100 p-8">
+      <div className="max-w-8xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-bold text-white mb-2">
+            <h1 className="text-white mb-2 font-bold text-3xl tracking-tight">
               Báo cáo & Thống kê
             </h1>
             <p className="text-gray-400">

@@ -90,13 +90,14 @@ export function MoviesManagement() {
   };
 
   return (
-    <div>
+    <div className="p-8">
       <ToastContainer position="top-right" autoClose={3000} theme="dark" />
 
-      {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-white mb-2 font-bold text-2xl">Quản lý phim</h1>
+          <h1 className="text-white mb-2 font-bold text-3xl tracking-tight">
+            Quản lý phim
+          </h1>
           <p className="text-gray-400">
             Thêm, sửa, xóa và cập nhật thông tin phim
           </p>
@@ -113,7 +114,6 @@ export function MoviesManagement() {
         </button>
       </div>
 
-      {/* Search & Filter */}
       <div className="bg-[#1e2939] rounded-lg border border-gray-700 mb-6">
         <div className="p-6 border-b border-gray-700">
           <div className="flex flex-col sm:flex-row gap-4">
@@ -143,7 +143,6 @@ export function MoviesManagement() {
           </div>
         </div>
 
-        {/* Movie grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-6">
           {movieStatus === "idle" ? (
             <div className="col-span-full text-center py-10 text-gray-400">
