@@ -74,13 +74,13 @@ export function PaymentsManagement() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "Thành công":
-        return "bg-green-100 text-green-700";
+        return "bg-green-800/30 text-green-400";
       case "Đang xử lý":
-        return "bg-yellow-100 text-yellow-700";
+        return "bg-yellow-800/30 text-yellow-400";
       case "Thất bại":
-        return "bg-red-100 text-red-700";
+        return "bg-red-800/30 text-red-400";
       default:
-        return "bg-gray-100 text-gray-700";
+        return "bg-gray-700 text-gray-400";
     }
   };
 
@@ -107,136 +107,155 @@ export function PaymentsManagement() {
   const failedCount = payments.filter((p) => p.status === "Thất bại").length;
 
   return (
-    <div>
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-gray-900 mb-2 font-bold text-2xl">
-            Quản lý thanh toán
-          </h1>
-          <p className="text-gray-600">
-            Theo dõi và quản lý các giao dịch thanh toán
-          </p>
+    <div className="bg-gray-900 min-h-screen p-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-white mb-2 font-bold text-2xl">
+              Quản lý thanh toán
+            </h1>
+            <p className="text-gray-400">
+              Theo dõi và quản lý các giao dịch thanh toán
+            </p>
+          </div>
+          <button className="flex items-center gap-2 bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors shadow-lg shadow-red-500/50">
+            <Download className="w-5 h-5" />
+            Xuất báo cáo
+          </button>
         </div>
-        <button className="flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors">
-          <Download className="w-5 h-5" />
-          Xuất báo cáo
-        </button>
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <p className="text-gray-600 mb-2">Tổng doanh thu</p>
-          <p className="text-gray-900">{totalRevenue.toLocaleString()} ₫</p>
-        </div>
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <p className="text-gray-600 mb-2">Thành công</p>
-          <p className="text-green-600">{successCount} giao dịch</p>
-        </div>
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <p className="text-gray-600 mb-2">Đang xử lý</p>
-          <p className="text-yellow-600">{processingCount} giao dịch</p>
-        </div>
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <p className="text-gray-600 mb-2">Thất bại</p>
-          <p className="text-red-600">{failedCount} giao dịch</p>
-        </div>
-      </div>
-
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-        <div className="p-6 border-b border-gray-200">
-          <div className="flex flex-col sm:flex-row gap-4">
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Tìm kiếm theo mã giao dịch, mã đơn, khách hàng..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
-              />
-            </div>
-            <select
-              value={filterStatus}
-              onChange={(e) => setFilterStatus(e.target.value)}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
-            >
-              <option value="all">Tất cả trạng thái</option>
-              <option value="Thành công">Thành công</option>
-              <option value="Đang xử lý">Đang xử lý</option>
-              <option value="Thất bại">Thất bại</option>
-            </select>
-            <select
-              value={filterMethod}
-              onChange={(e) => setFilterMethod(e.target.value)}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
-            >
-              <option value="all">Tất cả phương thức</option>
-              <option value="Thẻ tín dụng">Thẻ tín dụng</option>
-              <option value="Ví điện tử">Ví điện tử</option>
-              <option value="Chuyển khoản">Chuyển khoản</option>
-            </select>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+          <div className="bg-gray-800 rounded-lg shadow-xl border border-gray-700 p-6">
+            <p className="text-gray-400 mb-2">Tổng doanh thu</p>
+            <p className="text-white font-bold text-xl">
+              {totalRevenue.toLocaleString()} ₫
+            </p>
+          </div>
+          <div className="bg-gray-800 rounded-lg shadow-xl border border-gray-700 p-6">
+            <p className="text-gray-400 mb-2">Thành công</p>
+            <p className="text-green-400 font-bold text-xl">
+              {successCount} giao dịch
+            </p>
+          </div>
+          <div className="bg-gray-800 rounded-lg shadow-xl border border-gray-700 p-6">
+            <p className="text-gray-400 mb-2">Đang xử lý</p>
+            <p className="text-yellow-400 font-bold text-xl">
+              {processingCount} giao dịch
+            </p>
+          </div>
+          <div className="bg-gray-800 rounded-lg shadow-xl border border-gray-700 p-6">
+            <p className="text-gray-400 mb-2">Thất bại</p>
+            <p className="text-red-400 font-bold text-xl">
+              {failedCount} giao dịch
+            </p>
           </div>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-4 text-left text-gray-600">
-                  Mã giao dịch
-                </th>
-                <th className="px-6 py-4 text-left text-gray-600">Mã đơn</th>
-                <th className="px-6 py-4 text-left text-gray-600">
-                  Khách hàng
-                </th>
-                <th className="px-6 py-4 text-left text-gray-600">Số tiền</th>
-                <th className="px-6 py-4 text-left text-gray-600">
-                  Phương thức
-                </th>
-                <th className="px-6 py-4 text-left text-gray-600">Thời gian</th>
-                <th className="px-6 py-4 text-left text-gray-600">
-                  Trạng thái
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {filteredPayments.map((payment) => (
-                <tr key={payment.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4">
-                    <p className="text-gray-900">{payment.id}</p>
-                    <p className="text-xs text-gray-500">
-                      {payment.transactionId}
-                    </p>
-                  </td>
-                  <td className="px-6 py-4 text-gray-900">
-                    {payment.bookingId}
-                  </td>
-                  <td className="px-6 py-4 text-gray-900">{payment.user}</td>
-                  <td className="px-6 py-4 text-gray-900">
-                    {payment.amount.toLocaleString()} ₫
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-2 text-gray-900">
-                      {getMethodIcon(payment.method)}
-                      {payment.method}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 text-gray-600">
-                    {payment.transactionDate}
-                  </td>
-                  <td className="px-6 py-4">
-                    <span
-                      className={`px-3 py-1 rounded-full text-sm ${getStatusColor(
-                        payment.status
-                      )}`}
-                    >
-                      {payment.status}
-                    </span>
-                  </td>
+        <div className="bg-gray-800 rounded-lg shadow-xl border border-gray-700">
+          <div className="p-6 border-b border-gray-700">
+            <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex-1 relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                <input
+                  type="text"
+                  placeholder="Tìm kiếm theo mã giao dịch, mã đơn, khách hàng..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2 border border-gray-700 bg-gray-900 text-white rounded-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500"
+                />
+              </div>
+              <select
+                value={filterStatus}
+                onChange={(e) => setFilterStatus(e.target.value)}
+                className="px-4 py-2 border border-gray-700 bg-gray-900 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+              >
+                <option value="all">Tất cả trạng thái</option>
+                <option value="Thành công">Thành công</option>
+                <option value="Đang xử lý">Đang xử lý</option>
+                <option value="Thất bại">Thất bại</option>
+              </select>
+              <select
+                value={filterMethod}
+                onChange={(e) => setFilterMethod(e.target.value)}
+                className="px-4 py-2 border border-gray-700 bg-gray-900 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+              >
+                <option value="all">Tất cả phương thức</option>
+                <option value="Thẻ tín dụng">Thẻ tín dụng</option>
+                <option value="Ví điện tử">Ví điện tử</option>
+                <option value="Chuyển khoản">Chuyển khoản</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-gray-700">
+                <tr>
+                  <th className="px-6 py-4 text-left text-gray-300 text-sm font-semibold">
+                    Mã giao dịch
+                  </th>
+                  <th className="px-6 py-4 text-left text-gray-300 text-sm font-semibold">
+                    Mã đơn
+                  </th>
+                  <th className="px-6 py-4 text-left text-gray-300 text-sm font-semibold">
+                    Khách hàng
+                  </th>
+                  <th className="px-6 py-4 text-left text-gray-300 text-sm font-semibold">
+                    Số tiền
+                  </th>
+                  <th className="px-6 py-4 text-left text-gray-300 text-sm font-semibold">
+                    Phương thức
+                  </th>
+                  <th className="px-6 py-4 text-left text-gray-300 text-sm font-semibold">
+                    Thời gian
+                  </th>
+                  <th className="px-6 py-4 text-left text-gray-300 text-sm font-semibold">
+                    Trạng thái
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-gray-700">
+                {filteredPayments.map((payment) => (
+                  <tr
+                    key={payment.id}
+                    className="hover:bg-gray-700/50 transition duration-150"
+                  >
+                    <td className="px-6 py-4">
+                      <p className="text-white font-medium">{payment.id}</p>
+                      <p className="text-xs text-gray-500">
+                        {payment.transactionId}
+                      </p>
+                    </td>
+                    <td className="px-6 py-4 text-white">
+                      {payment.bookingId}
+                    </td>
+                    <td className="px-6 py-4 text-white">{payment.user}</td>
+                    <td className="px-6 py-4 text-white font-semibold">
+                      {payment.amount.toLocaleString()} ₫
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-2 text-white">
+                        {getMethodIcon(payment.method)}
+                        {payment.method}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 text-gray-400">
+                      {payment.transactionDate}
+                    </td>
+                    <td className="px-6 py-4">
+                      <span
+                        className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(
+                          payment.status
+                        )}`}
+                      >
+                        {payment.status}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

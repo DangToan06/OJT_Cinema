@@ -8,10 +8,6 @@ import {
 
 const { Title, Paragraph, Text } = Typography;
 
-// interface AdminLoginProps {
-//   onLogin: (token: string) => void;
-// }
-
 export default function AdminLogin() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -24,8 +20,9 @@ export default function AdminLogin() {
     await new Promise((resolve) => setTimeout(resolve, 800));
 
     if (values.email === "admin@cinema.com" && values.password === "admin123") {
-      //   const mockToken = btoa(`${values.email}:${Date.now()}`);
-      //   onLogin(mockToken);
+      const mockToken = btoa(`${values.email}:boMayLaAdmin`);
+      localStorage.setItem("token", mockToken);
+      window.location.href = "/";
     } else {
       setError("Email hoặc mật khẩu không đúng. Vui lòng thử lại.");
     }
