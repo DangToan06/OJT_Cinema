@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import Swal from "sweetalert2";
 
@@ -23,7 +22,13 @@ export default function Register({ isOpen, onClose, Switch }: RegisterProps) {
 
   const handleChange = (field: string, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
-    if (errors[field]) setErrors((prev) => ({ ...prev, [field]: "" }));
+    if (errors[field] || errors.server) {
+      setErrors((prev) => ({
+        ...prev,
+        [field]: "",
+        server: field === "email" ? "" : prev.server,
+      }));
+    }
   };
 
   const validate = () => {
@@ -37,7 +42,7 @@ export default function Register({ isOpen, onClose, Switch }: RegisterProps) {
 
     if (!form.phone.trim()) err.phone = "Vui lòng nhập Số điện thoại";
     else if (!/^0\d{9}$/.test(form.phone.replace(/[\s-]/g, "")))
-      err.phone = "Số điện thoại phải 10 số, bắt đầu bằng 0";
+      err.phone = "Số điện thoại phải có 10 số, bắt đầu bằng 0";
 
     if (!form.password) err.password = "Vui lòng nhập mật khẩu";
     else if (form.password.length < 6) err.password = "Mật khẩu ít nhất 6 ký tự";
@@ -53,53 +58,72 @@ export default function Register({ isOpen, onClose, Switch }: RegisterProps) {
     if (!validate()) return;
 
     setIsLoading(true);
+    setErrors({});
 
     try {
+      // Kiểm tra email đã tồn tại chưa 
+      const checkRes = await fetch(
+        `http://localhost:8080/users?email=${encodeURIComponent(form.email.toLowerCase())}`
+      );
+      const existingUsers = await checkRes.json();
+
+      if (existingUsers.length > 0) {
+        setErrors({ server: "Email này đã được sử dụng!" });
+        setIsLoading(false);
+        return;
+      }
+
+      const now = new Date().toISOString();
+
+      const newUser = {
+        first_name: form.firstName.trim(),
+        last_name: form.lastName.trim(),
+        email: form.email.toLowerCase(),
+        phone: form.phone.trim(),
+        password: form.password,
+        avatar: "",
+        address: "",
+        status: "ACTIVE",
+        created_at: now,
+        updated_at: now,
+        role: {
+          id: 2,
+          role_name: "user",
+        },
+      };
+
       const response = await fetch("http://localhost:8080/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          first_name: form.firstName,
-          last_name: form.lastName,
-          email: form.email,
-          phone: form.phone,
-          password: form.password,
-          avatar: "",
-          address: "",
-          status: "ACTIVE",
-          role: [
-            {
-              id: 2,
-              role_name: "user",
-            },
-          ],
-          bookings: [],
-        }),
+        body: JSON.stringify(newUser),
       });
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.message || "Email đã tồn tại!");
+        throw new Error(errorData.message || "Đăng ký thất bại!");
       }
 
+      // Thành công
       Swal.fire({
         icon: "success",
         title: "Đăng ký thành công!",
-        text: `Chào mừng ${form.firstName}! Bạn có thể đăng nhập ngay`,
+        text: `Chào mừng ${form.firstName.trim()} ${form.lastName.trim()}! Bạn có thể đăng nhập ngay bây giờ.`,
         toast: true,
         position: "top-end",
-        timer: 2500,
+        timer: 3000,
         showConfirmButton: false,
         background: "#1e293b",
         color: "#fff",
       }).then(() => {
-        onClose();    
-        Switch();      
+        onClose();
+        Switch(); 
       });
     } catch (error: any) {
-      setErrors({ server: error.message || "Đăng ký thất bại. Vui lòng thử lại!" });
+      setErrors({
+        server: error.message || "Có lỗi xảy ra, vui lòng thử lại sau!",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -122,19 +146,21 @@ export default function Register({ isOpen, onClose, Switch }: RegisterProps) {
           ×
         </button>
 
-        <h2 className="text-3xl font-bold text-white text-center mb-10">Đăng ký</h2>
+        <h2 className="text-3xl font-bold text-white text-center mb-10">Đăng ký tài khoản</h2>
 
         <div className="space-y-6">
-          {/* Họ & Tên */}
+          {/* Họ và Tên */}
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-gray-300 text-sm mb-2">Họ</label>
               <input
                 type="text"
-                placeholder="Họ"
+                placeholder="Nguyễn"
                 value={form.firstName}
                 onChange={(e) => handleChange("firstName", e.target.value)}
-                className="w-full px-5 py-4 bg-[#334155]/50 border border-gray-600 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
+                className={`w-full px-5 py-4 bg-[#334155]/50 border rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition ${
+                  errors.firstName ? "border-red-500" : "border-gray-600"
+                }`}
               />
               {errors.firstName && <p className="text-red-400 text-sm mt-1">{errors.firstName}</p>}
             </div>
@@ -142,10 +168,12 @@ export default function Register({ isOpen, onClose, Switch }: RegisterProps) {
               <label className="block text-gray-300 text-sm mb-2">Tên</label>
               <input
                 type="text"
-                placeholder="Tên"
+                placeholder="Văn A"
                 value={form.lastName}
                 onChange={(e) => handleChange("lastName", e.target.value)}
-                className="w-full px-5 py-4 bg-[#334155]/50 border border-gray-600 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
+                className={`w-full px-5 py-4 bg-[#334155]/50 border rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition ${
+                  errors.lastName ? "border-red-500" : "border-gray-600"
+                }`}
               />
               {errors.lastName && <p className="text-red-400 text-sm mt-1">{errors.lastName}</p>}
             </div>
@@ -156,10 +184,12 @@ export default function Register({ isOpen, onClose, Switch }: RegisterProps) {
             <label className="block text-gray-300 text-sm mb-2">Email</label>
             <input
               type="email"
-              placeholder="Email"
+              placeholder="example@gmail.com"
               value={form.email}
               onChange={(e) => handleChange("email", e.target.value)}
-              className="w-full px-5 py-4 bg-[#334155]/50 border border-gray-600 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
+              className={`w-full px-5 py-4 bg-[#334155]/50 border rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition ${
+                errors.email ? "border-red-500" : "border-gray-600"
+              }`}
             />
             {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
           </div>
@@ -172,7 +202,9 @@ export default function Register({ isOpen, onClose, Switch }: RegisterProps) {
               placeholder="0901234567"
               value={form.phone}
               onChange={(e) => handleChange("phone", e.target.value)}
-              className="w-full px-5 py-4 bg-[#334155]/50 border border-gray-600 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
+              className={`w-full px-5 py-4 bg-[#334155]/50 border rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition ${
+                errors.phone ? "border-red-500" : "border-gray-600"
+              }`}
             />
             {errors.phone && <p className="text-red-400 text-sm mt-1">{errors.phone}</p>}
           </div>
@@ -183,10 +215,12 @@ export default function Register({ isOpen, onClose, Switch }: RegisterProps) {
               <label className="block text-gray-300 text-sm mb-2">Mật khẩu</label>
               <input
                 type="password"
-                placeholder="Mật khẩu"
+                placeholder="Ít nhất 6 ký tự"
                 value={form.password}
                 onChange={(e) => handleChange("password", e.target.value)}
-                className="w-full px-5 py-4 bg-[#334155]/50 border border-gray-600 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
+                className={`w-full px-5 py-4 bg-[#334155]/50 border rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition ${
+                  errors.password ? "border-red-500" : "border-gray-600"
+                }`}
               />
               {errors.password && <p className="text-red-400 text-sm mt-1">{errors.password}</p>}
             </div>
@@ -194,12 +228,16 @@ export default function Register({ isOpen, onClose, Switch }: RegisterProps) {
               <label className="block text-gray-300 text-sm mb-2">Xác nhận mật khẩu</label>
               <input
                 type="password"
-                placeholder="Xác nhận mật khẩu"
+                placeholder="Nhập lại mật khẩu"
                 value={form.confirmPassword}
                 onChange={(e) => handleChange("confirmPassword", e.target.value)}
-                className="w-full px-5 py-4 bg-[#334155]/50 border border-gray-600 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
+                className={`w-full px-5 py-4 bg-[#334155]/50 border rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition ${
+                  errors.confirmPassword ? "border-red-500" : "border-gray-600"
+                }`}
               />
-              {errors.confirmPassword && <p className="text-red-400 text-sm mt-1">{errors.confirmPassword}</p>}
+              {errors.confirmPassword && (
+                <p className="text-red-400 text-sm mt-1">{errors.confirmPassword}</p>
+              )}
             </div>
           </div>
 
@@ -208,7 +246,7 @@ export default function Register({ isOpen, onClose, Switch }: RegisterProps) {
             <p className="text-red-400 text-center font-medium text-lg">{errors.server}</p>
           )}
 
-          {/* NÚT ĐĂNG KÝ ĐẸP */}
+          {/* Nút đăng ký */}
           <button
             onClick={handleRegister}
             disabled={isLoading}
@@ -219,10 +257,10 @@ export default function Register({ isOpen, onClose, Switch }: RegisterProps) {
             }}
             className="w-full py-4 text-white font-bold text-lg rounded-full shadow-2xl hover:shadow-pink-600/50 active:scale-95 transition-all disabled:cursor-not-allowed"
           >
-            {isLoading ? "Đang đăng ký..." : "Đăng ký"}
+            {isLoading ? "Đang tạo tài khoản..." : "Đăng ký"}
           </button>
 
-          {/* Chuyển sang Đăng nhập */}
+          {/* Chuyển sang đăng nhập */}
           <p className="text-center text-gray-400">
             Đã có tài khoản?{" "}
             <button
