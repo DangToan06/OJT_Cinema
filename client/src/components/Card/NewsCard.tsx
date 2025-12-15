@@ -1,13 +1,17 @@
+import { useNavigate } from "react-router-dom";
 
 interface NewsCardProps {
+  id: number;
   image: string;
   date: string;
   title: string;
 }
 
-export function NewsCard({ image, date, title }: NewsCardProps) {
+export function NewsCard({ id,image, date, title }: NewsCardProps) {
+  const navigate = useNavigate();
   return (
-    <div className="rounded-lg overflow-hidden bg-[#242837] hover:shadow-lg transition-shadow duration-300 cursor-pointer">
+    <div className="rounded-lg overflow-hidden bg-[#242837] hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+    onClick={() => navigate(`/newDetail?${id}`)}>
       <div className="overflow-hidden h-60">
         <img
           alt={title}

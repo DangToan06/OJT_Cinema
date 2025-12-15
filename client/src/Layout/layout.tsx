@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X, LogOut } from 'lucide-react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import React, { useState, useEffect } from "react";
+import { Menu, X, LogOut } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
+import Swal from "sweetalert2";
 
-import logo from '../assets/image.png';
-import fb from '../assets/Facebook.png';
-import zalo from '../assets/Zalo.png';
-import ytb from '../assets/Youtube.png';
-import gp from '../assets/GG Play.png';
-import as from '../assets/App store.png';
-import tem from '../assets/Copyright.png';
+import logo from "../assets/image.png";
+import fb from "../assets/Facebook.png";
+import zalo from "../assets/Zalo.png";
+import ytb from "../assets/Youtube.png";
+import gp from "../assets/GG Play.png";
+import as from "../assets/App store.png";
+import tem from "../assets/Copyright.png";
 
-import LoginModal from '../components/Login';
-import RegisterModal from '../components/Register';
+import LoginModal from "../components/Login";
+import RegisterModal from "../components/Register";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -33,7 +33,6 @@ export default function Layout({ children }: LayoutProps) {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState<UserInfo | null>(null);
-
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -107,6 +106,11 @@ export default function Layout({ children }: LayoutProps) {
   useEffect(() => {
     checkUserStatus();
   }, []);
+  const CheckLogin = (token) => {
+    if(!token) return null;
+    const payload = token.split(":")[0];
+    return JSON.parse(atob(payload));
+  }
 
 
   useEffect(() => {
@@ -136,20 +140,20 @@ export default function Layout({ children }: LayoutProps) {
   // Xử lý đăng xuất
   const handleManualLogout = async () => {
     const result = await Swal.fire({
-      title: 'Đăng xuất?',
-      text: 'Bạn có chắc chắn muốn đăng xuất khỏi tài khoản?',
-      icon: 'question',
+      title: "Đăng xuất?",
+      text: "Bạn có chắc chắn muốn đăng xuất khỏi tài khoản?",
+      icon: "question",
       showCancelButton: true,
-      confirmButtonText: 'Có, đăng xuất',
-      cancelButtonText: 'Hủy',
-      confirmButtonColor: '#dc2626',
-      cancelButtonColor: '#6b7280',
-      background: '#1e293b',
-      color: '#fff',
+      confirmButtonText: "Có, đăng xuất",
+      cancelButtonText: "Hủy",
+      confirmButtonColor: "#dc2626",
+      cancelButtonColor: "#6b7280",
+      background: "#1e293b",
+      color: "#fff",
       customClass: {
-        popup: 'rounded-2xl',
-        confirmButton: 'px-6 py-3 rounded-xl font-medium',
-        cancelButton: 'px-6 py-3 rounded-xl font-medium',
+        popup: "rounded-2xl",
+        confirmButton: "px-6 py-3 rounded-xl font-medium",
+        cancelButton: "px-6 py-3 rounded-xl font-medium",
       },
     });
 
@@ -159,12 +163,12 @@ export default function Layout({ children }: LayoutProps) {
   };
 
   const menuItems = [
-    { name: 'Trang chủ', link: '/' },
-    { name: 'Lịch chiếu', link: '/movie-calendar' },
-    { name: 'Tin tức', link: '/news' },
-    { name: 'Khuyến mãi', link: '/promotions' },
-    { name: 'Giá vé', link: '/ticketPrice' },
-    { name: 'Liên hoan phim', link: '/festival' },
+    { name: "Trang chủ", link: "/" },
+    { name: "Lịch chiếu", link: "/movie-calendar" },
+    { name: "Tin tức", link: "/news" },
+    { name: "Khuyến mãi", link: "/promotions" },
+    { name: "Giá vé", link: "/ticketPrice" },
+    { name: "Liên hoan phim", link: "/festival" },
   ];
 
   return (
@@ -185,7 +189,7 @@ export default function Layout({ children }: LayoutProps) {
               key={item.name}
               onClick={() => navigate(item.link)}
               className={`hover:text-red-500 transition ${
-                location.pathname === item.link ? 'text-red-500' : ''
+                location.pathname === item.link ? "text-red-500" : ""
               }`}
             >
               {item.name}
@@ -205,8 +209,8 @@ export default function Layout({ children }: LayoutProps) {
                     className="w-9 h-9 rounded-full object-cover border-2 border-white/30"
                   />
                 ) : (
-                  <div className="w-9 h-9 bg-gradient-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md">
-                    {(user.first_name || '?')[0].toUpperCase()}
+                  <div className="w-9 h-9 bg-linear-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md">
+                    {(user.first_name || "?")[0].toUpperCase()}
                   </div>
                 )}
 
@@ -284,8 +288,8 @@ export default function Layout({ children }: LayoutProps) {
                       className="w-14 h-14 rounded-full object-cover"
                     />
                   ) : (
-                    <div className="w-14 h-14 bg-gradient-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white font-bold text-2xl">
-                      {(user.first_name || '?')[0].toUpperCase()}
+                    <div className="w-14 h-14 bg-linear-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white font-bold text-2xl">
+                      {(user.first_name || "?")[0].toUpperCase()}
                     </div>
                   )}
                   <div>
@@ -293,7 +297,9 @@ export default function Layout({ children }: LayoutProps) {
                       {user.first_name || ''} {user.last_name || ''}
                     </p>
                     <p className="text-gray-400">
-                      {user.role?.role_name === 'admin' ? 'Quản trị viên' : 'Khách hàng'}
+                      {user.role?.role_name === "admin"
+                        ? "Quản trị viên"
+                        : "Khách hàng"}
                     </p>
                   </div>
                 </div>
@@ -358,7 +364,9 @@ export default function Layout({ children }: LayoutProps) {
             <p>Cơ quan chủ quản: BỘ VĂN HÓA, THỂ THAO VÀ DU LỊCH</p>
             <p>Bản quyền thuộc Trung tâm Chiếu phim Quốc gia.</p>
             <p>Giấy phép số: 224/GP - TTĐT ngày 31/8/2010</p>
-            <p>Địa chỉ: 87 Láng Hạ, Ba Đình, Hà Nội • Điện thoại: 024.35141791</p>
+            <p>
+              Địa chỉ: 87 Láng Hạ, Ba Đình, Hà Nội • Điện thoại: 024.35141791
+            </p>
             <div className="flex justify-center items-center gap-2 mt-2">
               <span>&copy; 2023 By NCC • All rights reserved.</span>
             </div>
