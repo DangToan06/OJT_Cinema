@@ -1,10 +1,12 @@
 export interface IScreen {
     id: string;
     name: string;
-    theater: string; // tên rạp (có thể bỏ nếu không cần)
-    theaterId: string; // khóa ngoại liên kết với bảng theaters
+    theater: string;
+    theaterId: string;
+    type: 'Mini' | 'Standard' | 'IMAX' | 'Large'|null;
     capacity: number;
-    type: '2D' | '3D' | 'IMAX' | '4DX';
+    row: number;
+    column: number;
     status: 'Đang hoạt động' | 'Ngừng hoạt động';
 }
 
@@ -14,3 +16,10 @@ export interface InitialScreenState {
     error: string | null | undefined;
     screenCurrent: IScreen | null;
 }
+
+export const SCREEN_TYPE_LIMITS = {
+    Mini: { minRow: 3, maxRow: 4, minCol: 5, maxCol: 6 },
+    Standard: { minRow: 5, maxRow: 6, minCol: 8, maxCol: 10 },
+    IMAX: { minRow: 6, maxRow: 8, minCol: 12, maxCol: 14 },
+    Large: { minRow: 8, maxRow: 10, minCol: 14, maxCol: 18 },
+};

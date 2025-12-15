@@ -35,13 +35,10 @@ const screenSlice = createSlice({
                 updateScreenStatus.fulfilled,
                 (state, action: PayloadAction<UpdateStatusData>) => {
                     const index = state.screens.findIndex(
-                        (screen) => screen.id.toString() === action.payload.id
+                        (screen) => screen.id === action.payload.id
                     );
                     if (index !== -1) {
-                        state.screens[index].status =
-                            action.payload.status === 'Đang hoạt động'
-                                ? 'Ngừng hoạt động'
-                                : 'Đang hoạt động';
+                        state.screens[index].status = action.payload.status;
                     }
                 }
             )
