@@ -21,8 +21,8 @@ import {
   getAllScreens,
   updateScreenStatus,
 } from "../api/screen.api";
-import ModalAddScreen from "../components/ModalAddScreen";
 import { notify } from "../util/toast";
+import ModalScreen from "../components/ModalScreen";
 
 export function ScreensManagement() {
   const dataScreens: InitialScreenState = useAppSelector((s) => s.screens);
@@ -105,12 +105,11 @@ export function ScreensManagement() {
   };
 
   return (
-    <div className="min-h-screen">
-      {/* Header Section */}
+    <div className="min-h-screen p-8">
       <div className="mb-8">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-3xl font-bold bg-linear-to-r from-white to-slate-300 bg-clip-text text-transparent mb-2">
+            <h1 className="text-white mb-2 font-bold text-3xl tracking-tight">
               Quản lý phòng chiếu
             </h1>
             <p className="text-slate-400">
@@ -126,7 +125,6 @@ export function ScreensManagement() {
           </button>
         </div>
 
-        {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <div className="relative bg-gray-800 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-5 hover:border-slate-600/50 transition-all group overflow-hidden">
             <div className="absolute inset-0 bg-linear-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -196,7 +194,6 @@ export function ScreensManagement() {
         </div>
       </div>
 
-      {/* Filter Section */}
       <div className="bg-linear-to-br from-slate-800/60 to-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-5 mb-6">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1 relative">
@@ -227,7 +224,6 @@ export function ScreensManagement() {
         </div>
       </div>
 
-      {/* Table Section */}
       <div className="bg-linear-to-br from-slate-800/60 to-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
@@ -354,14 +350,11 @@ export function ScreensManagement() {
         </div>
       </div>
 
-      {/* Modals */}
-      <ModalAddScreen open={showModal} onClose={() => setShowModal(false)} />
+      <ModalScreen open={showModal} onClose={() => setShowModal(false)} />
 
-      {/* Delete Modal */}
       {showDeleteModal && screenToDelete && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-50 p-4">
           <div className="bg-linear-to-br from-slate-800 to-slate-900 border border-slate-700/50 rounded-2xl shadow-2xl w-full max-w-md">
-            {/* Header */}
             <div className="bg-linear-to-r from-rose-600 to-pink-600 p-6 rounded-t-2xl">
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-white/10 backdrop-blur-sm rounded-lg ring-1 ring-white/20">
@@ -376,7 +369,6 @@ export function ScreensManagement() {
               </div>
             </div>
 
-            {/* Body */}
             <div className="p-6">
               <p className="text-slate-300 mb-4">
                 Bạn có chắc chắn muốn xóa phòng chiếu này không?
@@ -407,7 +399,6 @@ export function ScreensManagement() {
                 </div>
               </div>
 
-              {/* Buttons */}
               <div className="flex gap-3">
                 <button
                   onClick={handleCancelDelete}
