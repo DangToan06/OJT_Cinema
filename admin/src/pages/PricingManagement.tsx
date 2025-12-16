@@ -1,67 +1,192 @@
 import { useEffect, useState } from "react";
-import { Edit, Save } from "lucide-react";
+import { CircleX, Edit, Trash2 } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "../hook/useRedux";
 import {
-  fetchAllPricing,
-  updateDayMultiplier,
-  updateScreenType,
-  updateSeatType,
-  updateTimeDiscount,
-} from "../redux/slice/price.slice";
+  createPrice,
+  deletePrice,
+  getAllPrice,
+  updatePrice,
+} from "../api/price.api";
+import type { TicketPrice } from "../interfaces/price.interface";
+import Swal from "sweetalert2";
 
 export function PricingManagement() {
   const dispatch = useAppDispatch();
-  const { seatTypes, screenTypes, dayMultipliers, timeDiscounts, loading } =
-    useAppSelector((state) => state.price);
+  const { data: prices } = useAppSelector((store) => store.price);
+  const [modalType, setModalType] = useState<string>("");
 
-  const [editing, setEditing] = useState<{ type: string; id: number } | null>(
-    null
-  );
-  const [tempValue, setTempValue] = useState<number>(0);
+  const [currentId, setCurrentId] = useState<string | null>(null);
+  const [typeSeat, setTypeSeat] = useState<string>("?");
+  const [typeMovie, setTypeMovie] = useState<string>("?");
+  const [price, setPrice] = useState<number>(0);
+  const [dayType, setDayType] = useState<number | string>("?");
+  const [time, setTime] = useState<number | string>("?");
+
+  const [filterSeat, setFilterSeat] = useState<string>("");
+  const [filterMovie, setFilterMovie] = useState<string>("");
+  const [filterDay, setFilterDay] = useState<string>("");
+
+  const [seatError, setSeatError] = useState<string>("");
+  const [isShowSeatError, setIsShowSeatError] = useState<boolean>(false);
+  const [movieError, setMovieError] = useState<string>("");
+  const [isShowMovieError, setIsShowMovieError] = useState<boolean>(false);
+  const [priceError, setPriceError] = useState<string>("");
+  const [isShowPriceError, setIsShowPriceError] = useState<boolean>(false);
+  const [dayError, setDayError] = useState<string>("");
+  const [isShowDayError, setIsShowDayError] = useState<boolean>(false);
+  const [timeError, setTimeError] = useState<string>("");
+  const [isShowTimeError, setIsShowTimeError] = useState<boolean>(false);
+  const [modalError, setModalError] = useState<string>("");
+  const [isShowModalError, setIsShowModalError] = useState<boolean>(false);
+
+  const handleCloseForm = () => {
+    setTypeSeat("?");
+    setTypeMovie("?");
+    setPrice(0);
+    setDayType("?");
+    setTime("?");
+    setCurrentId(null);
+
+    setIsShowDayError(false);
+    setIsShowModalError(false);
+    setIsShowMovieError(false);
+    setIsShowPriceError(false);
+    setIsShowSeatError(false);
+    setIsShowTimeError(false);
+    setModalType("");
+  };
+
+  const setCurrentPrice = (p: TicketPrice) => {
+    setCurrentId(p.id);
+    setTypeSeat(p.type_seat);
+    setTypeMovie(p.type_movie);
+    setPrice(p.price);
+    setDayType(p.day_type);
+    setTime(p.time);
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    if (name === "seatType") setTypeSeat(value);
+    if (name === "movieType") setTypeMovie(value);
+    if (name === "price") setPrice(+value);
+    if (name === "dayType") setDayType(value);
+    if (name === "time") setTime(value);
+  };
+
+  const handleAddPrice = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (typeSeat === "?") {
+      setSeatError("Vui lòng chọn loại ghế");
+      setIsShowSeatError(true);
+      return;
+    }
+
+    if (typeMovie === "?") {
+      setMovieError("Vui lòng chọn loại phim");
+      setIsShowMovieError(true);
+      return;
+    }
+
+    if (!price || price === 0) {
+      setPriceError("Vui lòng nhập giá vé");
+      setIsShowPriceError(true);
+      return;
+    }
+
+    if (dayType === "?") {
+      setDayError("Vui lòng chọn loại ngày");
+      setIsShowDayError(true);
+      return;
+    }
+
+    if (time === "?") {
+      setTimeError("Vui lòng chọn thời gian");
+      setIsShowTimeError(true);
+      return;
+    }
+
+    const submitPrice: TicketPrice = {
+      id: currentId ?? crypto.randomUUID(),
+      type_seat: typeSeat,
+      type_movie: typeMovie,
+      price: +price,
+      day_type: +dayType,
+      time: +time,
+    };
+
+    const isExist = prices.some(
+      (p) =>
+        p.id !== currentId &&
+        p.day_type === submitPrice.day_type &&
+        p.type_movie === submitPrice.type_movie &&
+        p.type_seat === submitPrice.type_seat &&
+        p.time === submitPrice.time
+    );
+
+    if (isExist) {
+      setModalError("Giá vé đã tồn tại!");
+      setIsShowModalError(true);
+      return;
+    }
+
+    if (modalType === "add") {
+      dispatch(createPrice(submitPrice));
+    } else {
+      dispatch(updatePrice(submitPrice));
+    }
+
+    handleCloseForm();
+  };
+
+  const handleDeletePrice = (id: string) => {
+    console.log(id);
+    Swal.fire({
+      title: "Bạn có chắc chắn?",
+      text: "Giá vé này sẽ bị xóa vĩnh viễn!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Xóa",
+      cancelButtonText: "Hủy",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deletePrice(id))
+          .then(() => {
+            Swal.fire({ title: "Đã xóa!", text: "...", icon: "success" });
+          })
+          .catch(() => {
+            Swal.fire({ title: "Lỗi!", text: "Xóa thất bại", icon: "error" });
+          });
+
+        Swal.fire({
+          title: "Đã xóa!",
+          text: "Giá vé đã được xóa thành công.",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      }
+    });
+  };
+
+  const filteredPrices = prices.filter((p) => {
+  const matchSeat = filterSeat ? p.type_seat === filterSeat : true;
+  const matchMovie = filterMovie ? p.type_movie === filterMovie : true;
+  const matchDay =
+    filterDay !== "" ? p.day_type === Number(filterDay) : true;
+
+  return matchSeat && matchMovie && matchDay;
+});
+
 
   useEffect(() => {
-    dispatch(fetchAllPricing());
+    dispatch(getAllPrice());
   }, [dispatch]);
-
-  const handleEdit = (type: string, id: number, value: number) => {
-    setEditing({ type, id });
-    setTempValue(value);
-  };
-
-  const handleSave = async (type: string, item: any, field: string) => {
-    const updated = { ...item, [field]: tempValue };
-    switch (type) {
-      case "seat":
-        await dispatch(updateSeatType(updated));
-        break;
-      case "screen":
-        await dispatch(updateScreenType(updated));
-        break;
-      case "day":
-        await dispatch(updateDayMultiplier(updated));
-        break;
-      case "time":
-        await dispatch(updateTimeDiscount(updated));
-        break;
-    }
-    setEditing(null);
-  };
-
-  const calculateExamplePrice = () => {
-    const basePrice = 75000;
-    const screenSurcharge = 30000;
-    const dayMultiplier = 1.2;
-    const timeDiscount = 0;
-    return (basePrice + screenSurcharge) * dayMultiplier - timeDiscount;
-  };
-
-  if (loading) {
-    return (
-      <div className="text-center py-10 text-gray-500">
-        Đang tải cấu hình giá...
-      </div>
-    );
-  }
 
   return (
     <div>
@@ -74,299 +199,255 @@ export function PricingManagement() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-        <div className="lg:col-span-2 space-y-6">
-          {/* === GIÁ THEO LOẠI GHẾ === */}
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-            <div className="p-6 border-b border-gray-200">
-              <h2 className="text-gray-900">Giá theo loại ghế</h2>
-            </div>
-            <div className="p-6">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-gray-200">
-                    <th className="pb-3 text-left text-gray-600">Loại ghế</th>
-                    <th className="pb-3 text-right text-gray-600">Giá (₫)</th>
-                    <th className="pb-3 text-right text-gray-600">Thao tác</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  {seatTypes.map((seat: any) => (
-                    <tr key={seat.id}>
-                      <td className="py-4 text-gray-900">{seat.name}</td>
-                      <td className="py-4 text-right">
-                        {editing?.type === "seat" && editing.id === seat.id ? (
-                          <input
-                            type="number"
-                            value={tempValue}
-                            onChange={(e) => setTempValue(+e.target.value)}
-                            className="w-32 px-3 py-1 border border-gray-300 rounded text-right focus:outline-none focus:ring-2 focus:ring-red-500"
-                            autoFocus
-                          />
-                        ) : (
-                          <span>{seat.base_price.toLocaleString()} ₫</span>
-                        )}
-                      </td>
-                      <td className="py-4 text-right">
-                        {editing?.type === "seat" && editing.id === seat.id ? (
-                          <button
-                            onClick={() =>
-                              handleSave("seat", seat, "base_price")
-                            }
-                            className="text-green-600"
-                          >
-                            <Save className="w-5 h-5" />
-                          </button>
-                        ) : (
-                          <button
-                            onClick={() =>
-                              handleEdit("seat", seat.id, seat.base_price)
-                            }
-                            className="text-blue-600"
-                          >
-                            <Edit className="w-5 h-5" />
-                          </button>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+        <div className="p-6 border-b border-gray-200 flex justify-between items-center">
+          <div className="flex flex-col gap-2">
+            <h2 className="text-gray-900 font-semibold text-xl">Giá vé</h2>
+            <div className="flex gap-3">
+              <select
+                className="border rounded px-3 py-0.5 cursor-pointer"
+                value={filterSeat}
+                onChange={(e) => setFilterSeat(e.target.value)}
+              >
+                <option value="">Loại ghế</option>
+                <option value="STANDARD">STANDARD</option>
+                <option value="VIP">VIP</option>
+                <option value="SWEETBOX">SWEETBOX</option>
+              </select>
+
+              <select
+                className="border rounded px-3 py-0.5 cursor-pointer"
+                value={filterMovie}
+                onChange={(e) => setFilterMovie(e.target.value)}
+              >
+                <option value="">Loại phim</option>
+                <option value="2D">2D</option>
+                <option value="3D">3D</option>
+              </select>
+
+              <select
+                className="border rounded px-3 py-0.5 cursor-pointer"
+                value={filterDay}
+                onChange={(e) => setFilterDay(e.target.value)}
+              >
+                <option value="">Loại ngày</option>
+                <option value="0">Ngày thường</option>
+                <option value="1">Cuối tuần/lễ</option>
+              </select>
+
+              <button
+                onClick={() => {
+                  setFilterSeat("");
+                  setFilterMovie("");
+                  setFilterDay("");
+                }}
+                className="text-red-600 cursor-pointer hover:scale-110"
+              >
+                <CircleX />
+              </button>
             </div>
           </div>
 
-          {/* === PHỤ PHÍ THEO LOẠI PHÒNG === */}
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-            <div className="p-6 border-b border-gray-200">
-              <h2 className="text-gray-900">Phụ phí theo loại phòng</h2>
-            </div>
-            <div className="p-6">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-gray-200">
-                    <th className="pb-3 text-left text-gray-600">Loại phòng</th>
-                    <th className="pb-3 text-right text-gray-600">
-                      Phụ phí (₫)
-                    </th>
-                    <th className="pb-3 text-right text-gray-600">Thao tác</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  {screenTypes.map((screen: any) => (
-                    <tr key={screen.id}>
-                      <td className="py-4 text-gray-900">{screen.name}</td>
-                      <td className="py-4 text-right">
-                        {editing?.type === "screen" &&
-                        editing.id === screen.id ? (
-                          <input
-                            type="number"
-                            value={tempValue}
-                            onChange={(e) => setTempValue(+e.target.value)}
-                            className="w-32 px-3 py-1 border border-gray-300 rounded text-right focus:outline-none focus:ring-2 focus:ring-red-500"
-                            autoFocus
-                          />
-                        ) : screen.surcharge === 0 ? (
-                          "-"
-                        ) : (
-                          `+${screen.surcharge.toLocaleString()} ₫`
-                        )}
-                      </td>
-                      <td className="py-4 text-right">
-                        {editing?.type === "screen" &&
-                        editing.id === screen.id ? (
-                          <button
-                            onClick={() =>
-                              handleSave("screen", screen, "surcharge")
-                            }
-                            className="text-green-600"
-                          >
-                            <Save className="w-5 h-5" />
-                          </button>
-                        ) : (
-                          <button
-                            onClick={() =>
-                              handleEdit("screen", screen.id, screen.surcharge)
-                            }
-                            className="text-blue-600"
-                          >
-                            <Edit className="w-5 h-5" />
-                          </button>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          {/* === HỆ SỐ THEO NGÀY === */}
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-            <div className="p-6 border-b border-gray-200">
-              <h2 className="text-gray-900">Hệ số giá theo ngày</h2>
-            </div>
-            <div className="p-6">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-gray-200">
-                    <th className="pb-3 text-left text-gray-600">Loại ngày</th>
-                    <th className="pb-3 text-right text-gray-600">Hệ số</th>
-                    <th className="pb-3 text-right text-gray-600">Thao tác</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  {dayMultipliers.map((day: any) => (
-                    <tr key={day.id}>
-                      <td className="py-4 text-gray-900">{day.name}</td>
-                      <td className="py-4 text-right">
-                        {editing?.type === "day" && editing.id === day.id ? (
-                          <input
-                            type="number"
-                            step="0.1"
-                            value={tempValue}
-                            onChange={(e) => setTempValue(+e.target.value)}
-                            className="w-24 px-3 py-1 border border-gray-300 rounded text-right focus:outline-none focus:ring-2 focus:ring-red-500"
-                            autoFocus
-                          />
-                        ) : (
-                          `×${day.multiplier}`
-                        )}
-                      </td>
-                      <td className="py-4 text-right">
-                        {editing?.type === "day" && editing.id === day.id ? (
-                          <button
-                            onClick={() => handleSave("day", day, "multiplier")}
-                            className="text-green-600"
-                          >
-                            <Save className="w-5 h-5" />
-                          </button>
-                        ) : (
-                          <button
-                            onClick={() =>
-                              handleEdit("day", day.id, day.multiplier)
-                            }
-                            className="text-blue-600"
-                          >
-                            <Edit className="w-5 h-5" />
-                          </button>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          {/* === GIẢM GIÁ THEO KHUNG GIỜ === */}
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-            <div className="p-6 border-b border-gray-200">
-              <h2 className="text-gray-900">Giảm giá theo khung giờ</h2>
-            </div>
-            <div className="p-6">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-gray-200">
-                    <th className="pb-3 text-left text-gray-600">Khung giờ</th>
-                    <th className="pb-3 text-right text-gray-600">
-                      Giảm giá (₫)
-                    </th>
-                    <th className="pb-3 text-right text-gray-600">Thao tác</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  {timeDiscounts.map((slot: any) => (
-                    <tr key={slot.id}>
-                      <td className="py-4 text-gray-900">{slot.name}</td>
-                      <td className="py-4 text-right">
-                        {editing?.type === "time" && editing.id === slot.id ? (
-                          <input
-                            type="number"
-                            value={tempValue}
-                            onChange={(e) => setTempValue(+e.target.value)}
-                            className="w-32 px-3 py-1 border border-gray-300 rounded text-right focus:outline-none focus:ring-2 focus:ring-red-500"
-                            autoFocus
-                          />
-                        ) : slot.discount === 0 ? (
-                          "-"
-                        ) : (
-                          `-${slot.discount.toLocaleString()} ₫`
-                        )}
-                      </td>
-                      <td className="py-4 text-right">
-                        {editing?.type === "time" && editing.id === slot.id ? (
-                          <button
-                            onClick={() => handleSave("time", slot, "discount")}
-                            className="text-green-600"
-                          >
-                            <Save className="w-5 h-5" />
-                          </button>
-                        ) : (
-                          <button
-                            onClick={() =>
-                              handleEdit("time", slot.id, slot.discount)
-                            }
-                            className="text-blue-600"
-                          >
-                            <Edit className="w-5 h-5" />
-                          </button>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
+          <button
+            onClick={() => {
+              setModalType("add");
+            }}
+            className="px-5 py-2 rounded cursor-pointer bg-red-600 text-white font-semibold hover:bg-red-700 hover:scale-105"
+          >
+            Thêm giá
+          </button>
         </div>
 
-        {/* === PANEL VÍ DỤ GIỮ NGUYÊN === */}
-        <div className="lg:col-span-1">
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 sticky top-6">
-            <div className="p-6 border-b border-gray-200">
-              <h2 className="text-gray-900">Tính giá ví dụ</h2>
-            </div>
-            <div className="p-6 space-y-4">
-              <div>
-                <p className="text-sm text-gray-600 mb-1">Loại ghế</p>
-                <p className="text-gray-900">Ghế Standard</p>
-                <p className="text-right text-gray-900">75,000 ₫</p>
-              </div>
-              <div className="pt-4 border-t border-gray-200">
-                <p className="text-sm text-gray-600 mb-1">Loại phòng</p>
-                <p className="text-gray-900">Phòng 3D</p>
-                <p className="text-right text-green-600">+30,000 ₫</p>
-              </div>
-              <div className="pt-4 border-t border-gray-200">
-                <p className="text-sm text-gray-600 mb-1">Tạm tính</p>
-                <p className="text-right text-gray-900">105,000 ₫</p>
-              </div>
-              <div className="pt-4 border-t border-gray-200">
-                <p className="text-sm text-gray-600 mb-1">Loại ngày</p>
-                <p className="text-gray-900">Cuối tuần</p>
-                <p className="text-right text-orange-600">×1.2</p>
-              </div>
-              <div className="pt-4 border-t border-gray-200">
-                <p className="text-sm text-gray-600 mb-1">Khung giờ</p>
-                <p className="text-gray-900">Suất tối</p>
-                <p className="text-right text-gray-600">Không giảm</p>
-              </div>
-              <div className="pt-4 border-t-2 border-gray-300">
-                <p className="text-sm text-gray-600 mb-1">Giá cuối cùng</p>
-                <p className="text-right text-red-600 font-bold">
-                  {calculateExamplePrice().toLocaleString()} ₫
-                </p>
-              </div>
-              <div className="pt-4">
-                <p className="text-xs text-gray-500">
-                  Công thức: (Giá ghế + Phụ phí phòng) × Hệ số ngày - Giảm giá
-                  giờ
-                </p>
-              </div>
-            </div>
-          </div>
+        <div className="p-6">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-gray-200 text-center">
+                <th className="pb-3 text-gray-600">Loại ghế</th>
+                <th className="pb-3 text-gray-600">Loại phim</th>
+                <th className="pb-3 text-gray-600">Giá (₫)</th>
+                <th className="pb-3 text-gray-600">Loại ngày</th>
+                <th className="pb-3 text-gray-600">Thời gian</th>
+                <th className="pb-3 text-gray-600">Hành động</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200">
+              {filteredPrices.map((p) => (
+                <tr key={p.id} className="text-center">
+                  <td className="py-4">{p.type_seat}</td>
+                  <td className="py-4">{p.type_movie}</td>
+                  <td className="py-4">{p.price.toLocaleString()}đ</td>
+                  <td className="py-4">
+                    {p.day_type === 0 ? "Ngày thường" : "Cuối tuần/lễ"}
+                  </td>
+                  <td className="py-4">
+                    {p.time === 1
+                      ? "Trước 12h"
+                      : p.time === 2
+                      ? "12:00 - 17:00"
+                      : p.time === 3
+                      ? "17:00 - 23:00"
+                      : "Sau 23:00"}
+                  </td>
+                  <td className="py-4">
+                    <div className="flex justify-center gap-2">
+                      <button
+                        onClick={() => {
+                          setModalType("edit");
+                          setCurrentPrice(p);
+                        }}
+                        className="text-blue-600 hover:scale-110"
+                      >
+                        <Edit className="w-5 h-5" />
+                      </button>
+
+                      <button
+                        onClick={() => handleDeletePrice(p.id)}
+                        className="text-red-600 hover:scale-110"
+                      >
+                        <Trash2 className="w-5 h-5" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
+
+      {modalType && (
+        <div className="fixed inset-0 flex justify-center items-center bg-black/50 z-50">
+          <form
+            onSubmit={handleAddPrice}
+            className="bg-white p-5 flex flex-col gap-3 rounded w-[30%]"
+          >
+            <div className="flex justify-between text-xl font-semibold">
+              <p>{modalType === "add" ? "Thêm giá vé" : "Sửa giá vé"}</p>
+              <p
+                onClick={handleCloseForm}
+                className="cursor-pointer hover:scale-110"
+              >
+                x
+              </p>
+            </div>
+            <div className="flex gap-3">
+              <div className="w-full">
+                <label>Loại ghế</label>
+                <select
+                  name="seatType"
+                  className="border rounded w-full px-2 py-1"
+                  value={typeSeat}
+                  onChange={handleChange}
+                >
+                  <option disabled value="?">
+                    Chọn loại ghế
+                  </option>
+                  <option value="STANDARD">STANDARD</option>
+                  <option value="VIP">VIP</option>
+                  <option value="SWEETBOX">SWEETBOX</option>
+                </select>
+                {isShowSeatError && (
+                  <p className="text-red-600 text-sm">{seatError}</p>
+                )}
+              </div>
+
+              <div className="w-full">
+                <label>Loại phim</label>
+                <select
+                  onChange={handleChange}
+                  name="movieType"
+                  className="border rounded w-full px-2 py-1"
+                  value={typeMovie}
+                >
+                  <option disabled value="?">
+                    Chọn loại phim
+                  </option>
+                  <option value="2D">2D</option>
+                  <option value="3D">3D</option>
+                </select>
+                {isShowMovieError && (
+                  <p className="text-red-600 text-sm">{movieError}</p>
+                )}
+              </div>
+            </div>
+
+            <label>Giá vé</label>
+            <input
+              type="number"
+              className="border rounded w-full px-2 py-1"
+              value={price}
+              name="price"
+              onChange={handleChange}
+            />
+            {isShowPriceError && (
+              <p className="text-red-600 text-sm">{priceError}</p>
+            )}
+
+            <div className="flex gap-3">
+              <div className="w-full">
+                <label>Loại ngày</label>
+                <select
+                  name="dayType"
+                  className="border rounded w-full px-2 py-1"
+                  value={dayType}
+                  onChange={handleChange}
+                >
+                  <option disabled value="?">
+                    Chọn loại ngày
+                  </option>
+                  <option value={0}>Ngày thường</option>
+                  <option value={1}>Cuối tuần/lễ</option>
+                </select>
+                {isShowDayError && (
+                  <p className="text-red-600 text-sm">{dayError}</p>
+                )}
+              </div>
+
+              <div className="w-full">
+                <label>Thời gian</label>
+                <select
+                  name="time"
+                  className="border rounded w-full px-2 py-1"
+                  value={time}
+                  onChange={handleChange}
+                >
+                  <option disabled value="?">
+                    Chọn thời gian
+                  </option>
+                  <option value={1}>Trước 12h</option>
+                  <option value={2}>12h - 17h</option>
+                  <option value={3}>17h - 23h</option>
+                  <option value={4}>Sau 23h</option>
+                </select>
+                {isShowTimeError && (
+                  <p className="text-red-600 text-sm">{timeError}</p>
+                )}
+              </div>
+            </div>
+            {isShowModalError && (
+              <p className="text-red-600 text-sm">{modalError}</p>
+            )}
+            <div className="flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={handleCloseForm}
+                className="border rounded px-3 py-1 cursor-pointer"
+              >
+                Hủy
+              </button>
+              {modalType === "add" ? (
+                <button type="submit" className="border rounded px-3 py-1">
+                  Thêm
+                </button>
+              ) : (
+                <button type="submit" className="border rounded px-3 py-1">
+                  Lưu
+                </button>
+              )}
+            </div>
+          </form>
+        </div>
+      )}
     </div>
   );
 }
