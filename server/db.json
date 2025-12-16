@@ -112,7 +112,7 @@
       "phone": "1900 5454",
       "website": "https://www.lottecinemavn.com",
       "screens": 12,
-      "status": "Ngừng hoạt động"
+      "status": "Đang hoạt động"
     },
     {
       "id": "3c98d15e-7ef2-4a30-a9ea-2b7cd44e1e12",
@@ -121,7 +121,7 @@
       "phone": "1900 2224",
       "website": "https://www.galaxycine.vn",
       "screens": 6,
-      "status": "Ngừng hoạt động"
+      "status": "Đang hoạt động"
     },
     {
       "id": "ab72c4f1-8e0a-41e9-9f3b-11df7b32951d",
@@ -139,7 +139,7 @@
       "phone": "1900 6017",
       "website": "https://www.cgv.vn",
       "screens": 9,
-      "status": "Ngừng hoạt động"
+      "status": "Đang hoạt động"
     },
     {
       "id": "4b94a41a-dfcf-4bf2-ae8a-0b4b5c91e5fe",
@@ -166,7 +166,7 @@
       "phone": "1900 636807",
       "website": "https://www.betacinema.vn",
       "screens": 7,
-      "status": "Ngừng hoạt động"
+      "status": "Đang hoạt động"
     },
     {
       "id": "d99b0bb2-dfb7-48e9-87b4-1de87f71e30f",
@@ -202,7 +202,7 @@
       "phone": "1900 2224",
       "website": "https://www.galaxycine.vn",
       "screens": 6,
-      "status": "Ngừng hoạt động"
+      "status": "Đang hoạt động"
     },
     {
       "id": "c89d23f0-09b6-4c8d-9b5a-9c3590dce0ef",
@@ -1264,41 +1264,14 @@
     {
       "movie": "Avengers: Endgame",
       "theater": "CGV Vincom Center",
-      "screen": "Phòng 1 (120 ghế - 2D)",
+      "screen": "Phòng 2",
       "date": "2025-12-24",
-      "startTime": "11:10",
-      "endTime": "14:10",
-      "price": 666666,
+      "startTime": "00:10",
+      "endTime": "03:10",
       "availableSeats": 150,
       "totalSeats": 150,
       "status": "active",
       "id": "3"
-    },
-    {
-      "movie": "Spider-Man: No Way Home",
-      "theater": "CGV Vincom Center",
-      "screen": "Phòng 1 (120 ghế - 2D)",
-      "date": "2025-12-10",
-      "startTime": "16:08",
-      "endTime": "19:08",
-      "price": 5555566,
-      "availableSeats": 150,
-      "totalSeats": 150,
-      "status": "active",
-      "id": "4"
-    },
-    {
-      "movie": "Avengers: Endgame",
-      "theater": "CGV Vincom Center",
-      "screen": "Phòng 2 (150 ghế - 3D)",
-      "date": "2025-12-18",
-      "startTime": "12:15",
-      "endTime": "15:15",
-      "price": 10000,
-      "availableSeats": 150,
-      "totalSeats": 150,
-      "status": "active",
-      "id": "CjN88WH"
     }
   ],
   "screens": [
