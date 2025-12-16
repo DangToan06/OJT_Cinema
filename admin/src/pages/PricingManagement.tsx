@@ -175,46 +175,27 @@ export function PricingManagement() {
   };
 
   const filteredPrices = prices.filter((p) => {
-  const matchSeat = filterSeat ? p.type_seat === filterSeat : true;
-  const matchMovie = filterMovie ? p.type_movie === filterMovie : true;
-  const matchDay =
-    filterDay !== "" ? p.day_type === Number(filterDay) : true;
+    const matchSeat = filterSeat ? p.type_seat === filterSeat : true;
+    const matchMovie = filterMovie ? p.type_movie === filterMovie : true;
+    const matchDay = filterDay !== "" ? p.day_type === Number(filterDay) : true;
 
-  return matchSeat && matchMovie && matchDay;
-});
-
+    return matchSeat && matchMovie && matchDay;
+  });
 
   useEffect(() => {
     dispatch(getAllPrice());
   }, [dispatch]);
 
-  const renderInput = (isFloat = false) => (
-    <div className="flex items-center justify-end gap-2">
-      <input
-        type="number"
-        step={isFloat ? "0.1" : "1"}
-        value={tempValue}
-        onChange={(e) => setTempValue(+e.target.value)}
-        className="w-28 px-3 py-1.5 text-sm border border-blue-500/50 rounded bg-gray-800 text-right text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all shadow-sm placeholder-gray-500"
-        autoFocus
-        onKeyDown={(e) => {
-          if (e.key === "Escape") handleCancel();
-        }}
-      />
-    </div>
-  );
-
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-200 p-8 md:p-8">
-      <div className="max-w-8xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-white mb-2 font-bold text-3xl tracking-tight">
-            Quản lý giá vé
-          </h1>
-          <p className="text-gray-400 text-lg">
-            Cấu hình bảng giá vé theo loại ghế, phòng chiếu và thời gian
-          </p>
-        </div>
+    <div>
+      <div className="mb-8">
+        <h1 className="text-gray-900 mb-2 font-bold text-2xl">
+          Quản lý giá vé
+        </h1>
+        <p className="text-gray-600">
+          Cấu hình bảng giá vé theo loại ghế, phòng chiếu và thời gian
+        </p>
+      </div>
 
       <div className="bg-white rounded-lg shadow-sm border border-gray-200">
         <div className="p-6 border-b border-gray-200 flex justify-between items-center">

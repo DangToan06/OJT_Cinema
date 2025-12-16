@@ -114,7 +114,7 @@ export default function ChooseTicket() {
   }, [minutes, seconds, showing]);
 
   return (
-    <div className="bg-black text-white font-sans">
+    <div className="bg-black text-white font-sans h-[600px]">
       {/* BACKGROUND WRAPPER */}
       <div
         className="relative bg-cover bg-center"
@@ -136,14 +136,14 @@ export default function ChooseTicket() {
               />
               <div className="flex-1">
                 <h2 className="text-3xl font-semibold mb-2">{data?.title}</h2>
-                <p className="text-sm text-gray-300 mb-2">
+                <div className="text-sm text-gray-300 mb-2">
                   <div className="font-medium flex gap-8 text-start">
                     <span>{data?.genres_movie?.map((g) => g.genre_name)}</span>
                     <span>{data?.origin}</span>
                     <span>{data?.duration}</span>
                     <span>Đạo diễn: {data?.author}</span>
                   </div>
-                </p>
+                </div>
                 <p className="text-gray-300">Diễn viên: {data?.author}</p>
                 <p className="mb-2 text-gray-300">
                   <span className="font-medium">Khởi chiếu: </span>
@@ -161,8 +161,12 @@ export default function ChooseTicket() {
                 </p>
                 <p>{data?.description}</p>
                 <div className="mt-4 flex gap-4 items-center">
-                  <button className="text-white underline text-sm font-medium"
-                  onClick={() => {setOpen(true)}}>
+                  <button
+                    className="text-white underline text-sm font-medium"
+                    onClick={() => {
+                      setOpen(true);
+                    }}
+                  >
                     Chi tiết nội dung
                   </button>
                   <button
