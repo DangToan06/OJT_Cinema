@@ -112,7 +112,7 @@
       "phone": "1900 5454",
       "website": "https://www.lottecinemavn.com",
       "screens": 12,
-      "status": "Ngừng hoạt động"
+      "status": "Đang hoạt động"
     },
     {
       "id": "3c98d15e-7ef2-4a30-a9ea-2b7cd44e1e12",
@@ -121,7 +121,7 @@
       "phone": "1900 2224",
       "website": "https://www.galaxycine.vn",
       "screens": 6,
-      "status": "Ngừng hoạt động"
+      "status": "Đang hoạt động"
     },
     {
       "id": "ab72c4f1-8e0a-41e9-9f3b-11df7b32951d",
@@ -139,7 +139,7 @@
       "phone": "1900 6017",
       "website": "https://www.cgv.vn",
       "screens": 9,
-      "status": "Ngừng hoạt động"
+      "status": "Đang hoạt động"
     },
     {
       "id": "4b94a41a-dfcf-4bf2-ae8a-0b4b5c91e5fe",
@@ -166,7 +166,7 @@
       "phone": "1900 636807",
       "website": "https://www.betacinema.vn",
       "screens": 7,
-      "status": "Ngừng hoạt động"
+      "status": "Đang hoạt động"
     },
     {
       "id": "d99b0bb2-dfb7-48e9-87b4-1de87f71e30f",
@@ -202,7 +202,7 @@
       "phone": "1900 2224",
       "website": "https://www.galaxycine.vn",
       "screens": 6,
-      "status": "Ngừng hoạt động"
+      "status": "Đang hoạt động"
     },
     {
       "id": "c89d23f0-09b6-4c8d-9b5a-9c3590dce0ef",
@@ -1264,28 +1264,14 @@
     {
       "movie": "Avengers: Endgame",
       "theater": "CGV Vincom Center",
-      "screen": "Phòng 1 (120 ghế - 2D)",
+      "screen": "Phòng 2",
       "date": "2025-12-24",
-      "startTime": "11:10",
-      "endTime": "14:10",
-      "price": 666666,
+      "startTime": "00:10",
+      "endTime": "03:10",
       "availableSeats": 150,
       "totalSeats": 150,
       "status": "active",
       "id": "3"
-    },
-    {
-      "movie": "Spider-Man: No Way Home",
-      "theater": "CGV Vincom Center",
-      "screen": "Phòng 1 (120 ghế - 2D)",
-      "date": "2025-12-10",
-      "startTime": "16:08",
-      "endTime": "19:08",
-      "price": 5555566,
-      "availableSeats": 150,
-      "totalSeats": 150,
-      "status": "active",
-      "id": "4"
     }
   ],
   "screens": [
@@ -1296,7 +1282,7 @@
       "theaterId": "8f4d5c4e-2b7e-4e9b-9c12-4f9a2d3b7c91",
       "capacity": 120,
       "type": "2D",
-      "status": "Ngừng hoạt động"
+      "status": "Đang hoạt động"
     },
     {
       "id": "4e32a0d1-8b4c-41b6-a0c7-f98ab4f25e33",
@@ -1305,7 +1291,7 @@
       "theaterId": "8f4d5c4e-2b7e-4e9b-9c12-4f9a2d3b7c91",
       "capacity": 150,
       "type": "3D",
-      "status": "Hoạt động"
+      "status": "Đang hoạt động"
     },
     {
       "id": "9ac8c2eb-76f1-4cd4-9d41-7b30ceaffb52",
@@ -1314,7 +1300,7 @@
       "theaterId": "8f4d5c4e-2b7e-4e9b-9c12-4f9a2d3b7c91",
       "capacity": 80,
       "type": "IMAX",
-      "status": "Hoạt động"
+      "status": "Đang hoạt động"
     },
     {
       "id": "3fd4a01b-7720-4e13-8f4a-64c22f579c44",
@@ -1323,7 +1309,7 @@
       "theaterId": "f2b1a9d7-5c3f-48f7-b0ea-9b4c1d26d442",
       "capacity": 200,
       "type": "2D",
-      "status": "Hoạt động"
+      "status": "Đang hoạt động"
     },
     {
       "id": "e6f8011c-08ad-45d0-a1e8-009d834c2f55",
@@ -1332,7 +1318,7 @@
       "theaterId": "f2b1a9d7-5c3f-48f7-b0ea-9b4c1d26d442",
       "capacity": 180,
       "type": "3D",
-      "status": "Hoạt động"
+      "status": "Đang hoạt động"
     },
     {
       "id": "6b90e72d-eaf1-4c52-bc34-5d5d30a53388",
@@ -1341,7 +1327,7 @@
       "theaterId": "f2b1a9d7-5c3f-48f7-b0ea-9b4c1d26d442",
       "capacity": 160,
       "type": "4DX",
-      "status": "Bảo trì"
+      "status": "Đang hoạt động"
     },
     {
       "id": "c9f4f522-9d73-4b91-a8f1-99af08b26cd7",
@@ -1350,7 +1336,7 @@
       "theaterId": "3c98d15e-7ef2-4a30-a9ea-2b7cd44e1e12",
       "capacity": 100,
       "type": "2D",
-      "status": "Hoạt động"
+      "status": "Đang hoạt động"
     },
     {
       "id": "f0b8a2eb-2178-4ec0-9e87-329d1e3cb1f3",
@@ -1359,7 +1345,7 @@
       "theaterId": "3c98d15e-7ef2-4a30-a9ea-2b7cd44e1e12",
       "capacity": 120,
       "type": "3D",
-      "status": "Hoạt động"
+      "status": "Đang hoạt động"
     },
     {
       "id": "b3835b3b-5b42-4d4a-9b4a-c39c8406f597",
