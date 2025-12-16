@@ -136,14 +136,14 @@ export default function ChooseTicket() {
               />
               <div className="flex-1">
                 <h2 className="text-3xl font-semibold mb-2">{data?.title}</h2>
-                <p className="text-sm text-gray-300 mb-2">
+                <div className="text-sm text-gray-300 mb-2">
                   <div className="font-medium flex gap-8 text-start">
                     <span>{data?.genres_movie?.map((g) => g.genre_name)}</span>
                     <span>{data?.origin}</span>
                     <span>{data?.duration}</span>
                     <span>Đạo diễn: {data?.author}</span>
                   </div>
-                </p>
+                </div>
                 <p className="text-gray-300">Diễn viên: {data?.author}</p>
                 <p className="mb-2 text-gray-300">
                   <span className="font-medium">Khởi chiếu: </span>
