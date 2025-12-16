@@ -5,6 +5,7 @@ import {
   deleteTheater,
   getAllTheaters,
   updateStatusTheater,
+  updateTheater,
 } from "../../api/theater.api";
 import type {
   InitialTheaterState,
@@ -61,6 +62,16 @@ const theaterSlice = createSlice({
           );
           if (index !== -1) {
             state.theaters[index].status = action.payload.status;
+          }
+        }
+      ).addCase(
+        updateTheater.fulfilled,
+        (state, action: PayloadAction<ITheater>) => {
+          const index = state.theaters.findIndex(
+            (theater) => theater.id === action.payload.id
+          );
+          if (index !== -1) {
+            state.theaters[index] = action.payload;
           }
         }
       );

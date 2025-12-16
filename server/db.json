@@ -98,16 +98,16 @@
   "theaters": [
     {
       "id": "8f4d5c4e-2b7e-4e9b-9c12-4f9a2d3b7c91",
-      "name": "CGV Vincom Center",
+      "name": "CGV Atmin 1",
       "address": "191 Bà Triệu, Hai Bà Trưng, Hà Nội",
-      "phone": "1900 6017",
+      "phone": "0123456789",
       "website": "https://www.cgv.vn",
       "screens": 8,
       "status": "Đang hoạt động"
     },
     {
       "id": "f2b1a9d7-5c3f-48f7-b0ea-9b4c1d26d442",
-      "name": "Lotte Cinema Keangnam",
+      "name": "CGV Atmin 2",
       "address": "Tầng 3, Keangnam Landmark, Phạm Hùng, Cầu Giấy, Hà Nội",
       "phone": "1900 5454",
       "website": "https://www.lottecinemavn.com",
@@ -116,7 +116,7 @@
     },
     {
       "id": "3c98d15e-7ef2-4a30-a9ea-2b7cd44e1e12",
-      "name": "Galaxy Cinema Nguyễn Du",
+      "name": "CGV Atmin 3",
       "address": "116 Nguyễn Du, Hai Bà Trưng, Hà Nội",
       "phone": "1900 2224",
       "website": "https://www.galaxycine.vn",
@@ -125,7 +125,7 @@
     },
     {
       "id": "ab72c4f1-8e0a-41e9-9f3b-11df7b32951d",
-      "name": "BHD Star Vincom Royal City",
+      "name": "CGV Atmin 4",
       "address": "Tầng B1, Vincom Mega Mall Royal City, 72A Nguyễn Trãi, Thanh Xuân, Hà Nội",
       "phone": "1900 2099",
       "website": "https://www.bhdstar.vn",
@@ -134,7 +134,7 @@
     },
     {
       "id": "cc54e510-6f54-4b8e-8d54-a38d77f92c55",
-      "name": "CGV Aeon Mall Hà Đông",
+      "name": "CGV Atmin 5",
       "address": "Tầng 4, Aeon Mall Hà Đông, Dương Nội, Hà Đông, Hà Nội",
       "phone": "1900 6017",
       "website": "https://www.cgv.vn",
@@ -143,7 +143,7 @@
     },
     {
       "id": "4b94a41a-dfcf-4bf2-ae8a-0b4b5c91e5fe",
-      "name": "Lotte Cinema Tây Sơn",
+      "name": "CGV Atmin 6",
       "address": "Tầng 5, Mipec Tower, 229 Tây Sơn, Đống Đa, Hà Nội",
       "phone": "1900 5454",
       "website": "https://www.lottecinemavn.com",
@@ -152,7 +152,7 @@
     },
     {
       "id": "6fd2c511-510a-4d95-b4ae-91d38d00b44c",
-      "name": "Beta Cinema Thanh Xuân",
+      "name": "CGV Atmin 7",
       "address": "Tầng 2, Imperial Plaza, 360 Giải Phóng, Thanh Xuân, Hà Nội",
       "phone": "1900 636807",
       "website": "https://www.betacinema.vn",
@@ -161,7 +161,7 @@
     },
     {
       "id": "14cb22b1-b6d0-45e3-a2e2-62cbe7455314",
-      "name": "Beta Cinema Mỹ Đình",
+      "name": "CGV Atmin 8",
       "address": "Tầng 3, Golden Palace, Mễ Trì, Nam Từ Liêm, Hà Nội",
       "phone": "1900 636807",
       "website": "https://www.betacinema.vn",
@@ -170,7 +170,7 @@
     },
     {
       "id": "d99b0bb2-dfb7-48e9-87b4-1de87f71e30f",
-      "name": "Cinestar Hai Bà Trưng",
+      "name": "CGV Atmin 10",
       "address": "135 Hai Bà Trưng, Hoàn Kiếm, Hà Nội",
       "phone": "028 7300 8881",
       "website": "https://www.cinestar.com.vn",
@@ -179,7 +179,7 @@
     },
     {
       "id": "259431d0-1556-47b7-ae56-12bd77f5e01e",
-      "name": "CGV Tràng Tiền Plaza",
+      "name": "CGV Atmin 11",
       "address": "Tầng 5, Tràng Tiền Plaza, Hoàn Kiếm, Hà Nội",
       "phone": "1900 6017",
       "website": "https://www.cgv.vn",
@@ -188,7 +188,7 @@
     },
     {
       "id": "f41b59ae-1630-430a-8842-e8be6dabba49",
-      "name": "BHD Star Hồ Gươm Plaza",
+      "name": "CGV Atmin 12",
       "address": "Tầng 4, Hồ Gươm Plaza, Mỗ Lao, Hà Đông, Hà Nội",
       "phone": "1900 2099",
       "website": "https://www.bhdstar.vn",
@@ -197,7 +197,7 @@
     },
     {
       "id": "2c778bb5-9957-4fd4-9c7b-7e4ad2e6d88d",
-      "name": "Galaxy Cinema Long Biên",
+      "name": "CGV Atmin 13",
       "address": "Tầng 3, Savico MegaMall, Long Biên, Hà Nội",
       "phone": "1900 2224",
       "website": "https://www.galaxycine.vn",
@@ -1180,8 +1180,8 @@
       "id": "promo-1",
       "title": "Vui tết trung thu - rinh quà ví vu",
       "content": "Khách hàng tham gia chương trình trung thu sẽ nhận được nhiều phần quà hấp dẫn.",
-      "created_at": "2025-09-13T00:00:00Z",
-      "bannerUrl": "https://images.unsplash.com/photo-1719706654529-ca7e2ce5a2bb",
+      "created_at": "2025-12-16T00:59:54Z",
+      "bannerUrl": "https://haidanggiadinh.com/wp-content/uploads/2023/09/su-kien-vui-tet-trung-thu-cung-lien-doan-hai-dang-2.jpg",
       "category": "promotion",
       "dayBegin": "2025-12-15T00:00:00Z",
       "dayEnd": "2025-12-25T00:00:00Z"
@@ -1190,8 +1190,8 @@
       "id": "promo-2",
       "title": "Suất chiếu đặc biệt - quà tặng tưng bừng",
       "content": "Tham gia suất chiếu đặc biệt để nhận nhiều phần quà giá trị.",
-      "created_at": "2025-09-04T00:00:00Z",
-      "bannerUrl": "https://images.unsplash.com/photo-1761503390713-a1fd8b8bb6c5",
+      "created_at": "2025-12-16T01:09:19Z",
+      "bannerUrl": "https://www.galaxycine.vn/media/2025/12/14/1135_1765722935144.jpg",
       "category": "promotion",
       "dayBegin": "2025-12-01T00:00:00Z",
       "dayEnd": "2025-12-08T00:00:00Z"
@@ -1200,8 +1200,8 @@
       "id": "news-3",
       "title": "Đợt phim kỉ niệm 79 năm cách mạng tháng 8 và quốc khánh",
       "content": "Trung tâm chiếu phim quốc gia tổ chức đợt phim đặc biệt nhân dịp quốc khánh.",
-      "created_at": "2025-08-21T00:00:00Z",
-      "bannerUrl": "https://images.unsplash.com/photo-1616108365310-0accd0de566b",
+      "created_at": "2025-12-16T02:45:36Z",
+      "bannerUrl": "https://cdn.thuvienphapluat.vn/uploads/cong-dong-dan-luat/2024/thang-8/16/chieu-phim-tai-lieu-ky-niem-79-nam-cmt8-quoc-khanh-292024.png",
       "category": "news",
       "dayBegin": "2025-08-25T00:00:00Z",
       "dayEnd": "2025-09-05T00:00:00Z"
@@ -1210,8 +1210,8 @@
       "id": "news-4",
       "title": "Tuyển dụng cộng tác viên soát vé và bán vé",
       "content": "Trung tâm chiếu phim quốc gia tuyển cộng tác viên làm việc linh hoạt theo ca.",
-      "created_at": "2025-08-04T00:00:00Z",
-      "bannerUrl": "https://images.unsplash.com/photo-1762330463032-06f873b3277c",
+      "created_at": "2025-12-16T01:15:16Z",
+      "bannerUrl": "https://spajob.vn/uploads/2024/4/16/rap-phim-tphcm-binh-duong-dong-nai-tuyen-dung-nhan-vien-ban-ve-soat-ve-phuc-vu-bap-nuoc-thoi-vu-chinh-thuc-co-cccd-dang-ky-di-lam-ngay-638488854831906265..jpg",
       "category": "news",
       "dayBegin": "2025-12-01T00:00:00Z",
       "dayEnd": "2025-12-20T00:00:00Z"
@@ -1312,23 +1312,23 @@
     {
       "id": "b7c1d9d4-3e8f-4a9c-9f21-d2e0a1c7f411",
       "name": "Phòng 1",
-      "theater": "CGV Vincom Center",
       "theaterId": "8f4d5c4e-2b7e-4e9b-9c12-4f9a2d3b7c91",
+      "theater": "CGV Vincom Center",
       "type": "Standard",
-      "row": 2,
-      "column": 2,
-      "capacity": 4,
+      "row": "6",
+      "column": "8",
+      "capacity": 48,
       "status": "Đang hoạt động"
     },
     {
       "id": "4e32a0d1-8b4c-41b6-a0c7-f98ab4f25e33",
       "name": "Phòng 2",
-      "theater": "CGV Vincom Center",
       "theaterId": "8f4d5c4e-2b7e-4e9b-9c12-4f9a2d3b7c91",
+      "theater": "CGV Vincom Center",
       "type": "Standard",
       "row": 6,
-      "column": 10,
-      "capacity": 60,
+      "column": "9",
+      "capacity": 54,
       "status": "Đang hoạt động"
     },
     {
@@ -1373,7 +1373,7 @@
       "row": 8,
       "column": 14,
       "capacity": 112,
-      "status": "Ngừng hoạt động"
+      "status": "Đang hoạt động"
     },
     {
       "id": "c9f4f522-9d73-4b91-a8f1-99af08b26cd7",

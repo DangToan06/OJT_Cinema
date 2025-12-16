@@ -3,7 +3,7 @@ export interface IScreen {
     name: string;
     theater: string;
     theaterId: string;
-    type: 'Mini' | 'Standard' | 'IMAX' | 'Large'|null;
+    type: 'Mini' | 'Standard' | 'IMAX' | 'Large' | null;
     capacity: number;
     row: number;
     column: number;
@@ -22,4 +22,15 @@ export const SCREEN_TYPE_LIMITS = {
     Standard: { minRow: 5, maxRow: 6, minCol: 8, maxCol: 10 },
     IMAX: { minRow: 6, maxRow: 8, minCol: 12, maxCol: 14 },
     Large: { minRow: 8, maxRow: 10, minCol: 14, maxCol: 18 },
+};
+
+export const initialScreen: Omit<IScreen, 'id'> = {
+    name: '',
+    theaterId: '',
+    theater: '',
+    type: null,
+    row: 0,
+    column: 0,
+    status: 'Đang hoạt động',
+    capacity: 0,
 };

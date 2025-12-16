@@ -1,31 +1,33 @@
 import { useState } from 'react';
 import { X } from 'lucide-react';
 import type { IScreen } from '../interfaces/screen.interface';
-import { SCREEN_TYPE_LIMITS } from '../interfaces/screen.interface';
+import {
+    initialScreen,
+    SCREEN_TYPE_LIMITS,
+} from '../interfaces/screen.interface';
 import { useAppDispatch, useAppSelector } from '../hook/useRedux';
-import { createScreen } from '../api/screen.api';
+import { createScreen, updateScreen } from '../api/screen.api';
 import { notify } from '../util/toast';
+import { v4 as uuidv4 } from 'uuid';
 
 interface ModalAddScreenProps {
     open: boolean;
     onClose: () => void;
+    dataEdit: IScreen | null;
 }
 
-export default function ModalAddScreen({ open, onClose }: ModalAddScreenProps) {
+export default function ModalAddScreen({
+    open,
+    onClose,
+    dataEdit,
+}: ModalAddScreenProps) {
     const dispatch = useAppDispatch();
     const theatersData = useAppSelector((s) => s.theater.theaters);
-    const [formData, setFormData] = useState<Omit<IScreen, 'id'>>({
-        name: '',
-        theaterId: '',
-        theater: '',
-        type: null,
-        row: 0,
-        column: 0,
-        status: 'Đang hoạt động',
-        capacity: 0,
-    });
+    const [formData, setFormData] = useState<Omit<IScreen, 'id'>>(
+        dataEdit ?? initialScreen
+    );
 
-    const [hasChosenType, setHasChosenType] = useState(false);
+    const [hasChosenType, setHasChosenType] = useState(Boolean(dataEdit?.type));
 
     const theaters = theatersData.map((t) => ({ id: t.id, name: t.name }));
 
@@ -106,7 +108,7 @@ export default function ModalAddScreen({ open, onClose }: ModalAddScreenProps) {
         }
 
         const newScreen: IScreen = {
-            id: crypto.randomUUID(),
+            id: uuidv4(),
             name: formData.name,
             theaterId: formData.theaterId,
             theater: formData.theater,
@@ -117,19 +119,16 @@ export default function ModalAddScreen({ open, onClose }: ModalAddScreenProps) {
             status: formData.status,
         };
 
-        dispatch(createScreen(newScreen));
-        notify.success('Thêm phòng chiếu thành công');
+        if (dataEdit) {
+            newScreen.id = dataEdit.id;
+            dispatch(updateScreen(newScreen));
+            notify.success('Cập nhật phòng chiếu thành công');
+        } else {
+            dispatch(createScreen(newScreen));
+            notify.success('Thêm phòng chiếu thành công');
+        }
         onClose();
-        setFormData({
-            name: '',
-            theaterId: '',
-            theater: '',
-            type: null,
-            row: 0,
-            column: 0,
-            status: 'Đang hoạt động',
-            capacity: 0,
-        });
+        setFormData(initialScreen);
     };
 
     return (
@@ -141,7 +140,9 @@ export default function ModalAddScreen({ open, onClose }: ModalAddScreenProps) {
                         <div className="bg-linear-to-r from-red-600 to-red-700 text-white px-6 py-4 rounded-t-xl flex items-center justify-between">
                             <div>
                                 <h2 className="text-xl font-bold">
-                                    Thêm Phòng Chiếu
+                                    {dataEdit
+                                        ? 'Cập nhật phòng chiếu'
+                                        : 'Thêm phòng chiếu'}
                                 </h2>
                                 <p className="text-red-100 text-sm mt-0.5">
                                     Cấu hình thông tin phòng chiếu
@@ -353,15 +354,15 @@ export default function ModalAddScreen({ open, onClose }: ModalAddScreenProps) {
                         <div className="px-6 pb-6 flex gap-3">
                             <button
                                 onClick={onClose}
-                                className="flex-1 px-4 py-2.5 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-all text-sm"
+                                className="flex-1 px-4 py-2.5 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-all text-sm cursor-pointer"
                             >
                                 Hủy
                             </button>
                             <button
                                 onClick={handleSubmit}
-                                className="flex-1 px-4 py-2.5 bg-linear-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-medium rounded-lg transition-all text-sm shadow-md hover:shadow-lg"
+                                className="flex-1 px-4 py-2.5 bg-linear-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-medium rounded-lg transition-all text-sm shadow-md hover:shadow-lg cursor-pointer"
                             >
-                                Thêm Phòng
+                                {dataEdit ? 'Cập nhật' : 'Thêm phòng chiếu'}
                             </button>
                         </div>
                     </div>

@@ -12,6 +12,17 @@ export interface News {
     dayEnd: string;
 }
 
+export const initialNews:News = {
+    title: '',
+    content: '',
+    created_at: '',
+    id: '',
+    bannerUrl: '',
+    category: 'news',
+    dayBegin: '',
+    dayEnd: '',
+};
+
 export interface InitialNewsState {
     newsList: News[];
     status: 'idle' | 'pending' | 'success' | 'failed';
