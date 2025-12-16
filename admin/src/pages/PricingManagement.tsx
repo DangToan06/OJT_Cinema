@@ -143,33 +143,38 @@ export function PricingManagement() {
   };
 
   const handleDeletePrice = (id: string) => {
-    console.log(id);
     Swal.fire({
       title: "Bạn có chắc chắn?",
       text: "Giá vé này sẽ bị xóa vĩnh viễn!",
       icon: "warning",
+      background: "#1f2937", // Dark SweetAlert bg
+      color: "#fff", // White text
       showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
+      confirmButtonColor: "#dc2626",
+      cancelButtonColor: "#4b5563",
       confirmButtonText: "Xóa",
       cancelButtonText: "Hủy",
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(deletePrice(id))
           .then(() => {
-            Swal.fire({ title: "Đã xóa!", text: "...", icon: "success" });
+            Swal.fire({
+              title: "Đã xóa!",
+              text: "...",
+              icon: "success",
+              background: "#1f2937",
+              color: "#fff",
+            });
           })
           .catch(() => {
-            Swal.fire({ title: "Lỗi!", text: "Xóa thất bại", icon: "error" });
+            Swal.fire({
+              title: "Lỗi!",
+              text: "Xóa thất bại",
+              icon: "error",
+              background: "#1f2937",
+              color: "#fff",
+            });
           });
-
-        Swal.fire({
-          title: "Đã xóa!",
-          text: "Giá vé đã được xóa thành công.",
-          icon: "success",
-          timer: 1500,
-          showConfirmButton: false,
-        });
       }
     });
   };
@@ -186,24 +191,31 @@ export function PricingManagement() {
     dispatch(getAllPrice());
   }, [dispatch]);
 
+  // Class chung cho input/select tối màu
+  const inputClass =
+    "border border-gray-700 bg-gray-800 text-white rounded w-full px-2 py-1.5 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500";
+  const filterSelectClass =
+    "border border-gray-700 bg-gray-800 text-white rounded px-3 py-1 cursor-pointer focus:outline-none focus:border-red-500";
+
   return (
-    <div>
+    <div className="min-h-screen bg-gray-950 p-8">
+      {" "}
+      {/* Nền toàn trang tối */}
       <div className="mb-8">
-        <h1 className="text-gray-900 mb-2 font-bold text-2xl">
-          Quản lý giá vé
-        </h1>
-        <p className="text-gray-600">
+        <h1 className="text-white mb-2 font-bold text-3xl">Quản lý giá vé</h1>
+        <p className="text-gray-400">
           Cấu hình bảng giá vé theo loại ghế, phòng chiếu và thời gian
         </p>
       </div>
-
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-        <div className="p-6 border-b border-gray-200 flex justify-between items-center">
+      <div className="bg-gray-900 rounded-lg shadow-lg border border-gray-800">
+        <div className="p-6 border-b border-gray-800 flex justify-between items-center">
           <div className="flex flex-col gap-2">
-            <h2 className="text-gray-900 font-semibold text-xl">Giá vé</h2>
+            <h2 className="text-white font-semibold text-xl">
+              Danh sách giá vé
+            </h2>
             <div className="flex gap-3">
               <select
-                className="border rounded px-3 py-0.5 cursor-pointer"
+                className={filterSelectClass}
                 value={filterSeat}
                 onChange={(e) => setFilterSeat(e.target.value)}
               >
@@ -214,7 +226,7 @@ export function PricingManagement() {
               </select>
 
               <select
-                className="border rounded px-3 py-0.5 cursor-pointer"
+                className={filterSelectClass}
                 value={filterMovie}
                 onChange={(e) => setFilterMovie(e.target.value)}
               >
@@ -224,7 +236,7 @@ export function PricingManagement() {
               </select>
 
               <select
-                className="border rounded px-3 py-0.5 cursor-pointer"
+                className={filterSelectClass}
                 value={filterDay}
                 onChange={(e) => setFilterDay(e.target.value)}
               >
@@ -239,7 +251,7 @@ export function PricingManagement() {
                   setFilterMovie("");
                   setFilterDay("");
                 }}
-                className="text-red-600 cursor-pointer hover:scale-110"
+                className="text-red-500 cursor-pointer hover:scale-110 hover:text-red-400 transition-colors"
               >
                 <CircleX />
               </button>
@@ -250,90 +262,102 @@ export function PricingManagement() {
             onClick={() => {
               setModalType("add");
             }}
-            className="px-5 py-2 rounded cursor-pointer bg-red-600 text-white font-semibold hover:bg-red-700 hover:scale-105"
+            className="px-5 py-2.5 rounded-lg cursor-pointer bg-red-600 text-white font-semibold hover:bg-red-700 hover:scale-105 transition-all shadow-lg shadow-red-900/20"
           >
             Thêm giá
           </button>
         </div>
 
         <div className="p-6">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-gray-200 text-center">
-                <th className="pb-3 text-gray-600">Loại ghế</th>
-                <th className="pb-3 text-gray-600">Loại phim</th>
-                <th className="pb-3 text-gray-600">Giá (₫)</th>
-                <th className="pb-3 text-gray-600">Loại ngày</th>
-                <th className="pb-3 text-gray-600">Thời gian</th>
-                <th className="pb-3 text-gray-600">Hành động</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {filteredPrices.map((p) => (
-                <tr key={p.id} className="text-center">
-                  <td className="py-4">{p.type_seat}</td>
-                  <td className="py-4">{p.type_movie}</td>
-                  <td className="py-4">{p.price.toLocaleString()}đ</td>
-                  <td className="py-4">
-                    {p.day_type === 0 ? "Ngày thường" : "Cuối tuần/lễ"}
-                  </td>
-                  <td className="py-4">
-                    {p.time === 1
-                      ? "Trước 12h"
-                      : p.time === 2
-                      ? "12:00 - 17:00"
-                      : p.time === 3
-                      ? "17:00 - 23:00"
-                      : "Sau 23:00"}
-                  </td>
-                  <td className="py-4">
-                    <div className="flex justify-center gap-2">
-                      <button
-                        onClick={() => {
-                          setModalType("edit");
-                          setCurrentPrice(p);
-                        }}
-                        className="text-blue-600 hover:scale-110"
-                      >
-                        <Edit className="w-5 h-5" />
-                      </button>
-
-                      <button
-                        onClick={() => handleDeletePrice(p.id)}
-                        className="text-red-600 hover:scale-110"
-                      >
-                        <Trash2 className="w-5 h-5" />
-                      </button>
-                    </div>
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-gray-800 text-center">
+                  <th className="pb-3 text-gray-400 font-medium">Loại ghế</th>
+                  <th className="pb-3 text-gray-400 font-medium">Loại phim</th>
+                  <th className="pb-3 text-gray-400 font-medium">Giá (₫)</th>
+                  <th className="pb-3 text-gray-400 font-medium">Loại ngày</th>
+                  <th className="pb-3 text-gray-400 font-medium">Thời gian</th>
+                  <th className="pb-3 text-gray-400 font-medium">Hành động</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-gray-800">
+                {filteredPrices.map((p) => (
+                  <tr
+                    key={p.id}
+                    className="text-center group hover:bg-gray-800/50 transition-colors"
+                  >
+                    <td className="py-4 text-gray-300 font-medium">
+                      {p.type_seat}
+                    </td>
+                    <td className="py-4 text-gray-300">{p.type_movie}</td>
+                    <td className="py-4 text-green-400 font-semibold">
+                      {p.price.toLocaleString()}đ
+                    </td>
+                    <td className="py-4 text-gray-300">
+                      {p.day_type === 0 ? "Ngày thường" : "Cuối tuần/lễ"}
+                    </td>
+                    <td className="py-4 text-gray-300">
+                      {p.time === 1
+                        ? "Trước 12h"
+                        : p.time === 2
+                        ? "12:00 - 17:00"
+                        : p.time === 3
+                        ? "17:00 - 23:00"
+                        : "Sau 23:00"}
+                    </td>
+                    <td className="py-4">
+                      <div className="flex justify-center gap-2">
+                        <button
+                          onClick={() => {
+                            setModalType("edit");
+                            setCurrentPrice(p);
+                          }}
+                          className="text-blue-500 hover:text-blue-400 hover:scale-110 transition-all p-1.5 bg-blue-500/10 rounded"
+                        >
+                          <Edit className="w-4 h-4" />
+                        </button>
+
+                        <button
+                          onClick={() => handleDeletePrice(p.id)}
+                          className="text-red-500 hover:text-red-400 hover:scale-110 transition-all p-1.5 bg-red-500/10 rounded"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-
       {modalType && (
-        <div className="fixed inset-0 flex justify-center items-center bg-black/50 z-50">
+        <div className="fixed inset-0 flex justify-center items-center bg-black/70 backdrop-blur-sm z-50 p-4">
           <form
             onSubmit={handleAddPrice}
-            className="bg-white p-5 flex flex-col gap-3 rounded w-[30%]"
+            className="bg-gray-900 border border-gray-800 p-6 flex flex-col gap-4 rounded-xl shadow-2xl w-full max-w-lg"
           >
-            <div className="flex justify-between text-xl font-semibold">
+            <div className="flex justify-between items-center text-xl font-bold text-white border-b border-gray-800 pb-3">
               <p>{modalType === "add" ? "Thêm giá vé" : "Sửa giá vé"}</p>
-              <p
+              <button
+                type="button"
                 onClick={handleCloseForm}
-                className="cursor-pointer hover:scale-110"
+                className="cursor-pointer hover:text-red-500 hover:bg-gray-800 p-1 rounded-full transition-colors"
               >
-                x
-              </p>
+                <CircleX className="w-6 h-6" />
+              </button>
             </div>
-            <div className="flex gap-3">
+
+            <div className="flex gap-4">
               <div className="w-full">
-                <label>Loại ghế</label>
+                <label className="text-gray-300 text-sm mb-1 block">
+                  Loại ghế
+                </label>
                 <select
                   name="seatType"
-                  className="border rounded w-full px-2 py-1"
+                  className={inputClass}
                   value={typeSeat}
                   onChange={handleChange}
                 >
@@ -345,16 +369,18 @@ export function PricingManagement() {
                   <option value="SWEETBOX">SWEETBOX</option>
                 </select>
                 {isShowSeatError && (
-                  <p className="text-red-600 text-sm">{seatError}</p>
+                  <p className="text-red-500 text-xs mt-1">{seatError}</p>
                 )}
               </div>
 
               <div className="w-full">
-                <label>Loại phim</label>
+                <label className="text-gray-300 text-sm mb-1 block">
+                  Loại phim
+                </label>
                 <select
                   onChange={handleChange}
                   name="movieType"
-                  className="border rounded w-full px-2 py-1"
+                  className={inputClass}
                   value={typeMovie}
                 >
                   <option disabled value="?">
@@ -364,29 +390,33 @@ export function PricingManagement() {
                   <option value="3D">3D</option>
                 </select>
                 {isShowMovieError && (
-                  <p className="text-red-600 text-sm">{movieError}</p>
+                  <p className="text-red-500 text-xs mt-1">{movieError}</p>
                 )}
               </div>
             </div>
 
-            <label>Giá vé</label>
-            <input
-              type="number"
-              className="border rounded w-full px-2 py-1"
-              value={price}
-              name="price"
-              onChange={handleChange}
-            />
-            {isShowPriceError && (
-              <p className="text-red-600 text-sm">{priceError}</p>
-            )}
+            <div>
+              <label className="text-gray-300 text-sm mb-1 block">Giá vé</label>
+              <input
+                type="number"
+                className={inputClass}
+                value={price}
+                name="price"
+                onChange={handleChange}
+              />
+              {isShowPriceError && (
+                <p className="text-red-500 text-xs mt-1">{priceError}</p>
+              )}
+            </div>
 
-            <div className="flex gap-3">
+            <div className="flex gap-4">
               <div className="w-full">
-                <label>Loại ngày</label>
+                <label className="text-gray-300 text-sm mb-1 block">
+                  Loại ngày
+                </label>
                 <select
                   name="dayType"
-                  className="border rounded w-full px-2 py-1"
+                  className={inputClass}
                   value={dayType}
                   onChange={handleChange}
                 >
@@ -397,15 +427,17 @@ export function PricingManagement() {
                   <option value={1}>Cuối tuần/lễ</option>
                 </select>
                 {isShowDayError && (
-                  <p className="text-red-600 text-sm">{dayError}</p>
+                  <p className="text-red-500 text-xs mt-1">{dayError}</p>
                 )}
               </div>
 
               <div className="w-full">
-                <label>Thời gian</label>
+                <label className="text-gray-300 text-sm mb-1 block">
+                  Thời gian
+                </label>
                 <select
                   name="time"
-                  className="border rounded w-full px-2 py-1"
+                  className={inputClass}
                   value={time}
                   onChange={handleChange}
                 >
@@ -418,30 +450,31 @@ export function PricingManagement() {
                   <option value={4}>Sau 23h</option>
                 </select>
                 {isShowTimeError && (
-                  <p className="text-red-600 text-sm">{timeError}</p>
+                  <p className="text-red-500 text-xs mt-1">{timeError}</p>
                 )}
               </div>
             </div>
+
             {isShowModalError && (
-              <p className="text-red-600 text-sm">{modalError}</p>
+              <div className="p-3 bg-red-900/30 border border-red-900/50 rounded text-red-400 text-sm flex items-center gap-2">
+                <CircleX className="w-4 h-4" /> {modalError}
+              </div>
             )}
-            <div className="flex justify-end gap-3">
+
+            <div className="flex justify-end gap-3 mt-2 border-t border-gray-800 pt-4">
               <button
                 type="button"
                 onClick={handleCloseForm}
-                className="border rounded px-3 py-1 cursor-pointer"
+                className="border border-gray-600 text-gray-300 rounded px-4 py-2 hover:bg-gray-800 transition-colors"
               >
                 Hủy
               </button>
-              {modalType === "add" ? (
-                <button type="submit" className="border rounded px-3 py-1">
-                  Thêm
-                </button>
-              ) : (
-                <button type="submit" className="border rounded px-3 py-1">
-                  Lưu
-                </button>
-              )}
+              <button
+                type="submit"
+                className="bg-red-600 text-white rounded px-6 py-2 hover:bg-red-700 transition-colors font-medium shadow-lg shadow-red-900/30"
+              >
+                {modalType === "add" ? "Thêm" : "Lưu"}
+              </button>
             </div>
           </form>
         </div>
