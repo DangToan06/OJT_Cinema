@@ -111,7 +111,7 @@ export function PaymentsManagement() {
       <div className="max-w-8xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-white mb-2 font-bold text-2xl">
+            <h1 className="text-white mb-2 font-bold text-3xl tracking-tight">
               Quản lý thanh toán
             </h1>
             <p className="text-gray-400">

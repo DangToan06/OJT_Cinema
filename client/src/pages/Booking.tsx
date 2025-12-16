@@ -75,17 +75,17 @@ export default function ChooseTicket() {
       };
     });
   };
-  useEffect(() => {
-    setChoosingSeats([]);
-    data?.showtimes.map((p) => {
-      p.seats.map((s) => {
-        if (s.booked) {
-          const seatBeenChoosing: Seat = { seat: s.seat, booked: s.booked, price: s.price, type: s.type };
-          setChoosingSeats((prev) => [...prev, seatBeenChoosing]);
-        }
-      });
-    });
-  }, [data?.showtimes]);
+  // useEffect(() => {
+  //   setChoosingSeats([]);
+  //   data?.showtimes.map((p) => {
+  //     p.seats?.map((s) => {
+  //       if (s.booked) {
+  //         const seatBeenChoosing: Seat = { seat: s.seat, booked: s.booked, price: s.price, type: s.type };
+  //         setChoosingSeats((prev) => [...prev, seatBeenChoosing]);
+  //       }
+  //     });
+  //   });
+  // }, [data?.showtimes]);
   useEffect(() => {
     if (showing) {
       const timer = setTimeout(() => {

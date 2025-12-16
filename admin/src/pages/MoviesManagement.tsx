@@ -38,110 +38,109 @@ export function MoviesManagement() {
 
     useEffect(() => {
         loadData();
-    }, [loadData]);
+      } else {
+        toast.error("Xóa thất bại!");
+      }
+    }
+  };
 
-    const debouncedSearch = useCallback(
-        // eslint-disable-next-line react-hooks/use-memo
-        debounce((value: string) => {
-            setParams((prev) => ({ ...prev, search: value, page: 1 }));
-        }, 500),
-        []
-    );
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "DANGCHIEU":
+        return "bg-green-500/20 text-green-400";
+      case "SAPCHIEU":
+        return "bg-blue-500/20 text-blue-400";
+      case "NGUNGCHIEU":
+        return "bg-gray-500/20 text-gray-300";
+      default:
+        return "bg-gray-500/20 text-gray-300";
+    }
+  };
 
-    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        debouncedSearch(e.target.value);
-    };
+  return (
+    <div className="p-8">
+      <ToastContainer position="top-right" autoClose={3000} theme="dark" />
 
-    const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setParams((prev) => ({ ...prev, status: e.target.value, page: 1 }));
-    };
-
-    const handlePageChange = (page: number, pageSize: number) => {
-        setParams((prev) => ({ ...prev, page, pageSize }));
-    };
-
-    const handleEdit = (movie: Movie) => {
-        setEditingMovie(movie);
-        setShowModal(true);
-    };
-
-    const handleDelete = async (id: string) => {
-        if (confirm('Bạn có chắc muốn xóa phim này?')) {
-            const result = await dispatch(deleteMovie(id));
-            if (deleteMovie.fulfilled.match(result)) {
-                notify.success('Xóa thành công!');
-                loadData();
-            } else {
-                notify.error('Xóa thất bại!');
-            }
-        }
-    };
-
-    const getStatusColor = (status: string) => {
-        switch (status) {
-            case 'DANGCHIEU':
-                return 'bg-green-500/20 text-green-400';
-            case 'SAPCHIEU':
-                return 'bg-blue-500/20 text-blue-400';
-            case 'NGUNGCHIEU':
-                return 'bg-gray-500/20 text-gray-300';
-            default:
-                return 'bg-gray-500/20 text-gray-300';
-        }
-    };
-
-    return (
+      <div className="flex items-center justify-between mb-8">
         <div>
-            {/* Header */}
-            <div className="flex items-center justify-between mb-8">
-                <div>
-                    <h1 className="text-white mb-2 font-bold text-2xl">
-                        Quản lý phim
-                    </h1>
-                    <p className="text-gray-400">
-                        Thêm, sửa, xóa và cập nhật thông tin phim
-                    </p>
-                </div>
+          <h1 className="text-white mb-2 font-bold text-3xl tracking-tight">
+            Quản lý phim
+          </h1>
+          <p className="text-gray-400">
+            Thêm, sửa, xóa và cập nhật thông tin phim
+          </p>
+        </div>
 
-                <button
-                    onClick={() => {
-                        setEditingMovie(undefined);
-                        setShowModal(true);
-                    }}
-                    className="flex items-center gap-2 bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition"
-                >
-                    <Plus className="w-5 h-5" /> Thêm phim mới
-                </button>
+        <button
+          onClick={() => {
+            setEditingMovie(undefined);
+            setShowModal(true);
+          }}
+          className="flex items-center gap-2 bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition"
+        >
+          <Plus className="w-5 h-5" /> Thêm phim mới
+        </button>
+      </div>
+
+      <div className="bg-[#1e2939] rounded-lg border border-gray-700 mb-6">
+        <div className="p-6 border-b border-gray-700">
+          <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex-1 relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Tìm kiếm theo tên phim..."
+                onChange={handleSearchChange}
+                className="w-full pl-10 pr-4 py-2 rounded-lg bg-[#263445] text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500"
+              />
             </div>
 
-            {/* Search & Filter */}
-            <div className="bg-[#1e2939] rounded-lg border border-gray-700 mb-6">
-                <div className="p-6 border-b border-gray-700">
-                    <div className="flex flex-col sm:flex-row gap-4">
-                        <div className="flex-1 relative">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                            <input
-                                type="text"
-                                placeholder="Tìm kiếm theo tên phim..."
-                                onChange={handleSearchChange}
-                                className="w-full pl-10 pr-4 py-2 rounded-lg bg-[#263445] text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500"
-                            />
-                        </div>
+            <div className="relative">
+              <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <select
+                value={params.status}
+                onChange={handleFilterChange}
+                className="pl-10 pr-8 py-2 rounded-lg bg-[#263445] text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 appearance-none cursor-pointer"
+              >
+                <option value="all">Tất cả trạng thái</option>
+                <option value="DANGCHIEU">Đang chiếu</option>
+                <option value="SAPCHIEU">Sắp chiếu</option>
+                <option value="NGUNGCHIEU">Ngừng chiếu</option>
+              </select>
+            </div>
+          </div>
+        </div>
 
-                        <div className="relative">
-                            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                            <select
-                                value={params.status}
-                                onChange={handleFilterChange}
-                                className="pl-10 pr-8 py-2 rounded-lg bg-[#263445] text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 appearance-none cursor-pointer"
-                            >
-                                <option value="all">Tất cả trạng thái</option>
-                                <option value="DANGCHIEU">Đang chiếu</option>
-                                <option value="SAPCHIEU">Sắp chiếu</option>
-                                <option value="NGUNGCHIEU">Ngừng chiếu</option>
-                            </select>
-                        </div>
-                    </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-6">
+          {movieStatus === "idle" ? (
+            <div className="col-span-full text-center py-10 text-gray-400">
+              Đang tải dữ liệu...
+            </div>
+          ) : movies.length === 0 ? (
+            <div className="col-span-full text-center py-10 text-gray-400">
+              Không tìm thấy phim nào.
+            </div>
+          ) : (
+            movies.map((movie: Movie) => (
+              <div
+                key={movie.id}
+                className="bg-[#1e2939] border border-gray-700 rounded-lg overflow-hidden hover:shadow-lg transition group"
+              >
+                <div className="relative aspect-[2/3] overflow-hidden">
+                  <img
+                    src={movie.image}
+                    alt={movie.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute top-3 right-3">
+                    <span
+                      className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(
+                        movie.status
+                      )}`}
+                    >
+                      {movie.status}
+                    </span>
+                  </div>
                 </div>
 
                 {/* Movie grid */}
