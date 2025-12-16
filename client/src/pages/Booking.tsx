@@ -281,7 +281,12 @@ export default function ChooseTicket() {
               <p>
                 Tổng tiền:
                 <span id="total-price" className="text-yellow-400 ml-1">
-                  {choosingSeats.reduce((sum, curr) => sum + curr.price, 0).toLocaleString('vi', {style : 'currency', currency : 'VND'})}
+                  {choosingSeats
+                    .reduce((sum, curr) => sum + curr.price, 0)
+                    .toLocaleString("vi", {
+                      style: "currency",
+                      currency: "VND",
+                    })}
                 </span>
               </p>
             </div>

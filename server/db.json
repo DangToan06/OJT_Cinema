@@ -1286,6 +1286,19 @@
       "totalSeats": 150,
       "status": "active",
       "id": "4"
+    },
+    {
+      "movie": "Avengers: Endgame",
+      "theater": "CGV Vincom Center",
+      "screen": "Phòng 2 (150 ghế - 3D)",
+      "date": "2025-12-18",
+      "startTime": "12:15",
+      "endTime": "15:15",
+      "price": 10000,
+      "availableSeats": 150,
+      "totalSeats": 150,
+      "status": "active",
+      "id": "CjN88WH"
     }
   ],
   "screens": [

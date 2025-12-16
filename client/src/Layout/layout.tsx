@@ -36,41 +36,41 @@ export default function Layout({ children }: LayoutProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const performLogout = (reason: 'manual' | 'blocked') => {
-    localStorage.removeItem('user');
+  const performLogout = (reason: "manual" | "blocked") => {
+    localStorage.removeItem("user");
     setUser(null);
 
-    if (reason === 'blocked') {
+    if (reason === "blocked") {
       Swal.fire({
-        icon: 'error',
-        title: 'Tài khoản bị chặn',
-        text: 'Tài khoản của bạn đã bị chặn , bạn đã bị đăng xuất ',
-        confirmButtonText: 'OK',
-        background: '#1e293b',
-        color: '#fff',
+        icon: "error",
+        title: "Tài khoản bị chặn",
+        text: "Tài khoản của bạn đã bị chặn , bạn đã bị đăng xuất ",
+        confirmButtonText: "OK",
+        background: "#1e293b",
+        color: "#fff",
         customClass: {
-          popup: 'rounded-2xl',
-          confirmButton: 'px-6 py-3 rounded-xl font-medium',
+          popup: "rounded-2xl",
+          confirmButton: "px-6 py-3 rounded-xl font-medium",
         },
       });
     } else {
       Swal.fire({
-        icon: 'success',
-        title: 'Đã đăng xuất thành công!',
+        icon: "success",
+        title: "Đã đăng xuất thành công!",
         toast: true,
-        position: 'top-end',
+        position: "top-end",
         timer: 2000,
         showConfirmButton: false,
-        background: '#1e293b',
-        color: '#fff',
+        background: "#1e293b",
+        color: "#fff",
       });
     }
-    navigate('/');
+    navigate("/");
   };
 
   // Kiểm tra trạng thái user từ server
   const checkUserStatus = async () => {
-    const savedUser = localStorage.getItem('user');
+    const savedUser = localStorage.getItem("user");
     if (!savedUser) {
       setUser(null);
       return;
@@ -79,27 +79,27 @@ export default function Layout({ children }: LayoutProps) {
     try {
       const parsedUser: UserInfo = JSON.parse(savedUser);
       if (!parsedUser.id) {
-        performLogout('manual');
+        performLogout("manual");
         return;
       }
 
       const res = await fetch(`http://localhost:8080/users/${parsedUser.id}`);
       if (!res.ok) {
-        performLogout('manual');
+        performLogout("manual");
         return;
       }
 
       const currentUser = await res.json();
 
-      if (currentUser.status === 'BLOCKED') {
-        performLogout('blocked');
+      if (currentUser.status === "BLOCKED") {
+        performLogout("blocked");
       } else {
         // Cập nhật lại thông tin user nếu có thay đổi
         setUser(currentUser);
-        localStorage.setItem('user', JSON.stringify(currentUser));
+        localStorage.setItem("user", JSON.stringify(currentUser));
       }
     } catch (err) {
-      console.error('Lỗi khi kiểm tra trạng thái tài khoản:', err);
+      console.error("Lỗi khi kiểm tra trạng thái tài khoản:", err);
     }
   };
 
@@ -107,18 +107,16 @@ export default function Layout({ children }: LayoutProps) {
     checkUserStatus();
   }, []);
   const CheckLogin = (token) => {
-    if(!token) return null;
+    if (!token) return null;
     const payload = token.split(":")[0];
     return JSON.parse(atob(payload));
-  }
-
+  };
 
   useEffect(() => {
     const handleFocus = () => checkUserStatus();
-    window.addEventListener('focus', handleFocus);
-    return () => window.removeEventListener('focus', handleFocus);
+    window.addEventListener("focus", handleFocus);
+    return () => window.removeEventListener("focus", handleFocus);
   }, []);
-
 
   useEffect(() => {
     if (!user) return;
@@ -129,7 +127,6 @@ export default function Layout({ children }: LayoutProps) {
 
     return () => clearInterval(interval);
   }, [user]);
-
 
   useEffect(() => {
     if (user) {
@@ -158,7 +155,7 @@ export default function Layout({ children }: LayoutProps) {
     });
 
     if (result.isConfirmed) {
-      performLogout('manual');
+      performLogout("manual");
     }
   };
 
@@ -216,10 +213,12 @@ export default function Layout({ children }: LayoutProps) {
 
                 <div className="flex flex-col gap-1">
                   <span className="text-white font-semibold text-sm leading-tight">
-                    {user.first_name || ''} {user.last_name || ''}
+                    {user.first_name || ""} {user.last_name || ""}
                   </span>
                   <span className="text-gray-400 text-xs">
-                    {user.role?.role_name === 'admin' ? 'Quản trị viên' : 'Khách hàng'}
+                    {user.role?.role_name === "admin"
+                      ? "Quản trị viên"
+                      : "Khách hàng"}
                   </span>
                 </div>
               </div>
@@ -294,7 +293,7 @@ export default function Layout({ children }: LayoutProps) {
                   )}
                   <div>
                     <p className="text-white font-bold text-xl">
-                      {user.first_name || ''} {user.last_name || ''}
+                      {user.first_name || ""} {user.last_name || ""}
                     </p>
                     <p className="text-gray-400">
                       {user.role?.role_name === "admin"
@@ -341,23 +340,57 @@ export default function Layout({ children }: LayoutProps) {
       <main className="flex-1 mt-20">{children}</main>
 
       {/* FOOTER */}
-      <footer className="bg-black text-white py-14 z-10">
+      <footer className="bg-black text-white py-16 z-10">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex flex-wrap justify-center gap-x-10 gap-y-3 text-sm md:text-base font-medium">
-            {['Chính sách', 'Lịch chiếu', 'Tin tức', 'Giá vé', 'Hỏi đáp', 'Liên hệ'].map((item) => (
-              <span key={item} className="cursor-pointer hover:text-red-500 transition">
+            {[
+              "Chính sách",
+              "Lịch chiếu",
+              "Tin tức",
+              "Giá vé",
+              "Hỏi đáp",
+              "Liên hệ",
+            ].map((item) => (
+              <span
+                key={item}
+                className="cursor-pointer hover:text-red-500 transition"
+              >
                 {item}
               </span>
             ))}
           </div>
 
           <div className="flex flex-wrap justify-center items-center gap-6 mt-10">
-            <img src={fb} className="w-8 h-8 cursor-pointer hover:opacity-80" alt="Facebook" />
-            <img src={zalo} className="w-8 h-8 cursor-pointer hover:opacity-80" alt="Zalo" />
-            <img src={ytb} className="w-8 h-8 cursor-pointer hover:opacity-80" alt="Youtube" />
-            <img src={gp} className="h-11 cursor-pointer hover:opacity-90" alt="Google Play" />
-            <img src={as} className="h-11 cursor-pointer hover:opacity-90" alt="App Store" />
-            <img src={tem} className="h-[50px] cursor-pointer hover:opacity-90" alt="Copyright" />
+            <img
+              src={fb}
+              className="w-8 h-8 cursor-pointer hover:opacity-80"
+              alt="Facebook"
+            />
+            <img
+              src={zalo}
+              className="w-8 h-8 cursor-pointer hover:opacity-80"
+              alt="Zalo"
+            />
+            <img
+              src={ytb}
+              className="w-8 h-8 cursor-pointer hover:opacity-80"
+              alt="Youtube"
+            />
+            <img
+              src={gp}
+              className="h-11 cursor-pointer hover:opacity-90"
+              alt="Google Play"
+            />
+            <img
+              src={as}
+              className="h-11 cursor-pointer hover:opacity-90"
+              alt="App Store"
+            />
+            <img
+              src={tem}
+              className="h-[50px] cursor-pointer hover:opacity-90"
+              alt="Copyright"
+            />
           </div>
 
           <div className="mt-12 text-center flex flex-col gap-2 text-sm md:text-base leading-relaxed opacity-90">

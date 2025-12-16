@@ -1,42 +1,74 @@
-import { useEffect, useState, useCallback } from 'react';
-import { Plus, Edit, Trash2, Search, Filter } from 'lucide-react';
-import { MovieModal } from '../components/MovieModal';
-import type { Movie } from '../util/type.util';
-import { useAppDispatch, useAppSelector } from '../hook/useRedux';
-import { deleteMovie, fetchMovies } from '../api/movie.api';
-
-import PaginationComp from '../components/PaginationComp';
-import debounce from 'lodash/debounce';
-import { notify } from '../util/toast';
+import { useEffect, useState, useCallback } from "react";
+import { Plus, Edit, Trash2, Search, Filter } from "lucide-react";
+import { MovieModal } from "../components/MovieModal";
+import type { Movie } from "../util/type.util";
+import { useAppDispatch, useAppSelector } from "../hook/useRedux";
+import { deleteMovie, fetchMovies } from "../api/movie.api";
+import { toast, ToastContainer } from "react-toastify";
+import PaginationComp from "../components/PaginationComp";
+import debounce from "lodash/debounce";
 
 export function MoviesManagement() {
-    const dispatch = useAppDispatch();
-    const { data: movies, status: movieStatus } = useAppSelector(
-        (state) => state.movie
+  const dispatch = useAppDispatch();
+  const { data: movies, status: movieStatus } = useAppSelector(
+    (state) => state.movie
+  );
+
+  const [showModal, setShowModal] = useState(false);
+  const [editingMovie, setEditingMovie] = useState<Movie | undefined>();
+
+  const [params, setParams] = useState({
+    page: 1,
+    pageSize: 8,
+    search: "",
+    status: "",
+  });
+
+  const loadData = useCallback(() => {
+    dispatch(
+      fetchMovies({
+        page: params.page,
+        pageSize: params.pageSize,
+        search: params.search,
+        status: params.status === "all" ? "" : params.status,
+      })
     );
+  }, [dispatch, params]);
 
-    const [showModal, setShowModal] = useState(false);
-    const [editingMovie, setEditingMovie] = useState<Movie | undefined>();
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
 
-    const [params, setParams] = useState({
-        page: 1,
-        pageSize: 8,
-        search: '',
-        status: '',
-    });
+  const debouncedSearch = useCallback(
+    // eslint-disable-next-line react-hooks/use-memo
+    debounce((value: string) => {
+      setParams((prev) => ({ ...prev, search: value, page: 1 }));
+    }, 500),
+    []
+  );
 
-    const loadData = useCallback(() => {
-        dispatch(
-            fetchMovies({
-                page: params.page,
-                pageSize: params.pageSize,
-                search: params.search,
-                status: params.status === 'all' ? '' : params.status,
-            })
-        );
-    }, [dispatch, params]);
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    debouncedSearch(e.target.value);
+  };
 
-    useEffect(() => {
+  const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setParams((prev) => ({ ...prev, status: e.target.value, page: 1 }));
+  };
+
+  const handlePageChange = (page: number, pageSize: number) => {
+    setParams((prev) => ({ ...prev, page, pageSize }));
+  };
+
+  const handleEdit = (movie: Movie) => {
+    setEditingMovie(movie);
+    setShowModal(true);
+  };
+
+  const handleDelete = async (id: string) => {
+    if (confirm("Bạn có chắc muốn xóa phim này?")) {
+      const result = await dispatch(deleteMovie(id));
+      if (deleteMovie.fulfilled.match(result)) {
+        toast.success("Xóa thành công!");
         loadData();
       } else {
         toast.error("Xóa thất bại!");
@@ -143,100 +175,61 @@ export function MoviesManagement() {
                   </div>
                 </div>
 
-                {/* Movie grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-6">
-                    {movieStatus === 'idle' ? (
-                        <div className="col-span-full text-center py-10 text-gray-400">
-                            Đang tải dữ liệu...
-                        </div>
-                    ) : movies.length === 0 ? (
-                        <div className="col-span-full text-center py-10 text-gray-400">
-                            Không tìm thấy phim nào.
-                        </div>
-                    ) : (
-                        movies.map((movie: Movie) => (
-                            <div
-                                key={movie.id}
-                                className="bg-[#1e2939] border border-gray-700 rounded-lg overflow-hidden hover:shadow-lg transition group"
-                            >
-                                <div className="relative aspect-[2/3] overflow-hidden">
-                                    <img
-                                        src={movie.image}
-                                        alt={movie.title}
-                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                    />
-                                    <div className="absolute top-3 right-3">
-                                        <span
-                                            className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(
-                                                movie.status
-                                            )}`}
-                                        >
-                                            {movie.status}
-                                        </span>
-                                    </div>
-                                </div>
+                <div className="p-4">
+                  <h3
+                    className="text-white font-semibold mb-1 line-clamp-1"
+                    title={movie.title}
+                  >
+                    {movie.title}
+                  </h3>
 
-                                <div className="p-4">
-                                    <h3
-                                        className="text-white font-semibold mb-1 line-clamp-1"
-                                        title={movie.title}
-                                    >
-                                        {movie.title}
-                                    </h3>
+                  <p className="text-xs text-gray-400 mb-2 line-clamp-1">
+                    {movie.genres_movie?.map((g) => g.genreName).join(", ")}
+                  </p>
 
-                                    <p className="text-xs text-gray-400 mb-2 line-clamp-1">
-                                        {movie.genres_movie
-                                            ?.map((g) => g.genreName)
-                                            .join(', ')}
-                                    </p>
+                  <div className="flex items-center justify-between text-xs text-gray-400 mb-4">
+                    <span>⏳ {movie.duration} phút</span>
+                    <span className="font-medium">⭐ 7.6</span>
+                  </div>
 
-                                    <div className="flex items-center justify-between text-xs text-gray-400 mb-4">
-                                        <span>⏳ {movie.duration} phút</span>
-                                        <span className="font-medium">
-                                            ⭐ 7.6
-                                        </span>
-                                    </div>
-
-                                    <div className="flex gap-2">
-                                        <button
-                                            onClick={() => handleEdit(movie)}
-                                            className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-blue-500/20 text-blue-400 rounded-md hover:bg-blue-500/30 transition text-sm"
-                                        >
-                                            <Edit className="w-4 h-4" /> Sửa
-                                        </button>
-                                        <button
-                                            onClick={() =>
-                                                handleDelete(movie.id)
-                                            }
-                                            className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-red-500/20 text-red-400 rounded-md hover:bg-red-500/30 transition text-sm"
-                                        >
-                                            <Trash2 className="w-4 h-4" /> Xóa
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        ))
-                    )}
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleEdit(movie)}
+                      className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-blue-500/20 text-blue-400 rounded-md hover:bg-blue-500/30 transition text-sm"
+                    >
+                      <Edit className="w-4 h-4" /> Sửa
+                    </button>
+                    <button
+                      onClick={() => handleDelete(movie.id)}
+                      className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-red-500/20 text-red-400 rounded-md hover:bg-red-500/30 transition text-sm"
+                    >
+                      <Trash2 className="w-4 h-4" /> Xóa
+                    </button>
+                  </div>
                 </div>
-            </div>
-
-            {showModal && (
-                <MovieModal
-                    movie={editingMovie}
-                    onClose={() => {
-                        setShowModal(false);
-                        loadData();
-                    }}
-                />
-            )}
-
-            <div className="flex justify-center pb-8">
-                <PaginationComp
-                    pageSize={params.pageSize}
-                    total={20}
-                    onPageChange={handlePageChange}
-                />
-            </div>
+              </div>
+            ))
+          )}
         </div>
-    );
+      </div>
+
+      {showModal && (
+        <MovieModal
+          movie={editingMovie}
+          onClose={() => {
+            setShowModal(false);
+            loadData();
+          }}
+        />
+      )}
+
+      <div className="flex justify-center pb-8">
+        <PaginationComp
+          pageSize={params.pageSize}
+          total={20}
+          onPageChange={handlePageChange}
+        />
+      </div>
+    </div>
+  );
 }
