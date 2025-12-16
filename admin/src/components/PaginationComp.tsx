@@ -1,4 +1,4 @@
-import { Pagination } from "antd";
+import { Pagination, ConfigProvider } from "antd";
 import { useEffect, useState } from "react";
 import type { PaginationProps } from "antd";
 
@@ -24,31 +24,36 @@ export default function PaginationComp({
   });
 
   useEffect(() => {
-    if (onPageChange) {
-      onPageChange(currentPage, pageSize);
-    }
+    onPageChange?.(currentPage, pageSize);
   }, []);
 
   const handleChange: PaginationProps["onChange"] = (page, size) => {
-    console.log("Chuyển sang trang:", page);
-
     setCurrentPage(page);
-
     localStorage.setItem(LOCAL_STORAGE_KEY, String(page));
-
-    if (onPageChange) {
-      onPageChange(page, size);
-    }
+    onPageChange?.(page, size);
   };
 
   return (
-    <Pagination
-      current={currentPage}
-      pageSize={pageSize}
-      total={total}
-      onChange={handleChange}
-      align="center"
-      showSizeChanger={false}
-    />
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: "#ef4444",
+          colorText: "#ffffff",
+          colorTextSecondary: "#9ca3af",
+          colorBgContainer: "#1e2939",
+          colorBorder: "#374151",
+        },
+      }}
+    >
+      <Pagination
+        current={currentPage}
+        pageSize={pageSize}
+        total={total}
+        onChange={handleChange}
+        align="center"
+        showSizeChanger={false}
+        className="dark-pagination"
+      />
+    </ConfigProvider>
   );
 }

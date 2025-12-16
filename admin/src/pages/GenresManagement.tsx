@@ -19,7 +19,7 @@ export function GenresManagement() {
   );
 
   const [showModal, setShowModal] = useState(false);
-  const [editingGenre, setEditingGenre] = useState<any>(null);
+  const [editingGenre, setEditingGenre] = useState<MovieGenre | null>(null);
   const [genreName, setGenreName] = useState("");
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export function GenresManagement() {
     setShowModal(true);
   };
 
-  const handleEdit = (genre: any) => {
+  const handleEdit = (genre: MovieGenre) => {
     setEditingGenre(genre);
     setGenreName(genre.genreName);
     setShowModal(true);
@@ -53,12 +53,10 @@ export function GenresManagement() {
 
     const nameToCheck = genreName.trim().toLowerCase();
 
-    //KIỂM TRA TRÙNG TÊN KHI THÊM
     if (!editingGenre) {
       const isDuplicate = genres.some(
         (g) => g.genreName.trim().toLowerCase() === nameToCheck
       );
-
       if (isDuplicate) {
         Swal.fire({
           icon: "error",
@@ -72,14 +70,12 @@ export function GenresManagement() {
       }
     }
 
-    // KIỂM TRA TRÙNG TÊN KHI SỬA
     if (editingGenre) {
       const isDuplicate = genres.some(
         (g) =>
           g.id !== editingGenre.id &&
           g.genreName.trim().toLowerCase() === nameToCheck
       );
-
       if (isDuplicate) {
         Swal.fire({
           icon: "error",
@@ -93,7 +89,6 @@ export function GenresManagement() {
       }
     }
 
-    // GỌI API
     if (editingGenre) {
       dispatch(
         updateGenre({ id: editingGenre.id, genreName: genreName.trim() })
@@ -107,10 +102,10 @@ export function GenresManagement() {
     setEditingGenre(null);
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     const result = await Swal.fire({
       title: "Xóa thể loại?",
-      text: "Bạn có chắc chắn muốn xóa ?",
+      text: "Bạn có chắc chắn muốn xóa?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Xóa",
@@ -124,59 +119,57 @@ export function GenresManagement() {
   };
 
   return (
-    <div className=" min-h-screen bg-gray-50 py-8">
-      <div className="max-w-6xl mx-auto px-4">
-        {/* Header */}
+    <div className="min-h-screen bg-gray-900 p-8">
+      <div className="max-w-8xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-gray-900 mb-2 font-bold text-2xl">
+            <h1 className="text-white mb-2 font-bold text-3xl tracking-tight">
               Quản lý thể loại phim
             </h1>
-            <p className="text-gray-600">
+            <p className="text-gray-400">
               Tạo mới, chỉnh sửa và xóa thể loại phim
             </p>
           </div>
           <button
             onClick={handleAdd}
-            className="flex items-center gap-2 bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors shadow-md cursor-pointer"
+            className="flex items-center gap-2 bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition shadow-md"
           >
             <Plus className="w-5 h-5" />
             Thêm thể loại
           </button>
         </div>
 
-        {/* Bảng dữ liệu */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+        <div className="bg-[#1e2939] rounded-lg border border-gray-700 overflow-hidden">
           {status === "idle" ? (
             <div className="p-16 text-center">
               <div className="inline-block animate-spin rounded-full h-10 w-10 border-4 border-red-600 border-t-transparent"></div>
-              <p className="mt-4 text-gray-600">Đang tải dữ liệu...</p>
+              <p className="mt-4 text-gray-400">Đang tải dữ liệu...</p>
             </div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gray-50 border-b">
+                <thead className="border-b border-gray-700">
                   <tr>
-                    <th className="px-6 py-4 text-left text-sm font-medium text-gray-700">
-                      ID
-                    </th>
-                    <th className="px-6 py-4 text-left text-sm font-medium text-gray-700">
-                      Tên thể loại
-                    </th>
-                    <th className="px-6 py-4 text-left text-sm font-medium text-gray-700">
-                      Số lượng phim
-                    </th>
-                    <th className="px-6 py-4 text-right text-sm font-medium text-gray-700">
-                      Thao tác
-                    </th>
+                    {["ID", "Tên thể loại", "Số lượng phim", "Thao tác"].map(
+                      (h) => (
+                        <th
+                          key={h}
+                          className={`px-6 py-4 text-sm font-medium text-gray-400 ${
+                            h === "Thao tác" ? "text-right" : "text-left"
+                          }`}
+                        >
+                          {h}
+                        </th>
+                      )
+                    )}
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200">
+                <tbody className="divide-y divide-gray-700">
                   {genres.length === 0 ? (
                     <tr>
                       <td
                         colSpan={4}
-                        className="text-center py-16 text-gray-500"
+                        className="text-center py-16 text-gray-400"
                       >
                         Chưa có thể loại nào
                       </td>
@@ -185,28 +178,28 @@ export function GenresManagement() {
                     genres.map((genre: MovieGenre, index: number) => (
                       <tr
                         key={genre.id}
-                        className="hover:bg-gray-50 transition-colors"
+                        className="hover:bg-[#263445] transition"
                       >
-                        <td className="px-6 py-4 text-gray-900 font-medium">
+                        <td className="px-6 py-4 text-white font-medium">
                           #{index + 1}
                         </td>
-                        <td className="px-6 py-4 text-gray-900 font-semibold">
+                        <td className="px-6 py-4 text-white font-semibold">
                           {genre.genreName}
                         </td>
-                        <td className="px-6 py-4 text-gray-600 font-medium">
+                        <td className="px-6 py-4 text-gray-400 font-medium">
                           12
                         </td>
                         <td className="px-6 py-4">
                           <div className="flex justify-end gap-3">
                             <button
                               onClick={() => handleEdit(genre)}
-                              className="p-2.5 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-color cursor-pointer"
+                              className="p-2.5 bg-blue-500/20 text-blue-400 rounded-lg hover:bg-blue-500/30 transition"
                             >
                               <Edit className="w-5 h-5" />
                             </button>
                             <button
                               onClick={() => handleDelete(genre.id)}
-                              className="p-2.5 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors cursor-pointer"
+                              className="p-2.5 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 transition"
                             >
                               <Trash2 className="w-5 h-5" />
                             </button>
@@ -221,23 +214,22 @@ export function GenresManagement() {
           )}
         </div>
 
-        {/* Modal */}
         {showModal && (
-          <div className="fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
+          <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50">
+            <div className="bg-[#1e2939] rounded-2xl shadow-2xl max-w-md w-full p-8 border border-gray-700">
+              <h2 className="text-2xl font-bold text-white mb-6">
                 {editingGenre ? "Chỉnh sửa thể loại" : "Thêm thể loại mới"}
               </h2>
 
               <div className="mb-6">
-                <label className="block text-gray-700 font-medium mb-2">
+                <label className="block text-gray-400 font-medium mb-2">
                   Tên thể loại <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   value={genreName}
                   onChange={(e) => setGenreName(e.target.value)}
-                  className="w-full px-5 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 transition"
+                  className="w-full px-5 py-3 rounded-xl bg-[#263445] text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500"
                   placeholder="Ví dụ: Hành động, Tình cảm..."
                   autoFocus
                 />
@@ -250,14 +242,14 @@ export function GenresManagement() {
                     setEditingGenre(null);
                     setGenreName("");
                   }}
-                  className="flex-1 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition cursor-pointer"
+                  className="flex-1 py-3 border border-gray-600 text-gray-300 rounded-xl hover:bg-[#263445] transition"
                 >
                   Hủy
                 </button>
                 <button
                   onClick={handleSave}
                   disabled={!genreName.trim()}
-                  className="flex-1 py-3 bg-red-600 text-white font-bold rounded-xl hover:bg-red-700 transition disabled:opacity-60 cursor-pointer"
+                  className="flex-1 py-3 bg-red-600 text-white font-bold rounded-xl hover:bg-red-700 transition disabled:opacity-60"
                 >
                   {editingGenre ? "Cập nhật" : "Thêm mới"}
                 </button>

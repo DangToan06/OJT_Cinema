@@ -1,28 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X, LogOut } from 'lucide-react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import React, { useState, useEffect } from "react";
+import { Menu, X, LogOut } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
+import Swal from "sweetalert2";
 
-import logo from '../assets/image.png';
-import fb from '../assets/Facebook.png';
-import zalo from '../assets/Zalo.png';
-import ytb from '../assets/Youtube.png';
-import gp from '../assets/GG Play.png';
-import as from '../assets/App store.png';
-import tem from '../assets/Copyright.png';
+import logo from "../assets/image.png";
+import fb from "../assets/Facebook.png";
+import zalo from "../assets/Zalo.png";
+import ytb from "../assets/Youtube.png";
+import gp from "../assets/GG Play.png";
+import as from "../assets/App store.png";
+import tem from "../assets/Copyright.png";
 
-import LoginModal from '../components/Login';
-import RegisterModal from '../components/Register';
+import LoginModal from "../components/Login";
+import RegisterModal from "../components/Register";
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 interface UserInfo {
+  id?: string;
   first_name?: string;
   last_name?: string;
   email?: string;
   avatar?: string;
+  status?: string;
   role?: { role_name: string };
 }
 
@@ -31,66 +33,139 @@ export default function Layout({ children }: LayoutProps) {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState<UserInfo | null>(null);
-
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Lấy user từ localStorage
-  useEffect(() => {
-    const savedUser = localStorage.getItem('user');
-    if (savedUser) {
-      try {
-        setUser(JSON.parse(savedUser));
-      } catch {
-        localStorage.removeItem('user');
-      }
+  const performLogout = (reason: "manual" | "blocked") => {
+    localStorage.removeItem("user");
+    setUser(null);
+
+    if (reason === "blocked") {
+      Swal.fire({
+        icon: "error",
+        title: "Tài khoản bị chặn",
+        text: "Tài khoản của bạn đã bị chặn , bạn đã bị đăng xuất ",
+        confirmButtonText: "OK",
+        background: "#1e293b",
+        color: "#fff",
+        customClass: {
+          popup: "rounded-2xl",
+          confirmButton: "px-6 py-3 rounded-xl font-medium",
+        },
+      });
+    } else {
+      Swal.fire({
+        icon: "success",
+        title: "Đã đăng xuất thành công!",
+        toast: true,
+        position: "top-end",
+        timer: 2000,
+        showConfirmButton: false,
+        background: "#1e293b",
+        color: "#fff",
+      });
     }
+    navigate("/");
+  };
+
+  // Kiểm tra trạng thái user từ server
+  const checkUserStatus = async () => {
+    const savedUser = localStorage.getItem("user");
+    if (!savedUser) {
+      setUser(null);
+      return;
+    }
+
+    try {
+      const parsedUser: UserInfo = JSON.parse(savedUser);
+      if (!parsedUser.id) {
+        performLogout("manual");
+        return;
+      }
+
+      const res = await fetch(`http://localhost:8080/users/${parsedUser.id}`);
+      if (!res.ok) {
+        performLogout("manual");
+        return;
+      }
+
+      const currentUser = await res.json();
+
+      if (currentUser.status === "BLOCKED") {
+        performLogout("blocked");
+      } else {
+        // Cập nhật lại thông tin user nếu có thay đổi
+        setUser(currentUser);
+        localStorage.setItem("user", JSON.stringify(currentUser));
+      }
+    } catch (err) {
+      console.error("Lỗi khi kiểm tra trạng thái tài khoản:", err);
+    }
+  };
+
+  useEffect(() => {
+    checkUserStatus();
+  }, []);
+  const CheckLogin = (token) => {
+    if (!token) return null;
+    const payload = token.split(":")[0];
+    return JSON.parse(atob(payload));
+  };
+
+  useEffect(() => {
+    const handleFocus = () => checkUserStatus();
+    window.addEventListener("focus", handleFocus);
+    return () => window.removeEventListener("focus", handleFocus);
   }, []);
 
-  // Đăng xuất
-  const handleLogout = async () => {
+  useEffect(() => {
+    if (!user) return;
+
+    const interval = setInterval(() => {
+      checkUserStatus();
+    }, 30000);
+
+    return () => clearInterval(interval);
+  }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      checkUserStatus();
+    }
+  }, [location.pathname, mobileMenuOpen]);
+
+  // Xử lý đăng xuất
+  const handleManualLogout = async () => {
     const result = await Swal.fire({
-      title: 'Đăng xuất?',
-      text: 'Bạn có chắc chắn muốn đăng xuất khỏi tài khoản?',
-      icon: 'question',
+      title: "Đăng xuất?",
+      text: "Bạn có chắc chắn muốn đăng xuất khỏi tài khoản?",
+      icon: "question",
       showCancelButton: true,
-      confirmButtonText: 'Có, đăng xuất',
-      cancelButtonText: 'Hủy',
-      confirmButtonColor: '#dc2626',
-      cancelButtonColor: '#6b7280',
-      background: '#1e293b',
-      color: '#fff',
+      confirmButtonText: "Có, đăng xuất",
+      cancelButtonText: "Hủy",
+      confirmButtonColor: "#dc2626",
+      cancelButtonColor: "#6b7280",
+      background: "#1e293b",
+      color: "#fff",
       customClass: {
-        popup: 'rounded-2xl',
-        confirmButton: 'px-6 py-3 rounded-xl font-medium',
-        cancelButton: 'px-6 py-3 rounded-xl font-medium',
+        popup: "rounded-2xl",
+        confirmButton: "px-6 py-3 rounded-xl font-medium",
+        cancelButton: "px-6 py-3 rounded-xl font-medium",
       },
     });
 
     if (result.isConfirmed) {
-      localStorage.removeItem('user');
-      setUser(null);
-      Swal.fire({
-        icon: 'success',
-        title: 'Đã đăng xuất thành công!',
-        toast: true,
-        position: 'top-end',
-        timer: 2000,
-        showConfirmButton: false,
-        background: '#1e293b',
-        color: '#fff',
-      });
-      navigate('/');
+      performLogout("manual");
     }
   };
 
   const menuItems = [
-    { name: 'Trang chủ', link: '/' },
-    { name: 'Lịch chiếu', link: '/movie-calendar' },
-    { name: 'Tin tức', link: '/news' },
-    { name: 'Khuyến mãi', link: '/promotions' },
-    { name: 'Giá vé', link: '/ticketPrice' },
-    { name: 'Liên hoan phim', link: '/festival' },
+    { name: "Trang chủ", link: "/" },
+    { name: "Lịch chiếu", link: "/movie-calendar" },
+    { name: "Tin tức", link: "/news" },
+    { name: "Khuyến mãi", link: "/promotions" },
+    { name: "Giá vé", link: "/ticketPrice" },
+    { name: "Liên hoan phim", link: "/festival" },
   ];
 
   return (
@@ -111,7 +186,7 @@ export default function Layout({ children }: LayoutProps) {
               key={item.name}
               onClick={() => navigate(item.link)}
               className={`hover:text-red-500 transition ${
-                location.pathname === item.link ? 'text-red-500' : ''
+                location.pathname === item.link ? "text-red-500" : ""
               }`}
             >
               {item.name}
@@ -132,24 +207,24 @@ export default function Layout({ children }: LayoutProps) {
                   />
                 ) : (
                   <div className="w-9 h-9 bg-linear-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md">
-                    {(user.first_name || '?')[0].toUpperCase()}
+                    {(user.first_name || "?")[0].toUpperCase()}
                   </div>
                 )}
 
                 <div className="flex flex-col gap-1">
                   <span className="text-white font-semibold text-sm leading-tight">
-                    {user.first_name} {user.last_name}
+                    {user.first_name || ""} {user.last_name || ""}
                   </span>
                   <span className="text-gray-400 text-xs">
-                    {user.role?.role_name === 'admin'
-                      ? 'Quản trị viên'
-                      : 'Khách hàng'}
+                    {user.role?.role_name === "admin"
+                      ? "Quản trị viên"
+                      : "Khách hàng"}
                   </span>
                 </div>
               </div>
 
               <button
-                onClick={handleLogout}
+                onClick={handleManualLogout}
                 className="flex items-center gap-3 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-full transition-all shadow-lg hover:shadow-red-600/50 font-medium"
               >
                 <LogOut className="w-5 h-5" />
@@ -213,22 +288,22 @@ export default function Layout({ children }: LayoutProps) {
                     />
                   ) : (
                     <div className="w-14 h-14 bg-linear-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white font-bold text-2xl">
-                      {(user.first_name || '?')[0].toUpperCase()}
+                      {(user.first_name || "?")[0].toUpperCase()}
                     </div>
                   )}
                   <div>
                     <p className="text-white font-bold text-xl">
-                      {user.first_name} {user.last_name}
+                      {user.first_name || ""} {user.last_name || ""}
                     </p>
                     <p className="text-gray-400">
-                      {user.role?.role_name === 'admin'
-                        ? 'Quản trị viên'
-                        : 'Khách hàng'}
+                      {user.role?.role_name === "admin"
+                        ? "Quản trị viên"
+                        : "Khách hàng"}
                     </p>
                   </div>
                 </div>
                 <button
-                  onClick={handleLogout}
+                  onClick={handleManualLogout}
                   className="w-full py-4 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold flex items-center justify-center gap-3 transition"
                 >
                   <LogOut className="w-6 h-6" />
@@ -265,33 +340,66 @@ export default function Layout({ children }: LayoutProps) {
       <main className="flex-1 mt-20">{children}</main>
 
       {/* FOOTER */}
-      <footer className="bg-black text-white py-14 z-10">
+      <footer className="bg-black text-white py-16 z-10">
         <div className="max-w-6xl mx-auto px-6">
-          {/* Menu */}
           <div className="flex flex-wrap justify-center gap-x-10 gap-y-3 text-sm md:text-base font-medium">
-            {['Chính sách','Lịch chiếu','Tin tức','Giá vé','Hỏi đáp','Liên hệ'].map((item) => (
-              <span key={item} className="cursor-pointer hover:text-red-500 transition">
+            {[
+              "Chính sách",
+              "Lịch chiếu",
+              "Tin tức",
+              "Giá vé",
+              "Hỏi đáp",
+              "Liên hệ",
+            ].map((item) => (
+              <span
+                key={item}
+                className="cursor-pointer hover:text-red-500 transition"
+              >
                 {item}
               </span>
             ))}
           </div>
 
-          {/* Social + Store */}
           <div className="flex flex-wrap justify-center items-center gap-6 mt-10">
-            <img src={fb} className="w-8 h-8 cursor-pointer hover:opacity-80" />
-            <img src={zalo} className="w-8 h-8 cursor-pointer hover:opacity-80" />
-            <img src={ytb} className="w-8 h-8 cursor-pointer hover:opacity-80" />
-            <img src={gp} className="h-11 cursor-pointer hover:opacity-90" />
-            <img src={as} className="h-11 cursor-pointer hover:opacity-90" />
-            <img src={tem} className="h-[50px] cursor-pointer hover:opacity-90" />
+            <img
+              src={fb}
+              className="w-8 h-8 cursor-pointer hover:opacity-80"
+              alt="Facebook"
+            />
+            <img
+              src={zalo}
+              className="w-8 h-8 cursor-pointer hover:opacity-80"
+              alt="Zalo"
+            />
+            <img
+              src={ytb}
+              className="w-8 h-8 cursor-pointer hover:opacity-80"
+              alt="Youtube"
+            />
+            <img
+              src={gp}
+              className="h-11 cursor-pointer hover:opacity-90"
+              alt="Google Play"
+            />
+            <img
+              src={as}
+              className="h-11 cursor-pointer hover:opacity-90"
+              alt="App Store"
+            />
+            <img
+              src={tem}
+              className="h-[50px] cursor-pointer hover:opacity-90"
+              alt="Copyright"
+            />
           </div>
 
-          {/* Info */}
           <div className="mt-12 text-center flex flex-col gap-2 text-sm md:text-base leading-relaxed opacity-90">
             <p>Cơ quan chủ quản: BỘ VĂN HÓA, THỂ THAO VÀ DU LỊCH</p>
             <p>Bản quyền thuộc Trung tâm Chiếu phim Quốc gia.</p>
             <p>Giấy phép số: 224/GP - TTĐT ngày 31/8/2010</p>
-            <p>Địa chỉ: 87 Láng Hạ, Ba Đình, Hà Nội • Điện thoại: 024.35141791</p>
+            <p>
+              Địa chỉ: 87 Láng Hạ, Ba Đình, Hà Nội • Điện thoại: 024.35141791
+            </p>
             <div className="flex justify-center items-center gap-2 mt-2">
               <span>&copy; 2023 By NCC • All rights reserved.</span>
             </div>

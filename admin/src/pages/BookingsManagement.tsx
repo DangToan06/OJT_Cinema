@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Search, Filter, Download, Eye } from "lucide-react";
+import { Search, Filter, Download, Eye, X } from "lucide-react";
 
 export function BookingsManagement() {
+  // Dữ liệu mẫu (Mock data)
   const [bookings] = useState([
     {
       id: "BK001",
@@ -82,221 +83,257 @@ export function BookingsManagement() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "Đã thanh toán":
-        return "bg-green-100 text-green-700";
+        return "bg-green-500/20 text-green-400 border border-green-500/30";
       case "Đang xử lý":
-        return "bg-yellow-100 text-yellow-700";
+        return "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30";
       case "Đã hủy":
-        return "bg-red-100 text-red-700";
+        return "bg-red-500/20 text-red-400 border border-red-500/30";
       default:
-        return "bg-gray-100 text-gray-700";
+        return "bg-gray-700 text-gray-400";
     }
   };
 
   return (
-    <div>
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-gray-900 mb-2 font-bold text-2xl">
-            Quản lý đặt vé
-          </h1>
-          <p className="text-gray-600">Xem và quản lý tất cả các đơn đặt vé</p>
+    <div className="min-h-screen bg-gray-900 p-8 text-gray-100 font-sans">
+      <div className="max-w-8xl mx-auto">
+        <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+          <div>
+            <h1 className="text-white mb-2 font-bold text-3xl tracking-tight">
+              Quản lý Đặt vé
+            </h1>
+            <p className="text-gray-400">
+              Theo dõi doanh thu và trạng thái vé theo thời gian thực
+            </p>
+          </div>
+          <button className="flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg transition-all duration-200 shadow-lg shadow-red-600/20 font-medium">
+            <Download className="w-5 h-5" />
+            Xuất báo cáo
+          </button>
         </div>
-        <button className="flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors">
-          <Download className="w-5 h-5" />
-          Xuất báo cáo
-        </button>
-      </div>
 
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
-        <div className="p-6 border-b border-gray-200">
-          <div className="flex flex-col sm:flex-row gap-4">
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Tìm kiếm theo mã đơn, khách hàng, phim..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
-              />
-            </div>
-            <div className="relative">
-              <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <select
-                value={filterStatus}
-                onChange={(e) => setFilterStatus(e.target.value)}
-                className="pl-10 pr-8 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 appearance-none bg-white"
-              >
-                <option value="all">Tất cả trạng thái</option>
-                <option value="Đã thanh toán">Đã thanh toán</option>
-                <option value="Đang xử lý">Đang xử lý</option>
-                <option value="Đã hủy">Đã hủy</option>
-              </select>
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div className="bg-gray-800 rounded-xl p-6 border border-gray-700/50 hover:border-gray-600 transition-colors shadow-sm">
+            <p className="text-gray-400 text-sm font-medium mb-2">
+              Tổng đơn hôm nay
+            </p>
+            <p className="text-white font-bold text-2xl">125</p>
+          </div>
+          <div className="bg-gray-800 rounded-xl p-6 border border-gray-700/50 hover:border-gray-600 transition-colors shadow-sm">
+            <p className="text-gray-400 text-sm font-medium mb-2">
+              Đã thanh toán
+            </p>
+            <p className="text-green-400 font-bold text-2xl">98</p>
+          </div>
+          <div className="bg-gray-800 rounded-xl p-6 border border-gray-700/50 hover:border-gray-600 transition-colors shadow-sm">
+            <p className="text-gray-400 text-sm font-medium mb-2">Đang xử lý</p>
+            <p className="text-yellow-400 font-bold text-2xl">15</p>
+          </div>
+          <div className="bg-gray-800 rounded-xl p-6 border border-gray-700/50 hover:border-gray-600 transition-colors shadow-sm">
+            <p className="text-gray-400 text-sm font-medium mb-2">Đã hủy</p>
+            <p className="text-red-400 font-bold text-2xl">12</p>
           </div>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-4 text-left text-gray-600">Mã đơn</th>
-                <th className="px-6 py-4 text-left text-gray-600">Phim</th>
-                <th className="px-6 py-4 text-left text-gray-600">
-                  Khách hàng
-                </th>
-                <th className="px-6 py-4 text-left text-gray-600">
-                  Rạp & Phòng
-                </th>
-                <th className="px-6 py-4 text-left text-gray-600">
-                  Suất chiếu
-                </th>
-                <th className="px-6 py-4 text-left text-gray-600">Ghế</th>
-                <th className="px-6 py-4 text-left text-gray-600">Tổng tiền</th>
-                <th className="px-6 py-4 text-left text-gray-600">
-                  Trạng thái
-                </th>
-                <th className="px-6 py-4 text-right text-gray-600">Thao tác</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {filteredBookings.map((booking) => (
-                <tr key={booking.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4">
-                    <p className="text-gray-900">{booking.id}</p>
-                    <p className="text-xs text-gray-500">
-                      {booking.bookingDate}
-                    </p>
-                  </td>
-                  <td className="px-6 py-4 text-gray-900">{booking.movie}</td>
-                  <td className="px-6 py-4 text-gray-900">{booking.user}</td>
-                  <td className="px-6 py-4">
-                    <p className="text-gray-900">{booking.theater}</p>
-                    <p className="text-sm text-gray-500">{booking.screen}</p>
-                  </td>
-                  <td className="px-6 py-4 text-gray-600">
-                    {booking.showtime}
-                  </td>
-                  <td className="px-6 py-4 text-gray-900">
-                    {booking.seats.join(", ")}
-                  </td>
-                  <td className="px-6 py-4 text-gray-900">
-                    {booking.totalAmount.toLocaleString()} ₫
-                  </td>
-                  <td className="px-6 py-4">
-                    <span
-                      className={`px-3 py-1 rounded-full text-sm ${getStatusColor(
-                        booking.status
-                      )}`}
-                    >
-                      {booking.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <button
-                      onClick={() => setSelectedBooking(booking)}
-                      className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                    >
-                      <Eye className="w-5 h-5" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <p className="text-gray-600 mb-2">Tổng đơn hôm nay</p>
-          <p className="text-gray-900">125 đơn</p>
-        </div>
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <p className="text-gray-600 mb-2">Đã thanh toán</p>
-          <p className="text-green-600">98 đơn</p>
-        </div>
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <p className="text-gray-600 mb-2">Đang xử lý</p>
-          <p className="text-yellow-600">15 đơn</p>
-        </div>
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <p className="text-gray-600 mb-2">Đã hủy</p>
-          <p className="text-red-600">12 đơn</p>
-        </div>
-      </div>
-
-      {selectedBooking && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg max-w-2xl w-full">
-            <div className="p-6 border-b border-gray-200">
-              <h2 className="text-gray-900">Chi tiết đơn đặt vé</h2>
-            </div>
-            <div className="p-6 space-y-6">
-              <div className="flex items-start justify-between">
-                <div>
-                  <p className="text-sm text-gray-600">Mã đơn hàng</p>
-                  <p className="text-gray-900 text-xl">{selectedBooking.id}</p>
-                </div>
-                <span
-                  className={`px-4 py-2 rounded-full ${getStatusColor(
-                    selectedBooking.status
-                  )}`}
+        <div className="bg-gray-800 rounded-xl shadow-xl border border-gray-700 overflow-hidden">
+          <div className="p-6 border-b border-gray-700 bg-gray-800/50">
+            <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex-1 relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                <input
+                  type="text"
+                  placeholder="Tìm kiếm mã đơn, khách hàng, phim..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2.5 bg-gray-900 border border-gray-700 text-white rounded-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                />
+              </div>
+              <div className="relative min-w-[200px]">
+                <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                <select
+                  value={filterStatus}
+                  onChange={(e) => setFilterStatus(e.target.value)}
+                  className="w-full pl-10 pr-8 py-2.5 bg-gray-900 border border-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent appearance-none transition-all cursor-pointer"
                 >
-                  {selectedBooking.status}
-                </span>
+                  <option value="all">Tất cả trạng thái</option>
+                  <option value="Đã thanh toán">Đã thanh toán</option>
+                  <option value="Đang xử lý">Đang xử lý</option>
+                  <option value="Đã hủy">Đã hủy</option>
+                </select>
               </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <p className="text-sm text-gray-600 mb-1">Phim</p>
-                  <p className="text-gray-900">{selectedBooking.movie}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-600 mb-1">Khách hàng</p>
-                  <p className="text-gray-900">{selectedBooking.user}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-600 mb-1">Rạp chiếu</p>
-                  <p className="text-gray-900">{selectedBooking.theater}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-600 mb-1">Phòng chiếu</p>
-                  <p className="text-gray-900">{selectedBooking.screen}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-600 mb-1">Suất chiếu</p>
-                  <p className="text-gray-900">{selectedBooking.showtime}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-600 mb-1">Số ghế</p>
-                  <p className="text-gray-900">
-                    {selectedBooking.seats.join(", ")}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-600 mb-1">Thời gian đặt</p>
-                  <p className="text-gray-900">{selectedBooking.bookingDate}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-600 mb-1">Tổng tiền</p>
-                  <p className="text-gray-900 text-xl">
-                    {selectedBooking.totalAmount.toLocaleString()} ₫
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="p-6 border-t border-gray-200">
-              <button
-                onClick={() => setSelectedBooking(null)}
-                className="w-full px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
-              >
-                Đóng
-              </button>
             </div>
           </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead className="bg-gray-900/50 text-gray-400 uppercase tracking-wider font-medium text-xs">
+                <tr>
+                  <th className="px-6 py-4 text-left">Mã đơn / Ngày</th>
+                  <th className="px-6 py-4 text-left">Phim</th>
+                  <th className="px-6 py-4 text-left">Khách hàng</th>
+                  <th className="px-6 py-4 text-left">Rạp & Phòng</th>
+                  <th className="px-6 py-4 text-left">Suất & Ghế</th>
+                  <th className="px-6 py-4 text-left">Tổng tiền</th>
+                  <th className="px-6 py-4 text-left">Trạng thái</th>
+                  <th className="px-6 py-4 text-right">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-700/50">
+                {filteredBookings.map((booking) => (
+                  <tr
+                    key={booking.id}
+                    className="hover:bg-gray-700/30 transition-colors duration-150 group"
+                  >
+                    <td className="px-6 py-4">
+                      <p className="text-white font-semibold">{booking.id}</p>
+                      <p className="text-xs text-gray-500 mt-1">
+                        {booking.bookingDate}
+                      </p>
+                    </td>
+                    <td className="px-6 py-4 text-gray-300 font-medium">
+                      {booking.movie}
+                    </td>
+                    <td className="px-6 py-4 text-gray-300">{booking.user}</td>
+                    <td className="px-6 py-4">
+                      <p className="text-gray-300">{booking.theater}</p>
+                      <span className="inline-block mt-1 text-xs bg-gray-700 text-gray-300 px-2 py-0.5 rounded">
+                        {booking.screen}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <p className="text-gray-300">{booking.showtime}</p>
+                      <p className="text-xs text-gray-500 mt-1">
+                        Ghế:{" "}
+                        <span className="text-gray-300">
+                          {booking.seats.join(", ")}
+                        </span>
+                      </p>
+                    </td>
+                    <td className="px-6 py-4 text-red-400 font-bold">
+                      {booking.totalAmount.toLocaleString()} ₫
+                    </td>
+                    <td className="px-6 py-4">
+                      <span
+                        className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(
+                          booking.status
+                        )}`}
+                      >
+                        {booking.status}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-right">
+                      <button
+                        onClick={() => setSelectedBooking(booking)}
+                        className="p-2 text-gray-400 hover:text-white hover:bg-red-600 rounded-lg transition-all duration-200"
+                        title="Xem chi tiết"
+                      >
+                        <Eye className="w-5 h-5" />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {filteredBookings.length === 0 && (
+              <div className="p-12 text-center text-gray-500">
+                Không tìm thấy đơn hàng nào phù hợp.
+              </div>
+            )}
+          </div>
         </div>
-      )}
+
+        {selectedBooking && (
+          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+            <div className="bg-gray-800 border border-gray-700 rounded-xl max-w-2xl w-full shadow-2xl animate-in fade-in zoom-in duration-200">
+              <div className="flex items-center justify-between p-6 border-b border-gray-700">
+                <h2 className="text-white text-xl font-bold">Chi tiết vé</h2>
+                <button
+                  onClick={() => setSelectedBooking(null)}
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+
+              <div className="p-6 space-y-6">
+                <div className="flex items-center justify-between bg-gray-900/50 p-4 rounded-lg border border-gray-700/50">
+                  <div>
+                    <p className="text-sm text-gray-500">Mã đơn hàng</p>
+                    <p className="text-white text-2xl font-bold tracking-wide">
+                      {selectedBooking.id}
+                    </p>
+                  </div>
+                  <span
+                    className={`px-4 py-2 rounded-full font-medium text-sm ${getStatusColor(
+                      selectedBooking.status
+                    )}`}
+                  >
+                    {selectedBooking.status}
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 gap-x-8 gap-y-6">
+                  <div>
+                    <p className="text-sm text-gray-500 mb-1">Phim</p>
+                    <p className="text-white font-medium text-lg">
+                      {selectedBooking.movie}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500 mb-1">Khách hàng</p>
+                    <p className="text-white font-medium">
+                      {selectedBooking.user}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500 mb-1">Rạp chiếu</p>
+                    <p className="text-white">{selectedBooking.theater}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500 mb-1">Phòng chiếu</p>
+                    <p className="text-white">{selectedBooking.screen}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500 mb-1">Suất chiếu</p>
+                    <p className="text-white">{selectedBooking.showtime}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500 mb-1">Số ghế</p>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedBooking.seats.map((seat: string) => (
+                        <span
+                          key={seat}
+                          className="bg-gray-700 text-white px-2 py-1 rounded text-sm"
+                        >
+                          {seat}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500 mb-1">Thời gian đặt</p>
+                    <p className="text-white">{selectedBooking.bookingDate}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500 mb-1">Tổng tiền</p>
+                    <p className="text-red-500 text-2xl font-bold">
+                      {selectedBooking.totalAmount.toLocaleString()} ₫
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-6 border-t border-gray-700 flex justify-end">
+                <button
+                  onClick={() => setSelectedBooking(null)}
+                  className="px-6 py-2.5 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors font-medium"
+                >
+                  Đóng
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

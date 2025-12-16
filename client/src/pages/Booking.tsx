@@ -1,6 +1,7 @@
 import axios from "axios";
 import screen from "../assets/imgs/screen 1.png";
 import { useEffect, useState } from "react";
+import DetailModal from "./Detail";
 export type Genre = {
   id: number;
   genre_name: string;
@@ -46,8 +47,14 @@ export default function ChooseTicket() {
   const [seconds, setSeconds] = useState(0);
   const [hour, setHour] = useState("");
   const [choosingSeats, setChoosingSeats] = useState<Seat[]>([]);
-
+  const [openTrailer, setOpenTrailer] = useState(false);
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    document.body.style.overflow = openTrailer ? "hidden" : "auto";
+  }, [openTrailer]);
   const [data, setData] = useState<Movie | null>(null);
+  const title = data?.title;
+  const content = data?.description;
   useEffect(() => {
     axios
       .get(`http://localhost:8080/movies/${window.location.href.split("?")[1]}`)
@@ -75,17 +82,17 @@ export default function ChooseTicket() {
       };
     });
   };
-  useEffect(() => {
-    setChoosingSeats([]);
-    data?.showtimes.map((p) => {
-      p.seats.map((s) => {
-        if (s.booked) {
-          const seatBeenChoosing: Seat = { seat: s.seat, booked: s.booked, price: s.price, type: s.type };
-          setChoosingSeats((prev) => [...prev, seatBeenChoosing]);
-        }
-      });
-    });
-  }, [data?.showtimes]);
+  // useEffect(() => {
+  //   setChoosingSeats([]);
+  //   data?.showtimes.map((p) => {
+  //     p.seats?.map((s) => {
+  //       if (s.booked) {
+  //         const seatBeenChoosing: Seat = { seat: s.seat, booked: s.booked, price: s.price, type: s.type };
+  //         setChoosingSeats((prev) => [...prev, seatBeenChoosing]);
+  //       }
+  //     });
+  //   });
+  // }, [data?.showtimes]);
   useEffect(() => {
     if (showing) {
       const timer = setTimeout(() => {
@@ -154,19 +161,46 @@ export default function ChooseTicket() {
                 </p>
                 <p>{data?.description}</p>
                 <div className="mt-4 flex gap-4 items-center">
-                  <a
-                    href="https://chieuphimquocgia.com.vn/moviess/10415"
-                    className="text-white underline text-sm font-medium"
-                  >
+                  <button className="text-white underline text-sm font-medium"
+                  onClick={() => {setOpen(true)}}>
                     Chi tiết nội dung
-                  </a>
-                  <a
-                    href="https://www.youtube.com/watch?v=52qrqrOw4PE&embeds_referring_euri=https%3A%2F%2Fchieuphimquocgia.com.vn%2F&source_ve_path=OTY3MTQ"
+                  </button>
+                  <button
+                    onClick={() => setOpenTrailer(true)}
                     className="text-[#EAB308] text-sm border-[#EAB308] border  rounded-full p-3 font-medium"
                   >
                     Xem trailer
-                  </a>
+                  </button>
                 </div>
+                {openTrailer && (
+                  <div className="fixed inset-0 z-50 flex items-center justify-center">
+                    {/* Overlay */}
+                    <div
+                      className="absolute inset-0 bg-black/70"
+                      onClick={() => setOpenTrailer(false)}
+                    />
+
+                    {/* Box Trailer */}
+                    <div className="relative z-10 w-[80%] max-w-4xl aspect-video bg-black rounded-xl overflow-hidden shadow-xl">
+                      {/* Close */}
+                      <button
+                        onClick={() => setOpenTrailer(false)}
+                        className="absolute top-2 right-3 text-white text-3xl hover:scale-110"
+                      >
+                        ✕
+                      </button>
+
+                      {/* YouTube iframe */}
+                      <iframe
+                        className="w-full h-full"
+                        src={data?.trailer}
+                        title="Trailer"
+                        allow="autoplay; encrypted-media"
+                        allowFullScreen
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </main>
@@ -281,7 +315,12 @@ export default function ChooseTicket() {
               <p>
                 Tổng tiền:
                 <span id="total-price" className="text-yellow-400 ml-1">
-                  {choosingSeats.reduce((sum, curr) => sum + curr.price, 0).toLocaleString('vi', {style : 'currency', currency : 'VND'})}
+                  {choosingSeats
+                    .reduce((sum, curr) => sum + curr.price, 0)
+                    .toLocaleString("vi", {
+                      style: "currency",
+                      currency: "VND",
+                    })}
                 </span>
               </p>
             </div>
@@ -301,6 +340,12 @@ export default function ChooseTicket() {
           </div>
         </div>
       </main>
+      <DetailModal
+        title={title}
+        content={content}
+        setOpen={open}
+        onClose={() => setOpen(false)}
+      />
     </div>
   );
 }

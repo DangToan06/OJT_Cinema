@@ -8,8 +8,11 @@ import MovieCalendar from "../pages/MovieCalendar";
 import HomePage from "../pages/HomePage";
 import TcketPrice from "../pages/TicketPrice";
 import FestivalPage from "../pages/FestivalPage";
-import Booking from "../pages/Booking"
+import Booking from "../pages/Booking";
 import Promotions from "../pages/Promotions";
+import FestivalDetails from "../pages/FestivalDetail";
+import NewsDetail from "../pages/NewDetail";
+import PromotionDetail from "../pages/PromotionDetail";
 export const routers = createBrowserRouter([
   {
     path: "/news",
@@ -75,8 +78,32 @@ export const routers = createBrowserRouter([
     path: "/promotions",
     element: (
       <Layout>
-        <Promotions/>
+        <Promotions />
       </Layout>
     )
-  }
+  },
+  {
+    path: "/festivalDetail",
+    element: (
+      <Layout>
+        <FestivalDetails/>
+      </Layout>
+    )
+  },
+  {
+    path: "/newDetail",
+    element: (
+      <Layout>
+        <NewsDetail/>
+      </Layout>
+    )
+  },
+  {
+    path: "/promotionDetail",
+    element: (
+      <Layout>
+        <PromotionDetail/>
+      </Layout>
+    )
+  },
 ]);
