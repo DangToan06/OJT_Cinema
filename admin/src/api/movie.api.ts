@@ -10,14 +10,6 @@ interface FetchMoviesParams {
   status?: string;
 }
 
-// export const getAllMovies = createAsyncThunk(
-//   "movies/getAllmovies",
-//   async () => {
-//     const response = await axiosInstance.get("movies");
-//     return response.data;
-//   }
-// );
-
 export const addNewMovie = createAsyncThunk(
   "movies/addNewMovie",
   async (movieData: Movie) => {

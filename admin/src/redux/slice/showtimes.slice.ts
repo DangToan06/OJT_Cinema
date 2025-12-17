@@ -1,11 +1,16 @@
-
 import { createSlice } from "@reduxjs/toolkit";
-import { createShowtime, deleteShowtime, fetchShowtimes, updateShowtime } from "../../api/showtimes.api";
+import {
+  createShowtime,
+  deleteShowtime,
+  fetchShowtimes,
+  updateShowtime,
+} from "../../api/showtimes.api";
+import type { Showtimes } from "../../util/type.util";
 
 const showtimesSlice = createSlice({
   name: "showtimes",
   initialState: {
-    data: [] as any[],
+    data: [] as Showtimes[],
     loading: false,
     error: null as string | null,
   },
@@ -25,7 +30,7 @@ const showtimesSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
-        // them sua xoa
+      // them sua xoa
       .addCase(createShowtime.rejected, (state, action) => {
         state.error = action.payload as string;
       })

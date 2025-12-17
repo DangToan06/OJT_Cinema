@@ -19,15 +19,15 @@ import TheaterCard from '../components/TheaterCard';
 import ModalAddTheater from '../components/ModalAddTheater';
 
 export function TheatersManagement() {
-    const dataTheaters: InitialTheaterState = useAppSelector((s) => s.theater);
-    const dispatch = useAppDispatch();
-    useEffect(() => {
-        if (dataTheaters.theaters.length === 0) {
-            dispatch(getAllTheaters());
-        }
-    }, [dispatch, dataTheaters.theaters.length]);
+  const dataTheaters: InitialTheaterState = useAppSelector((s) => s.theater);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (dataTheaters.theaters.length === 0) {
+      dispatch(getAllTheaters());
+    }
+  }, [dispatch, dataTheaters.theaters.length]);
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [formData, setFormData] =
         useState<Omit<ITheater, 'id'>>(initialTheater);
@@ -38,37 +38,37 @@ export function TheatersManagement() {
     );
     const [theaterToEdit, setTheaterToEdit] = useState<ITheater | null>(null);
 
-    const handleDeleteClick = (theater: ITheater) => {
-        setTheaterToDelete(theater);
-        setIsDeleteModalOpen(true);
-    };
+  const handleDeleteClick = (theater: ITheater) => {
+    setTheaterToDelete(theater);
+    setIsDeleteModalOpen(true);
+  };
 
-    const handleConfirmDelete = () => {
-        if (theaterToDelete) {
-            dispatch(deleteTheater(theaterToDelete.id));
-            notify.success('Xóa rạp chiếu phim thành công');
-            setIsDeleteModalOpen(false);
-            setTheaterToDelete(null);
-        }
-    };
+  const handleConfirmDelete = () => {
+    if (theaterToDelete) {
+      dispatch(deleteTheater(theaterToDelete.id));
+      notify.success("Xóa rạp chiếu phim thành công");
+      setIsDeleteModalOpen(false);
+      setTheaterToDelete(null);
+    }
+  };
 
-    const handleCancelDelete = () => {
-        setIsDeleteModalOpen(false);
-        setTheaterToDelete(null);
-    };
+  const handleCancelDelete = () => {
+    setIsDeleteModalOpen(false);
+    setTheaterToDelete(null);
+  };
 
-    const handleInputChange = (
-        e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-    };
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
         const newTheater = {
             id: uuidv4(),
@@ -88,20 +88,27 @@ export function TheatersManagement() {
         setFormData(initialTheater);
     };
 
-    const toggleStatus = (id: string) => {
-        dispatch(
-            updateStatusTheater({
-                id,
-                status:
-                    dataTheaters.theaters.find((theater) => theater.id === id)
-                        ?.status === 'Đang hoạt động'
-                        ? 'Ngừng hoạt động'
-                        : 'Đang hoạt động',
-            })
-        );
-    };
+  const toggleStatus = (id: string) => {
+    dispatch(
+      updateStatusTheater({
+        id,
+        status:
+          dataTheaters.theaters.find((theater) => theater.id === id)?.status ===
+          "Đang hoạt động"
+            ? "Ngừng hoạt động"
+            : "Đang hoạt động",
+      })
+    );
+  };
 
-    return (
+  const inputClass =
+    "w-full px-4 py-3 bg-gray-800 border-2 border-gray-700 text-white rounded-xl focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 outline-none placeholder-gray-500";
+  const labelClass = "block text-sm font-semibold text-gray-300 mb-2";
+
+  return (
+    <div className="p-8 min-h-screen bg-gray-900">
+      {" "}
+      <div className="flex items-center justify-between mb-8">
         <div>
             <div className="flex items-center justify-between mb-8">
                 <div>
@@ -176,56 +183,52 @@ export function TheatersManagement() {
                             </div>
                         </div>
 
-                        {/* Body */}
-                        <div className="p-6">
-                            <p className="text-gray-700 mb-4">
-                                Bạn có chắc chắn muốn xóa rạp chiếu phim này
-                                không?
-                            </p>
+            <div className="p-6">
+              <p className="text-gray-300 mb-4">
+                Bạn có chắc chắn muốn xóa rạp chiếu phim này không?
+              </p>
 
-                            <div className="bg-gray-50 rounded-xl p-4 mb-6">
-                                <div className="flex items-start gap-3">
-                                    <div className="p-2 bg-red-100 rounded-lg">
-                                        <Theater className="w-5 h-5 text-red-600" />
-                                    </div>
-                                    <div>
-                                        <p className="font-semibold text-gray-900 mb-1">
-                                            {theaterToDelete.name}
-                                        </p>
-                                        <p className="text-sm text-gray-600">
-                                            {theaterToDelete.address}
-                                        </p>
-                                        <p className="text-sm text-gray-500 mt-1">
-                                            {theaterToDelete.screens} phòng
-                                            chiếu
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Buttons */}
-                            <div className="flex gap-3">
-                                <button
-                                    onClick={handleCancelDelete}
-                                    className="flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 font-semibold 
-                        rounded-xl hover:bg-gray-50 transition-all cursor-pointer"
-                                >
-                                    Hủy
-                                </button>
-
-                                <button
-                                    onClick={handleConfirmDelete}
-                                    className="flex-1 px-6 py-3 bg-linear-to-r from-red-600 to-red-700
-                        hover:from-red-700 hover:to-red-800 text-white font-semibold 
-                        rounded-xl transition-all hover:scale-105 hover:shadow-xl cursor-pointer"
-                                >
-                                    Xóa Rạp
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+              <div className="bg-gray-800 border border-gray-700 rounded-xl p-4 mb-6">
+                <div className="flex items-start gap-3">
+                  <div className="p-2 bg-red-900/20 rounded-lg">
+                    <Theater className="w-5 h-5 text-red-500" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-white mb-1">
+                      {theaterToDelete.name}
+                    </p>
+                    <p className="text-sm text-gray-400">
+                      {theaterToDelete.address}
+                    </p>
+                    <p className="text-sm text-gray-500 mt-1">
+                      {theaterToDelete.screens} phòng chiếu
+                    </p>
+                  </div>
                 </div>
-            )}
+              </div>
+
+              <div className="flex gap-3">
+                <button
+                  onClick={handleCancelDelete}
+                  className="flex-1 px-6 py-3 border border-gray-600 text-gray-300 font-semibold 
+                         rounded-xl hover:bg-gray-800 transition-all cursor-pointer"
+                >
+                  Hủy
+                </button>
+
+                <button
+                  onClick={handleConfirmDelete}
+                  className="flex-1 px-6 py-3 bg-gradient-to-r from-red-700 to-red-800
+                         hover:from-red-600 hover:to-red-700 text-white font-semibold 
+                         rounded-xl transition-all hover:scale-105 hover:shadow-xl cursor-pointer"
+                >
+                  Xóa Rạp
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-    );
+      )}
+    </div>
+  );
 }

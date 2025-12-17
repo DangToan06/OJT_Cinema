@@ -10,8 +10,8 @@ export const fetchShowtimes = createAsyncThunk(
     try {
       const res = await axios.get(API_URL);
       return res.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response?.data || "Lỗi tải lịch chiếu");
+    } catch (error) {
+      return rejectWithValue(error || "Lỗi tải lịch chiếu");
     }
   }
 );
@@ -25,8 +25,8 @@ export const createShowtime = createAsyncThunk(
       // Tự động fetch lại để đồng bộ UI
       dispatch(fetchShowtimes());
       return res.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response?.data || "Lỗi tạo suất chiếu");
+    } catch (error) {
+      return rejectWithValue(error || "Lỗi tạo suất chiếu");
     }
   }
 );
@@ -34,13 +34,16 @@ export const createShowtime = createAsyncThunk(
 /* sửa */
 export const updateShowtime = createAsyncThunk(
   "showtimes/update",
-  async ({ id, data }: { id: number; data: any }, { rejectWithValue, dispatch }) => {
+  async (
+    { id, data }: { id: number; data: any },
+    { rejectWithValue, dispatch }
+  ) => {
     try {
       const res = await axios.put(`${API_URL}/${id}`, data);
       dispatch(fetchShowtimes());
       return res.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response?.data || "Lỗi cập nhật");
+    } catch (error) {
+      return rejectWithValue(error || "Lỗi cập nhật");
     }
   }
 );
@@ -48,13 +51,13 @@ export const updateShowtime = createAsyncThunk(
 /* xóa */
 export const deleteShowtime = createAsyncThunk(
   "showtimes/delete",
-  async (id: number, { rejectWithValue, dispatch }) => {
+  async (id: string, { rejectWithValue, dispatch }) => {
     try {
       await axios.delete(`${API_URL}/${id}`);
       dispatch(fetchShowtimes());
       return id;
-    } catch (error: any) {
-      return rejectWithValue(error.response?.data || "Lỗi xóa");
+    } catch (error) {
+      return rejectWithValue(error || "Lỗi xóa");
     }
   }
 );

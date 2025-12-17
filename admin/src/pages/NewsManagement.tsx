@@ -67,51 +67,59 @@ export function NewsManagement() {
         setFormData(initialNews);
     };
 
-    const handleDeleteClick = (item: News) => {
-        setSelectedItem(item);
-        setShowDeleteModal(true);
-    };
+  const handleDeleteClick = (item: News) => {
+    setSelectedItem(item);
+    setShowDeleteModal(true);
+  };
 
-    const handleCancelDelete = () => {
-        setShowDeleteModal(false);
-        setSelectedItem(null);
-    };
+  const handleCancelDelete = () => {
+    setShowDeleteModal(false);
+    setSelectedItem(null);
+  };
 
-    const handleConfirmDelete = () => {
-        dispatch(deleteNews(selectedItem!.id));
-        notify.success('Xóa tin tức thành công');
-        setShowDeleteModal(false);
-        setSelectedItem(null);
-    };
+  const handleConfirmDelete = () => {
+    dispatch(deleteNews(selectedItem!.id));
+    notify.success("Xóa tin tức thành công");
+    setShowDeleteModal(false);
+    setSelectedItem(null);
+  };
 
-    const updateField = (field: keyof News, value: string) => {
-        setFormData({ ...formData, [field]: value });
-    };
+  const updateField = (field: keyof News, value: string) => {
+    setFormData({ ...formData, [field]: value });
+  };
 
-    const getStatusColor = (status: string) => {
-        switch (status) {
-            case 'Đang hoạt động':
-                return 'bg-green-100 text-green-700';
-            case 'Sắp diễn ra':
-                return 'bg-blue-100 text-blue-700';
-            case 'Đã kết thúc':
-                return 'bg-gray-100 text-gray-700';
-            default:
-                return 'bg-gray-100 text-gray-700';
-        }
-    };
+  // Cập nhật màu status cho Dark Mode (nền trong suốt, chữ sáng)
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "Đang hoạt động":
+        return "bg-green-500/20 text-green-400 border border-green-500/30";
+      case "Sắp diễn ra":
+        return "bg-blue-500/20 text-blue-400 border border-blue-500/30";
+      case "Đã kết thúc":
+        return "bg-gray-700/50 text-gray-400 border border-gray-600";
+      default:
+        return "bg-gray-700/50 text-gray-400";
+    }
+  };
 
-    const getStatus = (dayBegin: string, dayEnd: string): string => {
-        const now = new Date();
-        const begin = new Date(dayBegin);
-        const end = new Date(dayEnd);
+  const getStatus = (dayBegin: string, dayEnd: string): string => {
+    const now = new Date();
+    const begin = new Date(dayBegin);
+    const end = new Date(dayEnd);
 
-        if (now < begin) return 'Sắp diễn ra';
-        if (now >= begin && now <= end) return 'Đang hoạt động';
-        return 'Đã kết thúc';
-    };
+    if (now < begin) return "Sắp diễn ra";
+    if (now >= begin && now <= end) return "Đang hoạt động";
+    return "Đã kết thúc";
+  };
 
-    return (
+  const inputClass =
+    "w-full px-3 py-2.5 bg-gray-800 border border-gray-700 text-white rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all placeholder-gray-500";
+  const labelClass = "block text-sm font-medium text-gray-300 mb-1.5";
+
+  return (
+    <div className="p-8 min-h-screen bg-gray-900">
+      {" "}
+      <div className="flex items-center justify-between mb-8">
         <div>
             <div className="flex items-center justify-between mb-8">
                 <div>
@@ -175,53 +183,54 @@ export function NewsManagement() {
                                     </h3>
                                 </div>
 
-                                <button
-                                    onClick={handleCancelDelete}
-                                    className="p-2 hover:bg-white/20 rounded-xl transition-all duration-200"
-                                >
-                                    <X className="w-6 h-6 text-white" />
-                                </button>
-                            </div>
-                        </div>
+                <button
+                  onClick={handleCancelDelete}
+                  className="p-2 hover:bg-white/10 rounded-xl transition-all duration-200 text-white"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+            </div>
 
-                        {/* Content */}
-                        <div className="p-7">
-                            <p className="text-gray-700 text-lg mb-6 leading-relaxed">
-                                Bạn có chắc chắn muốn xóa tin tức này không?
-                                <span className="font-semibold text-red-600">
-                                    {' '}
-                                    Hành động này không thể hoàn tác.
-                                </span>
-                            </p>
+            <div className="p-7">
+              <p className="text-gray-300 text-lg mb-6 leading-relaxed">
+                Bạn có chắc chắn muốn xóa tin tức này không?
+                <br />
+                <span className="font-semibold text-red-400 text-sm mt-1 block">
+                  Hành động này không thể hoàn tác.
+                </span>
+              </p>
 
-                            {selectedItem && (
-                                <div className="bg-linear-to-br from-gray-50 to-gray-100 rounded-2xl p-5 border-2 border-gray-200 mb-6 shadow-inner">
-                                    <p className="font-bold text-gray-900 mb-2 text-lg">
-                                        {selectedItem.title}
-                                    </p>
-                                </div>
-                            )}
-
-                            {/* Buttons */}
-                            <div className="flex gap-4">
-                                <button
-                                    onClick={handleCancelDelete}
-                                    className="flex-1 px-6 py-4 bg-linear-to-r from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 text-gray-700 font-bold rounded-2xl transition-all duration-300 hover:shadow-lg"
-                                >
-                                    Hủy bỏ
-                                </button>
-
-                                <button
-                                    onClick={handleConfirmDelete}
-                                    className="flex-1 px-6 py-4 bg-linear-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold rounded-2xl transition-all duration-300 hover:shadow-xl hover:shadow-red-500/40 hover:scale-105"
-                                >
-                                    Xóa ngay
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+              {selectedItem && (
+                <div className="bg-gray-800 rounded-2xl p-4 border border-gray-700 mb-6 shadow-inner">
+                  <p className="font-bold text-gray-200 mb-2 text-lg line-clamp-1">
+                    {selectedItem.title}
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    ID: {selectedItem.id.slice(0, 8)}...
+                  </p>
                 </div>
-            )}
+              )}
+
+              <div className="flex gap-4">
+                <button
+                  onClick={handleCancelDelete}
+                  className="flex-1 px-6 py-3 bg-gray-800 hover:bg-gray-700 border border-gray-600 text-gray-200 font-bold rounded-xl transition-all duration-300 hover:shadow-lg"
+                >
+                  Hủy bỏ
+                </button>
+
+                <button
+                  onClick={handleConfirmDelete}
+                  className="flex-1 px-6 py-3 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-red-900/40 hover:scale-105"
+                >
+                  Xóa ngay
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-    );
+      )}
+    </div>
+  );
 }

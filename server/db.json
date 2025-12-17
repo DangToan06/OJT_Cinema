@@ -1,1413 +1,1837 @@
 {
-    "users": [
+  "users": [
+    {
+      "id": "1",
+      "first_name": "Admin",
+      "last_name": "System",
+      "email": "admin@cinema.com",
+      "password": "123456",
+      "avatar": "https://example.com/avatars/admin.jpg",
+      "phone": "0901234567",
+      "address": "123 Hanoi, Vietnam",
+      "status": "ACTIVE",
+      "created_at": "2023-01-01T10:00:00Z",
+      "updated_at": "2023-01-01T10:00:00Z",
+      "role": {
+        "id": 1,
+        "role_name": "admin"
+      }
+    },
+    {
+      "id": "2",
+      "first_name": "Nguyen",
+      "last_name": "Van A",
+      "email": "vana@gmail.com",
+      "password": "123456",
+      "avatar": "https://example.com/avatars/user2.jpg",
+      "phone": "0987654321",
+      "address": "456 Danang, Vietnam",
+      "status": "ACTIVE",
+      "created_at": "2023-05-15T14:30:00Z",
+      "updated_at": "2023-05-15T14:30:00Z",
+      "role": {
+        "id": 2,
+        "role_name": "user"
+      }
+    },
+    {
+      "id": "7306",
+      "first_name": "huy",
+      "last_name": "deptrai",
+      "email": "huydeptrai@gmail.com",
+      "phone": "0987654321",
+      "password": "123456",
+      "avatar": "",
+      "address": "",
+      "status": "ACTIVE",
+      "created_at": "2025-12-15T00:45:57.354Z",
+      "updated_at": "2025-12-15T00:45:57.354Z",
+      "role": {
+        "id": 2,
+        "role_name": "user"
+      }
+    },
+    {
+      "id": "a67a",
+      "first_name": "tôn",
+      "last_name": "huy",
+      "email": "tonhuy@gmail.com",
+      "phone": "0978563412",
+      "password": "123456",
+      "avatar": "",
+      "address": "",
+      "status": "ACTIVE",
+      "created_at": "2025-12-15T00:50:40.474Z",
+      "updated_at": "2025-12-15T00:50:40.474Z",
+      "role": {
+        "id": 2,
+        "role_name": "user"
+      }
+    }
+  ],
+  "bookings": [
+    {
+      "id": "1",
+      "user_id": 2,
+      "showtime_id": 1,
+      "total_seat": 1,
+      "total_price_movie": 75000,
+      "created_at": "2022-12-01T00:00:00Z"
+    },
+    {
+      "id": "2",
+      "user_id": 2,
+      "showtime_id": 1,
+      "total_seat": 1,
+      "total_price_movie": 75000,
+      "created_at": "2022-12-01T00:00:00Z"
+    },
+    {
+      "id": "3",
+      "user_id": 3,
+      "showtime_id": 1,
+      "total_seat": 1,
+      "total_price_movie": 75000,
+      "created_at": "2022-12-01T00:00:00Z"
+    }
+  ],
+  "theaters": [
+    {
+      "id": "8f4d5c4e-2b7e-4e9b-9c12-4f9a2d3b7c91",
+      "name": "NCC Bà Triệu",
+      "address": "191 Bà Triệu, Hai Bà Trưng, Hà Nội",
+      "phone": "1900 6017",
+      "website": "https://www.cgv.vn",
+      "screens": 8,
+      "status": "Đang hoạt động"
+    },
+    {
+      "id": "d99b0bb2-dfb7-48e9-87b4-1de87f71e30f",
+      "name": "NCC Hai Bà Trưng",
+      "address": "135 Hai Bà Trưng, Hoàn Kiếm, Hà Nội",
+      "phone": "028 7300 8881",
+      "website": "https://www.cinestar.com.vn",
+      "screens": 6,
+      "status": "Ngừng hoạt động"
+    },
+    {
+      "id": "259431d0-1556-47b7-ae56-12bd77f5e01e",
+      "name": "NCC Tràng Tiền Plaza",
+      "address": "Tầng 5, Tràng Tiền Plaza, Hoàn Kiếm, Hà Nội",
+      "phone": "1900 6017",
+      "website": "https://www.cgv.vn",
+      "screens": 11,
+      "status": "Đang hoạt động"
+    },
+    {
+      "id": "f41b59ae-1630-430a-8842-e8be6dabba49",
+      "name": "NCC Hồ Gươm Plaza",
+      "address": "Tầng 4, Hồ Gươm Plaza, Mỗ Lao, Hà Đông, Hà Nội",
+      "phone": "1900 2099",
+      "website": "https://www.bhdstar.vn",
+      "screens": 8,
+      "status": "Đang hoạt động"
+    },
+    {
+      "id": "2c778bb5-9957-4fd4-9c7b-7e4ad2e6d88d",
+      "name": "NCC Long Biên",
+      "address": "Tầng 3, Savico MegaMall, Long Biên, Hà Nội",
+      "phone": "1900 2224",
+      "website": "https://www.galaxycine.vn",
+      "screens": 6,
+      "status": "Đang hoạt động"
+    },
+    {
+      "id": "c89d23f0-09b6-4c8d-9b5a-9c3590dce0ef",
+      "name": "NCC Atmin Test",
+      "address": "Số 123 Đường Test, Quận Demo,",
+      "phone": "0822817206",
+      "website": "http://test.cgv.vn",
+      "screens": 8,
+      "status": "Đang hoạt động"
+    }
+  ],
+  "prices": [
+    {
+      "id": "2d-std-0-1",
+      "type_seat": "STANDARD",
+      "type_movie": "2D",
+      "price": 55000,
+      "day_type": 0,
+      "time": 1
+    },
+    {
+      "id": "2d-vip-0-1",
+      "type_seat": "VIP",
+      "type_movie": "2D",
+      "price": 65000,
+      "day_type": 0,
+      "time": 1
+    },
+    {
+      "id": "2d-sb-0-1",
+      "type_seat": "SWEETBOX",
+      "type_movie": "2D",
+      "price": 140000,
+      "day_type": 0,
+      "time": 1
+    },
+    {
+      "id": "2d-std-0-2",
+      "type_seat": "STANDARD",
+      "type_movie": "2D",
+      "price": 70000,
+      "day_type": 0,
+      "time": 2
+    },
+    {
+      "id": "2d-vip-0-2",
+      "type_seat": "VIP",
+      "type_movie": "2D",
+      "price": 75000,
+      "day_type": 0,
+      "time": 2
+    },
+    {
+      "id": "2d-sb-0-2",
+      "type_seat": "SWEETBOX",
+      "type_movie": "2D",
+      "price": 160000,
+      "day_type": 0,
+      "time": 2
+    },
+    {
+      "id": "2d-std-0-3",
+      "type_seat": "STANDARD",
+      "type_movie": "2D",
+      "price": 80000,
+      "day_type": 0,
+      "time": 3
+    },
+    {
+      "id": "2d-vip-0-3",
+      "type_seat": "VIP",
+      "type_movie": "2D",
+      "price": 85000,
+      "day_type": 0,
+      "time": 3
+    },
+    {
+      "id": "2d-sb-0-3",
+      "type_seat": "SWEETBOX",
+      "type_movie": "2D",
+      "price": 180000,
+      "day_type": 0,
+      "time": 3
+    },
+    {
+      "id": "2d-std-0-4",
+      "type_seat": "STANDARD",
+      "type_movie": "2D",
+      "price": 65000,
+      "day_type": 0,
+      "time": 4
+    },
+    {
+      "id": "2d-vip-0-4",
+      "type_seat": "VIP",
+      "type_movie": "2D",
+      "price": 70000,
+      "day_type": 0,
+      "time": 4
+    },
+    {
+      "id": "2d-sb-0-4",
+      "type_seat": "SWEETBOX",
+      "type_movie": "2D",
+      "price": 150000,
+      "day_type": 0,
+      "time": 4
+    },
+    {
+      "id": "2d-std-1-1",
+      "type_seat": "STANDARD",
+      "type_movie": "2D",
+      "price": 70000,
+      "day_type": 1,
+      "time": 1
+    },
+    {
+      "id": "2d-vip-1-1",
+      "type_seat": "VIP",
+      "type_movie": "2D",
+      "price": 80000,
+      "day_type": 1,
+      "time": 1
+    },
+    {
+      "id": "2d-sb-1-1",
+      "type_seat": "SWEETBOX",
+      "type_movie": "2D",
+      "price": 170000,
+      "day_type": 1,
+      "time": 1
+    },
+    {
+      "id": "2d-std-1-2",
+      "type_seat": "STANDARD",
+      "type_movie": "2D",
+      "price": 80000,
+      "day_type": 1,
+      "time": 2
+    },
+    {
+      "id": "2d-vip-1-2",
+      "type_seat": "VIP",
+      "type_movie": "2D",
+      "price": 85000,
+      "day_type": 1,
+      "time": 2
+    },
+    {
+      "id": "2d-sb-1-2",
+      "type_seat": "SWEETBOX",
+      "type_movie": "2D",
+      "price": 180000,
+      "day_type": 1,
+      "time": 2
+    },
+    {
+      "id": "2d-std-1-3",
+      "type_seat": "STANDARD",
+      "type_movie": "2D",
+      "price": 90000,
+      "day_type": 1,
+      "time": 3
+    },
+    {
+      "id": "2d-vip-1-3",
+      "type_seat": "VIP",
+      "type_movie": "2D",
+      "price": 95000,
+      "day_type": 1,
+      "time": 3
+    },
+    {
+      "id": "2d-sb-1-3",
+      "type_seat": "SWEETBOX",
+      "type_movie": "2D",
+      "price": 200000,
+      "day_type": 1,
+      "time": 3
+    },
+    {
+      "id": "2d-std-1-4",
+      "type_seat": "STANDARD",
+      "type_movie": "2D",
+      "price": 75000,
+      "day_type": 1,
+      "time": 4
+    },
+    {
+      "id": "2d-vip-1-4",
+      "type_seat": "VIP",
+      "type_movie": "2D",
+      "price": 80000,
+      "day_type": 1,
+      "time": 4
+    },
+    {
+      "id": "2d-sb-1-4",
+      "type_seat": "SWEETBOX",
+      "type_movie": "2D",
+      "price": 170000,
+      "day_type": 1,
+      "time": 4
+    },
+    {
+      "id": "3d-std-0-1",
+      "type_seat": "STANDARD",
+      "type_movie": "3D",
+      "price": 75000,
+      "day_type": 0,
+      "time": 1
+    },
+    {
+      "id": "3d-vip-0-1",
+      "type_seat": "VIP",
+      "type_movie": "3D",
+      "price": 85000,
+      "day_type": 0,
+      "time": 1
+    },
+    {
+      "id": "3d-sb-0-1",
+      "type_seat": "SWEETBOX",
+      "type_movie": "3D",
+      "price": 160000,
+      "day_type": 0,
+      "time": 1
+    },
+    {
+      "id": "3d-std-0-2",
+      "type_seat": "STANDARD",
+      "type_movie": "3D",
+      "price": 90000,
+      "day_type": 0,
+      "time": 2
+    },
+    {
+      "id": "3d-vip-0-2",
+      "type_seat": "VIP",
+      "type_movie": "3D",
+      "price": 95000,
+      "day_type": 0,
+      "time": 2
+    },
+    {
+      "id": "3d-sb-0-2",
+      "type_seat": "SWEETBOX",
+      "type_movie": "3D",
+      "price": 180000,
+      "day_type": 0,
+      "time": 2
+    },
+    {
+      "id": "3d-std-1-3",
+      "type_seat": "STANDARD",
+      "type_movie": "3D",
+      "price": 115000,
+      "day_type": 1,
+      "time": 3
+    },
+    {
+      "id": "3d-vip-1-3",
+      "type_seat": "VIP",
+      "type_movie": "3D",
+      "price": 115000,
+      "day_type": 1,
+      "time": 3
+    },
+    {
+      "id": "3d-sb-1-3",
+      "type_seat": "SWEETBOX",
+      "type_movie": "3D",
+      "price": 220000,
+      "day_type": 1,
+      "time": 3
+    },
+    {
+      "id": "f345ec81-935d-4366-9f11-d1198c053ba1",
+      "type_seat": "STANDARD",
+      "type_movie": "3D",
+      "price": 95000,
+      "day_type": 1,
+      "time": 1
+    },
+    {
+      "id": "a5b2a7a7-8c13-4da4-9800-23763ec08230",
+      "type_seat": "VIP",
+      "type_movie": "3D",
+      "price": 105000,
+      "day_type": 1,
+      "time": 1
+    },
+    {
+      "id": "6374d629-8896-4854-a708-8cbf2bce0d6d",
+      "type_seat": "SWEETBOX",
+      "type_movie": "3D",
+      "price": 190000,
+      "day_type": 1,
+      "time": 1
+    },
+    {
+      "id": "11f0f232-1c70-42db-993c-33715d306cf2",
+      "type_seat": "STANDARD",
+      "type_movie": "3D",
+      "price": 105000,
+      "day_type": 1,
+      "time": 2
+    },
+    {
+      "id": "00f301e6-4358-4f28-9801-6d9baaebee73",
+      "type_seat": "VIP",
+      "type_movie": "3D",
+      "price": 115000,
+      "day_type": 1,
+      "time": 2
+    },
+    {
+      "id": "7537e344-6136-4a85-97a0-e1b60a2911ef",
+      "type_seat": "SWEETBOX",
+      "type_movie": "3D",
+      "price": 200000,
+      "day_type": 1,
+      "time": 2
+    },
+    {
+      "id": "ebffc636-a799-4680-82c0-a1646f5e496a",
+      "type_seat": "STANDARD",
+      "type_movie": "3D",
+      "price": 95000,
+      "day_type": 0,
+      "time": 3
+    },
+    {
+      "id": "41d61a02-8b31-4ee3-b549-17c02824c308",
+      "type_seat": "VIP",
+      "type_movie": "3D",
+      "price": 100000,
+      "day_type": 0,
+      "time": 3
+    },
+    {
+      "id": "be937c0e-9776-407e-b0b5-989ae89bf221",
+      "type_seat": "SWEETBOX",
+      "type_movie": "3D",
+      "price": 190000,
+      "day_type": 0,
+      "time": 3
+    },
+    {
+      "id": "f139912c-1428-4a54-ada1-a0c06c3516c8",
+      "type_seat": "STANDARD",
+      "type_movie": "3D",
+      "price": 80000,
+      "day_type": 0,
+      "time": 4
+    },
+    {
+      "id": "6117eaa0-601c-4fc3-ab77-f99965571f73",
+      "type_seat": "VIP",
+      "type_movie": "3D",
+      "price": 85000,
+      "day_type": 0,
+      "time": 4
+    },
+    {
+      "id": "04c0ef44-36a1-4fef-9f66-c4f9eecb83b8",
+      "type_seat": "SWEETBOX",
+      "type_movie": "3D",
+      "price": 180000,
+      "day_type": 0,
+      "time": 4
+    },
+    {
+      "id": "fd7de473-249c-41b8-bc1e-ee879f297110",
+      "type_seat": "STANDARD",
+      "type_movie": "3D",
+      "price": 90000,
+      "day_type": 1,
+      "time": 4
+    },
+    {
+      "id": "3affa0f9-3299-49fe-a480-15e3d9c320e9",
+      "type_seat": "VIP",
+      "type_movie": "3D",
+      "price": 95000,
+      "day_type": 1,
+      "time": 4
+    },
+    {
+      "id": "05fb776c-b6dd-4215-9d68-0cc8e8426b6e",
+      "type_seat": "SWEETBOX",
+      "type_movie": "3D",
+      "price": 190000,
+      "day_type": 1,
+      "time": 4
+    }
+  ],
+  "movies": [
+    {
+      "title": "Avengers: Endgame",
+      "description": "Biệt đội siêu anh hùng tái hợp để chống lại Thanos.",
+      "author": "Anthony Russo, Joe Russo",
+      "image": "https://imgs.search.brave.com/vRob72dhcsh8w977xQbHi1-Fi7xL6oTOL-zHl3O93aw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzBiLzE0/L2U0LzBiMTRlNGVl/ZTgxZmYyMTM5ZGI0/ZWI3Yzg2NTdkMGJl/LmpwZw",
+      "trailer": "https://www.youtube.com/embed/TcMBFSGVi1c?si=EOGEg-xcfbmgU6Sq",
+      "type": "3D",
+      "duration": 180,
+      "genres_movie": [
         {
-            "id": "1",
-            "first_name": "Admin",
-            "last_name": "System",
-            "email": "admin@cinema.com",
-            "password": "123456",
-            "avatar": "https://example.com/avatars/admin.jpg",
-            "phone": "0901234567",
-            "address": "123 Hanoi, Vietnam",
-            "status": "ACTIVE",
-            "created_at": "2023-01-01T10:00:00Z",
-            "updated_at": "2023-01-01T10:00:00Z",
-            "role": {
-                "id": 1,
-                "role_name": "admin"
-            }
+          "id": 1,
+          "genre_name": "Hành động"
         },
         {
-            "id": "2",
-            "first_name": "Nguyen",
-            "last_name": "Van A",
-            "email": "vana@gmail.com",
-            "password": "123456",
-            "avatar": "https://example.com/avatars/user2.jpg",
-            "phone": "0987654321",
-            "address": "456 Danang, Vietnam",
-            "status": "ACTIVE",
-            "created_at": "2023-05-15T14:30:00Z",
-            "updated_at": "2023-05-15T14:30:00Z",
-            "role": {
-                "id": 2,
-                "role_name": "user"
-            }
-        },
-        {
-            "id": "7306",
-            "first_name": "huy",
-            "last_name": "deptrai",
-            "email": "huydeptrai@gmail.com",
-            "phone": "0987654321",
-            "password": "123456",
-            "avatar": "",
-            "address": "",
-            "status": "ACTIVE",
-            "created_at": "2025-12-15T00:45:57.354Z",
-            "updated_at": "2025-12-15T00:45:57.354Z",
-            "role": {
-                "id": 2,
-                "role_name": "user"
-            }
-        },
-        {
-            "id": "a67a",
-            "first_name": "tôn",
-            "last_name": "huy",
-            "email": "tonhuy@gmail.com",
-            "phone": "0978563412",
-            "password": "123456",
-            "avatar": "",
-            "address": "",
-            "status": "ACTIVE",
-            "created_at": "2025-12-15T00:50:40.474Z",
-            "updated_at": "2025-12-15T00:50:40.474Z",
-            "role": {
-                "id": 2,
-                "role_name": "user"
-            }
+          "genreName": "Hành động",
+          "id": "1",
+          "movieCount": 1
         }
-    ],
-    "bookings": [
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2019-04-26",
+      "created_at": "2023-06-01T08:00:00Z",
+      "updated_at": "2023-06-01T08:00:00Z",
+      "id": "1",
+      "showtimes": []
+    },
+    {
+      "id": "2",
+      "title": "Titanic",
+      "description": "Câu chuyện tình yêu lãng mạn trên con tàu định mệnh.",
+      "author": "James Cameron",
+      "image": "https://imgs.search.brave.com/9ZMA3AzPQpPhEQkrEzoz38xBqEFLTwUQ8iw6bWjrlkc/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pLmV0/c3lzdGF0aWMuY29t/LzIwOTk0OTY2L3Iv/aWwvZjM5N2FhLzYx/MDgyNzA3NzQvaWxf/MzAweDMwMC42MTA4/MjcwNzc0XzRidzUu/anBn",
+      "trailer": "https://www.youtube.com/embed/kVrqfYjkTdQ?si=169d4CzKIeuNGmS1",
+      "type": "2D",
+      "duration": 195,
+      "age": 13,
+      "origin": "Mẽo",
+      "genres_movie": [
         {
-            "id": "1",
-            "user_id": 2,
-            "showtime_id": 1,
-            "total_seat": 1,
-            "total_price_movie": 75000,
-            "created_at": "2022-12-01T00:00:00Z"
-        },
-        {
-            "id": "2",
-            "user_id": 2,
-            "showtime_id": 1,
-            "total_seat": 1,
-            "total_price_movie": 75000,
-            "created_at": "2022-12-01T00:00:00Z"
-        },
-        {
-            "id": "3",
-            "user_id": 3,
-            "showtime_id": 1,
-            "total_seat": 1,
-            "total_price_movie": 75000,
-            "created_at": "2022-12-01T00:00:00Z"
+          "id": 1,
+          "genre_name": "Tình cảm"
         }
-    ],
-    "theaters": [
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "1997-12-19",
+      "created_at": "2023-06-02T09:00:00Z",
+      "updated_at": "2023-06-02T09:00:00Z",
+      "showtimes": [
+        "oxcbyFE"
+      ]
+    },
+    {
+      "id": "3",
+      "title": "Avatar: The Way of Water",
+      "description": "Jake Sully cùng gia đình khám phá vùng biển của Pandora.",
+      "author": "James Cameron",
+      "image": "https://imgs.search.brave.com/FEY-ezRni8X_HGUA6yegmbMuy-D4woeYdBoO6y3ZVbg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NjFDUVA1LWEyakwu/anBn",
+      "trailer": "https://www.youtube.com/embed/d9MyW72ELq0?si=2JzKat4bQZv73usV",
+      "type": "3D",
+      "duration": 192,
+      "age": 16,
+      "origin": "Mẽo",
+      "genres_movie": [
         {
-            "id": "8f4d5c4e-2b7e-4e9b-9c12-4f9a2d3b7c91",
-            "name": "CGV Atmin 1",
-            "address": "191 Bà Triệu, Hai Bà Trưng, Hà Nội",
-            "phone": "0123456789",
-            "website": "https://www.cgv.vn",
-            "screens": 8,
-            "status": "Đang hoạt động"
-        },
-        {
-            "id": "f2b1a9d7-5c3f-48f7-b0ea-9b4c1d26d442",
-            "name": "CGV Atmin 2",
-            "address": "Tầng 3, Keangnam Landmark, Phạm Hùng, Cầu Giấy, Hà Nội",
-            "phone": "1900 5454",
-            "website": "https://www.lottecinemavn.com",
-            "screens": 12,
-            "status": "Ngừng hoạt động"
-        },
-        {
-            "id": "3c98d15e-7ef2-4a30-a9ea-2b7cd44e1e12",
-            "name": "CGV Atmin 3",
-            "address": "116 Nguyễn Du, Hai Bà Trưng, Hà Nội",
-            "phone": "1900 2224",
-            "website": "https://www.galaxycine.vn",
-            "screens": 6,
-            "status": "Ngừng hoạt động"
-        },
-        {
-            "id": "ab72c4f1-8e0a-41e9-9f3b-11df7b32951d",
-            "name": "CGV Atmin 4",
-            "address": "Tầng B1, Vincom Mega Mall Royal City, 72A Nguyễn Trãi, Thanh Xuân, Hà Nội",
-            "phone": "1900 2099",
-            "website": "https://www.bhdstar.vn",
-            "screens": 10,
-            "status": "Đang hoạt động"
-        },
-        {
-            "id": "cc54e510-6f54-4b8e-8d54-a38d77f92c55",
-            "name": "CGV Atmin 5",
-            "address": "Tầng 4, Aeon Mall Hà Đông, Dương Nội, Hà Đông, Hà Nội",
-            "phone": "1900 6017",
-            "website": "https://www.cgv.vn",
-            "screens": 9,
-            "status": "Ngừng hoạt động"
-        },
-        {
-            "id": "4b94a41a-dfcf-4bf2-ae8a-0b4b5c91e5fe",
-            "name": "CGV Atmin 6",
-            "address": "Tầng 5, Mipec Tower, 229 Tây Sơn, Đống Đa, Hà Nội",
-            "phone": "1900 5454",
-            "website": "https://www.lottecinemavn.com",
-            "screens": 7,
-            "status": "Đang hoạt động"
-        },
-        {
-            "id": "6fd2c511-510a-4d95-b4ae-91d38d00b44c",
-            "name": "CGV Atmin 7",
-            "address": "Tầng 2, Imperial Plaza, 360 Giải Phóng, Thanh Xuân, Hà Nội",
-            "phone": "1900 636807",
-            "website": "https://www.betacinema.vn",
-            "screens": 5,
-            "status": "Đang hoạt động"
-        },
-        {
-            "id": "14cb22b1-b6d0-45e3-a2e2-62cbe7455314",
-            "name": "CGV Atmin 8",
-            "address": "Tầng 3, Golden Palace, Mễ Trì, Nam Từ Liêm, Hà Nội",
-            "phone": "1900 636807",
-            "website": "https://www.betacinema.vn",
-            "screens": 7,
-            "status": "Ngừng hoạt động"
-        },
-        {
-            "id": "d99b0bb2-dfb7-48e9-87b4-1de87f71e30f",
-            "name": "CGV Atmin 10",
-            "address": "135 Hai Bà Trưng, Hoàn Kiếm, Hà Nội",
-            "phone": "028 7300 8881",
-            "website": "https://www.cinestar.com.vn",
-            "screens": 6,
-            "status": "Ngừng hoạt động"
-        },
-        {
-            "id": "259431d0-1556-47b7-ae56-12bd77f5e01e",
-            "name": "CGV Atmin 11",
-            "address": "Tầng 5, Tràng Tiền Plaza, Hoàn Kiếm, Hà Nội",
-            "phone": "1900 6017",
-            "website": "https://www.cgv.vn",
-            "screens": 11,
-            "status": "Đang hoạt động"
-        },
-        {
-            "id": "f41b59ae-1630-430a-8842-e8be6dabba49",
-            "name": "CGV Atmin 12",
-            "address": "Tầng 4, Hồ Gươm Plaza, Mỗ Lao, Hà Đông, Hà Nội",
-            "phone": "1900 2099",
-            "website": "https://www.bhdstar.vn",
-            "screens": 8,
-            "status": "Đang hoạt động"
-        },
-        {
-            "id": "2c778bb5-9957-4fd4-9c7b-7e4ad2e6d88d",
-            "name": "CGV Atmin 13",
-            "address": "Tầng 3, Savico MegaMall, Long Biên, Hà Nội",
-            "phone": "1900 2224",
-            "website": "https://www.galaxycine.vn",
-            "screens": 6,
-            "status": "Ngừng hoạt động"
-        },
-        {
-            "id": "c89d23f0-09b6-4c8d-9b5a-9c3590dce0ef",
-            "name": "CGV Atmin Test",
-            "address": "Số 123 Đường Test, Quận Demo,",
-            "phone": "0822817206",
-            "website": "http://test.cgv.vn",
-            "screens": 8,
-            "status": "Đang hoạt động"
+          "id": 1,
+          "genre_name": "Khoa học viễn tưởng"
         }
-    ],
-    "ticket_prices": [
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2022-12-16",
+      "created_at": "2023-06-03T10:00:00Z",
+      "updated_at": "2023-06-03T10:00:00Z",
+      "showtimes": []
+    },
+    {
+      "id": "4",
+      "title": "Oppenheimer",
+      "description": "Câu chuyện về cha đẻ của bom nguyên tử J. Robert Oppenheimer.",
+      "author": "Christopher Nolan",
+      "image": "https://imgs.search.brave.com/fqnpzKYhXsxXOXuqfQ4FgHdhoYegWGduoOfH34qBDCA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzAzL2Ni/LzFjLzAzY2IxY2Y5/ZjQ4YTZlOTZiMDg4/MWFmZmQ1MWIwY2Jk/LmpwZw",
+      "trailer": "https://www.youtube.com/embed/uYPbbksJxIg?si=FWT5C_hfuJJ15qQx",
+      "type": "2D",
+      "duration": 180,
+      "age": 16,
+      "origin": "Mẽo",
+      "genres_movie": [
         {
-            "id": "1",
-            "type_seat": "STANDARD",
-            "type_movie": "2D",
-            "price": 80000000,
-            "day_type": 0,
-            "start_time": "08:00:00",
-            "end_time": "17:00:00"
+          "id": 1,
+          "genre_name": "Lịch sử,"
         },
         {
-            "id": "2",
-            "type_seat": "VIP",
-            "type_movie": "3D",
-            "price": 110000,
-            "day_type": 1,
-            "start_time": "17:00:00",
-            "end_time": "23:00:00"
-        },
-        {
-            "id": "3",
-            "type_seat": "SweetBox",
-            "type_movie": "3D",
-            "price": 120000,
-            "day_type": 1,
-            "start_time": "17:00:00",
-            "end_time": "23:00:00"
+          "id": 2,
+          "genre_name": " Tâm lý"
         }
-    ],
-    "seat_types": [
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2023-07-21",
+      "created_at": "2023-07-01T08:00:00Z",
+      "updated_at": "2023-07-01T08:00:00Z",
+      "showtimes": []
+    },
+    {
+      "id": "5",
+      "title": "Barbie",
+      "description": "Barbie và Ken có cơ hội khám phá thế giới thực.",
+      "author": "Greta Gerwig",
+      "image": "https://imgs.search.brave.com/Jk6RxrodSRTqsRuCEMyCAYuewjx7o8jTaIiHq1odbZk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzM3Lzcz/LzY3LzM3NzM2NzU0/Nzc1YTBlNzRjOTZk/OGMwZTNhYjU4MjNl/LmpwZw",
+      "trailer": "https://www.youtube.com/embed/pBk4NYhWNMM",
+      "type": "2D",
+      "duration": 114,
+      "age": 13,
+      "origin": "Mẽo",
+      "genres_movie": [
         {
-            "id": "1",
-            "name": "Ghế Standard",
-            "base_price": 70000
+          "id": 1,
+          "genre_name": "Hài hước,"
         },
         {
-            "id": "2",
-            "name": "Ghế VIP",
-            "base_price": 110000
-        },
-        {
-            "id": "3",
-            "name": "Ghế Sweetbox",
-            "base_price": 120000
+          "id": 2,
+          "genre_name": " Gia đình"
         }
-    ],
-    "screen_types": [
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2023-07-21",
+      "created_at": "2023-07-02T09:00:00Z",
+      "updated_at": "2023-07-02T09:00:00Z",
+      "showtimes": []
+    },
+    {
+      "id": "6",
+      "title": "The Nun II",
+      "description": "Sơ Irene một lần nữa đối mặt với Valak - ác quỷ ma sơ.",
+      "author": "Michael Chaves",
+      "image": "https://imgs.search.brave.com/ohfO-bVz-GMFqyaP4DdPja20QxNsGm56r6QlBbdA0iU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/ZGlzcGxhdGUuY29t/L2FydHdvcmsvMjcw/eDM4MC8yMDIzLTEw/LTAyLzBjNTMyOTgw/ZTUzNzg4OGZjMzJl/YWY0MGRmNDEwOGUy/Xzc5ZWE1MTM2MjZm/YWY1MzI4YTk4OThj/YWRlMTU1NmRlLmpw/Zw",
+      "trailer": "https://www.youtube.com/embed/QF-oyCwaArU",
+      "type": "2D",
+      "duration": 110,
+      "age": 16,
+      "origin": "Mẽo",
+      "genres_movie": [
         {
-            "id": "1",
-            "name": "Phòng 2D",
-            "surcharge": 0
-        },
-        {
-            "id": "2",
-            "name": "Phòng 3D",
-            "surcharge": 30000
-        },
-        {
-            "id": "3",
-            "name": "Phòng IMAX",
-            "surcharge": 60000
-        },
-        {
-            "id": "4",
-            "name": "Phòng 4DX",
-            "surcharge": 80000
+          "id": 1,
+          "genre_name": "Kinh dị"
         }
-    ],
-    "day_multipliers": [
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2023-09-08",
+      "created_at": "2023-08-20T08:00:00Z",
+      "updated_at": "2023-08-20T08:00:00Z",
+      "showtimes": []
+    },
+    {
+      "id": "7",
+      "title": "Dune: Part Two",
+      "description": "Paul Atreides tập hợp đội quân Fremen để trả thù cho gia tộc.",
+      "author": "Denis Villeneuve",
+      "image": "https://imgs.search.brave.com/RqmziOUP0PWMuhtwDUkyJGPD65UjLYtYXjs_Vvy2xr8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9iaHBj/b2xsZWN0aWJsZXMu/Y29tL3dwLWNvbnRl/bnQvdXBsb2Fkcy8y/MDI0LzAzLzIwNjEt/NjAweDg5MS5qcGc",
+      "trailer": "https://www.youtube.com/embed/U2Qp5pL3ovA",
+      "type": "3D",
+      "duration": 166,
+      "age": 16,
+      "origin": "Mẽo",
+      "genres_movie": [
         {
-            "id": "1",
-            "name": "Ngày thường (T2-T5)",
-            "multiplier": 1
+          "id": 1,
+          "genre_name": "Khoa học viễn tưởng, "
         },
         {
-            "id": "2",
-            "name": "Cuối tuần (T6-CN)",
-            "multiplier": 1.2
-        },
-        {
-            "id": "3",
-            "name": "Ngày lễ",
-            "multiplier": 1.5
+          "id": 2,
+          "genre_name": " Hành động"
         }
-    ],
-    "time_discounts": [
+      ],
+      "status": "SAPCHIEU",
+      "release_date": "2024-03-01",
+      "created_at": "2023-09-01T10:00:00Z",
+      "updated_at": "2023-09-01T10:00:00Z",
+      "showtimes": [
+        "YBsvBTv"
+      ]
+    },
+    {
+      "id": "8",
+      "title": "Spider-Man: Across the Spider-Verse",
+      "description": "Miles Morales du hành qua đa vũ trụ và gặp gỡ các Người Nhện khác.",
+      "author": "Joaquim Dos Santos",
+      "image": "https://imgs.search.brave.com/nttys2zbpHrhQ9KYDCUgFDiS8oMITgPFIMaUavpa9oM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NTFlMSt3eWxBS0wu/anBn",
+      "trailer": "https://www.youtube.com/embed/cqGjhVJWtEg",
+      "type": "2D",
+      "duration": 140,
+      "age": 13,
+      "origin": "Mẽo",
+      "genres_movie": [
         {
-            "id": "1",
-            "name": "Suất sáng (trước 12h)",
-            "discount": 30000
+          "id": 1,
+          "genre_name": "Hoạt hình,"
         },
         {
-            "id": "2",
-            "name": "Suất chiều (12h-17h)",
-            "discount": 0
-        },
-        {
-            "id": "3",
-            "name": "Suất tối (17h-22h)",
-            "discount": 0
-        },
-        {
-            "id": "4",
-            "name": "Suất khuya (sau 22h)",
-            "discount": 15000
+          "id": 2,
+          "genre_name": " Hành động"
         }
-    ],
-    "movies": [
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2023-06-02",
+      "created_at": "2023-05-15T09:00:00Z",
+      "updated_at": "2023-05-15T09:00:00Z",
+      "showtimes": []
+    },
+    {
+      "id": "9",
+      "title": "Mission: Impossible - Dead Reckoning",
+      "description": "Ethan Hunt và đội IMF thực hiện nhiệm vụ nguy hiểm nhất từ trước đến nay.",
+      "author": "Christopher McQuarrie",
+      "image": "https://imgs.search.brave.com/XKyg1zpfDV79LmqsCkPTWD8PcNeQADb8iLXJPlvklv4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/OTFkWWU0bTRYWEwu/anBn",
+      "trailer": "https://www.youtube.com/embed/avz06PDqDbM",
+      "type": "2D",
+      "duration": 163,
+      "age": 16,
+      "origin": "Mẽo",
+      "genres_movie": [
         {
-            "id": "1",
-            "title": "Avengers: Endgame",
-            "description": "Biệt đội siêu anh hùng tái hợp để chống lại Thanos.",
-            "author": "Anthony Russo, Joe Russo",
-            "image": "https://imgs.search.brave.com/vRob72dhcsh8w977xQbHi1-Fi7xL6oTOL-zHl3O93aw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzBiLzE0/L2U0LzBiMTRlNGVl/ZTgxZmYyMTM5ZGI0/ZWI3Yzg2NTdkMGJl/LmpwZw",
-            "trailer": "https://youtube.com/watch?v=TcMBFSGVi1c",
-            "type": "3D",
-            "duration": 181,
-            "age": 16,
-            "origin": "Mẽo",
-            "genres_movie": [
-                {
-                    "id": 1,
-                    "genre_name": "Hành động"
-                }
-            ],
-            "status": "DANGCHIEU",
-            "release_date": "2019-04-26",
-            "created_at": "2023-06-01T08:00:00Z",
-            "updated_at": "2023-06-01T08:00:00Z",
-            "showtimes": [
-                {
-                    "id": 1,
-                    "time": "07:00",
-                    "booking": []
-                },
-                {
-                    "id": 3,
-                    "time": "15:00",
-                    "booking": []
-                },
-                {
-                    "id": 5,
-                    "time": "23:00",
-                    "booking": []
-                }
-            ]
-        },
-        {
-            "id": "2",
-            "title": "Titanic",
-            "description": "Câu chuyện tình yêu lãng mạn trên con tàu định mệnh.",
-            "author": "James Cameron",
-            "image": "https://imgs.search.brave.com/9ZMA3AzPQpPhEQkrEzoz38xBqEFLTwUQ8iw6bWjrlkc/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pLmV0/c3lzdGF0aWMuY29t/LzIwOTk0OTY2L3Iv/aWwvZjM5N2FhLzYx/MDgyNzA3NzQvaWxf/MzAweDMwMC42MTA4/MjcwNzc0XzRidzUu/anBn",
-            "trailer": "https://youtube.com/watch?v=JQ8PF7X6qXw",
-            "type": "2D",
-            "duration": 195,
-            "age": 13,
-            "origin": "Mẽo",
-            "genres_movie": [
-                {
-                    "id": 1,
-                    "genre_name": "Tình cảm"
-                }
-            ],
-            "status": "DANGCHIEU",
-            "release_date": "1997-12-19",
-            "created_at": "2023-06-02T09:00:00Z",
-            "updated_at": "2023-06-02T09:00:00Z",
-            "showtimes": [
-                {
-                    "id": 1,
-                    "time": "07:00",
-                    "booking": []
-                },
-                {
-                    "id": 3,
-                    "time": "15:00",
-                    "booking": []
-                },
-                {
-                    "id": 5,
-                    "time": "23:00",
-                    "booking": []
-                }
-            ]
-        },
-        {
-            "id": "3",
-            "title": "Avatar: The Way of Water",
-            "description": "Jake Sully cùng gia đình khám phá vùng biển của Pandora.",
-            "author": "James Cameron",
-            "image": "https://imgs.search.brave.com/FEY-ezRni8X_HGUA6yegmbMuy-D4woeYdBoO6y3ZVbg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NjFDUVA1LWEyakwu/anBn",
-            "trailer": "https://youtube.com/watch?v=d9MyqFCDZwM",
-            "type": "3D",
-            "duration": 192,
-            "age": 16,
-            "origin": "Mẽo",
-            "genres_movie": [
-                {
-                    "id": 1,
-                    "genre_name": "Khoa học viễn tưởng"
-                }
-            ],
-            "status": "DANGCHIEU",
-            "release_date": "2022-12-16",
-            "created_at": "2023-06-03T10:00:00Z",
-            "updated_at": "2023-06-03T10:00:00Z",
-            "showtimes": [
-                {
-                    "id": 1,
-                    "time": "07:00",
-                    "booking": []
-                },
-                {
-                    "id": 3,
-                    "time": "15:00",
-                    "booking": []
-                },
-                {
-                    "id": 5,
-                    "time": "23:00",
-                    "booking": []
-                }
-            ]
-        },
-        {
-            "id": "4",
-            "title": "Oppenheimer",
-            "description": "Câu chuyện về cha đẻ của bom nguyên tử J. Robert Oppenheimer.",
-            "author": "Christopher Nolan",
-            "image": "https://imgs.search.brave.com/fqnpzKYhXsxXOXuqfQ4FgHdhoYegWGduoOfH34qBDCA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzAzL2Ni/LzFjLzAzY2IxY2Y5/ZjQ4YTZlOTZiMDg4/MWFmZmQ1MWIwY2Jk/LmpwZw",
-            "trailer": "https://youtube.com/watch?v=uYPbbksJxIg",
-            "type": "2D",
-            "duration": 180,
-            "age": 16,
-            "origin": "Mẽo",
-            "genres_movie": [
-                {
-                    "id": 1,
-                    "genre_name": "Lịch sử,"
-                },
-                {
-                    "id": 2,
-                    "genre_name": " Tâm lý"
-                }
-            ],
-            "status": "DANGCHIEU",
-            "release_date": "2023-07-21",
-            "created_at": "2023-07-01T08:00:00Z",
-            "updated_at": "2023-07-01T08:00:00Z",
-            "showtimes": [
-                {
-                    "id": 1,
-                    "time": "07:00",
-                    "booking": []
-                },
-                {
-                    "id": 3,
-                    "time": "15:00",
-                    "booking": []
-                },
-                {
-                    "id": 5,
-                    "time": "23:00",
-                    "booking": []
-                }
-            ]
-        },
-        {
-            "id": "5",
-            "title": "Barbie",
-            "description": "Barbie và Ken có cơ hội khám phá thế giới thực.",
-            "author": "Greta Gerwig",
-            "image": "https://imgs.search.brave.com/Jk6RxrodSRTqsRuCEMyCAYuewjx7o8jTaIiHq1odbZk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzM3Lzcz/LzY3LzM3NzM2NzU0/Nzc1YTBlNzRjOTZk/OGMwZTNhYjU4MjNl/LmpwZw",
-            "trailer": "https://youtube.com/watch?v=pBk4NYhWNMM",
-            "type": "2D",
-            "duration": 114,
-            "age": 13,
-            "origin": "Mẽo",
-            "genres_movie": [
-                {
-                    "id": 1,
-                    "genre_name": "Hài hước,"
-                },
-                {
-                    "id": 2,
-                    "genre_name": " Gia đình"
-                }
-            ],
-            "status": "DANGCHIEU",
-            "release_date": "2023-07-21",
-            "created_at": "2023-07-02T09:00:00Z",
-            "updated_at": "2023-07-02T09:00:00Z",
-            "showtimes": [
-                {
-                    "id": 1,
-                    "time": "07:00",
-                    "booking": []
-                },
-                {
-                    "id": 3,
-                    "time": "15:00",
-                    "booking": []
-                },
-                {
-                    "id": 5,
-                    "time": "23:00",
-                    "booking": []
-                }
-            ]
-        },
-        {
-            "id": "6",
-            "title": "The Nun II",
-            "description": "Sơ Irene một lần nữa đối mặt với Valak - ác quỷ ma sơ.",
-            "author": "Michael Chaves",
-            "image": "https://imgs.search.brave.com/ohfO-bVz-GMFqyaP4DdPja20QxNsGm56r6QlBbdA0iU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/ZGlzcGxhdGUuY29t/L2FydHdvcmsvMjcw/eDM4MC8yMDIzLTEw/LTAyLzBjNTMyOTgw/ZTUzNzg4OGZjMzJl/YWY0MGRmNDEwOGUy/Xzc5ZWE1MTM2MjZm/YWY1MzI4YTk4OThj/YWRlMTU1NmRlLmpw/Zw",
-            "trailer": "https://youtube.com/watch?v=QF-oyCwaArU",
-            "type": "2D",
-            "duration": 110,
-            "age": 16,
-            "origin": "Mẽo",
-            "genres_movie": [
-                {
-                    "id": 1,
-                    "genre_name": "Kinh dị"
-                }
-            ],
-            "status": "DANGCHIEU",
-            "release_date": "2023-09-08",
-            "created_at": "2023-08-20T08:00:00Z",
-            "updated_at": "2023-08-20T08:00:00Z",
-            "showtimes": [
-                {
-                    "id": 1,
-                    "time": "07:00",
-                    "booking": []
-                },
-                {
-                    "id": 3,
-                    "time": "15:00",
-                    "booking": []
-                },
-                {
-                    "id": 5,
-                    "time": "23:00",
-                    "booking": []
-                }
-            ]
-        },
-        {
-            "id": "7",
-            "title": "Dune: Part Two",
-            "description": "Paul Atreides tập hợp đội quân Fremen để trả thù cho gia tộc.",
-            "author": "Denis Villeneuve",
-            "image": "https://imgs.search.brave.com/RqmziOUP0PWMuhtwDUkyJGPD65UjLYtYXjs_Vvy2xr8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9iaHBj/b2xsZWN0aWJsZXMu/Y29tL3dwLWNvbnRl/bnQvdXBsb2Fkcy8y/MDI0LzAzLzIwNjEt/NjAweDg5MS5qcGc",
-            "trailer": "https://youtube.com/watch?v=Way9Dexny3w",
-            "type": "3D",
-            "duration": 166,
-            "age": 16,
-            "origin": "Mẽo",
-            "genres_movie": [
-                {
-                    "id": 1,
-                    "genre_name": "Khoa học viễn tưởng, "
-                },
-                {
-                    "id": 2,
-                    "genre_name": " Hành động"
-                }
-            ],
-            "status": "SAPCHIEU",
-            "release_date": "2024-03-01",
-            "created_at": "2023-09-01T10:00:00Z",
-            "updated_at": "2023-09-01T10:00:00Z",
-            "showtimes": [
-                {
-                    "id": 1,
-                    "time": "07:00",
-                    "booking": []
-                },
-                {
-                    "id": 3,
-                    "time": "15:00",
-                    "booking": []
-                },
-                {
-                    "id": 5,
-                    "time": "23:00",
-                    "booking": []
-                }
-            ]
-        },
-        {
-            "id": "8",
-            "title": "Spider-Man: Across the Spider-Verse",
-            "description": "Miles Morales du hành qua đa vũ trụ và gặp gỡ các Người Nhện khác.",
-            "author": "Joaquim Dos Santos",
-            "image": "https://imgs.search.brave.com/nttys2zbpHrhQ9KYDCUgFDiS8oMITgPFIMaUavpa9oM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NTFlMSt3eWxBS0wu/anBn",
-            "trailer": "https://youtube.com/watch?v=cqGjhVJWtEg",
-            "type": "2D",
-            "duration": 140,
-            "age": 13,
-            "origin": "Mẽo",
-            "genres_movie": [
-                {
-                    "id": 1,
-                    "genre_name": "Hoạt hình,"
-                },
-                {
-                    "id": 2,
-                    "genre_name": " Hành động"
-                }
-            ],
-            "status": "DANGCHIEU",
-            "release_date": "2023-06-02",
-            "created_at": "2023-05-15T09:00:00Z",
-            "updated_at": "2023-05-15T09:00:00Z",
-            "showtimes": [
-                {
-                    "id": 1,
-                    "time": "07:00",
-                    "booking": []
-                },
-                {
-                    "id": 3,
-                    "time": "15:00",
-                    "booking": []
-                },
-                {
-                    "id": 5,
-                    "time": "23:00",
-                    "booking": []
-                }
-            ]
-        },
-        {
-            "id": "9",
-            "title": "Mission: Impossible - Dead Reckoning",
-            "description": "Ethan Hunt và đội IMF thực hiện nhiệm vụ nguy hiểm nhất từ trước đến nay.",
-            "author": "Christopher McQuarrie",
-            "image": "https://imgs.search.brave.com/XKyg1zpfDV79LmqsCkPTWD8PcNeQADb8iLXJPlvklv4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/OTFkWWU0bTRYWEwu/anBn",
-            "trailer": "https://youtube.com/watch?v=avz06PDqDbM",
-            "type": "2D",
-            "duration": 163,
-            "age": 16,
-            "origin": "Mẽo",
-            "genres_movie": [
-                {
-                    "id": 1,
-                    "genre_name": "Hành động"
-                }
-            ],
-            "status": "DANGCHIEU",
-            "release_date": "2023-07-12",
-            "created_at": "2023-06-20T08:00:00Z",
-            "updated_at": "2023-06-20T08:00:00Z",
-            "showtimes": [
-                {
-                    "id": 1,
-                    "time": "07:00",
-                    "booking": []
-                },
-                {
-                    "id": 3,
-                    "time": "15:00",
-                    "booking": []
-                },
-                {
-                    "id": 5,
-                    "time": "23:00",
-                    "booking": []
-                }
-            ]
-        },
-        {
-            "id": "10",
-            "title": "Kung Fu Panda 4",
-            "description": "Po trở thành Thần Long Đại Hiệp và tìm kiếm người kế vị.",
-            "author": "Mike Mitchell",
-            "image": "https://imgs.search.brave.com/TPzpSESY83MFDlAj1HgWRpuK0bENxIaB4A0rBCGYJTA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NzFKeVBZU084T0wu/anBn",
-            "trailer": "https://youtube.com/watch?v=_inKs4eeHiI",
-            "type": "3D",
-            "duration": 94,
-            "age": 13,
-            "origin": "Mẽo",
-            "genres_movie": [
-                {
-                    "id": 1,
-                    "genre_name": "Hoạt hình,"
-                },
-                {
-                    "id": 2,
-                    "genre_name": " Hài hước"
-                }
-            ],
-            "status": "SAPCHIEU",
-            "release_date": "2024-03-08",
-            "created_at": "2023-10-01T08:00:00Z",
-            "updated_at": "2023-10-01T08:00:00Z",
-            "showtimes": [
-                {
-                    "id": 1,
-                    "time": "07:00",
-                    "booking": []
-                },
-                {
-                    "id": 3,
-                    "time": "15:00",
-                    "booking": []
-                },
-                {
-                    "id": 5,
-                    "time": "23:00",
-                    "booking": []
-                }
-            ]
-        },
-        {
-            "id": "11",
-            "title": "Interstellar",
-            "description": "Hành trình xuyên không gian tìm kiếm hành tinh mới cho nhân loại.",
-            "author": "Christopher Nolan",
-            "image": "https://imgs.search.brave.com/96O0JDeZ01Y2hs9nK_q_fDaG6WRleyQvVOKsIZFFtec/rs:fit:860:0:0:0/g:ce/aHR0cDovL3d3dy5p/bXBhd2FyZHMuY29t/LzIwMTQvcG9zdGVy/cy9pbnRlcnN0ZWxs/YXIuanBn",
-            "trailer": "https://youtube.com/watch?v=zSWdZVtXT7E",
-            "type": "2D",
-            "duration": 169,
-            "age": 16,
-            "origin": "Mẽo",
-            "genres_movie": [
-                {
-                    "id": 1,
-                    "genre_name": "Khoa học viễn tưởng"
-                }
-            ],
-            "status": "DANGCHIEU",
-            "release_date": "2014-11-07",
-            "created_at": "2023-09-10T08:00:00Z",
-            "updated_at": "2023-09-10T08:00:00Z",
-            "showtimes": [
-                {
-                    "id": 1,
-                    "time": "07:00",
-                    "booking": []
-                },
-                {
-                    "id": 3,
-                    "time": "15:00",
-                    "booking": []
-                },
-                {
-                    "id": 5,
-                    "time": "23:00",
-                    "booking": []
-                }
-            ]
-        },
-        {
-            "id": "12",
-            "title": "The Godfather",
-            "description": "Ông trùm Don Vito Corleone trao lại đế chế tội phạm cho con trai.",
-            "author": "Francis Ford Coppola",
-            "image": "https://imgs.search.brave.com/D1K0aHsRQ7tnLPsOsObcHAlJW8yj7Cml6kiCdv1YeFk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLmVi/YXlpbWcuY29tL3Ro/dW1icy9pbWFnZXMv/Zy9jbW9BQU9Td1VJ/aGx3UVBrL3MtbDk2/MC53ZWJw",
-            "trailer": "https://youtube.com/watch?v=sY1S34973zA",
-            "type": "2D",
-            "duration": 175,
-            "age": 18,
-            "origin": "Mẽo",
-            "genres_movie": [
-                {
-                    "id": 1,
-                    "genre_name": "Tội phạm"
-                }
-            ],
-            "status": "SAPCHIEU",
-            "release_date": "1972-03-24",
-            "created_at": "2023-10-05T08:00:00Z",
-            "updated_at": "2023-10-05T08:00:00Z",
-            "showtimes": [
-                {
-                    "id": 1,
-                    "time": "07:00",
-                    "booking": []
-                },
-                {
-                    "id": 3,
-                    "time": "15:00",
-                    "booking": []
-                },
-                {
-                    "id": 5,
-                    "time": "23:00",
-                    "booking": []
-                }
-            ]
-        },
-        {
-            "id": "13",
-            "title": "Parasite",
-            "description": "Gia đình nghèo khó xâm nhập vào cuộc sống của một gia đình giàu có.",
-            "author": "Bong Joon Ho",
-            "image": "https://imgs.search.brave.com/MC4gBbcLEFoS2lrNHiCxVPYER-Fqn6f_G2utHp7CQIs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tb25k/b3Nob3AuY29tL2Nk/bi9zaG9wL3Byb2R1/Y3RzL1JLX1BhcmFz/aXRlX1JFR19zbS5q/cGc_dj0xNjU5OTQw/MTAwJndpZHRoPTU3/MA",
-            "trailer": "https://youtube.com/watch?v=5xH0HfJHsaY",
-            "type": "2D",
-            "duration": 132,
-            "age": 16,
-            "origin": "Mẽo",
-            "genres_movie": [
-                {
-                    "id": 6,
-                    "genre_name": "Tâm lý,"
-                },
-                {
-                    "id": 11,
-                    "genre_name": " Giật gân"
-                }
-            ],
-            "status": "DANGCHIEU",
-            "release_date": "2019-05-30",
-            "created_at": "2023-09-15T08:00:00Z",
-            "updated_at": "2023-09-15T08:00:00Z",
-            "showtimes": [
-                {
-                    "id": 1,
-                    "time": "07:00",
-                    "booking": []
-                },
-                {
-                    "id": 3,
-                    "time": "15:00",
-                    "booking": []
-                },
-                {
-                    "id": 5,
-                    "time": "23:00",
-                    "booking": []
-                }
-            ]
-        },
-        {
-            "id": "14",
-            "title": "Frozen II",
-            "description": "Elsa cùng Anna và những người bạn đi tìm nguồn gốc sức mạnh băng giá.",
-            "author": "Chris Buck, Jennifer Lee",
-            "image": "https://imgs.search.brave.com/efiHImkvldxMHH1PXnfRnuCcPdk1YYiKZZpVN64qAsg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NzFFcE1qMlpISUwu/anBn",
-            "trailer": "https://youtube.com/watch?v=Zi4LMpSDccc",
-            "type": "3D",
-            "duration": 103,
-            "age": 13,
-            "origin": "Mẽo",
-            "genres_movie": [
-                {
-                    "id": 9,
-                    "genre_name": "Hoạt hình,"
-                },
-                {
-                    "id": 8,
-                    "genre_name": " Gia đình"
-                }
-            ],
-            "status": "DANGCHIEU",
-            "release_date": "2019-11-22",
-            "created_at": "2023-09-20T08:00:00Z",
-            "updated_at": "2023-09-20T08:00:00Z",
-            "showtimes": [
-                {
-                    "id": 1,
-                    "time": "07:00",
-                    "booking": []
-                },
-                {
-                    "id": 3,
-                    "time": "15:00",
-                    "booking": []
-                },
-                {
-                    "id": 5,
-                    "time": "23:00",
-                    "booking": []
-                }
-            ]
-        },
-        {
-            "id": "15",
-            "title": "John Wick: Chapter 4",
-            "description": "John Wick tìm cách đánh bại High Table để giành lại tự do.",
-            "author": "Chad Stahelski",
-            "image": "https://imgs.search.brave.com/YFN42MsulH7Gm6iqqE0gHwKsgd-AB9RYW5cRg16UvZA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/QTFEOW1PVDdvT0wu/anBn",
-            "trailer": "https://youtube.com/watch?v=qEVUtrk8_B4",
-            "type": "2D",
-            "duration": 169,
-            "age": 16,
-            "origin": "Mẽo",
-            "genres_movie": [
-                {
-                    "id": 1,
-                    "genre_name": "Hành động,"
-                },
-                {
-                    "id": 10,
-                    "genre_name": " Tội phạm"
-                }
-            ],
-            "status": "DANGCHIEU",
-            "release_date": "2023-03-24",
-            "created_at": "2023-04-01T08:00:00Z",
-            "updated_at": "2023-04-01T08:00:00Z",
-            "showtimes": [
-                {
-                    "id": 1,
-                    "time": "07:00",
-                    "booking": []
-                },
-                {
-                    "id": 3,
-                    "time": "15:00",
-                    "booking": []
-                },
-                {
-                    "id": 5,
-                    "time": "23:00",
-                    "booking": []
-                }
-            ]
-        },
-        {
-            "id": "16",
-            "title": "Aquaman and the Lost Kingdom",
-            "description": "Aquaman phải hợp tác với em trai để cứu Atlantis.",
-            "author": "James Wan",
-            "image": "https://imgs.search.brave.com/bvbwrCvOEiVuuK3R90WldAYSdBim0gJpPyc40DuGK-k/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMtbmEuc3NsLWlt/YWdlcy1hbWF6b24u/Y29tL2ltYWdlcy9J/LzgxZSttaVlxVHRM/LmpwZw",
-            "trailer": "https://youtube.com/watch?v=FV3bqvOHRQo",
-            "type": "3D",
-            "duration": 124,
-            "age": 13,
-            "origin": "Mẽo",
-            "genres_movie": [
-                {
-                    "id": 1,
-                    "genre_name": "Hành động,"
-                },
-                {
-                    "id": 4,
-                    "genre_name": " Khoa học viễn tưởng"
-                }
-            ],
-            "status": "SAPCHIEU",
-            "release_date": "2023-12-22",
-            "created_at": "2023-10-10T08:00:00Z",
-            "updated_at": "2023-10-10T08:00:00Z",
-            "showtimes": [
-                {
-                    "id": 1,
-                    "time": "07:00",
-                    "booking": []
-                },
-                {
-                    "id": 3,
-                    "time": "15:00",
-                    "booking": []
-                },
-                {
-                    "id": 5,
-                    "time": "23:00",
-                    "booking": []
-                }
-            ]
-        },
-        {
-            "id": "17",
-            "title": "La La Land",
-            "description": "Câu chuyện tình yêu giữa một nhạc sĩ jazz và một nữ diễn viên trẻ.",
-            "author": "Damien Chazelle",
-            "image": "https://imgs.search.brave.com/lLAg92korV-u0XIhT8UpZ9-CpVsylQerlhUOqoO6jMw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzIxLzE3/L2FmLzIxMTdhZmM4/OTQxZDhjOWY4ZjYw/YmYzYmQxZmJiOWZk/LmpwZw",
-            "trailer": "https://youtube.com/watch?v=0pdqf4P9MB8",
-            "type": "2D",
-            "duration": 128,
-            "age": 13,
-            "origin": "Mẽo",
-            "genres_movie": [
-                {
-                    "id": 1,
-                    "genre_name": "Tình cảm,"
-                },
-                {
-                    "id": 2,
-                    "genre_name": " Âm nhạc"
-                }
-            ],
-            "status": "DANGCHIEU",
-            "release_date": "2016-12-09",
-            "created_at": "2023-09-25T08:00:00Z",
-            "updated_at": "2023-09-25T08:00:00Z",
-            "showtimes": [
-                {
-                    "id": 1,
-                    "time": "07:00",
-                    "booking": []
-                },
-                {
-                    "id": 3,
-                    "time": "15:00",
-                    "booking": []
-                },
-                {
-                    "id": 5,
-                    "time": "23:00",
-                    "booking": []
-                }
-            ]
-        },
-        {
-            "id": "18",
-            "title": "It",
-            "description": "Nhóm trẻ em đối mặt với tên hề ma quái Pennywise.",
-            "author": "Andy Muschietti",
-            "image": "https://imgs.search.brave.com/DdFMiASGHT9XfznQjnLr9IYyaDHTnAjs7JJ2qppoIj4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NzE4SU82dHdVTUwu/anBn",
-            "trailer": "https://youtube.com/watch?v=xKJmEC5ieOk",
-            "type": "2D",
-            "duration": 135,
-            "age": 16,
-            "origin": "Mẽo",
-            "genres_movie": [
-                {
-                    "id": 1,
-                    "genre_name": "Kinh dị"
-                }
-            ],
-            "status": "DANGCHIEU",
-            "release_date": "2017-09-08",
-            "created_at": "2023-09-28T08:00:00Z",
-            "updated_at": "2023-09-28T08:00:00Z",
-            "showtimes": [
-                {
-                    "id": 1,
-                    "time": "07:00",
-                    "booking": []
-                },
-                {
-                    "id": 3,
-                    "time": "15:00",
-                    "booking": []
-                },
-                {
-                    "id": 5,
-                    "time": "23:00",
-                    "booking": []
-                }
-            ]
-        },
-        {
-            "id": "19",
-            "title": "Black Panther",
-            "description": "T'Challa trở về Wakanda để thừa kế ngai vàng và bảo vệ đất nước.",
-            "author": "Ryan Coogler",
-            "image": "https://imgs.search.brave.com/RPdpu2d8ABsAkeE94dHaU91bQEEO140jAtndZFMiDz0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJjYXQuY29t/L3cvZnVsbC84L2Iv/NC8yOTE4MTktMTk0/NHgyOTUyLW1vYmls/ZS1oZC1ibGFjay1w/YW50aGVyLW1vdmll/LWJhY2tncm91bmQt/cGhvdG8uanBn",
-            "trailer": "https://youtube.com/watch?v=xjDjIWPwcPU",
-            "type": "3D",
-            "duration": 134,
-            "age": 16,
-            "origin": "Mẽo",
-            "genres_movie": [
-                {
-                    "id": 1,
-                    "genre_name": "Hành động"
-                }
-            ],
-            "status": "DANGCHIEU",
-            "release_date": "2018-02-16",
-            "created_at": "2023-09-30T08:00:00Z",
-            "updated_at": "2023-09-30T08:00:00Z",
-            "showtimes": [
-                {
-                    "id": 1,
-                    "time": "07:00",
-                    "booking": []
-                },
-                {
-                    "id": 3,
-                    "time": "15:00",
-                    "booking": []
-                },
-                {
-                    "id": 5,
-                    "time": "23:00",
-                    "booking": []
-                }
-            ]
-        },
-        {
-            "id": "20",
-            "title": "Coco",
-            "description": "Cậu bé Miguel bước vào Vùng Đất Linh Hồn để tìm lại cội nguồn âm nhạc.",
-            "author": "Lee Unkrich",
-            "image": "https://imgs.search.brave.com/80KggtY5vXrvVi5AAf3TgJqfrrbmRHZGSckZuiYdVoA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zMy5h/bWF6b25hd3MuY29t/L25pZ2h0amFycHJv/ZC9jb250ZW50L3Vw/bG9hZHMvc2l0ZXMv/MzAyLzIwMjQvMDgv/MjkxNDMwMjIvZ0dF/c0JQQWlqaFZVRm9p/TnBnWlhxUlZXSnQy/LXNjYWxlZC5qcGc",
-            "trailer": "https://youtube.com/watch?v=Ga6RYejo6Hk",
-            "type": "2D",
-            "duration": 105,
-            "age": 13,
-            "origin": "Mẽo",
-            "genres_movie": [
-                {
-                    "id": 9,
-                    "genre_name": "Hoạt hình,"
-                },
-                {
-                    "id": 8,
-                    "genre_name": "Gia đình"
-                }
-            ],
-            "status": "SAPCHIEU",
-            "release_date": "2017-11-22",
-            "created_at": "2023-10-10T08:00:00Z",
-            "updated_at": "2023-10-10T08:00:00Z",
-            "showtimes": [
-                {
-                    "id": 1,
-                    "time": "07:00",
-                    "booking": []
-                },
-                {
-                    "id": 3,
-                    "time": "15:00",
-                    "booking": []
-                },
-                {
-                    "id": 5,
-                    "time": "23:00",
-                    "booking": []
-                }
-            ]
+          "id": 1,
+          "genre_name": "Hành động"
         }
-    ],
-    "genres": [
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2023-07-12",
+      "created_at": "2023-06-20T08:00:00Z",
+      "updated_at": "2023-06-20T08:00:00Z",
+      "showtimes": []
+    },
+    {
+      "id": "10",
+      "title": "Kung Fu Panda 4",
+      "description": "Po trở thành Thần Long Đại Hiệp và tìm kiếm người kế vị.",
+      "author": "Mike Mitchell",
+      "image": "https://imgs.search.brave.com/TPzpSESY83MFDlAj1HgWRpuK0bENxIaB4A0rBCGYJTA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NzFKeVBZU084T0wu/anBn",
+      "trailer": "https://www.youtube.com/embed/_inKs4eeHiI",
+      "type": "3D",
+      "duration": 94,
+      "age": 13,
+      "origin": "Mẽo",
+      "genres_movie": [
         {
-            "genreName": "Hành động",
-            "id": "1"
+          "id": 1,
+          "genre_name": "Hoạt hình,"
         },
         {
-            "genreName": "Kinh dị",
-            "id": "2"
-        },
-        {
-            "genreName": "Romantic",
-            "id": "3"
-        },
-        {
-            "id": "1973",
-            "genreName": "1234"
+          "id": 2,
+          "genre_name": " Hài hước"
         }
-    ],
-    "news": [
+      ],
+      "status": "SAPCHIEU",
+      "release_date": "2024-03-08",
+      "created_at": "2023-10-01T08:00:00Z",
+      "updated_at": "2023-10-01T08:00:00Z",
+      "showtimes": []
+    },
+    {
+      "id": "11",
+      "title": "Interstellar",
+      "description": "Hành trình xuyên không gian tìm kiếm hành tinh mới cho nhân loại.",
+      "author": "Christopher Nolan",
+      "image": "https://imgs.search.brave.com/96O0JDeZ01Y2hs9nK_q_fDaG6WRleyQvVOKsIZFFtec/rs:fit:860:0:0:0/g:ce/aHR0cDovL3d3dy5p/bXBhd2FyZHMuY29t/LzIwMTQvcG9zdGVy/cy9pbnRlcnN0ZWxs/YXIuanBn",
+      "trailer": "https://www.youtube.com/embed/zSWdZVtXT7E",
+      "type": "2D",
+      "duration": 169,
+      "age": 16,
+      "origin": "Mẽo",
+      "genres_movie": [
         {
-            "id": "news-1",
-            "title": "Chương trình phim kỉ niệm 79 năm ngày giải phóng thủ đô",
-            "content": "Chương trình phim đặc biệt được tổ chức nhằm kỉ niệm 79 năm ngày giải phóng thủ đô.",
-            "created_at": "2025-10-03T00:00:00Z",
-            "bannerUrl": "https://images.unsplash.com/photo-1761503390713-a1fd8b8bb6c5",
-            "category": "news",
-            "dayBegin": "2025-10-01T00:00:00Z",
-            "dayEnd": "2025-10-10T00:00:00Z"
-        },
-        {
-            "id": "promo-1",
-            "title": "Vui tết trung thu - rinh quà ví vu",
-            "content": "Khách hàng tham gia chương trình trung thu sẽ nhận được nhiều phần quà hấp dẫn.",
-            "created_at": "2025-12-16T00:59:54Z",
-            "bannerUrl": "https://haidanggiadinh.com/wp-content/uploads/2023/09/su-kien-vui-tet-trung-thu-cung-lien-doan-hai-dang-2.jpg",
-            "category": "promotion",
-            "dayBegin": "2025-12-15T00:00:00Z",
-            "dayEnd": "2025-12-25T00:00:00Z"
-        },
-        {
-            "id": "promo-2",
-            "title": "Suất chiếu đặc biệt - quà tặng tưng bừng",
-            "content": "Tham gia suất chiếu đặc biệt để nhận nhiều phần quà giá trị.",
-            "created_at": "2025-12-16T01:09:19Z",
-            "bannerUrl": "https://www.galaxycine.vn/media/2025/12/14/1135_1765722935144.jpg",
-            "category": "promotion",
-            "dayBegin": "2025-12-01T00:00:00Z",
-            "dayEnd": "2025-12-08T00:00:00Z"
-        },
-        {
-            "id": "news-3",
-            "title": "Đợt phim kỉ niệm 79 năm cách mạng tháng 8 và quốc khánh",
-            "content": "Trung tâm chiếu phim quốc gia tổ chức đợt phim đặc biệt nhân dịp quốc khánh.",
-            "created_at": "2025-12-16T02:45:36Z",
-            "bannerUrl": "https://cdn.thuvienphapluat.vn/uploads/cong-dong-dan-luat/2024/thang-8/16/chieu-phim-tai-lieu-ky-niem-79-nam-cmt8-quoc-khanh-292024.png",
-            "category": "news",
-            "dayBegin": "2025-08-25T00:00:00Z",
-            "dayEnd": "2025-09-05T00:00:00Z"
-        },
-        {
-            "id": "news-4",
-            "title": "Tuyển dụng cộng tác viên soát vé và bán vé",
-            "content": "Trung tâm chiếu phim quốc gia tuyển cộng tác viên làm việc linh hoạt theo ca.",
-            "created_at": "2025-12-16T01:15:16Z",
-            "bannerUrl": "https://spajob.vn/uploads/2024/4/16/rap-phim-tphcm-binh-duong-dong-nai-tuyen-dung-nhan-vien-ban-ve-soat-ve-phuc-vu-bap-nuoc-thoi-vu-chinh-thuc-co-cccd-dang-ky-di-lam-ngay-638488854831906265..jpg",
-            "category": "news",
-            "dayBegin": "2025-12-01T00:00:00Z",
-            "dayEnd": "2025-12-20T00:00:00Z"
-        },
-        {
-            "id": "news-5",
-            "title": "Thông báo hoàn thành khảo sát cơ sở vật chất",
-            "content": "Trung tâm đã hoàn thành công tác kiểm tra, bảo trì và nâng cấp cơ sở vật chất.",
-            "created_at": "2025-07-19T00:00:00Z",
-            "bannerUrl": "https://images.unsplash.com/photo-1739433437912-cca661ba902f",
-            "category": "news",
-            "dayBegin": "2025-07-01T00:00:00Z",
-            "dayEnd": "2025-07-10T00:00:00Z"
-        },
-        {
-            "id": "news-6",
-            "title": "Review phim hot nhất mùa hè này - kẻ trộm mặt trăng 4",
-            "content": "Một bộ phim hoạt hình nổi bật của mùa hè, phù hợp với mọi độ tuổi.",
-            "created_at": "2025-07-13T00:00:00Z",
-            "bannerUrl": "https://images.unsplash.com/photo-1751823886813-0cfc86cb9478",
-            "category": "news",
-            "dayBegin": "2025-12-10T00:00:00Z",
-            "dayEnd": "2025-12-20T00:00:00Z"
-        },
-        {
-            "id": "promo-3",
-            "title": "Khuyến mãi đặc biệt cho khách hàng thân thiết",
-            "content": "Chương trình tri ân khách hàng thân thiết với nhiều ưu đãi hấp dẫn.",
-            "created_at": "2025-06-25T00:00:00Z",
-            "bannerUrl": "https://images.unsplash.com/photo-1719706654529-ca7e2ce5a2bb",
-            "category": "promotion",
-            "dayBegin": "2025-12-05T00:00:00Z",
-            "dayEnd": "2025-12-31T00:00:00Z"
-        },
-        {
-            "id": "ff45e6bf-b712-480c-8044-73b2c268c3f7",
-            "title": "Thiên sứ nhà bên session 2 sắp ra mắt trong sự mong ngóng của độc giả",
-            "content": "“Thiên sứ nhà bên” là bộ phim mới nhất dự kiến ra mắt vào tháng 4/2026, khai thác câu chuyện nhẹ nhàng nhưng đầy cảm xúc về một thiên sứ bất ngờ xuất hiện trong cuộc sống của một chàng trai bình thường. Từ những hiểu lầm ban đầu, cả hai dần bước vào hành trình chữa lành, trưởng thành và khám phá ý nghĩa thật sự của hạnh phúc. Bộ phim hứa hẹn mang đến nhiều khoảnh khắc ấm áp, hài hước và chạm đến trái tim khán giả.",
-            "created_at": "2025-12-10T12:25:23Z",
-            "bannerUrl": "https://gamelade.vn/wp-content/uploads/2025/01/432771220_707646224913385_6294921803938452994_n-1-1024x580.jpg",
-            "category": "news",
-            "dayBegin": "2026-04-01",
-            "dayEnd": "2026-04-30"
-        },
-        {
-            "id": "dd316299-8ea1-4133-b6d0-8fdfb6cf15e6",
-            "title": "Giảm giá vé xem anime 30%: \"Arya bàn bên thỉnh thoảng lại trêu ghẹo tôi bằng tiếng Nga\"",
-            "content": "\"Arya bàn bên thỉnh thoảng lại trêu ghẹo tôi bằng tiếng Nga\" là bộ phim học đường hài – lãng mạn xoay quanh câu chuyện của một nam sinh bình thường nhưng vô tình trở thành ‘đối tượng trêu chọc’ của cô bạn bàn bên bí ẩn. Cô gái có thói quen nói những câu tiếng Nga khó hiểu, mỗi lần như vậy lại khiến cậu bối rối không biết nên phản ứng thế nào. Tưởng chỉ là những trò đùa vô hại, nhưng càng tiếp xúc, cậu càng nhận ra đằng sau những câu nói ngẫu hứng ấy là một câu chuyện riêng mà cô ấy luôn cố che giấu. Bộ phim dẫn dắt khán giả qua những tình huống dở khóc dở cười, từ những trò trêu chọc đáng yêu đến khoảnh khắc ấm áp, nơi hai tâm hồn trẻ tuổi dần trở nên gần gũi hơn.",
-            "created_at": "2025-12-10T13:44:06Z",
-            "bannerUrl": "https://i.ytimg.com/vi/iN6kitNy-iA/maxresdefault.jpg",
-            "category": "promotion",
-            "dayBegin": "2025-12-09",
-            "dayEnd": "2026-01-01"
+          "id": 1,
+          "genre_name": "Khoa học viễn tưởng"
         }
-    ],
-    "showtimes": [
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2014-11-07",
+      "created_at": "2023-09-10T08:00:00Z",
+      "updated_at": "2023-09-10T08:00:00Z",
+      "showtimes": []
+    },
+    {
+      "id": "12",
+      "title": "The Godfather",
+      "description": "Ông trùm Don Vito Corleone trao lại đế chế tội phạm cho con trai.",
+      "author": "Francis Ford Coppola",
+      "image": "https://imgs.search.brave.com/D1K0aHsRQ7tnLPsOsObcHAlJW8yj7Cml6kiCdv1YeFk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLmVi/YXlpbWcuY29tL3Ro/dW1icy9pbWFnZXMv/Zy9jbW9BQU9Td1VJ/aGx3UVBrL3MtbDk2/MC53ZWJw",
+      "trailer": "https://youtube.com/embed/sY1S34973zA",
+      "type": "2D",
+      "duration": 175,
+      "age": 18,
+      "origin": "Mẽo",
+      "genres_movie": [
         {
-            "movie": "Spider-Man: No Way Home",
-            "theater": "Galaxy Cinema Nguyễn Du",
-            "screen": "Phòng 1 (120 ghế - 2D)",
-            "date": "2025-12-12",
-            "startTime": "10:56",
-            "endTime": "13:56",
-            "price": 123123,
-            "availableSeats": 150,
-            "totalSeats": 150,
-            "status": "active",
-            "id": "2"
-        },
-        {
-            "movie": "Avengers: Endgame",
-            "theater": "CGV Vincom Center",
-            "screen": "Phòng 1 (120 ghế - 2D)",
-            "date": "2025-12-24",
-            "startTime": "11:10",
-            "endTime": "14:10",
-            "price": 666666,
-            "availableSeats": 150,
-            "totalSeats": 150,
-            "status": "active",
-            "id": "3"
-        },
-        {
-            "movie": "Spider-Man: No Way Home",
-            "theater": "CGV Vincom Center",
-            "screen": "Phòng 1 (120 ghế - 2D)",
-            "date": "2025-12-10",
-            "startTime": "16:08",
-            "endTime": "19:08",
-            "price": 5555566,
-            "availableSeats": 150,
-            "totalSeats": 150,
-            "status": "active",
-            "id": "4"
+          "id": 1,
+          "genre_name": "Tội phạm"
         }
-    ],
-    "screens": [
+      ],
+      "status": "SAPCHIEU",
+      "release_date": "1972-03-24",
+      "created_at": "2023-10-05T08:00:00Z",
+      "updated_at": "2023-10-05T08:00:00Z",
+      "showtimes": []
+    },
+    {
+      "id": "13",
+      "title": "Parasite",
+      "description": "Gia đình nghèo khó xâm nhập vào cuộc sống của một gia đình giàu có.",
+      "author": "Bong Joon Ho",
+      "image": "https://imgs.search.brave.com/MC4gBbcLEFoS2lrNHiCxVPYER-Fqn6f_G2utHp7CQIs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tb25k/b3Nob3AuY29tL2Nk/bi9zaG9wL3Byb2R1/Y3RzL1JLX1BhcmFz/aXRlX1JFR19zbS5q/cGc_dj0xNjU5OTQw/MTAwJndpZHRoPTU3/MA",
+      "trailer": "https://www.youtube.com/embed/SEUXfv87Wpk",
+      "type": "2D",
+      "duration": 132,
+      "age": 16,
+      "origin": "Mẽo",
+      "genres_movie": [
         {
-            "id": "b7c1d9d4-3e8f-4a9c-9f21-d2e0a1c7f411",
-            "name": "Phòng 1",
-            "theaterId": "f2b1a9d7-5c3f-48f7-b0ea-9b4c1d26d442",
-            "theater": "CGV Atmin 2",
-            "type": "Standard",
-            "row": 5,
-            "column": 9,
-            "capacity": 45,
-            "status": "Đang hoạt động"
+          "id": 6,
+          "genre_name": "Tâm lý,"
         },
         {
-            "id": "4e32a0d1-8b4c-41b6-a0c7-f98ab4f25e33",
-            "name": "Phòng 2",
-            "theaterId": "f2b1a9d7-5c3f-48f7-b0ea-9b4c1d26d442",
-            "theater": "CGV Atmin 2",
-            "type": "Standard",
-            "row": 6,
-            "column": 9,
-            "capacity": 54,
-            "status": "Đang hoạt động"
-        },
-        {
-            "id": "9ac8c2eb-76f1-4cd4-9d41-7b30ceaffb52",
-            "name": "Phòng VIP",
-            "theaterId": "8f4d5c4e-2b7e-4e9b-9c12-4f9a2d3b7c91",
-            "theater": "CGV Atmin 1",
-            "type": "Standard",
-            "row": 5,
-            "column": 8,
-            "capacity": 40,
-            "status": "Đang hoạt động"
-        },
-        {
-            "id": "3fd4a01b-7720-4e13-8f4a-64c22f579c44",
-            "name": "Phòng 1",
-            "theater": "Lotte Cinema Keangnam",
-            "theaterId": "f2b1a9d7-5c3f-48f7-b0ea-9b4c1d26d442",
-            "type": "Standard",
-            "row": 6,
-            "column": 10,
-            "capacity": 60,
-            "status": "Đang hoạt động"
-        },
-        {
-            "id": "e6f8011c-08ad-45d0-a1e8-009d834c2f55",
-            "name": "Phòng 2",
-            "theater": "Lotte Cinema Keangnam",
-            "theaterId": "f2b1a9d7-5c3f-48f7-b0ea-9b4c1d26d442",
-            "type": "Standard",
-            "row": 5,
-            "column": 9,
-            "capacity": 45,
-            "status": "Đang hoạt động"
-        },
-        {
-            "id": "6b90e72d-eaf1-4c52-bc34-5d5d30a53388",
-            "name": "Phòng 3",
-            "theater": "Lotte Cinema Keangnam",
-            "theaterId": "f2b1a9d7-5c3f-48f7-b0ea-9b4c1d26d442",
-            "type": "Large",
-            "row": 8,
-            "column": 14,
-            "capacity": 112,
-            "status": "Đang hoạt động"
-        },
-        {
-            "id": "c9f4f522-9d73-4b91-a8f1-99af08b26cd7",
-            "name": "Phòng 1",
-            "theater": "Galaxy Cinema Nguyễn Du",
-            "theaterId": "3c98d15e-7ef2-4a30-a9ea-2b7cd44e1e12",
-            "type": "Standard",
-            "row": 5,
-            "column": 8,
-            "capacity": 40,
-            "status": "Đang hoạt động"
-        },
-        {
-            "id": "f0b8a2eb-2178-4ec0-9e87-329d1e3cb1f3",
-            "name": "Phòng 2",
-            "theater": "Galaxy Cinema Nguyễn Du",
-            "theaterId": "3c98d15e-7ef2-4a30-a9ea-2b7cd44e1e12",
-            "type": "Standard",
-            "row": 6,
-            "column": 9,
-            "capacity": 54,
-            "status": "Đang hoạt động"
-        },
-        {
-            "id": "b3835b3b-5b42-4d4a-9b4a-c39c8406f597",
-            "name": "Phòng 3",
-            "theater": "Beta Cinema Mỹ Đình",
-            "theaterId": "14cb22b1-b6d0-45e3-a2e2-62cbe7455314",
-            "type": "Mini",
-            "row": 3,
-            "column": 5,
-            "capacity": 15,
-            "status": "Đang hoạt động"
+          "id": 11,
+          "genre_name": " Giật gân"
         }
-    ],
-    "seat_map": []
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2019-05-30",
+      "created_at": "2023-09-15T08:00:00Z",
+      "updated_at": "2023-09-15T08:00:00Z",
+      "showtimes": []
+    },
+    {
+      "id": "14",
+      "title": "Frozen II",
+      "description": "Elsa cùng Anna và những người bạn đi tìm nguồn gốc sức mạnh băng giá.",
+      "author": "Chris Buck, Jennifer Lee",
+      "image": "https://imgs.search.brave.com/efiHImkvldxMHH1PXnfRnuCcPdk1YYiKZZpVN64qAsg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NzFFcE1qMlpISUwu/anBn",
+      "trailer": "https://www.youtube.com/embed/Zi4LMpSDccc",
+      "type": "3D",
+      "duration": 103,
+      "age": 13,
+      "origin": "Mẽo",
+      "genres_movie": [
+        {
+          "id": 9,
+          "genre_name": "Hoạt hình,"
+        },
+        {
+          "id": 8,
+          "genre_name": " Gia đình"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2019-11-22",
+      "created_at": "2023-09-20T08:00:00Z",
+      "updated_at": "2023-09-20T08:00:00Z",
+      "showtimes": [
+        "0531ba2c-eeff-48a5-ad9b-912e6aac9561",
+        "MbHMR9n"
+      ]
+    },
+    {
+      "id": "15",
+      "title": "John Wick: Chapter 4",
+      "description": "John Wick tìm cách đánh bại High Table để giành lại tự do.",
+      "author": "Chad Stahelski",
+      "image": "https://imgs.search.brave.com/YFN42MsulH7Gm6iqqE0gHwKsgd-AB9RYW5cRg16UvZA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/QTFEOW1PVDdvT0wu/anBn",
+      "trailer": "https://youtube.com/embed/qEVUtrk8_B4",
+      "type": "2D",
+      "duration": 169,
+      "age": 16,
+      "origin": "Mẽo",
+      "genres_movie": [
+        {
+          "id": 1,
+          "genre_name": "Hành động,"
+        },
+        {
+          "id": 10,
+          "genre_name": " Tội phạm"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2023-03-24",
+      "created_at": "2023-04-01T08:00:00Z",
+      "updated_at": "2023-04-01T08:00:00Z",
+      "showtimes": []
+    },
+    {
+      "id": "16",
+      "title": "Aquaman and the Lost Kingdom",
+      "description": "Aquaman phải hợp tác với em trai để cứu Atlantis.",
+      "author": "James Wan",
+      "image": "https://imgs.search.brave.com/bvbwrCvOEiVuuK3R90WldAYSdBim0gJpPyc40DuGK-k/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMtbmEuc3NsLWlt/YWdlcy1hbWF6b24u/Y29tL2ltYWdlcy9J/LzgxZSttaVlxVHRM/LmpwZw",
+      "trailer": "https://youtube.com/embed/FV3bqvOHRQo",
+      "type": "3D",
+      "duration": 124,
+      "age": 13,
+      "origin": "Mẽo",
+      "genres_movie": [
+        {
+          "id": 1,
+          "genre_name": "Hành động,"
+        },
+        {
+          "id": 4,
+          "genre_name": " Khoa học viễn tưởng"
+        }
+      ],
+      "status": "SAPCHIEU",
+      "release_date": "2023-12-22",
+      "created_at": "2023-10-10T08:00:00Z",
+      "updated_at": "2023-10-10T08:00:00Z",
+      "showtimes": []
+    },
+    {
+      "id": "17",
+      "title": "La La Land",
+      "description": "Câu chuyện tình yêu giữa một nhạc sĩ jazz và một nữ diễn viên trẻ.",
+      "author": "Damien Chazelle",
+      "image": "https://imgs.search.brave.com/lLAg92korV-u0XIhT8UpZ9-CpVsylQerlhUOqoO6jMw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzIxLzE3/L2FmLzIxMTdhZmM4/OTQxZDhjOWY4ZjYw/YmYzYmQxZmJiOWZk/LmpwZw",
+      "trailer": "https://youtube.com/embed/0pdqf4P9MB8",
+      "type": "2D",
+      "duration": 128,
+      "age": 13,
+      "origin": "Mẽo",
+      "genres_movie": [
+        {
+          "id": 1,
+          "genre_name": "Tình cảm,"
+        },
+        {
+          "id": 2,
+          "genre_name": " Âm nhạc"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2016-12-09",
+      "created_at": "2023-09-25T08:00:00Z",
+      "updated_at": "2023-09-25T08:00:00Z",
+      "showtimes": []
+    },
+    {
+      "id": "18",
+      "title": "It",
+      "description": "Nhóm trẻ em đối mặt với tên hề ma quái Pennywise.",
+      "author": "Andy Muschietti",
+      "image": "https://imgs.search.brave.com/DdFMiASGHT9XfznQjnLr9IYyaDHTnAjs7JJ2qppoIj4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NzE4SU82dHdVTUwu/anBn",
+      "trailer": "https://youtube.com/embed/xKJmEC5ieOk",
+      "type": "2D",
+      "duration": 135,
+      "age": 16,
+      "origin": "Mẽo",
+      "genres_movie": [
+        {
+          "id": 1,
+          "genre_name": "Kinh dị"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2017-09-08",
+      "created_at": "2023-09-28T08:00:00Z",
+      "updated_at": "2023-09-28T08:00:00Z",
+      "showtimes": []
+    },
+    {
+      "id": "19",
+      "title": "Black Panther",
+      "description": "T'Challa trở về Wakanda để thừa kế ngai vàng và bảo vệ đất nước.",
+      "author": "Ryan Coogler",
+      "image": "https://imgs.search.brave.com/RPdpu2d8ABsAkeE94dHaU91bQEEO140jAtndZFMiDz0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJjYXQuY29t/L3cvZnVsbC84L2Iv/NC8yOTE4MTktMTk0/NHgyOTUyLW1vYmls/ZS1oZC1ibGFjay1w/YW50aGVyLW1vdmll/LWJhY2tncm91bmQt/cGhvdG8uanBn",
+      "trailer": "https://youtube.com/embed/xjDjIWPwcPU",
+      "type": "3D",
+      "duration": 134,
+      "age": 16,
+      "origin": "Mẽo",
+      "genres_movie": [
+        {
+          "id": 1,
+          "genre_name": "Hành động"
+        }
+      ],
+      "status": "DANGCHIEU",
+      "release_date": "2018-02-16",
+      "created_at": "2023-09-30T08:00:00Z",
+      "updated_at": "2023-09-30T08:00:00Z",
+      "showtimes": []
+    },
+    {
+      "id": "20",
+      "title": "Coco",
+      "description": "Cậu bé Miguel bước vào Vùng Đất Linh Hồn để tìm lại cội nguồn âm nhạc.",
+      "author": "Lee Unkrich",
+      "image": "https://imgs.search.brave.com/80KggtY5vXrvVi5AAf3TgJqfrrbmRHZGSckZuiYdVoA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zMy5h/bWF6b25hd3MuY29t/L25pZ2h0amFycHJv/ZC9jb250ZW50L3Vw/bG9hZHMvc2l0ZXMv/MzAyLzIwMjQvMDgv/MjkxNDMwMjIvZ0dF/c0JQQWlqaFZVRm9p/TnBnWlhxUlZXSnQy/LXNjYWxlZC5qcGc",
+      "trailer": "https://youtube.com/embed/Ga6RYejo6Hk",
+      "type": "2D",
+      "duration": 105,
+      "age": 13,
+      "origin": "Mẽo",
+      "genres_movie": [
+        {
+          "id": 9,
+          "genre_name": "Hoạt hình,"
+        },
+        {
+          "id": 8,
+          "genre_name": "Gia đình"
+        }
+      ],
+      "status": "SAPCHIEU",
+      "release_date": "2017-11-22",
+      "created_at": "2023-10-10T08:00:00Z",
+      "updated_at": "2023-10-10T08:00:00Z",
+      "showtimes": []
+    }
+  ],
+  "genres": [
+    {
+      "genreName": "Hành động",
+      "id": "1",
+      "movieCount": 1
+    },
+    {
+      "genreName": "Kinh dị",
+      "id": "2",
+      "movieCount": 3
+    },
+    {
+      "genreName": "Romantic",
+      "id": "3"
+    },
+    {
+      "id": "1973",
+      "genreName": "1234",
+      "movieCount": 123
+    },
+    {
+      "id": "2cd2",
+      "genreName": "huy",
+      "movieCount": 36
+    }
+  ],
+  "news": [
+    {
+      "id": "news-1",
+      "title": "Chương trình phim kỉ niệm 79 năm ngày giải phóng thủ đô",
+      "content": "Chương trình phim đặc biệt được tổ chức nhằm kỉ niệm 79 năm ngày giải phóng thủ đô.",
+      "created_at": "2025-10-03T00:00:00Z",
+      "bannerUrl": "https://images.unsplash.com/photo-1761503390713-a1fd8b8bb6c5",
+      "category": "news",
+      "dayBegin": "2025-10-01T00:00:00Z",
+      "dayEnd": "2025-10-10T00:00:00Z"
+    },
+    {
+      "id": "promo-1",
+      "title": "Vui tết trung thu - rinh quà ví vu",
+      "content": "Khách hàng tham gia chương trình trung thu sẽ nhận được nhiều phần quà hấp dẫn.",
+      "created_at": "2025-09-13T00:00:00Z",
+      "bannerUrl": "https://images.unsplash.com/photo-1719706654529-ca7e2ce5a2bb",
+      "category": "promotion",
+      "dayBegin": "2025-12-15T00:00:00Z",
+      "dayEnd": "2025-12-25T00:00:00Z"
+    },
+    {
+      "id": "promo-2",
+      "title": "Suất chiếu đặc biệt - quà tặng tưng bừng",
+      "content": "Tham gia suất chiếu đặc biệt để nhận nhiều phần quà giá trị.",
+      "created_at": "2025-09-04T00:00:00Z",
+      "bannerUrl": "https://images.unsplash.com/photo-1761503390713-a1fd8b8bb6c5",
+      "category": "promotion",
+      "dayBegin": "2025-12-01T00:00:00Z",
+      "dayEnd": "2025-12-08T00:00:00Z"
+    },
+    {
+      "id": "promo-3",
+      "title": "Khuyến mãi đặc biệt cho khách hàng thân thiết",
+      "content": "Chương trình tri ân khách hàng thân thiết với nhiều ưu đãi hấp dẫn.",
+      "created_at": "2025-06-25T00:00:00Z",
+      "bannerUrl": "https://images.unsplash.com/photo-1719706654529-ca7e2ce5a2bb",
+      "category": "promotion",
+      "dayBegin": "2025-12-05T00:00:00Z",
+      "dayEnd": "2025-12-31T00:00:00Z"
+    },
+    {
+      "id": "news-2",
+      "title": "Đợt phim kỉ niệm 79 năm cách mạng tháng 8 và quốc khánh",
+      "content": "Trung tâm chiếu phim quốc gia tổ chức đợt phim đặc biệt nhân dịp quốc khánh.",
+      "created_at": "2025-08-21T00:00:00Z",
+      "bannerUrl": "https://images.unsplash.com/photo-1616108365310-0accd0de566b",
+      "category": "news",
+      "dayBegin": "2025-08-25T00:00:00Z",
+      "dayEnd": "2025-09-05T00:00:00Z"
+    },
+    {
+      "id": "news-3",
+      "title": "Tuyển dụng cộng tác viên soát vé và bán vé",
+      "content": "Trung tâm chiếu phim quốc gia tuyển cộng tác viên làm việc linh hoạt theo ca.",
+      "created_at": "2025-08-04T00:00:00Z",
+      "bannerUrl": "https://images.unsplash.com/photo-1762330463032-06f873b3277c",
+      "category": "news",
+      "dayBegin": "2025-12-01T00:00:00Z",
+      "dayEnd": "2025-12-20T00:00:00Z"
+    },
+    {
+      "id": "news-4",
+      "title": "Thông báo hoàn thành khảo sát cơ sở vật chất",
+      "content": "Trung tâm đã hoàn thành công tác kiểm tra, bảo trì và nâng cấp cơ sở vật chất.",
+      "created_at": "2025-07-19T00:00:00Z",
+      "bannerUrl": "https://images.unsplash.com/photo-1739433437912-cca661ba902f",
+      "category": "news",
+      "dayBegin": "2025-07-01T00:00:00Z",
+      "dayEnd": "2025-07-10T00:00:00Z"
+    },
+    {
+      "id": "news-5",
+      "title": "Review phim hot nhất mùa hè này - kẻ trộm mặt trăng 4",
+      "content": "Một bộ phim hoạt hình nổi bật của mùa hè, phù hợp với mọi độ tuổi.",
+      "created_at": "2025-07-13T00:00:00Z",
+      "bannerUrl": "https://images.unsplash.com/photo-1751823886813-0cfc86cb9478",
+      "category": "news",
+      "dayBegin": "2025-12-10T00:00:00Z",
+      "dayEnd": "2025-12-20T00:00:00Z"
+    }
+  ],
+  "showtimes": [
+    {
+      "movie": "Frozen II",
+      "theater": "NCC Bà Triệu",
+      "screen": "Phòng 1",
+      "date": "2025-12-17",
+      "startTime": "11:11",
+      "endTime": "14:11",
+      "availableSeats": 54,
+      "totalSeats": 54,
+      "status": "active",
+      "id": "MbHMR9n"
+    },
+    {
+      "movie": "Dune: Part Two",
+      "theater": "NCC Hai Bà Trưng",
+      "screen": "Phòng 12",
+      "date": "2025-12-17",
+      "startTime": "12:12",
+      "endTime": "15:12",
+      "availableSeats": 91,
+      "totalSeats": 91,
+      "status": "active",
+      "id": "YBsvBTv"
+    },
+    {
+      "movie": "Titanic",
+      "theater": "NCC Hai Bà Trưng",
+      "screen": "Phòng 12",
+      "date": "2025-12-18",
+      "startTime": "11:06",
+      "endTime": "14:06",
+      "availableSeats": 91,
+      "totalSeats": 91,
+      "status": "active",
+      "id": "oxcbyFE"
+    },
+    {
+      "id": "0531ba2c-eeff-48a5-ad9b-912e6aac9561",
+      "movie": "Frozen II",
+      "theater": "NCC Bà Triệu",
+      "screen": "Phòng 1",
+      "date": "2025-12-17",
+      "startTime": "17:23",
+      "endTime": "19:06",
+      "availableSeats": 54,
+      "totalSeats": 54,
+      "status": "active"
+    }
+  ],
+  "screens": [
+    {
+      "id": "f66d57b3-18ef-45f1-bc08-ba11b7c4bc25",
+      "name": "Phòng 1",
+      "theaterId": "8f4d5c4e-2b7e-4e9b-9c12-4f9a2d3b7c91",
+      "theater": "NCC Bà Triệu",
+      "type": "Standard",
+      "row": "6",
+      "column": "9",
+      "capacity": 54,
+      "status": "Đang hoạt động"
+    },
+    {
+      "id": "5a0d8bd4-33f4-4796-aeb5-84a1a02a772b",
+      "name": "Phòng 12",
+      "theaterId": "d99b0bb2-dfb7-48e9-87b4-1de87f71e30f",
+      "theater": "NCC Hai Bà Trưng",
+      "type": "IMAX",
+      "row": 7,
+      "column": 13,
+      "capacity": 91,
+      "status": "Đang hoạt động"
+    },
+    {
+      "id": "3b196b64-63ea-4a24-b7d7-615600741502",
+      "name": "Ổ chó",
+      "theaterId": "c89d23f0-09b6-4c8d-9b5a-9c3590dce0ef",
+      "theater": "NCC Atmin Test",
+      "type": "Mini",
+      "row": 3,
+      "column": 5,
+      "capacity": 15,
+      "status": "Đang hoạt động"
+    },
+    {
+      "id": "a19133ea-c63f-4dd6-bad0-91dfd0073bd1",
+      "name": "Phòng 13",
+      "theaterId": "259431d0-1556-47b7-ae56-12bd77f5e01e",
+      "theater": "NCC Tràng Tiền Plaza",
+      "type": "Mini",
+      "row": 3,
+      "column": 5,
+      "capacity": 15,
+      "status": "Đang hoạt động"
+    }
+  ],
+  "seat_map": [
+    {
+      "id": "c7c03767-7de6-4016-b80a-c934d3f8dbd1",
+      "screenId": "5a0d8bd4-33f4-4796-aeb5-84a1a02a772b",
+      "seats": [
+        {
+          "row": "A",
+          "number": 1,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 2,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 3,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 4,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 5,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 6,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 7,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 8,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 9,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 10,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 11,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 12,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "A",
+          "number": 13,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 1,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 2,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 3,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 4,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 5,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 6,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 7,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 8,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 9,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 10,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 11,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 12,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "B",
+          "number": 13,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 1,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 2,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 3,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 4,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 5,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 6,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 7,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 8,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 9,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 10,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 11,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 12,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "C",
+          "number": 13,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 1,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 2,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 3,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 4,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 5,
+          "type": "vip",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 6,
+          "type": "vip",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 7,
+          "type": "vip",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 8,
+          "type": "vip",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 9,
+          "type": "vip",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 10,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 11,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 12,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "D",
+          "number": 13,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 1,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 2,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 3,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 4,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 5,
+          "type": "vip",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 6,
+          "type": "vip",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 7,
+          "type": "vip",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 8,
+          "type": "vip",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 9,
+          "type": "vip",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 10,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 11,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 12,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "E",
+          "number": 13,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "F",
+          "number": 1,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "F",
+          "number": 2,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "F",
+          "number": 3,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "F",
+          "number": 4,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "F",
+          "number": 5,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "F",
+          "number": 6,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "F",
+          "number": 7,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "F",
+          "number": 8,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "F",
+          "number": 9,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "F",
+          "number": 10,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "F",
+          "number": 11,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "F",
+          "number": 12,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "F",
+          "number": 13,
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "G",
+          "number": 1,
+          "type": "sweetbox",
+          "booked": false
+        },
+        {
+          "row": "G",
+          "number": 2,
+          "type": "sweetbox",
+          "booked": false
+        },
+        {
+          "row": "G",
+          "number": 3,
+          "type": "sweetbox",
+          "booked": false
+        },
+        {
+          "row": "G",
+          "number": 4,
+          "type": "sweetbox",
+          "booked": false
+        },
+        {
+          "row": "G",
+          "number": 5,
+          "type": "sweetbox",
+          "booked": false
+        },
+        {
+          "row": "G",
+          "number": 6,
+          "type": "sweetbox",
+          "booked": false
+        },
+        {
+          "row": "G",
+          "number": 7,
+          "type": "sweetbox",
+          "booked": false
+        },
+        {
+          "row": "G",
+          "number": 8,
+          "type": "sweetbox",
+          "booked": false
+        },
+        {
+          "row": "G",
+          "number": 9,
+          "type": "sweetbox",
+          "booked": false
+        },
+        {
+          "row": "G",
+          "number": 10,
+          "type": "sweetbox",
+          "booked": false
+        },
+        {
+          "row": "G",
+          "number": 11,
+          "type": "sweetbox",
+          "booked": false
+        },
+        {
+          "row": "G",
+          "number": 12,
+          "type": "sweetbox",
+          "booked": false
+        },
+        {
+          "row": "G",
+          "number": 13,
+          "type": "sweetbox",
+          "booked": false
+        }
+      ]
+    }
+  ],
+  "festivals": [
+    {
+      "id": "1",
+      "title": "Liên hoan phim Việt Nam lần thứ 23",
+      "date": "15/11/2024 - 20/11/2024",
+      "description": "Liên hoan phim Việt Nam là sự kiện điện ảnh lớn nhất trong năm, quy tụ những tác phẩm xuất sắc nhất của điện ảnh Việt Nam. Sự kiện diễn ra trong 6 ngày với nhiều hoạt động phong phú.",
+      "image": "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&h=560&fit=crop"
+    },
+    {
+      "id": "2",
+      "title": "Liên hoan phim Quốc tế Hà Nội",
+      "date": "01/12/2024 - 05/12/2024",
+      "description": "Liên hoan phim Quốc tế Hà Nội mang đến những bộ phim đặc sắc từ khắp nơi trên thế giới, tạo cơ hội giao lưu văn hóa điện ảnh giữa Việt Nam và các quốc gia.",
+      "image": "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=400&h=560&fit=crop"
+    },
+    {
+      "id": "3",
+      "title": "Tuần phim Pháp tại Việt Nam",
+      "date": "10/12/2024 - 15/12/2024",
+      "description": "Tuần phim Pháp giới thiệu những tác phẩm điện ảnh đương đại và kinh điển của nền điện ảnh Pháp, một trong những nền điện ảnh có ảnh hưởng lớn nhất thế giới.",
+      "image": "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400&h=560&fit=crop"
+    }
+  ]
 }

@@ -1,16 +1,21 @@
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { newsData } from "../data/newsData";
-import { NewsCard } from "../components/NewsCard";
-import { useState } from "react";
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { NewsCard } from '../components/Card/NewsCard';
+import { useEffect, useState } from 'react';
+import type { News } from '../types/news.interface';
+import axios from 'axios';
 
 export default function News() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8;
-
-  const totalPages = Math.ceil(newsData.length / itemsPerPage);
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = newsData.slice(indexOfFirstItem, indexOfLastItem);
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 8;
+    const [newsData, setNewsData] = useState<News[]>([]);
+    useEffect(() => {
+        axios.get("http://localhost:8080/news")
+        .then((res) => setNewsData(res.data))
+    }, []);
+    const totalPages = Math.ceil(newsData.length / itemsPerPage);
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = newsData.filter((n) => n.category == "news").slice(indexOfFirstItem, indexOfLastItem);
 
   return (
     <div className="min-h-screen bg-[#1a1d29] py-12 px-6">
@@ -23,17 +28,20 @@ export default function News() {
           Tin tức
         </h1>
 
-        {/* Grid các thẻ tin */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {currentItems.map((news) => (
-            <NewsCard
-              key={news.id}
-              image={news.image}
-              date={news.date}
-              title={news.title}
-            />
-          ))}
-        </div>
+                {/* Grid các thẻ tin */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                    {currentItems.map((news, id) => (
+                        news.category == "news" ?
+                        <NewsCard
+                            key={id}
+                            id={id + 1}
+                            image={news.bannerUrl}
+                            date={news.created_at.split("T")[0]}
+                            title={news.title}
+                        />
+                        : <></>
+                    ))}
+                </div>
 
         {/* Pagination */}
         <div className="flex justify-end">
