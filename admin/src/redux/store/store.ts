@@ -8,6 +8,7 @@ import screenSlice from "../slice/screen.slice";
 import priceSlice from "../slice/price.slice";
 import userSlice from "../slice/user.slice";
 import bookingSlice from "../slice/booking.slice";
+import seatSlice from "../slice/seat.slice";
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
     theater: theaterSlice,
     news: newsSlice,
     screens: screenSlice,
+    seat: seatSlice,
     price: priceSlice,
     user: userSlice,
     booking: bookingSlice,

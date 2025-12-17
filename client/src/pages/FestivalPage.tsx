@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 interface Festival {
   id: number;
   title: string;
@@ -7,6 +9,7 @@ interface Festival {
 }
 
 export default function FestivalPage() {
+  const navigate = useNavigate();
   const festivals: Festival[] = [
     {
       id: 1,
@@ -56,6 +59,7 @@ export default function FestivalPage() {
               <div
                 key={festival.id}
                 className="flex flex-col lg:flex-row gap-6 bg-[#1a222f] p-4 rounded-2xl hover:bg-[#1f2937] transition cursor-pointer"
+                onClick={() => navigate(`/festivalDetail?${festival.id}`)}
               >
                 <img
                   src={festival.image}
