@@ -7,6 +7,7 @@ export interface InitialStateType<T> {
 export interface MovieGenre {
   id: string;
   genreName: string;
+  movieCount?: number;
 }
 
 export interface Showtimes {

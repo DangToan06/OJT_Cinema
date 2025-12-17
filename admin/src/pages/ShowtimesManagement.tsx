@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import { Plus, Edit, Trash2, Calendar, Clock } from "lucide-react";
 import Swal from "sweetalert2";
@@ -390,15 +388,18 @@ export function ShowtimesManagement() {
             </thead>
             <tbody className="divide-y divide-gray-800">
               {filteredShowtimes.length === 0 ? (
-                <tr>
-                  <td
-                    colSpan={5}
-                    className="px-6 py-16 text-center text-gray-500 flex flex-col items-center justify-center"
-                  >
-                    <Calendar className="w-12 h-12 mb-3 opacity-20" />
-                    <span className="text-lg">
-                      Không có suất chiếu nào trong ngày này
-                    </span>
+                <tr className="flex-1">
+                  <td colSpan={5} className="px-6 text-center text-gray-500">
+                    <div className="flex flex-col items-center justify-center h-full min-h-96">
+                      <Calendar className="w-16 h-16 mb-4 opacity-30 text-gray-600" />
+                      <span className="text-xl font-medium text-gray-400">
+                        Không có suất chiếu nào trong ngày này
+                      </span>
+                      <p className="text-sm text-gray-500 mt-2">
+                        Hãy chọn ngày khác hoặc nhấn nút “Thêm suất chiếu” để
+                        tạo mới
+                      </p>
+                    </div>
                   </td>
                 </tr>
               ) : (

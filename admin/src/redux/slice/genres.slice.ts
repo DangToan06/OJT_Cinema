@@ -16,10 +16,12 @@ const initialState: InitialStateType<MovieGenre> = {
 const genresSlice = createSlice({
   name: "genres",
   initialState,
-  reducers: {},
+  reducers: {
+
+  },
   extraReducers: (builder) => {
     builder
-      // FETCH
+      // FETCH ALL 
       .addCase(fetchGenres.pending, (state) => {
         state.status = "pending";
         state.error = null;
@@ -30,27 +32,49 @@ const genresSlice = createSlice({
       })
       .addCase(fetchGenres.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.payload as string;
+        state.error = action.payload as string ?? "Không thể tải thể loại";
       })
 
-      // ADD
-
+      // CREATE 
+      .addCase(createGenre.pending, (state) => {
+        state.status = "pending";
+      })
       .addCase(createGenre.fulfilled, (state, action) => {
-        state.data.unshift(action.payload);
+        state.status = "success";
+        state.data.unshift(action.payload); 
+      })
+      .addCase(createGenre.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload as string ?? "Không thể thêm thể loại";
       })
 
       // UPDATE
-
+      .addCase(updateGenre.pending, (state) => {
+        state.status = "pending";
+      })
       .addCase(updateGenre.fulfilled, (state, action) => {
+        state.status = "success";
         const index = state.data.findIndex((g) => g.id === action.payload.id);
         if (index !== -1) {
           state.data[index] = action.payload;
         }
       })
+      .addCase(updateGenre.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload as string ?? "Không thể cập nhật thể loại";
+      })
 
-      // DELETE
+      // DELETE 
+      .addCase(deleteGenre.pending, (state) => {
+        state.status = "pending";
+      })
       .addCase(deleteGenre.fulfilled, (state, action) => {
+        state.status = "success";
         state.data = state.data.filter((g) => g.id !== action.payload);
+      })
+      .addCase(deleteGenre.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload as string ?? "Không thể xóa thể loại";
       });
   },
 });

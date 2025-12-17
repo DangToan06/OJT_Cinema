@@ -550,6 +550,11 @@
         {
           "id": 1,
           "genre_name": "Hành động"
+        },
+        {
+          "genreName": "Hành động",
+          "id": "1",
+          "movieCount": 1
         }
       ],
       "status": "DANGCHIEU",
@@ -1051,11 +1056,13 @@
   "genres": [
     {
       "genreName": "Hành động",
-      "id": "1"
+      "id": "1",
+      "movieCount": 1
     },
     {
       "genreName": "Kinh dị",
-      "id": "2"
+      "id": "2",
+      "movieCount": 3
     },
     {
       "genreName": "Romantic",
@@ -1063,7 +1070,13 @@
     },
     {
       "id": "1973",
-      "genreName": "1234"
+      "genreName": "1234",
+      "movieCount": 123
+    },
+    {
+      "id": "2cd2",
+      "genreName": "huy",
+      "movieCount": 36
     }
   ],
   "news": [
@@ -1182,6 +1195,15 @@
       "endTime": "14:06",
       "availableSeats": 91,
       "totalSeats": 91,
+      "movie": "Spider-Man: No Way Home",
+      "theater": "CGV Vincom Center",
+      "screen": "Phòng 1 (120 ghế - 2D)",
+      "date": "2025-12-10",
+      "startTime": "16:08",
+      "endTime": "19:08",
+      "price": 5555566,
+      "availableSeats": 150,
+      "totalSeats": 150,
       "status": "active",
       "id": "oxcbyFE"
     },
@@ -1796,6 +1818,29 @@
           "booked": false
         }
       ]
+    }
+  ],
+  "festivals": [
+    {
+      "id": "1",
+      "title": "Liên hoan phim Việt Nam lần thứ 23",
+      "date": "15/11/2024 - 20/11/2024",
+      "description": "Liên hoan phim Việt Nam là sự kiện điện ảnh lớn nhất trong năm, quy tụ những tác phẩm xuất sắc nhất của điện ảnh Việt Nam. Sự kiện diễn ra trong 6 ngày với nhiều hoạt động phong phú.",
+      "image": "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&h=560&fit=crop"
+    },
+    {
+      "id": "2",
+      "title": "Liên hoan phim Quốc tế Hà Nội",
+      "date": "01/12/2024 - 05/12/2024",
+      "description": "Liên hoan phim Quốc tế Hà Nội mang đến những bộ phim đặc sắc từ khắp nơi trên thế giới, tạo cơ hội giao lưu văn hóa điện ảnh giữa Việt Nam và các quốc gia.",
+      "image": "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=400&h=560&fit=crop"
+    },
+    {
+      "id": "3",
+      "title": "Tuần phim Pháp tại Việt Nam",
+      "date": "10/12/2024 - 15/12/2024",
+      "description": "Tuần phim Pháp giới thiệu những tác phẩm điện ảnh đương đại và kinh điển của nền điện ảnh Pháp, một trong những nền điện ảnh có ảnh hưởng lớn nhất thế giới.",
+      "image": "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400&h=560&fit=crop"
     }
   ]
 }
