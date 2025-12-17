@@ -112,7 +112,7 @@
       "phone": "1900 5454",
       "website": "https://www.lottecinemavn.com",
       "screens": 12,
-      "status": "Ngừng hoạt động"
+      "status": "Đang hoạt động"
     },
     {
       "id": "3c98d15e-7ef2-4a30-a9ea-2b7cd44e1e12",
@@ -121,7 +121,7 @@
       "phone": "1900 2224",
       "website": "https://www.galaxycine.vn",
       "screens": 6,
-      "status": "Ngừng hoạt động"
+      "status": "Đang hoạt động"
     },
     {
       "id": "ab72c4f1-8e0a-41e9-9f3b-11df7b32951d",
@@ -139,7 +139,7 @@
       "phone": "1900 6017",
       "website": "https://www.cgv.vn",
       "screens": 9,
-      "status": "Ngừng hoạt động"
+      "status": "Đang hoạt động"
     },
     {
       "id": "4b94a41a-dfcf-4bf2-ae8a-0b4b5c91e5fe",
@@ -166,7 +166,7 @@
       "phone": "1900 636807",
       "website": "https://www.betacinema.vn",
       "screens": 7,
-      "status": "Ngừng hoạt động"
+      "status": "Đang hoạt động"
     },
     {
       "id": "d99b0bb2-dfb7-48e9-87b4-1de87f71e30f",
@@ -202,7 +202,7 @@
       "phone": "1900 2224",
       "website": "https://www.galaxycine.vn",
       "screens": 6,
-      "status": "Ngừng hoạt động"
+      "status": "Đang hoạt động"
     },
     {
       "id": "c89d23f0-09b6-4c8d-9b5a-9c3590dce0ef",
@@ -214,125 +214,401 @@
       "status": "Đang hoạt động"
     }
   ],
-  "ticket_prices": [
+  "prices": [
     {
-      "id": "1",
+      "id": "2d-std-0-1",
       "type_seat": "STANDARD",
       "type_movie": "2D",
-      "price": 80000000,
+      "price": 555000,
       "day_type": 0,
-      "start_time": "08:00:00",
-      "end_time": "17:00:00"
+      "time": 1
     },
     {
-      "id": "2",
+      "id": "2d-vip-0-1",
+      "type_seat": "VIP",
+      "type_movie": "2D",
+      "price": 65000,
+      "day_type": 0,
+      "time": 1
+    },
+    {
+      "id": "2d-sb-0-1",
+      "type_seat": "SWEETBOX",
+      "type_movie": "2D",
+      "price": 140000,
+      "day_type": 0,
+      "time": 1
+    },
+    {
+      "id": "2d-std-0-2",
+      "type_seat": "STANDARD",
+      "type_movie": "2D",
+      "price": 70000,
+      "day_type": 0,
+      "time": 2
+    },
+    {
+      "id": "2d-vip-0-2",
+      "type_seat": "VIP",
+      "type_movie": "2D",
+      "price": 75000,
+      "day_type": 0,
+      "time": 2
+    },
+    {
+      "id": "2d-sb-0-2",
+      "type_seat": "SWEETBOX",
+      "type_movie": "2D",
+      "price": 160000,
+      "day_type": 0,
+      "time": 2
+    },
+    {
+      "id": "2d-std-0-3",
+      "type_seat": "STANDARD",
+      "type_movie": "2D",
+      "price": 80000,
+      "day_type": 0,
+      "time": 3
+    },
+    {
+      "id": "2d-vip-0-3",
+      "type_seat": "VIP",
+      "type_movie": "2D",
+      "price": 85000,
+      "day_type": 0,
+      "time": 3
+    },
+    {
+      "id": "2d-sb-0-3",
+      "type_seat": "SWEETBOX",
+      "type_movie": "2D",
+      "price": 180000,
+      "day_type": 0,
+      "time": 3
+    },
+    {
+      "id": "2d-std-0-4",
+      "type_seat": "STANDARD",
+      "type_movie": "2D",
+      "price": 65000,
+      "day_type": 0,
+      "time": 4
+    },
+    {
+      "id": "2d-vip-0-4",
+      "type_seat": "VIP",
+      "type_movie": "2D",
+      "price": 70000,
+      "day_type": 0,
+      "time": 4
+    },
+    {
+      "id": "2d-sb-0-4",
+      "type_seat": "SWEETBOX",
+      "type_movie": "2D",
+      "price": 150000,
+      "day_type": 0,
+      "time": 4
+    },
+    {
+      "id": "2d-std-1-1",
+      "type_seat": "STANDARD",
+      "type_movie": "2D",
+      "price": 70000,
+      "day_type": 1,
+      "time": 1
+    },
+    {
+      "id": "2d-vip-1-1",
+      "type_seat": "VIP",
+      "type_movie": "2D",
+      "price": 80000,
+      "day_type": 1,
+      "time": 1
+    },
+    {
+      "id": "2d-sb-1-1",
+      "type_seat": "SWEETBOX",
+      "type_movie": "2D",
+      "price": 170000,
+      "day_type": 1,
+      "time": 1
+    },
+    {
+      "id": "2d-std-1-2",
+      "type_seat": "STANDARD",
+      "type_movie": "2D",
+      "price": 80000,
+      "day_type": 1,
+      "time": 2
+    },
+    {
+      "id": "2d-vip-1-2",
+      "type_seat": "VIP",
+      "type_movie": "2D",
+      "price": 85000,
+      "day_type": 1,
+      "time": 2
+    },
+    {
+      "id": "2d-sb-1-2",
+      "type_seat": "SWEETBOX",
+      "type_movie": "2D",
+      "price": 180000,
+      "day_type": 1,
+      "time": 2
+    },
+    {
+      "id": "2d-std-1-3",
+      "type_seat": "STANDARD",
+      "type_movie": "2D",
+      "price": 90000,
+      "day_type": 1,
+      "time": 3
+    },
+    {
+      "id": "2d-vip-1-3",
+      "type_seat": "VIP",
+      "type_movie": "2D",
+      "price": 95000,
+      "day_type": 1,
+      "time": 3
+    },
+    {
+      "id": "2d-sb-1-3",
+      "type_seat": "SWEETBOX",
+      "type_movie": "2D",
+      "price": 200000,
+      "day_type": 1,
+      "time": 3
+    },
+    {
+      "id": "2d-std-1-4",
+      "type_seat": "STANDARD",
+      "type_movie": "2D",
+      "price": 75000,
+      "day_type": 1,
+      "time": 4
+    },
+    {
+      "id": "2d-vip-1-4",
+      "type_seat": "VIP",
+      "type_movie": "2D",
+      "price": 80000,
+      "day_type": 1,
+      "time": 4
+    },
+    {
+      "id": "2d-sb-1-4",
+      "type_seat": "SWEETBOX",
+      "type_movie": "2D",
+      "price": 170000,
+      "day_type": 1,
+      "time": 4
+    },
+    {
+      "id": "3d-std-0-1",
+      "type_seat": "STANDARD",
+      "type_movie": "3D",
+      "price": 75000,
+      "day_type": 0,
+      "time": 1
+    },
+    {
+      "id": "3d-vip-0-1",
       "type_seat": "VIP",
       "type_movie": "3D",
-      "price": 110000,
-      "day_type": 1,
-      "start_time": "17:00:00",
-      "end_time": "23:00:00"
+      "price": 85000,
+      "day_type": 0,
+      "time": 1
     },
     {
-      "id": "3",
-      "type_seat": "SweetBox",
+      "id": "3d-sb-0-1",
+      "type_seat": "SWEETBOX",
       "type_movie": "3D",
-      "price": 120000,
+      "price": 160000,
+      "day_type": 0,
+      "time": 1
+    },
+    {
+      "id": "3d-std-0-2",
+      "type_seat": "STANDARD",
+      "type_movie": "3D",
+      "price": 90000,
+      "day_type": 0,
+      "time": 2
+    },
+    {
+      "id": "3d-vip-0-2",
+      "type_seat": "VIP",
+      "type_movie": "3D",
+      "price": 95000,
+      "day_type": 0,
+      "time": 2
+    },
+    {
+      "id": "3d-sb-0-2",
+      "type_seat": "SWEETBOX",
+      "type_movie": "3D",
+      "price": 180000,
+      "day_type": 0,
+      "time": 2
+    },
+    {
+      "id": "3d-std-1-3",
+      "type_seat": "STANDARD",
+      "type_movie": "3D",
+      "price": 115000,
       "day_type": 1,
-      "start_time": "17:00:00",
-      "end_time": "23:00:00"
-    }
-  ],
-  "seat_types": [
-    {
-      "id": "1",
-      "name": "Ghế Standard",
-      "base_price": 70000
+      "time": 3
     },
     {
-      "id": "2",
-      "name": "Ghế VIP",
-      "base_price": 110000
+      "id": "3d-vip-1-3",
+      "type_seat": "VIP",
+      "type_movie": "3D",
+      "price": 115000,
+      "day_type": 1,
+      "time": 3
     },
     {
-      "id": "3",
-      "name": "Ghế Sweetbox",
-      "base_price": 120000
-    }
-  ],
-  "screen_types": [
-    {
-      "id": "1",
-      "name": "Phòng 2D",
-      "surcharge": 0
+      "id": "3d-sb-1-3",
+      "type_seat": "SWEETBOX",
+      "type_movie": "3D",
+      "price": 220000,
+      "day_type": 1,
+      "time": 3
     },
     {
-      "id": "2",
-      "name": "Phòng 3D",
-      "surcharge": 30000
+      "id": "f345ec81-935d-4366-9f11-d1198c053ba1",
+      "type_seat": "STANDARD",
+      "type_movie": "3D",
+      "price": 95000,
+      "day_type": 1,
+      "time": 1
     },
     {
-      "id": "3",
-      "name": "Phòng IMAX",
-      "surcharge": 60000
+      "id": "a5b2a7a7-8c13-4da4-9800-23763ec08230",
+      "type_seat": "VIP",
+      "type_movie": "3D",
+      "price": 105000,
+      "day_type": 1,
+      "time": 1
     },
     {
-      "id": "4",
-      "name": "Phòng 4DX",
-      "surcharge": 80000
-    }
-  ],
-  "day_multipliers": [
-    {
-      "id": "1",
-      "name": "Ngày thường (T2-T5)",
-      "multiplier": 1
+      "id": "6374d629-8896-4854-a708-8cbf2bce0d6d",
+      "type_seat": "SWEETBOX",
+      "type_movie": "3D",
+      "price": 190000,
+      "day_type": 1,
+      "time": 1
     },
     {
-      "id": "2",
-      "name": "Cuối tuần (T6-CN)",
-      "multiplier": 1.2
+      "id": "11f0f232-1c70-42db-993c-33715d306cf2",
+      "type_seat": "STANDARD",
+      "type_movie": "3D",
+      "price": 105000,
+      "day_type": 1,
+      "time": 2
     },
     {
-      "id": "3",
-      "name": "Ngày lễ",
-      "multiplier": 1.5
-    }
-  ],
-  "time_discounts": [
-    {
-      "id": "1",
-      "name": "Suất sáng (trước 12h)",
-      "discount": 30000
+      "id": "00f301e6-4358-4f28-9801-6d9baaebee73",
+      "type_seat": "VIP",
+      "type_movie": "3D",
+      "price": 115000,
+      "day_type": 1,
+      "time": 2
     },
     {
-      "id": "2",
-      "name": "Suất chiều (12h-17h)",
-      "discount": 0
+      "id": "7537e344-6136-4a85-97a0-e1b60a2911ef",
+      "type_seat": "SWEETBOX",
+      "type_movie": "3D",
+      "price": 200000,
+      "day_type": 1,
+      "time": 2
     },
     {
-      "id": "3",
-      "name": "Suất tối (17h-22h)",
-      "discount": 0
+      "id": "ebffc636-a799-4680-82c0-a1646f5e496a",
+      "type_seat": "STANDARD",
+      "type_movie": "3D",
+      "price": 95000,
+      "day_type": 0,
+      "time": 3
     },
     {
-      "id": "4",
-      "name": "Suất khuya (sau 22h)",
-      "discount": 15000
+      "id": "41d61a02-8b31-4ee3-b549-17c02824c308",
+      "type_seat": "VIP",
+      "type_movie": "3D",
+      "price": 100000,
+      "day_type": 0,
+      "time": 3
+    },
+    {
+      "id": "be937c0e-9776-407e-b0b5-989ae89bf221",
+      "type_seat": "SWEETBOX",
+      "type_movie": "3D",
+      "price": 190000,
+      "day_type": 0,
+      "time": 3
+    },
+    {
+      "id": "f139912c-1428-4a54-ada1-a0c06c3516c8",
+      "type_seat": "STANDARD",
+      "type_movie": "3D",
+      "price": 80000,
+      "day_type": 0,
+      "time": 4
+    },
+    {
+      "id": "6117eaa0-601c-4fc3-ab77-f99965571f73",
+      "type_seat": "VIP",
+      "type_movie": "3D",
+      "price": 85000,
+      "day_type": 0,
+      "time": 4
+    },
+    {
+      "id": "04c0ef44-36a1-4fef-9f66-c4f9eecb83b8",
+      "type_seat": "SWEETBOX",
+      "type_movie": "3D",
+      "price": 180000,
+      "day_type": 0,
+      "time": 4
+    },
+    {
+      "id": "fd7de473-249c-41b8-bc1e-ee879f297110",
+      "type_seat": "STANDARD",
+      "type_movie": "3D",
+      "price": 90000,
+      "day_type": 1,
+      "time": 4
+    },
+    {
+      "id": "3affa0f9-3299-49fe-a480-15e3d9c320e9",
+      "type_seat": "VIP",
+      "type_movie": "3D",
+      "price": 95000,
+      "day_type": 1,
+      "time": 4
+    },
+    {
+      "id": "05fb776c-b6dd-4215-9d68-0cc8e8426b6e",
+      "type_seat": "SWEETBOX",
+      "type_movie": "3D",
+      "price": 190000,
+      "day_type": 1,
+      "time": 4
     }
   ],
   "movies": [
     {
-      "id": "1",
       "title": "Avengers: Endgame",
       "description": "Biệt đội siêu anh hùng tái hợp để chống lại Thanos.",
       "author": "Anthony Russo, Joe Russo",
       "image": "https://imgs.search.brave.com/vRob72dhcsh8w977xQbHi1-Fi7xL6oTOL-zHl3O93aw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzBiLzE0/L2U0LzBiMTRlNGVl/ZTgxZmYyMTM5ZGI0/ZWI3Yzg2NTdkMGJl/LmpwZw",
       "trailer": "https://www.youtube.com/embed/TcMBFSGVi1c?si=EOGEg-xcfbmgU6Sq",
       "type": "3D",
-      "duration": 181,
-      "age": 16,
-      "origin": "Mẽo",
+      "duration": 180,
       "genres_movie": [
         {
           "id": 1,
@@ -343,6 +619,7 @@
       "release_date": "2019-04-26",
       "created_at": "2023-06-01T08:00:00Z",
       "updated_at": "2023-06-01T08:00:00Z",
+      "id": "1",
       "showtimes": [
         {
           "id": 1,
@@ -1150,11 +1427,13 @@
   "genres": [
     {
       "genreName": "Hành động",
-      "id": "1"
+      "id": "1",
+      "movieCount": 1
     },
     {
       "genreName": "Kinh dị",
-      "id": "2"
+      "id": "2",
+      "movieCount": 3
     },
     {
       "genreName": "Romantic",
@@ -1162,7 +1441,13 @@
     },
     {
       "id": "1973",
-      "genreName": "1234"
+      "genreName": "1234",
+      "movieCount": 123
+    },
+    {
+      "id": "2cd2",
+      "genreName": "huy",
+      "movieCount": 36
     }
   ],
   "news": [
@@ -1264,11 +1549,10 @@
     {
       "movie": "Avengers: Endgame",
       "theater": "CGV Vincom Center",
-      "screen": "Phòng 1 (120 ghế - 2D)",
+      "screen": "Phòng 2",
       "date": "2025-12-24",
-      "startTime": "11:10",
-      "endTime": "14:10",
-      "price": 666666,
+      "startTime": "00:10",
+      "endTime": "03:10",
       "availableSeats": 150,
       "totalSeats": 150,
       "status": "active",

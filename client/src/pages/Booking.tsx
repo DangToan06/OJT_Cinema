@@ -114,7 +114,7 @@ export default function ChooseTicket() {
   }, [minutes, seconds, showing]);
 
   return (
-    <div className="bg-black text-white font-sans">
+    <div className="bg-black text-white font-sans h-[600px]">
       {/* BACKGROUND WRAPPER */}
       <div
         className="relative bg-cover bg-center"
@@ -161,8 +161,12 @@ export default function ChooseTicket() {
                 </p>
                 <p>{data?.description}</p>
                 <div className="mt-4 flex gap-4 items-center">
-                  <button className="text-white underline text-sm font-medium"
-                  onClick={() => {setOpen(true)}}>
+                  <button
+                    className="text-white underline text-sm font-medium"
+                    onClick={() => {
+                      setOpen(true);
+                    }}
+                  >
                     Chi tiết nội dung
                   </button>
                   <button

@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import { Plus, Edit, Trash2, Calendar, Clock } from "lucide-react";
 import Swal from "sweetalert2";
@@ -11,6 +9,9 @@ import {
   fetchShowtimes,
   updateShowtime,
 } from "../api/showtimes.api";
+import { fetchMovies } from "../api/movie.api";
+import { getAllTheaters } from "../api/theater.api";
+import { getAllScreens } from "../api/screen.api";
 
 interface ShowtimeForm {
   movie: string;
@@ -18,13 +19,22 @@ interface ShowtimeForm {
   screen: string;
   date: string;
   startTime: string;
-  price: string;
 }
 
 export function ShowtimesManagement() {
   const dispatch = useDispatch<AppDispatch>();
-  const { data: showtimes, loading } = useSelector(
+
+  const { data: showtimes, loading: showtimesLoading } = useSelector(
     (state: RootState) => state.showtimes
+  );
+  const { data: movies, status: movieStatus } = useSelector(
+    (state: RootState) => state.movie
+  );
+  const { theaters = [], loading: theaterLoading = false } = useSelector(
+    (state: RootState) => state.theater || { theaters: [], loading: false }
+  );
+  const { screens = [], loading: screensLoading = false } = useSelector(
+    (state: RootState) => state.screens || { screens: [], loading: false }
   );
 
   const [showModal, setShowModal] = useState(false);
@@ -38,12 +48,28 @@ export function ShowtimesManagement() {
     screen: "",
     date: "",
     startTime: "",
-    price: "",
   });
 
   useEffect(() => {
     dispatch(fetchShowtimes());
+    dispatch(
+      fetchMovies({
+        page: 1,
+        pageSize: 100,
+        search: "",
+        status: "",
+      })
+    );
+    dispatch(getAllTheaters());
+    dispatch(getAllScreens());
   }, [dispatch]);
+
+
+  const availableScreens = form.theater
+    ? screens.filter(
+        (s: any) => s.theater === form.theater && s.status === "Đang hoạt động"
+      )
+    : [];
 
   const filteredShowtimes = Array.isArray(showtimes)
     ? showtimes.filter((s) => s.date === filterDate)
@@ -64,7 +90,6 @@ export function ShowtimesManagement() {
       screen: "",
       date: "",
       startTime: "",
-      price: "",
     });
     setShowModal(true);
   };
@@ -77,7 +102,6 @@ export function ShowtimesManagement() {
       screen: showtime.screen,
       date: showtime.date,
       startTime: showtime.startTime,
-      price: showtime.price.toString(),
     });
     setShowModal(true);
   };
@@ -91,38 +115,23 @@ export function ShowtimesManagement() {
       !form.theater ||
       !form.screen ||
       !form.date ||
-      !form.startTime ||
-      !form.price ||
-      Number(form.price) < 10000
+      !form.startTime
     ) {
       return;
     }
 
-    const price = Number(form.price);
-    if (isNaN(price) || price < 10000) {
-      Swal.fire({
-        title: "Lỗi",
-        text: "Giá vé phải lớn hơn 10.000đ",
-        icon: "error",
-        background: "#1f2937",
-        color: "#fff",
-      });
-      return;
-    }
+    // Lấy capacity từ phòng chiếu 
+    const selectedScreen = screens.find(
+      (s: any) => s.name === form.screen && s.theater === form.theater
+    );
+    const totalSeats = selectedScreen?.capacity || 120;
 
+    // Tính endTime
     const [hours, minutes] = form.startTime.split(":").map(Number);
     const totalMinutes = hours * 60 + minutes + 180;
-    const endHours = Math.floor(totalMinutes / 60)
-      .toString()
-      .padStart(2, "0");
+    const endHours = Math.floor(totalMinutes / 60).toString().padStart(2, "0");
     const endMinutes = (totalMinutes % 60).toString().padStart(2, "0");
     const endTime = `${endHours}:${endMinutes}`;
-
-    const totalSeats = form.screen.includes("VIP")
-      ? 80
-      : form.screen.includes("2")
-      ? 150
-      : 120;
 
     const payload = {
       movie: form.movie,
@@ -131,7 +140,6 @@ export function ShowtimesManagement() {
       date: form.date,
       startTime: form.startTime,
       endTime,
-      price,
       availableSeats: totalSeats,
       totalSeats,
       status: "active",
@@ -146,31 +154,36 @@ export function ShowtimesManagement() {
       color: "#fff",
     });
 
-    if (editingShowtime) {
-      await dispatch(updateShowtime({ id: editingShowtime.id, data: payload }));
-      toastMixin.fire({
-        icon: "success",
-        title: "Cập nhật suất chiếu thành công",
-      });
-    } else {
-      await dispatch(createShowtime(payload));
-      toastMixin.fire({
-        icon: "success",
-        title: "Thêm suất chiếu mới thành công",
-      });
-    }
+    try {
+      if (editingShowtime) {
+        await dispatch(
+          updateShowtime({ id: editingShowtime.id, data: payload })
+        ).unwrap();
+        toastMixin.fire({
+          icon: "success",
+          title: "Cập nhật suất chiếu thành công",
+        });
+      } else {
+        await dispatch(createShowtime(payload)).unwrap();
+        toastMixin.fire({
+          icon: "success",
+          title: "Thêm suất chiếu mới thành công",
+        });
+      }
 
-    setShowModal(false);
-    setForm({
-      movie: "",
-      theater: "",
-      screen: "",
-      date: "",
-      startTime: "",
-      price: "",
-    });
-    setEditingShowtime(null);
-    setSubmitted(false);
+      setShowModal(false);
+      setForm({
+        movie: "",
+        theater: "",
+        screen: "",
+        date: "",
+        startTime: "",
+      });
+      setEditingShowtime(null);
+      setSubmitted(false);
+    } catch (error) {
+      toastMixin.fire({ icon: "error", title: "Có lỗi xảy ra, vui lòng thử lại" });
+    }
   };
 
   const handleDelete = (id: number) => {
@@ -200,7 +213,13 @@ export function ShowtimesManagement() {
     });
   };
 
-  if (loading) {
+  const isLoading =
+    showtimesLoading ||
+    movieStatus === "loading" ||
+    theaterLoading ||
+    screensLoading;
+
+  if (isLoading) {
     return (
       <div className="flex h-screen items-center justify-center bg-gray-950 text-white">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
@@ -210,6 +229,7 @@ export function ShowtimesManagement() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 p-8 font-sans">
+      {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
         <div>
           <h1 className="text-3xl font-bold text-white mb-2 tracking-tight">
@@ -228,6 +248,7 @@ export function ShowtimesManagement() {
         </button>
       </div>
 
+      {/* Filter theo ngày */}
       <div className="bg-gray-900 rounded-xl shadow-lg border border-gray-800 mb-6 p-4">
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex items-center gap-3 bg-gray-800 px-4 py-2.5 rounded-lg border border-gray-700">
@@ -252,6 +273,7 @@ export function ShowtimesManagement() {
         </div>
       </div>
 
+      {/* Bảng danh sách suất chiếu */}
       <div className="bg-gray-900 rounded-xl shadow-lg border border-gray-800 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left">
@@ -267,9 +289,6 @@ export function ShowtimesManagement() {
                   Thời gian
                 </th>
                 <th className="px-6 py-4 text-gray-400 font-semibold text-sm uppercase tracking-wider">
-                  Giá vé
-                </th>
-                <th className="px-6 py-4 text-gray-400 font-semibold text-sm uppercase tracking-wider">
                   Trạng thái
                 </th>
                 <th className="px-6 py-4 text-right text-gray-400 font-semibold text-sm uppercase tracking-wider">
@@ -279,15 +298,17 @@ export function ShowtimesManagement() {
             </thead>
             <tbody className="divide-y divide-gray-800">
               {filteredShowtimes.length === 0 ? (
-                <tr>
-                  <td
-                    colSpan={6}
-                    className="px-6 py-16 text-center text-gray-500 flex flex-col items-center justify-center"
-                  >
-                    <Calendar className="w-12 h-12 mb-3 opacity-20" />
-                    <span className="text-lg">
-                      Không có suất chiếu nào trong ngày này
-                    </span>
+                <tr className="flex-1">
+                  <td colSpan={5} className="px-6 text-center text-gray-500">
+                    <div className="flex flex-col items-center justify-center h-full min-h-96">
+                      <Calendar className="w-16 h-16 mb-4 opacity-30 text-gray-600" />
+                      <span className="text-xl font-medium text-gray-400">
+                        Không có suất chiếu nào trong ngày này
+                      </span>
+                      <p className="text-sm text-gray-500 mt-2">
+                        Hãy chọn ngày khác hoặc nhấn nút “Thêm suất chiếu” để tạo mới
+                      </p>
+                    </div>
                   </td>
                 </tr>
               ) : (
@@ -318,9 +339,6 @@ export function ShowtimesManagement() {
                           {showtime.startTime} - {showtime.endTime}
                         </span>
                       </div>
-                    </td>
-                    <td className="px-6 py-4 text-red-400 font-semibold">
-                      {showtime.price.toLocaleString("vi-VN")} ₫
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
@@ -361,14 +379,13 @@ export function ShowtimesManagement() {
         </div>
       </div>
 
+      {/* Modal thêm/sửa suất chiếu */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-in fade-in duration-200">
-          <div className="bg-gray-900 border border-gray-800 rounded-2xl max-w-2xl w-full shadow-2xl overflow-hidden transform transition-all">
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+          <div className="bg-gray-900 border border-gray-800 rounded-2xl max-w-2xl w-full shadow-2xl overflow-hidden">
             <div className="border-b border-gray-800 px-6 py-5 flex justify-between items-center bg-gray-900">
               <h2 className="text-xl font-bold text-white">
-                {editingShowtime
-                  ? "Cập Nhật Suất Chiếu"
-                  : "Thêm Suất Chiếu Mới"}
+                {editingShowtime ? "Cập Nhật Suất Chiếu" : "Thêm Suất Chiếu Mới"}
               </h2>
               <button
                 onClick={() => setShowModal(false)}
@@ -378,40 +395,33 @@ export function ShowtimesManagement() {
               </button>
             </div>
 
-            <form
-              onSubmit={handleSubmit}
-              className="p-8 space-y-6 max-h-[80vh] overflow-y-auto custom-scrollbar"
-            >
+            <form onSubmit={handleSubmit} className="p-8 space-y-6 max-h-[80vh] overflow-y-auto">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Phim */}
                 <div className="col-span-1 md:col-span-2">
                   <label className="block text-gray-400 mb-2 font-medium text-sm">
                     Phim <span className="text-red-500">*</span>
                   </label>
                   <select
                     value={form.movie}
-                    onChange={(e) =>
-                      setForm({ ...form, movie: e.target.value })
-                    }
+                    onChange={(e) => setForm({ ...form, movie: e.target.value })}
                     className={`w-full px-4 py-3 bg-gray-800 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all ${
-                      submitted && !form.movie
-                        ? "border-red-500"
-                        : "border-gray-700"
+                      submitted && !form.movie ? "border-red-500" : "border-gray-700"
                     }`}
                   >
                     <option value="">-- Chọn phim --</option>
-                    <option>Avengers: Endgame</option>
-                    <option>Spider-Man: No Way Home</option>
-                    <option>The Batman</option>
-                    <option>Avatar: The Way of Water</option>
-                    <option>Deadpool & Wolverine</option>
+                    {movies.map((movie: any) => (
+                      <option key={movie.id} value={movie.title}>
+                        {movie.title}
+                      </option>
+                    ))}
                   </select>
                   {submitted && !form.movie && (
-                    <p className="text-red-500 text-xs mt-1">
-                      Vui lòng chọn phim
-                    </p>
+                    <p className="text-red-500 text-xs mt-1">Vui lòng chọn phim</p>
                   )}
                 </div>
 
+                {/* Rạp */}
                 <div>
                   <label className="block text-gray-400 mb-2 font-medium text-sm">
                     Rạp <span className="text-red-500">*</span>
@@ -419,54 +429,61 @@ export function ShowtimesManagement() {
                   <select
                     value={form.theater}
                     onChange={(e) =>
-                      setForm({ ...form, theater: e.target.value })
+                      setForm({ ...form, theater: e.target.value, screen: "" })
                     }
                     className={`w-full px-4 py-3 bg-gray-800 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all ${
-                      submitted && !form.theater
-                        ? "border-red-500"
-                        : "border-gray-700"
+                      submitted && !form.theater ? "border-red-500" : "border-gray-700"
                     }`}
                   >
                     <option value="">-- Chọn rạp --</option>
-                    <option>CGV Vincom Center</option>
-                    <option>Lotte Cinema Keangnam</option>
-                    <option>Galaxy Cinema Nguyễn Du</option>
-                    <option>Beta Cinemas Thanh Xuân</option>
+                    {theaters.map((theater: any) => (
+                      <option key={theater.id} value={theater.name}>
+                        {theater.name}
+                      </option>
+                    ))}
                   </select>
                   {submitted && !form.theater && (
-                    <p className="text-red-500 text-xs mt-1">
-                      Vui lòng chọn rạp
-                    </p>
+                    <p className="text-red-500 text-xs mt-1">Vui lòng chọn rạp</p>
                   )}
                 </div>
 
+                {/* Phòng chiếu */}
                 <div>
                   <label className="block text-gray-400 mb-2 font-medium text-sm">
                     Phòng chiếu <span className="text-red-500">*</span>
                   </label>
                   <select
                     value={form.screen}
-                    onChange={(e) =>
-                      setForm({ ...form, screen: e.target.value })
-                    }
+                    onChange={(e) => setForm({ ...form, screen: e.target.value })}
+                    disabled={!form.theater || availableScreens.length === 0}
                     className={`w-full px-4 py-3 bg-gray-800 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all ${
-                      submitted && !form.screen
-                        ? "border-red-500"
-                        : "border-gray-700"
-                    }`}
+                      submitted && !form.screen ? "border-red-500" : "border-gray-700"
+                    } ${!form.theater || availableScreens.length === 0 ? "opacity-50 cursor-not-allowed" : ""}`}
                   >
-                    <option value="">-- Chọn phòng --</option>
-                    <option>Phòng 1 (120 ghế - 2D)</option>
-                    <option>Phòng 2 (150 ghế - 3D)</option>
-                    <option>Phòng VIP (80 ghế - IMAX)</option>
+                    <option value="">
+                      {form.theater
+                        ? availableScreens.length > 0
+                          ? "-- Chọn phòng --"
+                          : "Không có phòng khả dụng"
+                        : "-- Chọn rạp trước --"}
+                    </option>
+                    {availableScreens.map((screen: any) => (
+                      <option key={screen.id} value={screen.name}>
+                        {screen.name} ({screen.capacity} ghế - {screen.type || "Standard"})
+                      </option>
+                    ))}
                   </select>
                   {submitted && !form.screen && (
-                    <p className="text-red-500 text-xs mt-1">
-                      Vui lòng chọn phòng
+                    <p className="text-red-500 text-xs mt-1">Vui lòng chọn phòng</p>
+                  )}
+                  {form.theater && availableScreens.length === 0 && (
+                    <p className="text-yellow-500 text-xs mt-1">
+                      Rạp này chưa có phòng hoạt động
                     </p>
                   )}
                 </div>
 
+                {/* Ngày chiếu */}
                 <div>
                   <label className="block text-gray-400 mb-2 font-medium text-sm">
                     Ngày chiếu <span className="text-red-500">*</span>
@@ -475,10 +492,8 @@ export function ShowtimesManagement() {
                     type="date"
                     value={form.date}
                     onChange={(e) => setForm({ ...form, date: e.target.value })}
-                    className={`w-full px-4 py-3 bg-gray-800 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all placeholder-gray-500 ${
-                      submitted && !form.date
-                        ? "border-red-500"
-                        : "border-gray-700"
+                    className={`w-full px-4 py-3 bg-gray-800 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all ${
+                      submitted && !form.date ? "border-red-500" : "border-gray-700"
                     }`}
                   />
                   {submitted && !form.date && (
@@ -486,6 +501,7 @@ export function ShowtimesManagement() {
                   )}
                 </div>
 
+                {/* Giờ bắt đầu */}
                 <div>
                   <label className="block text-gray-400 mb-2 font-medium text-sm">
                     Giờ bắt đầu <span className="text-red-500">*</span>
@@ -493,49 +509,18 @@ export function ShowtimesManagement() {
                   <input
                     type="time"
                     value={form.startTime}
-                    onChange={(e) =>
-                      setForm({ ...form, startTime: e.target.value })
-                    }
+                    onChange={(e) => setForm({ ...form, startTime: e.target.value })}
                     className={`w-full px-4 py-3 bg-gray-800 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all ${
-                      submitted && !form.startTime
-                        ? "border-red-500"
-                        : "border-gray-700"
+                      submitted && !form.startTime ? "border-red-500" : "border-gray-700"
                     }`}
                   />
                   {submitted && !form.startTime && (
-                    <p className="text-red-500 text-xs mt-1">Chọn giờ</p>
-                  )}
-                </div>
-
-                <div className="col-span-1 md:col-span-2">
-                  <label className="block text-gray-400 mb-2 font-medium text-sm">
-                    Giá vé (VNĐ) <span className="text-red-500">*</span>
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="number"
-                      value={form.price}
-                      onChange={(e) =>
-                        setForm({ ...form, price: e.target.value })
-                      }
-                      className={`w-full px-4 py-3 bg-gray-800 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all pl-4 ${
-                        submitted && (!form.price || Number(form.price) < 10000)
-                          ? "border-red-500"
-                          : "border-gray-700"
-                      }`}
-                      placeholder="Ví dụ: 75000"
-                      min="10000"
-                    />
-                    <span className="absolute right-4 top-3.5 text-gray-500 font-medium">
-                      ₫
-                    </span>
-                  </div>
-                  {submitted && !form.price && (
-                    <p className="text-red-500 text-xs mt-1">Nhập giá vé</p>
+                    <p className="text-red-500 text-xs mt-1">Chọn giờ bắt đầu</p>
                   )}
                 </div>
               </div>
 
+              {/* Nút hành động */}
               <div className="flex gap-3 pt-4 border-t border-gray-800">
                 <button
                   type="button"
