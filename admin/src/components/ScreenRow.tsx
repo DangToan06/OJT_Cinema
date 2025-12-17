@@ -102,6 +102,7 @@ export default function ScreenRow({
                         onClick={() => {
                             handleEditClick(screen);
                             openEditModal();
+                            console.log('edit screen:', screen);
                         }}
                         className="p-2 text-blue-400 hover:bg-blue-500/15 rounded-lg transition-all hover:scale-110"
                     >

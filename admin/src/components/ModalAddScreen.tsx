@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import type { IScreen } from '../interfaces/screen.interface';
 import {
@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '../hook/useRedux';
 import { createScreen, updateScreen } from '../api/screen.api';
 import { notify } from '../util/toast';
 import { v4 as uuidv4 } from 'uuid';
+import { getAllTheaters } from '../api/theater.api';
 
 interface ModalAddScreenProps {
     open: boolean;
@@ -23,6 +24,12 @@ export default function ModalAddScreen({
 }: ModalAddScreenProps) {
     const dispatch = useAppDispatch();
     const theatersData = useAppSelector((s) => s.theater.theaters);
+
+    useEffect(() => {
+        if (theatersData.length === 0) {
+            dispatch(getAllTheaters());
+        }
+    }, [theatersData.length, dispatch]);
     const [formData, setFormData] = useState<Omit<IScreen, 'id'>>(
         dataEdit ?? initialScreen
     );
@@ -113,14 +120,15 @@ export default function ModalAddScreen({
             theaterId: formData.theaterId,
             theater: formData.theater,
             type: formData.type,
-            row: formData.row,
-            column: formData.column,
+            row:Number(formData.row),
+            column: Number(formData.column),
             capacity: capacity,
             status: formData.status,
         };
 
         if (dataEdit) {
             newScreen.id = dataEdit.id;
+            console.log('updating screen:', newScreen);
             dispatch(updateScreen(newScreen));
             notify.success('Cập nhật phòng chiếu thành công');
         } else {
