@@ -47,12 +47,13 @@ export default function MovieCalendar() {
   }, []);
 
   return (
-    <div className="w-full min-h-screen bg-[#0f1217] text-white px-6 py-10">
+    <div className="w-full min-h-screen bg-[#0f1217] text-white px-6 py-10 relative">
       {/* Title */}
       <h2 className="text-center text-xl font-semibold mb-6 flex items-center justify-center gap-2">
         <img src={red} alt="" className="w-6 h-6 object-contain" />
         Phim đang chiếu
       </h2>
+
 
       {/* Date Selector */}
       <div className="flex justify-center gap-4 mb-4">

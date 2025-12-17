@@ -1557,6 +1557,32 @@
       "totalSeats": 150,
       "status": "active",
       "id": "3"
+    },
+    {
+      "movie": "Spider-Man: No Way Home",
+      "theater": "CGV Vincom Center",
+      "screen": "Phòng 1 (120 ghế - 2D)",
+      "date": "2025-12-10",
+      "startTime": "16:08",
+      "endTime": "19:08",
+      "price": 5555566,
+      "availableSeats": 150,
+      "totalSeats": 150,
+      "status": "active",
+      "id": "4"
+    },
+    {
+      "movie": "Avengers: Endgame",
+      "theater": "CGV Vincom Center",
+      "screen": "Phòng 2 (150 ghế - 3D)",
+      "date": "2025-12-18",
+      "startTime": "12:15",
+      "endTime": "15:15",
+      "price": 10000,
+      "availableSeats": 150,
+      "totalSeats": 150,
+      "status": "active",
+      "id": "CjN88WH"
     }
   ],
   "screens": [
@@ -2302,6 +2328,35 @@
         }
       ],
       "id": "b4b7a8f3-2ed1-4a8c-b6ae-3918c2db518f"
+    }
+  ],
+  "festivals":[
+    {
+      "id": 1,
+      "title": "Liên hoan phim Việt Nam lần thứ 23",
+      "date": "15/11/2024 - 20/11/2024",
+      "description":
+        "Liên hoan phim Việt Nam là sự kiện điện ảnh lớn nhất trong năm, quy tụ những tác phẩm xuất sắc nhất của điện ảnh Việt Nam. Sự kiện diễn ra trong 6 ngày với nhiều hoạt động phong phú.",
+      "image":
+        "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&h=560&fit=crop"
+    },
+    {
+      "id": 2,
+      "title": "Liên hoan phim Quốc tế Hà Nội",
+      "date": "01/12/2024 - 05/12/2024",
+      "description":
+        "Liên hoan phim Quốc tế Hà Nội mang đến những bộ phim đặc sắc từ khắp nơi trên thế giới, tạo cơ hội giao lưu văn hóa điện ảnh giữa Việt Nam và các quốc gia.",
+      "image":
+        "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=400&h=560&fit=crop"
+    },
+    {
+      "id": 3,
+      "title": "Tuần phim Pháp tại Việt Nam",
+      "date": "10/12/2024 - 15/12/2024",
+      "description":
+        "Tuần phim Pháp giới thiệu những tác phẩm điện ảnh đương đại và kinh điển của nền điện ảnh Pháp, một trong những nền điện ảnh có ảnh hưởng lớn nhất thế giới.",
+      "image":
+        "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400&h=560&fit=crop"
     }
   ]
 }
