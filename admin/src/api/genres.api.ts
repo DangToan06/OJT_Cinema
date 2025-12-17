@@ -5,7 +5,7 @@ import type { MovieGenre } from "../util/type.util";
 
 const GENRES_ENDPOINT = "/genres";
 
-// LẤY all
+// LẤY tất cả thể loại
 export const fetchGenres = createAsyncThunk<MovieGenre[], void>(
   "genres/fetchAll",
   async (_, { rejectWithValue }) => {
@@ -20,21 +20,36 @@ export const fetchGenres = createAsyncThunk<MovieGenre[], void>(
   }
 );
 
-// THÊM
-export const createGenre = createAsyncThunk<MovieGenre, string>(
+// THÊM thể loại mới
+export const createGenre = createAsyncThunk<
+  MovieGenre,
+  { genreName: string; movieCount?: number }
+>(
   "genres/create",
-  async (genreName, { rejectWithValue }) => {
+  async ({ genreName, movieCount = 0 }, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.post<MovieGenre>(GENRES_ENDPOINT, {
+      const payload: Partial<MovieGenre> = {
         genreName: genreName.trim(),
-      });
+      };
+
+      if (movieCount !== undefined && movieCount >= 0) {
+        payload.movieCount = movieCount;
+      }
+
+      const response = await axiosInstance.post<MovieGenre>(
+        GENRES_ENDPOINT,
+        payload
+      );
+
       Swal.fire({
         icon: "success",
-        title: "Thêm thành công!",
+        title: "Thêm thể loại thành công!",
         toast: true,
         position: "top-end",
         timer: 1500,
+        showConfirmButton: false,
       });
+
       return response.data;
     } catch (error: any) {
       const message =
@@ -45,50 +60,66 @@ export const createGenre = createAsyncThunk<MovieGenre, string>(
   }
 );
 
-// SỬA
+// SỬA thể loại
 export const updateGenre = createAsyncThunk<
   MovieGenre,
-  { id: string; genreName: string }
->("genres/update", async ({ id, genreName }, { rejectWithValue }) => {
-  try {
-    const response = await axiosInstance.patch<MovieGenre>(
-      `${GENRES_ENDPOINT}/${id}`,
-      {
+  { id: string; genreName: string; movieCount?: number }
+>(
+  "genres/update",
+  async ({ id, genreName, movieCount }, { rejectWithValue }) => {
+    try {
+      const payload: Partial<MovieGenre> = {
         genreName: genreName.trim(),
-      }
-    );
-    Swal.fire({
-      icon: "success",
-      title: "Cập nhật thành công!",
-      toast: true,
-      position: "top-end",
-      timer: 1500,
-    });
-    return response.data;
-  } catch (error: any) {
-    const message =
-      error.response?.data?.message || "Không thể cập nhật thể loại";
-    Swal.fire("Lỗi!", message, "error");
-    return rejectWithValue(message);
-  }
-});
+      };
 
-// XÓA
+      if (movieCount !== undefined && movieCount >= 0) {
+        payload.movieCount = movieCount;
+      }
+
+      const response = await axiosInstance.patch<MovieGenre>(
+        `${GENRES_ENDPOINT}/${id}`,
+        payload
+      );
+
+      Swal.fire({
+        icon: "success",
+        title: "Cập nhật thể loại thành công!",
+        toast: true,
+        position: "top-end",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+
+      return response.data;
+    } catch (error: any) {
+      const message =
+        error.response?.data?.message || "Không thể cập nhật thể loại";
+      Swal.fire("Lỗi!", message, "error");
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// XÓA thể loại
 export const deleteGenre = createAsyncThunk<string, string>(
   "genres/delete",
   async (id, { rejectWithValue }) => {
     try {
       await axiosInstance.delete(`${GENRES_ENDPOINT}/${id}`);
+
       Swal.fire({
         icon: "success",
-        title: "Đã xóa thể loại!",
+        title: "Đã xóa thể loại thành công!",
         toast: true,
         position: "top-end",
         timer: 1500,
+        showConfirmButton: false,
       });
+
       return id;
     } catch (error: any) {
-      const message = error.response?.data?.message || "Không thể xóa thể loại";
+      const message =
+        error.response?.data?.message || "Không thể xóa thể loại";
       Swal.fire("Lỗi!", message, "error");
       return rejectWithValue(message);
     }

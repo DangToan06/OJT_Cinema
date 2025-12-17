@@ -191,24 +191,19 @@ export function PricingManagement() {
     dispatch(getAllPrice());
   }, [dispatch]);
 
-  // Class chung cho input/select tối màu
-  const inputClass =
-    "border border-gray-700 bg-gray-800 text-white rounded w-full px-2 py-1.5 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500";
-  const filterSelectClass =
-    "border border-gray-700 bg-gray-800 text-white rounded px-3 py-1 cursor-pointer focus:outline-none focus:border-red-500";
-
   return (
-    <div className="min-h-screen bg-gray-950 p-8">
-      {" "}
-      {/* Nền toàn trang tối */}
+    <div>
       <div className="mb-8">
-        <h1 className="text-white mb-2 font-bold text-3xl">Quản lý giá vé</h1>
-        <p className="text-gray-400">
+        <h1 className="text-gray-900 mb-2 font-bold text-2xl">
+          Quản lý giá vé
+        </h1>
+        <p className="text-gray-600">
           Cấu hình bảng giá vé theo loại ghế, phòng chiếu và thời gian
         </p>
       </div>
-      <div className="bg-gray-900 rounded-lg shadow-lg border border-gray-800">
-        <div className="p-6 border-b border-gray-800 flex justify-between items-center">
+
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+        <div className="p-6 border-b border-gray-200 flex justify-between items-center">
           <div className="flex flex-col gap-2">
             <h2 className="text-white font-semibold text-xl">
               Danh sách giá vé
