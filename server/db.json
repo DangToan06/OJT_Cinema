@@ -219,7 +219,7 @@
       "id": "2d-std-0-1",
       "type_seat": "STANDARD",
       "type_movie": "2D",
-      "price": 55000,
+      "price": 555000,
       "day_type": 0,
       "time": 1
     },
@@ -1427,11 +1427,13 @@
   "genres": [
     {
       "genreName": "Hành động",
-      "id": "1"
+      "id": "1",
+      "movieCount": 1
     },
     {
       "genreName": "Kinh dị",
-      "id": "2"
+      "id": "2",
+      "movieCount": 3
     },
     {
       "genreName": "Romantic",
@@ -1439,7 +1441,13 @@
     },
     {
       "id": "1973",
-      "genreName": "1234"
+      "genreName": "1234",
+      "movieCount": 123
+    },
+    {
+      "id": "2cd2",
+      "genreName": "huy",
+      "movieCount": 36
     }
   ],
   "news": [
@@ -1549,19 +1557,6 @@
       "totalSeats": 150,
       "status": "active",
       "id": "3"
-    },
-    {
-      "movie": "Spider-Man: No Way Home",
-      "theater": "CGV Vincom Center",
-      "screen": "Phòng 1 (120 ghế - 2D)",
-      "date": "2025-12-10",
-      "startTime": "16:08",
-      "endTime": "19:08",
-      "price": 1500000,
-      "availableSeats": 150,
-      "totalSeats": 150,
-      "status": "active",
-      "id": "4"
     }
   ],
   "screens": [
