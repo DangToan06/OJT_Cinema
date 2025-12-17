@@ -67,7 +67,7 @@ export const routers = createBrowserRouter([
     ),
   },
   {
-    path: "/booking",
+    path: "/showtimes",
     element: (
       <Layout>
         <Booking></Booking>
@@ -80,30 +80,30 @@ export const routers = createBrowserRouter([
       <Layout>
         <Promotions />
       </Layout>
-    )
+    ),
   },
   {
     path: "/festivalDetail",
     element: (
       <Layout>
-        <FestivalDetails/>
+        <FestivalDetails />
       </Layout>
-    )
+    ),
   },
   {
     path: "/newDetail",
     element: (
       <Layout>
-        <NewsDetail/>
+        <NewsDetail />
       </Layout>
-    )
+    ),
   },
   {
     path: "/promotionDetail",
     element: (
       <Layout>
-        <PromotionDetail/>
+        <PromotionDetail />
       </Layout>
-    )
+    ),
   },
 ]);

@@ -11,9 +11,10 @@ import {
   fetchShowtimes,
   updateShowtime,
 } from "../api/showtimes.api";
-import { fetchMovies } from "../api/movie.api";
+import { fetchMovies, updateMovie } from "../api/movie.api";
 import { getAllTheaters } from "../api/theater.api";
 import { getAllScreens } from "../api/screen.api";
+import { v4 as uuid } from "uuid";
 
 interface ShowtimeForm {
   movie: string;
@@ -22,26 +23,33 @@ interface ShowtimeForm {
   date: string;
   startTime: string;
 }
+const formatDate = (date: Date): string => {
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+  return `${year}-${month}-${day}`;
+};
 
 export function ShowtimesManagement() {
   const dispatch = useDispatch<AppDispatch>();
 
-  const { data: showtimes, loading: showtimesLoading } = useSelector(
+  const { data: showtimes } = useSelector(
     (state: RootState) => state.showtimes
   );
-  const { data: movies, status: movieStatus } = useSelector(
-    (state: RootState) => state.movie
-  );
-  const { theaters = [], loading: theaterLoading = false } = useSelector(
+  const { data: movies } = useSelector((state: RootState) => state.movie);
+  const { theaters = [] } = useSelector(
     (state: RootState) => state.theater || { theaters: [], loading: false }
   );
-  const { screens = [], loading: screensLoading = false } = useSelector(
+  const { screens = [] } = useSelector(
     (state: RootState) => state.screens || { screens: [], loading: false }
   );
 
   const [showModal, setShowModal] = useState(false);
-  const [editingShowtime, setEditingShowtime] = useState<any>(null);
-  const [filterDate, setFilterDate] = useState("2025-12-10");
+  const [editingShowtime, setEditingShowtime] = useState<ShowtimeForm | null>(
+    null
+  );
+  const [filterDate, setFilterDate] = useState(() => formatDate(new Date()));
+
   const [submitted, setSubmitted] = useState(false);
 
   const [form, setForm] = useState<ShowtimeForm>({
@@ -65,7 +73,6 @@ export function ShowtimesManagement() {
     dispatch(getAllTheaters());
     dispatch(getAllScreens());
   }, [dispatch]);
-
 
   const availableScreens = form.theater
     ? screens.filter(
@@ -96,7 +103,7 @@ export function ShowtimesManagement() {
     setShowModal(true);
   };
 
-  const openEditModal = (showtime: any) => {
+  const openEditModal = (showtime: ShowtimeForm) => {
     setEditingShowtime(showtime);
     setForm({
       movie: showtime.movie,
@@ -122,18 +129,74 @@ export function ShowtimesManagement() {
       return;
     }
 
-    // Lấy capacity từ phòng chiếu thật
     const selectedScreen = screens.find(
       (s: any) => s.name === form.screen && s.theater === form.theater
     );
     const totalSeats = selectedScreen?.capacity || 120;
 
-    // Tính endTime (giả sử phim dài 3 tiếng)
-    const [hours, minutes] = form.startTime.split(":").map(Number);
-    const totalMinutes = hours * 60 + minutes + 180;
-    const endHours = Math.floor(totalMinutes / 60).toString().padStart(2, "0");
-    const endMinutes = (totalMinutes % 60).toString().padStart(2, "0");
-    const endTime = `${endHours}:${endMinutes}`;
+    const timeToMinutes = (timeStr: string) => {
+      const [h, m] = timeStr.split(":").map(Number);
+      return h * 60 + m;
+    };
+
+    const selectedMovie = movies.find((m) => m.title === form.movie);
+    const movieDuration = selectedMovie?.duration || 180;
+    const startMinutes = timeToMinutes(form.startTime);
+    const endMinutes = startMinutes + movieDuration;
+    const endHoursStr = Math.floor(endMinutes / 60)
+      .toString()
+      .padStart(2, "0");
+    const endMinutesStr = (endMinutes % 60).toString().padStart(2, "0");
+    const endTime = `${endHoursStr}:${endMinutesStr}`;
+
+    const toastMixin = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      background: "#1f2937",
+      color: "#fff",
+    });
+
+    const existingShowsInRoom = showtimes.filter((show) => {
+      const isSameRoomAndDate =
+        show.theater === form.theater &&
+        show.screen === form.screen &&
+        show.date === form.date;
+
+      const isNotCurrentEditing = editingShowtime
+        ? show.id !== editingShowtime.id
+        : true;
+
+      return isSameRoomAndDate && isNotCurrentEditing;
+    });
+
+    if (existingShowsInRoom.length > 0) {
+      const existingMovieName = existingShowsInRoom[0].movie;
+
+      if (existingMovieName !== form.movie) {
+        toastMixin.fire({
+          icon: "error",
+          title: `Phòng ${form.screen} ngày ${form.date} đang chiếu phim "${existingMovieName}". Không thể thêm phim "${form.movie}"!`,
+        });
+        return;
+      }
+    }
+
+    const hasTimeConflict = existingShowsInRoom.some((existingShow) => {
+      const existingStart = timeToMinutes(existingShow.startTime);
+      const existingEnd = timeToMinutes(existingShow.endTime);
+
+      return startMinutes < existingEnd && endMinutes > existingStart;
+    });
+
+    if (hasTimeConflict) {
+      toastMixin.fire({
+        icon: "error",
+        title: "Lỗi: Khung giờ này bị trùng với một suất chiếu khác!",
+      });
+      return;
+    }
 
     const payload = {
       movie: form.movie,
@@ -147,15 +210,6 @@ export function ShowtimesManagement() {
       status: "active",
     };
 
-    const toastMixin = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 3000,
-      background: "#1f2937",
-      color: "#fff",
-    });
-
     try {
       if (editingShowtime) {
         await dispatch(
@@ -166,7 +220,22 @@ export function ShowtimesManagement() {
           title: "Cập nhật suất chiếu thành công",
         });
       } else {
-        await dispatch(createShowtime(payload)).unwrap();
+        const newShowtime = { id: uuid(), ...payload };
+        const movieAddShow = movies.find((m) => m.title === newShowtime.movie);
+        if (movieAddShow) {
+          const updatedMovieData = {
+            ...movieAddShow,
+            showtimes: [newShowtime.id, ...movieAddShow.showtimes],
+          };
+          dispatch(
+            updateMovie({
+              id: updatedMovieData.id,
+              movieData: updatedMovieData,
+            })
+          );
+        }
+
+        await dispatch(createShowtime(newShowtime)).unwrap();
         toastMixin.fire({
           icon: "success",
           title: "Thêm suất chiếu mới thành công",
@@ -174,21 +243,15 @@ export function ShowtimesManagement() {
       }
 
       setShowModal(false);
-      setForm({
-        movie: "",
-        theater: "",
-        screen: "",
-        date: "",
-        startTime: "",
-      });
+      setForm({ movie: "", theater: "", screen: "", date: "", startTime: "" });
       setEditingShowtime(null);
       setSubmitted(false);
     } catch (error) {
-      toastMixin.fire({ icon: "error", title: "Có lỗi xảy ra, vui lòng thử lại" });
+      toastMixin.fire({ icon: "error", title: `Có lỗi xảy ra: ${error}` });
     }
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     Swal.fire({
       title: "Xóa suất chiếu?",
       text: "Hành động này không thể hoàn tác!",
@@ -200,12 +263,39 @@ export function ShowtimesManagement() {
       cancelButtonText: "Hủy",
       background: "#1f2937",
       color: "#fff",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        dispatch(deleteShowtime(id));
+        const showtimeToDelete = showtimes.find((s) => s.id === id);
+
+        if (showtimeToDelete) {
+          const relatedMovie = movies.find(
+            (m) => m.title === showtimeToDelete.movie
+          );
+
+          if (relatedMovie) {
+            const updatedShowtimeList = relatedMovie.showtimes.filter(
+              (showtimeId) => showtimeId !== id
+            );
+
+            const updatedMovieData = {
+              ...relatedMovie,
+              showtimes: updatedShowtimeList,
+            };
+
+            dispatch(
+              updateMovie({
+                id: relatedMovie.id,
+                movieData: updatedMovieData,
+              })
+            );
+          }
+        }
+
+        await dispatch(deleteShowtime(id)).unwrap();
+
         Swal.fire({
           title: "Đã xóa!",
-          text: "Suất chiếu đã bị xóa.",
+          text: "Suất chiếu đã bị xóa khỏi hệ thống và lịch chiếu của phim.",
           icon: "success",
           background: "#1f2937",
           color: "#fff",
@@ -215,19 +305,19 @@ export function ShowtimesManagement() {
     });
   };
 
-  const isLoading =
-    showtimesLoading ||
-    movieStatus === "loading" ||
-    theaterLoading ||
-    screensLoading;
+  // const isLoading =
+  //   showtimesLoading ||
+  //   // movieStatus === "loading"
+  //   theaterLoading ||
+  //   screensLoading;
 
-  if (isLoading) {
-    return (
-      <div className="flex h-screen items-center justify-center bg-gray-950 text-white">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className="flex h-screen items-center justify-center bg-gray-950 text-white">
+  //       <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 p-8 font-sans">
@@ -385,7 +475,9 @@ export function ShowtimesManagement() {
           <div className="bg-gray-900 border border-gray-800 rounded-2xl max-w-2xl w-full shadow-2xl overflow-hidden">
             <div className="border-b border-gray-800 px-6 py-5 flex justify-between items-center bg-gray-900">
               <h2 className="text-xl font-bold text-white">
-                {editingShowtime ? "Cập Nhật Suất Chiếu" : "Thêm Suất Chiếu Mới"}
+                {editingShowtime
+                  ? "Cập Nhật Suất Chiếu"
+                  : "Thêm Suất Chiếu Mới"}
               </h2>
               <button
                 onClick={() => setShowModal(false)}
@@ -395,7 +487,10 @@ export function ShowtimesManagement() {
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="p-8 space-y-6 max-h-[80vh] overflow-y-auto">
+            <form
+              onSubmit={handleSubmit}
+              className="p-8 space-y-6 max-h-[80vh] overflow-y-auto"
+            >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Phim */}
                 <div className="col-span-1 md:col-span-2">
@@ -404,20 +499,26 @@ export function ShowtimesManagement() {
                   </label>
                   <select
                     value={form.movie}
-                    onChange={(e) => setForm({ ...form, movie: e.target.value })}
+                    onChange={(e) =>
+                      setForm({ ...form, movie: e.target.value })
+                    }
                     className={`w-full px-4 py-3 bg-gray-800 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all ${
-                      submitted && !form.movie ? "border-red-500" : "border-gray-700"
+                      submitted && !form.movie
+                        ? "border-red-500"
+                        : "border-gray-700"
                     }`}
                   >
                     <option value="">-- Chọn phim --</option>
-                    {movies.map((movie: any) => (
+                    {movies.map((movie) => (
                       <option key={movie.id} value={movie.title}>
                         {movie.title}
                       </option>
                     ))}
                   </select>
                   {submitted && !form.movie && (
-                    <p className="text-red-500 text-xs mt-1">Vui lòng chọn phim</p>
+                    <p className="text-red-500 text-xs mt-1">
+                      Vui lòng chọn phim
+                    </p>
                   )}
                 </div>
 
@@ -432,18 +533,22 @@ export function ShowtimesManagement() {
                       setForm({ ...form, theater: e.target.value, screen: "" })
                     }
                     className={`w-full px-4 py-3 bg-gray-800 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all ${
-                      submitted && !form.theater ? "border-red-500" : "border-gray-700"
+                      submitted && !form.theater
+                        ? "border-red-500"
+                        : "border-gray-700"
                     }`}
                   >
                     <option value="">-- Chọn rạp --</option>
-                    {theaters.map((theater: any) => (
+                    {theaters.map((theater) => (
                       <option key={theater.id} value={theater.name}>
                         {theater.name}
                       </option>
                     ))}
                   </select>
                   {submitted && !form.theater && (
-                    <p className="text-red-500 text-xs mt-1">Vui lòng chọn rạp</p>
+                    <p className="text-red-500 text-xs mt-1">
+                      Vui lòng chọn rạp
+                    </p>
                   )}
                 </div>
 
@@ -454,11 +559,19 @@ export function ShowtimesManagement() {
                   </label>
                   <select
                     value={form.screen}
-                    onChange={(e) => setForm({ ...form, screen: e.target.value })}
+                    onChange={(e) =>
+                      setForm({ ...form, screen: e.target.value })
+                    }
                     disabled={!form.theater || availableScreens.length === 0}
                     className={`w-full px-4 py-3 bg-gray-800 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all ${
-                      submitted && !form.screen ? "border-red-500" : "border-gray-700"
-                    } ${!form.theater || availableScreens.length === 0 ? "opacity-50 cursor-not-allowed" : ""}`}
+                      submitted && !form.screen
+                        ? "border-red-500"
+                        : "border-gray-700"
+                    } ${
+                      !form.theater || availableScreens.length === 0
+                        ? "opacity-50 cursor-not-allowed"
+                        : ""
+                    }`}
                   >
                     <option value="">
                       {form.theater
@@ -467,14 +580,17 @@ export function ShowtimesManagement() {
                           : "Không có phòng khả dụng"
                         : "-- Chọn rạp trước --"}
                     </option>
-                    {availableScreens.map((screen: any) => (
+                    {availableScreens.map((screen) => (
                       <option key={screen.id} value={screen.name}>
-                        {screen.name} ({screen.capacity} ghế - {screen.type || "Standard"})
+                        {screen.name} ({screen.capacity} ghế -{" "}
+                        {screen.type || "Standard"})
                       </option>
                     ))}
                   </select>
                   {submitted && !form.screen && (
-                    <p className="text-red-500 text-xs mt-1">Vui lòng chọn phòng</p>
+                    <p className="text-red-500 text-xs mt-1">
+                      Vui lòng chọn phòng
+                    </p>
                   )}
                   {form.theater && availableScreens.length === 0 && (
                     <p className="text-yellow-500 text-xs mt-1">
@@ -493,7 +609,9 @@ export function ShowtimesManagement() {
                     value={form.date}
                     onChange={(e) => setForm({ ...form, date: e.target.value })}
                     className={`w-full px-4 py-3 bg-gray-800 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all ${
-                      submitted && !form.date ? "border-red-500" : "border-gray-700"
+                      submitted && !form.date
+                        ? "border-red-500"
+                        : "border-gray-700"
                     }`}
                   />
                   {submitted && !form.date && (
@@ -509,13 +627,19 @@ export function ShowtimesManagement() {
                   <input
                     type="time"
                     value={form.startTime}
-                    onChange={(e) => setForm({ ...form, startTime: e.target.value })}
+                    onChange={(e) =>
+                      setForm({ ...form, startTime: e.target.value })
+                    }
                     className={`w-full px-4 py-3 bg-gray-800 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-all ${
-                      submitted && !form.startTime ? "border-red-500" : "border-gray-700"
+                      submitted && !form.startTime
+                        ? "border-red-500"
+                        : "border-gray-700"
                     }`}
                   />
                   {submitted && !form.startTime && (
-                    <p className="text-red-500 text-xs mt-1">Chọn giờ bắt đầu</p>
+                    <p className="text-red-500 text-xs mt-1">
+                      Chọn giờ bắt đầu
+                    </p>
                   )}
                 </div>
               </div>

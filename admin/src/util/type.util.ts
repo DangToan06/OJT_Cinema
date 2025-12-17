@@ -9,13 +9,17 @@ export interface MovieGenre {
   genreName: string;
 }
 
-export interface Showtime {
-  id: number;
-  screen_id: number;
-  start_time: string;
-  end_time: string;
-  created_at: string;
-  updated_at: string;
+export interface Showtimes {
+  movie: string;
+  theater: string;
+  screen: string;
+  date: string;
+  startTime: string;
+  endTime: string;
+  availableSeats: number;
+  totalSeats: number;
+  status: string;
+  id: string;
 }
 
 export interface Movie {
@@ -32,7 +36,7 @@ export interface Movie {
   release_date: string;
   created_at: string;
   updated_at: string;
-  showtimes: Showtime[];
+  showtimes: string[];
 }
 
 export interface MovieResponse {

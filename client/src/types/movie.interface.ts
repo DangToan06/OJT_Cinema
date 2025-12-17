@@ -32,24 +32,3 @@ export interface MovieGenre {
   id: number;
   genre_name: string;
 }
-export interface Showtime {
-  id: number;
-  screen_id: number;
-  start_time: string;
-  end_time: string;
-  created_at: string;
-  updated_at: string;
-}
-
-// export interface MovieCreateDTO {
-//   title: string;
-//   description?: string;
-//   director?: string;
-//   cast?: string[];
-//   posterUrl?: string;
-//   trailerUrl?: string;
-//   type?: MovieType;
-//   duration?: number;
-//   releaseDate?: string;
-//   genreIds?: ID[];
-// }
