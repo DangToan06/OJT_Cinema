@@ -122,7 +122,7 @@ export function TheatersManagement() {
             </button>
           </div>
           {/* Theaters Grid */}
-          <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 xl:grid-cols-3 gap-6">
             {dataTheaters.theaters.map((theater) => (
               <TheaterCard
                 key={theater.id}

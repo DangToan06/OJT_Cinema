@@ -1,4 +1,5 @@
 import type { ID } from "./enums";
+import type { Showtimes } from "./showtime.interface";
 
 /**
  * Thể loại phim (hành động, kinh dị, lãng mạn…)
@@ -25,7 +26,7 @@ export interface Movie {
   release_date: string;
   created_at: string;
   updated_at: string;
-  showtimes: Showtime[];
+  showtimes: Showtimes[];
 }
 
 export interface MovieGenre {
