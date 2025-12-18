@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 interface NewsCardProps {
-  id: number;
+  id: string;
   image: string;
   date: string;
   title: string;

@@ -19,13 +19,13 @@ export default function Promotions() {
     .filter((n) => n.category == "promotion")
     .slice(indexOfFirstItem, indexOfLastItem);
   return (
-    <div className="p-20 bg-[#1a1d29] text-white">
+    <div className="p-10 bg-[#1a1d29] text-white">
       <p className="text-center text-3xl font-bold mb-20">Khuyến mãi</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
         {currentItems.map((item,id) => (
           <PromotionCard
           key={id}
-          id={id + 1}
+          id={item.id}
           image={item.bannerUrl}
           title={item.title}
           date={item.created_at.split("T")[0]}

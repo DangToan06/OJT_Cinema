@@ -123,7 +123,7 @@ export function NewsManagement() {
         <div>
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h1 className="text-gray-200 mb-2 font-bold text-2xl">
+              <h1 className="text-white mb-2 font-bold text-3xl tracking-tight">
                 Quản lý tin tức & khuyến mãi
               </h1>
               <p className="text-gray-300 text-[18px]">

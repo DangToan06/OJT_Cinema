@@ -83,7 +83,7 @@ export function ScreensManagement() {
   };
 
   return (
-    <div className="min-h-screen p-6">
+    <div className="min-h-screen p-5">
       {/* Header Section */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-6">
