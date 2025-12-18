@@ -21,7 +21,7 @@ export default function NewsDetail() {
     <>
       <div className={`min-h-screen flex flex-col bg-[#10141b] text-white`}>
         {/* Main Content */}
-        <main className="flex-1 pt-24 pb-12 px-5 md:px-20 max-w-5xl mx-auto w-full">
+        <main className="flex-1 py-[2%] px-5 md:px-20 mx-auto w-full">
           <article className="prose prose-invert max-w-none">
             <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
               {article.title}
