@@ -7,6 +7,7 @@ import { getAllShowtimes } from "../api/showTime.api";
 import { getAllScreens } from "../api/screen.api";
 import { getAllSeats } from "../api/seat.api";
 import { Armchair } from "lucide-react";
+import DetailModal from "./Detail";
 
 export default function ChooseTicket() {
   const [showing, setShowing] = useState(false);
@@ -53,8 +54,10 @@ export default function ChooseTicket() {
 
   const showTimeNow = showTimes.find((s) => s.id === showtimeId);
 
+  console.log(screens.find((s) => s.name === showTimeNow?.screen));
+
   return (
-    <div className="bg-black text-white font-sans h-[auto]">
+    <div className="bg-black text-white font-sans px-6 min-h-[600px]">
       <div
         className="relative bg-cover bg-center"
         style={{
@@ -236,7 +239,10 @@ export default function ChooseTicket() {
                       screens.find((s) => s.name === showTimeNow?.screen)?.id
                   )
                   ?.seats.map((ghe, i) => (
-                    <Armchair key={i} className={` text-white`} />
+                    <div className="flex flex-col justify-center items-center">
+                      <Armchair key={i} className={` text-white`} />
+                      {ghe.row + ghe.number}
+                    </div>
                   ))}
               </div>
 
@@ -290,12 +296,14 @@ export default function ChooseTicket() {
           </div>
         </div>
       </div>
-      {/* <DetailModal
-        title={title}
-        content={content}
+      <DetailModal
+        title={movies.find((m) => m.title === showTimeNow?.movie)?.title}
+        content={
+          movies.find((m) => m.title === showTimeNow?.movie)?.description
+        }
         setOpen={open}
         onClose={() => setOpen(false)}
-      /> */}
+      />
     </div>
   );
 }
