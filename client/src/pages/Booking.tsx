@@ -65,9 +65,11 @@ export default function ChooseTicket() {
   }, [dispatch, seats.length]);
 
   const showTimeNow = showTimes.find((s) => s.id === showtimeId);
-console.log(screens.find((s) => s.name === showTimeNow?.screen));
+
+  console.log(screens.find((s) => s.name === showTimeNow?.screen));
+
   return (
-    <div className="bg-black text-white font-sans h-auto">
+    <div className="bg-black text-white font-sans px-6 min-h-[600px]">
       <div
         className="relative bg-cover bg-center"
         style={{

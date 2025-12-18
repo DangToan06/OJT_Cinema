@@ -292,10 +292,20 @@ export function UsersManagement() {
 
             <div className="overflow-y-auto p-6 space-y-8 custom-scrollbar">
               <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
-                <div className="w-24 h-24 rounded-full bg-gray-800 border-4 border-gray-700 shadow-lg flex items-center justify-center shrink-0">
-                  <span className="text-red-600 text-3xl font-bold">
-                    {selectedUser.first_name.charAt(0).toUpperCase()}
-                  </span>
+                <div className="w-24 h-24 shrink-0">
+                  {selectedUser.avatar ? (
+                    <img
+                      src={selectedUser.avatar}
+                      alt={selectedUser.first_name}
+                      className="w-24 h-24 rounded-full object-cover border-4 border-gray-700 shadow-lg"
+                    />
+                  ) : (
+                    <div className="w-24 h-24 rounded-full bg-gray-800 border-4 border-gray-700 shadow-lg flex items-center justify-center">
+                      <span className="text-red-600 text-3xl font-bold">
+                        {selectedUser.first_name?.charAt(0).toUpperCase()}
+                      </span>
+                    </div>
+                  )}
                 </div>
                 <div className="text-center sm:text-left space-y-2 flex-1">
                   <h3 className="text-2xl font-bold text-white">
