@@ -7,10 +7,11 @@ import { getAllShowtimes } from "../api/showTime.api";
 import { getAllScreens } from "../api/screen.api";
 import { getAllSeats } from "../api/seat.api";
 import { Armchair } from "lucide-react";
+import DetailModal from "./Detail";
 
 export default function ChooseTicket() {
   const [showing, setShowing] = useState(false);
-  const [minutes] = useState(10);
+  const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [hour, setHour] = useState("");
   const [openTrailer, setOpenTrailer] = useState(false);
@@ -28,33 +29,45 @@ export default function ChooseTicket() {
   const { data: screens } = useAppSelector((state) => state.screens);
   const { data: seats } = useAppSelector((state) => state.seats);
   useEffect(() => {
+    const timer = setTimeout(() => {
+      if (minutes === 0 && seconds === 0) return;
+      if (seconds === 0) {
+        setMinutes((m) => m - 1);
+        setSeconds(59);
+      } else {
+        setSeconds((s) => s - 1);
+      }
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [minutes, seconds]);
+  useEffect(() => {
     if (movies.length === 0) {
       dispatch(getAllMovies());
     }
-  }, [dispatch]);
+  }, [dispatch, movies.length]);
 
   useEffect(() => {
     if (showTimes.length === 0) {
       dispatch(getAllShowtimes());
     }
-  }, [dispatch]);
+  }, [dispatch, showTimes.length]);
 
   useEffect(() => {
     if (screens.length === 0) {
       dispatch(getAllScreens());
     }
-  }, [dispatch]);
+  }, [dispatch, screens.length]);
 
   useEffect(() => {
     if (seats.length === 0) {
       dispatch(getAllSeats());
     }
-  }, [dispatch]);
+  }, [dispatch, seats.length]);
 
   const showTimeNow = showTimes.find((s) => s.id === showtimeId);
-
+console.log(screens.find((s) => s.name === showTimeNow?.screen));
   return (
-    <div className="bg-black text-white font-sans h-[auto]">
+    <div className="bg-black text-white font-sans h-auto">
       <div
         className="relative bg-cover bg-center"
         style={{
@@ -191,6 +204,8 @@ export default function ChooseTicket() {
                 onClick={(e) => {
                   setHour(e.currentTarget.value);
                   setShowing(true);
+                  setMinutes(10);
+                  setSeconds(0);
                 }}
               >
                 {d.startTime}
@@ -236,7 +251,10 @@ export default function ChooseTicket() {
                       screens.find((s) => s.name === showTimeNow?.screen)?.id
                   )
                   ?.seats.map((ghe, i) => (
-                    <Armchair key={i} className={` text-white`} />
+                    <div className="flex flex-col justify-center items-center size-10">
+                      <Armchair key={i} className={` text-white`} />
+                      {ghe.row + ghe.number}
+                    </div>
                   ))}
               </div>
 
@@ -290,12 +308,14 @@ export default function ChooseTicket() {
           </div>
         </div>
       </div>
-      {/* <DetailModal
-        title={title}
-        content={content}
+      <DetailModal
+        title={movies.find((m) => m.title === showTimeNow?.movie)?.title}
+        content={
+          movies.find((m) => m.title === showTimeNow?.movie)?.description
+        }
         setOpen={open}
         onClose={() => setOpen(false)}
-      /> */}
+      />
     </div>
   );
 }

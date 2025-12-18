@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 type Text = {
-    title: string,
-    content: string,
+    title?: string,
+    content?: string,
     setOpen: boolean,
     onClose: () => void,
 }
