@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { Plus, Edit, Trash2, Search, Filter } from "lucide-react";
 import { MovieModal } from "../components/MovieModal";
 import type { Movie } from "../util/type.util";
@@ -39,14 +39,19 @@ export function MoviesManagement() {
     loadData();
   }, [loadData]);
 
-  const debouncedSearch = useCallback(
+  const debouncedSearch = useRef(
     // eslint-disable-next-line react-hooks/use-memo
     debounce((value: string) => {
-      setParams((prev) => ({ ...prev, search: value, page: 1 }));
-    }, 500),
-    []
-  );
+      console.log("debounce value: ", value);
 
+      setParams((prev) => ({ ...prev, search: value, page: 1 }));
+    }, 500)
+  ).current;
+  useEffect(() => {
+    return () => {
+      debouncedSearch.cancel();
+    };
+  }, []);
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     debouncedSearch(e.target.value);
   };
@@ -158,7 +163,7 @@ export function MoviesManagement() {
                 key={movie.id}
                 className="bg-[#1e2939] border border-gray-700 rounded-lg overflow-hidden hover:shadow-lg transition group"
               >
-                <div className="relative aspect-[2/3] overflow-hidden">
+                <div className="relative aspect-2/3 overflow-hidden">
                   <img
                     src={movie.image}
                     alt={movie.title}

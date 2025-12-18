@@ -34,7 +34,7 @@ export default function News() {
                         news.category == "news" ?
                         <NewsCard
                             key={id}
-                            id={id + 1}
+                            id={news.id}
                             image={news.bannerUrl}
                             date={news.created_at.split("T")[0]}
                             title={news.title}
