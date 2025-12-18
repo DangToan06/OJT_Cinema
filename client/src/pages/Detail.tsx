@@ -11,6 +11,12 @@ export default function DetailModal({
   setOpen,
   onClose,
 }: Text) {
+    title?: string,
+    content?: string,
+    setOpen: boolean,
+    onClose: () => void,
+}
+export default function DetailModal({ title, content, setOpen, onClose }: Text) {
   useEffect(() => {
     document.body.style.overflow = setOpen ? "hidden" : "auto";
   }, [setOpen]);

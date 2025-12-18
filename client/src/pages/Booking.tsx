@@ -11,7 +11,7 @@ import DetailModal from "./Detail";
 
 export default function ChooseTicket() {
   const [showing, setShowing] = useState(false);
-  const [minutes] = useState(10);
+  const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [hour, setHour] = useState("");
   const [openTrailer, setOpenTrailer] = useState(false);
@@ -29,28 +29,40 @@ export default function ChooseTicket() {
   const { data: screens } = useAppSelector((state) => state.screens);
   const { data: seats } = useAppSelector((state) => state.seats);
   useEffect(() => {
+    const timer = setTimeout(() => {
+      if (minutes === 0 && seconds === 0) return;
+      if (seconds === 0) {
+        setMinutes((m) => m - 1);
+        setSeconds(59);
+      } else {
+        setSeconds((s) => s - 1);
+      }
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [minutes, seconds]);
+  useEffect(() => {
     if (movies.length === 0) {
       dispatch(getAllMovies());
     }
-  }, [dispatch]);
+  }, [dispatch, movies.length]);
 
   useEffect(() => {
     if (showTimes.length === 0) {
       dispatch(getAllShowtimes());
     }
-  }, [dispatch]);
+  }, [dispatch, showTimes.length]);
 
   useEffect(() => {
     if (screens.length === 0) {
       dispatch(getAllScreens());
     }
-  }, [dispatch]);
+  }, [dispatch, screens.length]);
 
   useEffect(() => {
     if (seats.length === 0) {
       dispatch(getAllSeats());
     }
-  }, [dispatch]);
+  }, [dispatch, seats.length]);
 
   const showTimeNow = showTimes.find((s) => s.id === showtimeId);
 
@@ -194,6 +206,8 @@ export default function ChooseTicket() {
                 onClick={(e) => {
                   setHour(e.currentTarget.value);
                   setShowing(true);
+                  setMinutes(10);
+                  setSeconds(0);
                 }}
               >
                 {d.startTime}
@@ -239,7 +253,7 @@ export default function ChooseTicket() {
                       screens.find((s) => s.name === showTimeNow?.screen)?.id
                   )
                   ?.seats.map((ghe, i) => (
-                    <div className="flex flex-col justify-center items-center">
+                    <div className="flex flex-col justify-center items-center size-10">
                       <Armchair key={i} className={` text-white`} />
                       {ghe.row + ghe.number}
                     </div>
