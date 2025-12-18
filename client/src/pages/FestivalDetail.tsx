@@ -28,7 +28,9 @@ const FestivalDetails = () => {
         <img
           src={data?.image}
           alt="Festival"
-          className="w-full"
+          className="w-full aspect-video object-cover rounded-xl
+    shadow-md
+    "
         />
       </main>
     </div>

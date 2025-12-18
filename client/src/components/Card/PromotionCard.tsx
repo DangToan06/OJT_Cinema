@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 interface PromotionCardProps {
-  id: number;
+  id: string;
   image?: string;
   title?: string;
   date?: string;

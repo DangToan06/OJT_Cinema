@@ -2,7 +2,7 @@
  * Tin tức & khuyến mãi của hệ thống
  */
 export interface News {
-    id: number;
+    id: string;
     title: string; // Tiêu đề bài viết
     content: string; // Nội dung chi tiết
     created_at: string; // Ngày đăng (ISO format)

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CircleX, Edit, Trash2 } from "lucide-react";
+import { CircleX, Edit, Trash2, Plus } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "../hook/useRedux";
 import {
   createPrice,
@@ -146,8 +146,8 @@ export function PricingManagement() {
       title: "Bạn có chắc chắn?",
       text: "Giá vé này sẽ bị xóa vĩnh viễn!",
       icon: "warning",
-      background: "#1f2937", // Dark SweetAlert bg
-      color: "#fff", // White text
+      background: "#1f2937",
+      color: "#fff",
       showCancelButton: true,
       confirmButtonColor: "#dc2626",
       cancelButtonColor: "#4b5563",
@@ -190,7 +190,6 @@ export function PricingManagement() {
     dispatch(getAllPrice());
   }, [dispatch]);
 
-  // Class chung cho input/select tối màu
   const inputClass =
     "border border-gray-700 bg-gray-800 text-white rounded w-full px-2 py-1.5 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500";
   const filterSelectClass =
@@ -198,17 +197,26 @@ export function PricingManagement() {
 
   return (
     <div className="min-h-screen bg-gray-950 p-8">
-      {" "}
-      {/* Nền toàn trang tối */}
-      <div className="mb-8">
-        <h1 className="text-white mb-2 font-bold text-3xl">Quản lý giá vé</h1>
-        <p className="text-gray-400">
-          Cấu hình bảng giá vé theo loại ghế, phòng chiếu và thời gian
-        </p>
+      <div className="mb-8 flex justify-between items-center">
+        <div>
+          <h1 className="text-white mb-2 font-bold text-3xl">Quản lý giá vé</h1>
+          <p className="text-gray-400">
+            Cấu hình bảng giá vé theo loại ghế, phòng chiếu và thời gian
+          </p>
+        </div>
+        <button
+          onClick={() => {
+            setModalType("add");
+          }}
+          className="flex gap-3 px-6 py-3 rounded-lg cursor-pointer bg-red-600 text-white font-semibold hover:bg-red-700 hover:scale-105 transition-all shadow-lg shadow-red-900/20"
+        >
+          <Plus />
+          Thêm giá vé
+        </button>
       </div>
       <div className="bg-gray-900 rounded-lg shadow-lg border border-gray-800">
         <div className="p-6 border-b border-gray-800 flex justify-between items-center">
-          <div className="flex flex-col gap-2">
+          <div className="flex w-full justify-between">
             <h2 className="text-white font-semibold text-xl">
               Danh sách giá vé
             </h2>
@@ -256,15 +264,6 @@ export function PricingManagement() {
               </button>
             </div>
           </div>
-
-          <button
-            onClick={() => {
-              setModalType("add");
-            }}
-            className="px-5 py-2.5 rounded-lg cursor-pointer bg-red-600 text-white font-semibold hover:bg-red-700 hover:scale-105 transition-all shadow-lg shadow-red-900/20"
-          >
-            Thêm giá
-          </button>
         </div>
 
         <div className="p-6">

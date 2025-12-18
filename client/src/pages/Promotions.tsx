@@ -12,19 +12,20 @@ export default function Promotions() {
       .get("http://localhost:8080/news")
       .then((res) => setNewsData(res.data));
   }, []);
+  const totalPages = Math.ceil(newsData.length / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = newsData
     .filter((n) => n.category == "promotion")
     .slice(indexOfFirstItem, indexOfLastItem);
   return (
-    <div className="p-20 bg-[#1a1d29] text-white">
+    <div className="p-10 bg-[#1a1d29] text-white">
       <p className="text-center text-3xl font-bold mb-20">Khuyến mãi</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
         {currentItems.map((item,id) => (
           <PromotionCard
           key={id}
-          id={id + 1}
+          id={item.id}
           image={item.bannerUrl}
           title={item.title}
           date={item.created_at.split("T")[0]}
@@ -34,6 +35,7 @@ export default function Promotions() {
       <div className="flex justify-end gap-4 font-semibold">
         <button
           className="border px-3 py-2 rounded-md border-[#1E293B] hover:bg-[#1E293B]"
+          disabled={currentPage === 1}
           onClick={() => setCurrentPage(currentPage - 1)}
         >
           Quay lại
@@ -41,6 +43,7 @@ export default function Promotions() {
         <button
           className="border px-3 py-2 rounded-md border-[#1E293B] hover:bg-[#1E293B]"
           onClick={() => setCurrentPage(currentPage + 1)}
+          disabled={currentPage === totalPages}
         >
           Tiếp theo
         </button>
