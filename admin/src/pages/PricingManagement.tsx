@@ -25,7 +25,6 @@ export function PricingManagement() {
   const [filterSeat, setFilterSeat] = useState<string>("");
   const [filterMovie, setFilterMovie] = useState<string>("");
   const [filterDay, setFilterDay] = useState<string>("");
-
   const [seatError, setSeatError] = useState<string>("");
   const [isShowSeatError, setIsShowSeatError] = useState<boolean>(false);
   const [movieError, setMovieError] = useState<string>("");

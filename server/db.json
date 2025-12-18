@@ -37,15 +37,15 @@
     {
       "id": "7306",
       "first_name": "huy",
-      "last_name": "deptrai",
+      "last_name": "xautrai",
       "email": "huydeptrai@gmail.com",
       "phone": "0987654321",
       "password": "123456",
-      "avatar": "",
+      "avatar": "blob:http://localhost:3000/13bf2e41-a374-441d-9172-22fbe43d32c2",
       "address": "",
       "status": "ACTIVE",
       "created_at": "2025-12-15T00:45:57.354Z",
-      "updated_at": "2025-12-15T00:45:57.354Z",
+      "updated_at": "2025-12-18T02:26:24.009Z",
       "role": {
         "id": 2,
         "role_name": "user"
@@ -67,6 +67,23 @@
         "id": 2,
         "role_name": "user"
       }
+    },
+    {
+      "first_name": "dương",
+      "last_name": "animee",
+      "email": "duong@gmail.com",
+      "phone": "0123456789",
+      "password": "123456",
+      "avatar": "blob:http://localhost:3000/24eb6340-10f7-47cd-8519-6a883bde8242",
+      "address": "",
+      "status": "ACTIVE",
+      "created_at": "2025-12-18T02:24:25.078Z",
+      "updated_at": "2025-12-18T02:24:57.178Z",
+      "role": {
+        "id": 2,
+        "role_name": "user"
+      },
+      "id": "Ng6iCsq"
     }
   ],
   "bookings": [
