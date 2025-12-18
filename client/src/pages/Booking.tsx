@@ -1,25 +1,16 @@
-import screen from "../assets/imgs/screen 1.png";
+import screen from "../assets/imgs/screen1.png";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hook/useRedux";
 import { getAllMovies } from "../api/movie.api";
 import { useSearchParams } from "react-router-dom";
 import { getAllShowtimes } from "../api/showTime.api";
-
-export type Seat = {
-  seat: string;
-  booked: boolean;
-  price: number;
-  type: string;
-};
+import { getAllScreens } from "../api/screen.api";
+import { getAllSeats } from "../api/seat.api";
+import { Armchair } from "lucide-react";
 
 export default function ChooseTicket() {
-  // const text = [
-  //   "K - Phim được phổ biến đến người xem dưới 13 tuổi và có người bảo hộ đi kèm",
-  //   "T16 - Phim được phổ biến đến người xem từ đủ 16 tuổi trở lên (16+)",
-  //   "T18 - Phim được phổ biến đến người xem từ đủ 18 tuổi trở lên (18+)",
-  // ];
   const [showing, setShowing] = useState(false);
-  const [minutes, setMinutes] = useState(10);
+  const [minutes] = useState(10);
   const [seconds, setSeconds] = useState(0);
   const [hour, setHour] = useState("");
   const [openTrailer, setOpenTrailer] = useState(false);
@@ -34,17 +25,36 @@ export default function ChooseTicket() {
 
   const { data: movies } = useAppSelector((state) => state.movies);
   const { data: showTimes } = useAppSelector((state) => state.showTimes);
+  const { data: screens } = useAppSelector((state) => state.screens);
+  const { data: seats } = useAppSelector((state) => state.seats);
+  useEffect(() => {
+    if (movies.length === 0) {
+      dispatch(getAllMovies());
+    }
+  }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getAllMovies());
-    dispatch(getAllShowtimes());
-  }, []);
+    if (showTimes.length === 0) {
+      dispatch(getAllShowtimes());
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (screens.length === 0) {
+      dispatch(getAllScreens());
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (seats.length === 0) {
+      dispatch(getAllSeats());
+    }
+  }, [dispatch]);
 
   const showTimeNow = showTimes.find((s) => s.id === showtimeId);
 
   return (
-    <div className="bg-black text-white font-sans h-[600px]">
-      {/* BACKGROUND WRAPPER */}
+    <div className="bg-black text-white font-sans h-[auto]">
       <div
         className="relative bg-cover bg-center"
         style={{
@@ -52,7 +62,6 @@ export default function ChooseTicket() {
         }}
       >
         <div className="bg-black bg-opacity-60">
-          {/* MOVIEs DETAILS */}
           <main
             id="movies-details"
             className="flex justify-center items-center px-40"
@@ -162,7 +171,7 @@ export default function ChooseTicket() {
         <div className="text-2xl font-bold">{}</div>
         <div className="text-sm">{}</div>
       </div>
-      <main className="px-8 bg-gray-900 opacity-80 flex flex-col justify-center items-center gap-5 py-10">
+      <div className="h-auto px-8 bg-gray-900 opacity-80 flex flex-col justify-center items-center gap-5 py-10">
         <p className="text-lg text-orange-400 text-center">
           <span className="font-semibold text-[15px]">
             Lưu ý: Khán giả dưới 13 tuổi chỉ chọn suất chiếu kết thúc trước 22h
@@ -200,7 +209,7 @@ export default function ChooseTicket() {
                 : seconds}
             </div>
           </div>
-          <div id="seat-section" className="pb-10">
+          <div className="pb-10">
             <div className="flex justify-center mb-4">
               <img
                 src={screen}
@@ -211,7 +220,7 @@ export default function ChooseTicket() {
 
             <div className="mb-10 flex flex-col justify-center items-center">
               <h2 className="text-xl font-bold text-center mb-4">
-                Phòng chiếu số 2
+                Phòng chiếu số {showTimeNow?.screen}
               </h2>
 
               <div
@@ -220,7 +229,15 @@ export default function ChooseTicket() {
                   40 * 15 + 8 * 14
                 }px] flex-wrap`}
               >
-                {/* Ghế Ngồi */}
+                {seats
+                  .find(
+                    (chair) =>
+                      chair.screenId ===
+                      screens.find((s) => s.name === showTimeNow?.screen)?.id
+                  )
+                  ?.seats.map((ghe, i) => (
+                    <Armchair key={i} className={` text-white`} />
+                  ))}
               </div>
 
               <div className="flex justify-center gap-6 text-xs mb-4 items-center text-[16px]">
@@ -272,7 +289,7 @@ export default function ChooseTicket() {
             </div>
           </div>
         </div>
-      </main>
+      </div>
       {/* <DetailModal
         title={title}
         content={content}
