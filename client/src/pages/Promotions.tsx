@@ -12,6 +12,7 @@ export default function Promotions() {
       .get("http://localhost:8080/news")
       .then((res) => setNewsData(res.data));
   }, []);
+  const totalPages = Math.ceil(newsData.length / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = newsData
@@ -34,6 +35,7 @@ export default function Promotions() {
       <div className="flex justify-end gap-4 font-semibold">
         <button
           className="border px-3 py-2 rounded-md border-[#1E293B] hover:bg-[#1E293B]"
+          disabled={currentPage === 1}
           onClick={() => setCurrentPage(currentPage - 1)}
         >
           Quay lại
@@ -41,6 +43,7 @@ export default function Promotions() {
         <button
           className="border px-3 py-2 rounded-md border-[#1E293B] hover:bg-[#1E293B]"
           onClick={() => setCurrentPage(currentPage + 1)}
+          disabled={currentPage === totalPages}
         >
           Tiếp theo
         </button>
