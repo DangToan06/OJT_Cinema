@@ -38,3 +38,11 @@ export const updateStatusTheater = createAsyncThunk(
         return data;
     }
 );
+
+export const updateTheater = createAsyncThunk(
+    'theater/updateTheater',
+    async (theater: ITheater) => {
+        const res = await axiosInstance.put(`theaters/${theater.id}`, theater);
+        return res.data;
+    }
+);

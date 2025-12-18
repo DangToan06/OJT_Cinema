@@ -14,7 +14,9 @@ export const getAllScreens = createAsyncThunk(
 export const updateScreenStatus = createAsyncThunk(
     'screen/updateScreenStatus',
     async (data: UpdateStatusData) => {
-        await axiosInstance.patch(`screens/${data.id}`, { status: data.status });
+        await axiosInstance.patch(`screens/${data.id}`, {
+            status: data.status,
+        });
         return data;
     }
 );
@@ -31,6 +33,14 @@ export const createScreen = createAsyncThunk(
     'screen/createScreen',
     async (screen: IScreen) => {
         const res = await axiosInstance.post('screens', screen);
+        return res.data;
+    }
+);
+
+export const updateScreen = createAsyncThunk(
+    'screen/updateScreen',
+    async (screen: IScreen) => {
+        const res = await axiosInstance.put(`screens/${screen.id}`, screen);
         return res.data;
     }
 );

@@ -13,6 +13,14 @@ export interface ITheater {
     id: string;
 }
 
+export const initialTheater: Omit<ITheater, 'id'> = {
+    name: '',
+    address: '',
+    phone: '',
+    website: '',
+    screens: 0,
+    status: 'Đang hoạt động',
+};
 export interface InitialTheaterState {
     theaters: ITheater[];
     status: 'idle' | 'pending' | 'success' | 'failed';
@@ -24,5 +32,3 @@ export interface UpdateStatusData {
     id: string;
     status: 'Đang hoạt động' | 'Ngừng hoạt động';
 }
-
-

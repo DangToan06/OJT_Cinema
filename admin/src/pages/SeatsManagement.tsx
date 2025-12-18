@@ -47,33 +47,41 @@ export function SeatsManagement() {
     const [selectedScreenId, setSelectedScreenId] = useState<string | null>(
         null
     );
-
     const [seats, setSeats] = useState<SeatsMap>({});
+
+    const currentScreen = screenList.find((s) => s.id === selectedScreenId);
+    const currentSeats = selectedScreenId ? seats[selectedScreenId] || [] : [];
 
     const loadSeatsForScreen = (screenId: string) => {
         setSeats((prev) => {
-            // 1. Đã có rồi → KHÔNG làm gì
-            if (prev[screenId]) return prev;
+            const screen = screenList.find((s) => s.id === screenId);
 
-            // 2. Có backend data → dùng luôn
+            if (!screen) return prev;
+
+            const expectedSeatCount = screen.row * screen.column;
+
+            // 1. Cache hợp lệ → dùng
+            const cachedSeats = prev[screenId];
+            if (cachedSeats && cachedSeats.length === expectedSeatCount) {
+                return prev;
+            }
+
+            // 2. Backend có data hợp lệ → dùng
             const fromApi = seatMapList.find((e) => e.screenId === screenId);
-            if (fromApi) {
+            if (fromApi && fromApi.seats.length === expectedSeatCount) {
                 return {
                     ...prev,
                     [screenId]: fromApi.seats,
                 };
             }
 
-            // 3. Không có → generate mặc định
-            const screen = screenList.find((s) => s.id === screenId);
-            if (!screen) return prev;
-
+            // 3. Không có hoặc sai → generate lại
             const generated: Seat[] = [];
-            for (let row = 0; row < screen.row; row++) {
-                for (let col = 0; col < screen.column; col++) {
+            for (let r = 0; r < screen.row; r++) {
+                for (let c = 0; c < screen.column; c++) {
                     generated.push({
-                        row: String.fromCharCode(65 + row),
-                        number: col + 1,
+                        row: String.fromCharCode(65 + r),
+                        number: c + 1,
                         type: 'standard',
                         booked: false,
                     });
@@ -86,9 +94,6 @@ export function SeatsManagement() {
             };
         });
     };
-
-    const currentScreen = screenList.find((s) => s.id === selectedScreenId);
-    const currentSeats = selectedScreenId ? seats[selectedScreenId] || [] : [];
 
     const toggleSeatType = (row: string, number: number) => {
         if (!selectedScreenId) return;
@@ -166,7 +171,6 @@ export function SeatsManagement() {
             );
             notify.success('Lưu sơ đồ ghế thành công!');
         }
-        console.log(1);
     };
 
     return (

@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
 import {
   Plus,
-  Edit,
-  Trash2,
   AlertTriangle,
   Film,
   ToggleRight,
-  ToggleLeft,
   Search,
   Filter,
   Theater,
@@ -21,8 +18,9 @@ import {
   getAllScreens,
   updateScreenStatus,
 } from "../api/screen.api";
+import ModalAddScreen from "../components/ModalAddScreen";
 import { notify } from "../util/toast";
-import ModalScreen from "../components/ModalScreen";
+import ScreenRow from "../components/ScreenRow";
 
 export function ScreensManagement() {
   const dataScreens: InitialScreenState = useAppSelector((s) => s.screens);
@@ -39,6 +37,7 @@ export function ScreensManagement() {
   const [screenToDelete, setScreenToDelete] = useState<IScreen | null>(null);
   const [filterTheater, setFilterTheater] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
+  const [screenToEdit, setScreenToEdit] = useState<IScreen | null>(null);
 
   const filteredScreens = dataScreens.screens.filter((screen) => {
     const matchesTheater =
@@ -50,27 +49,6 @@ export function ScreensManagement() {
   });
 
   const theaters = [...new Set(dataScreens.screens.map((s) => s.theater))];
-
-  const getTypeColor = (type: string | null) => {
-    switch (type) {
-      case "Mini":
-        return "bg-blue-500/15 text-blue-300 border border-blue-500/30";
-      case "Standard":
-        return "bg-purple-500/15 text-purple-300 border border-purple-500/30";
-      case "IMAX":
-        return "bg-rose-500/15 text-rose-300 border border-rose-500/30";
-      case "Large":
-        return "bg-amber-500/15 text-amber-300 border border-amber-500/30";
-      default:
-        return "bg-slate-500/15 text-slate-300 border border-slate-500/30";
-    }
-  };
-
-  const getStatusColor = (status: string) => {
-    return status === "Đang hoạt động"
-      ? "bg-emerald-500/15 text-emerald-300 border border-emerald-500/30"
-      : "bg-orange-500/15 text-orange-300 border border-orange-500/30";
-  };
 
   const toggleStatus = (id: string) => {
     dispatch(
@@ -105,11 +83,12 @@ export function ScreensManagement() {
   };
 
   return (
-    <div className="min-h-screen p-8">
+    <div className="min-h-screen">
+      {/* Header Section */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-white mb-2 font-bold text-3xl tracking-tight">
+            <h1 className="text-3xl font-bold bg-linear-to-r from-white to-slate-300 bg-clip-text text-transparent mb-2">
               Quản lý phòng chiếu
             </h1>
             <p className="text-slate-400">
@@ -125,6 +104,7 @@ export function ScreensManagement() {
           </button>
         </div>
 
+        {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <div className="relative bg-gray-800 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-5 hover:border-slate-600/50 transition-all group overflow-hidden">
             <div className="absolute inset-0 bg-linear-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -194,6 +174,7 @@ export function ScreensManagement() {
         </div>
       </div>
 
+      {/* Filter Section */}
       <div className="bg-linear-to-br from-slate-800/60 to-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-5 mb-6">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1 relative">
@@ -224,6 +205,7 @@ export function ScreensManagement() {
         </div>
       </div>
 
+      {/* Table Section */}
       <div className="bg-linear-to-br from-slate-800/60 to-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
@@ -258,75 +240,15 @@ export function ScreensManagement() {
             <tbody className="divide-y divide-slate-700/30">
               {filteredScreens.length > 0 ? (
                 filteredScreens.map((screen, idx) => (
-                  <tr
+                  <ScreenRow
                     key={screen.id}
-                    className="hover:bg-slate-700/20 transition-colors"
-                  >
-                    <td className="px-6 py-4 text-slate-400 font-medium">
-                      #{idx + 1}
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 bg-rose-500/10 rounded-lg ring-1 ring-rose-500/20">
-                          <Film className="w-4 h-4 text-rose-400" />
-                        </div>
-                        <span className="text-slate-100 font-medium">
-                          {screen.name}
-                        </span>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 text-slate-300">
-                      {screen.theater}
-                    </td>
-                    <td className="px-6 py-4 text-slate-400 text-sm">
-                      {screen.row} × {screen.column}
-                    </td>
-                    <td className="px-6 py-4 text-slate-200 font-medium">
-                      {screen.capacity} ghế
-                    </td>
-                    <td className="px-6 py-4">
-                      <span
-                        className={`px-3 py-1.5 rounded-lg text-xs font-medium ${getTypeColor(
-                          screen.type
-                        )}`}
-                      >
-                        {screen.type ?? "Chưa chọn"}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4">
-                      <span
-                        className={`px-3 py-1.5 rounded-lg text-xs font-medium ${getStatusColor(
-                          screen.status
-                        )}`}
-                      >
-                        {screen.status}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center justify-end gap-2">
-                        <button
-                          onClick={() => toggleStatus(screen.id)}
-                          className="p-2 text-purple-400 hover:bg-purple-500/15 rounded-lg transition-all hover:scale-110"
-                          title="Đổi trạng thái"
-                        >
-                          {screen.status === "Đang hoạt động" ? (
-                            <ToggleRight className="w-5 h-5" />
-                          ) : (
-                            <ToggleLeft className="w-5 h-5" />
-                          )}
-                        </button>
-                        <button className="p-2 text-blue-400 hover:bg-blue-500/15 rounded-lg transition-all hover:scale-110">
-                          <Edit className="w-5 h-5" />
-                        </button>
-                        <button
-                          onClick={() => handleDeleteClick(screen)}
-                          className="p-2 text-rose-400 hover:bg-rose-500/15 rounded-lg transition-all hover:scale-110"
-                        >
-                          <Trash2 className="w-5 h-5" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
+                    screen={screen}
+                    index={idx}
+                    toggleStatus={toggleStatus}
+                    handleDeleteClick={handleDeleteClick}
+                    handleEditClick={setScreenToEdit}
+                    openEditModal={() => setShowModal(true)}
+                  />
                 ))
               ) : (
                 <tr>
@@ -350,11 +272,22 @@ export function ScreensManagement() {
         </div>
       </div>
 
-      <ModalScreen open={showModal} onClose={() => setShowModal(false)} />
+      {/* Modals */}
+      <ModalAddScreen
+        key={screenToEdit?.id ?? "create"}
+        open={showModal}
+        onClose={() => {
+          setShowModal(false);
+          setScreenToEdit(null);
+        }}
+        dataEdit={screenToEdit}
+      />
 
+      {/* Delete Modal */}
       {showDeleteModal && screenToDelete && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-50 p-4">
           <div className="bg-linear-to-br from-slate-800 to-slate-900 border border-slate-700/50 rounded-2xl shadow-2xl w-full max-w-md">
+            {/* Header */}
             <div className="bg-linear-to-r from-rose-600 to-pink-600 p-6 rounded-t-2xl">
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-white/10 backdrop-blur-sm rounded-lg ring-1 ring-white/20">
@@ -369,6 +302,7 @@ export function ScreensManagement() {
               </div>
             </div>
 
+            {/* Body */}
             <div className="p-6">
               <p className="text-slate-300 mb-4">
                 Bạn có chắc chắn muốn xóa phòng chiếu này không?
@@ -399,6 +333,7 @@ export function ScreensManagement() {
                 </div>
               </div>
 
+              {/* Buttons */}
               <div className="flex gap-3">
                 <button
                   onClick={handleCancelDelete}
