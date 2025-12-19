@@ -41,11 +41,11 @@
       "email": "huydeptrai@gmail.com",
       "phone": "0987654321",
       "password": "123456",
-      "avatar": "blob:http://localhost:3000/13bf2e41-a374-441d-9172-22fbe43d32c2",
+      "avatar": "blob:http://localhost:3000/3ba3bd80-d5a5-45e1-81ac-928802074bb2",
       "address": "",
       "status": "ACTIVE",
       "created_at": "2025-12-15T00:45:57.354Z",
-      "updated_at": "2025-12-18T02:26:24.009Z",
+      "updated_at": "2025-12-18T23:53:05.498Z",
       "role": {
         "id": 2,
         "role_name": "user"
@@ -89,7 +89,7 @@
   "bookings": [
     {
       "id": "1",
-      "user_id": 2,
+      "user_id": "2",
       "showtime_id": 1,
       "total_seat": 1,
       "total_price_movie": 75000,
@@ -1060,6 +1060,47 @@
       "release_date": "2017-11-22",
       "created_at": "2023-10-10T08:00:00Z",
       "updated_at": "2023-10-10T08:00:00Z",
+      "showtimes": []
+    },
+    {
+      "title": "12",
+      "description": "phim",
+      "author": "huy",
+      "image": "https://chieuphimquocgia.com.vn/_next/image?url=https%3A%2F%2Fapi.chieuphimquocgia.com.vn%2FContent%2FImages%2F0019544_0.jpg&w=256&q=75",
+      "trailer": "https://www.youtube.com/watch?v=I3NGIHt7Zag&embeds_referring_euri=https%3A%2F%2Fchieuphimquocgia.com.vn%2F&source_ve_path=MjM4NTE",
+      "type": "2D",
+      "duration": 120,
+      "genres_movie": [
+        {
+          "genreName": "Hành động",
+          "id": "1",
+          "movieCount": 1
+        },
+        {
+          "genreName": "Kinh dị",
+          "id": "2",
+          "movieCount": 3
+        },
+        {
+          "genreName": "Romantic",
+          "id": "3"
+        },
+        {
+          "id": "1973",
+          "genreName": "1234",
+          "movieCount": 123
+        },
+        {
+          "id": "2cd2",
+          "genreName": "huy",
+          "movieCount": 36
+        }
+      ],
+      "status": "Sắp chiếu",
+      "release_date": "2025-12-19",
+      "created_at": "2025-12-18T03:14:44.608Z",
+      "updated_at": "2025-12-18T03:14:44.608Z",
+      "id": "a6f8471f-f46c-49af-9524-7189cc036a2d",
       "showtimes": []
     }
   ],

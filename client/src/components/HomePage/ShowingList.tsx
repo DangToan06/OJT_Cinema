@@ -9,7 +9,7 @@ type PropsTypes = {
 };
 
 export default function ShowingList({
-  statusMovie = "Đang chiếu",
+  statusMovie = "DANGCHIEU",
 }: PropsTypes) {
   const dispatch = useAppDispatch();
 
