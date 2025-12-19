@@ -8,42 +8,64 @@ import {
   fetchGenres,
   updateGenre,
 } from "../api/genres.api";
+import { fetchMovies } from "../api/movie.api"; 
 import Swal from "sweetalert2";
-import type { MovieGenre } from "../util/type.util";
+import type { MovieGenre, Movie } from "../util/type.util";
 
 export function GenresManagement() {
   const dispatch = useDispatch<AppDispatch>();
 
-  const { data: genres, status } = useSelector(
+  const { data: genres, status: genreStatus } = useSelector(
     (state: RootState) => state.genres
   );
+
+  const movies: Movie[] = useSelector((state: RootState) => state.movie.data || []);
 
   const [showModal, setShowModal] = useState(false);
   const [editingGenre, setEditingGenre] = useState<MovieGenre | null>(null);
   const [genreName, setGenreName] = useState("");
-  const [movieCount, setMovieCount] = useState<number | "">("");
 
   useEffect(() => {
     dispatch(fetchGenres());
   }, [dispatch]);
 
+
+  useEffect(() => {
+    dispatch(
+      fetchMovies({
+        page: 1,
+        pageSize: 999,
+        search: "",
+        status: "",
+      })
+    );
+  }, [dispatch]);
+
+  // Hàm tính số lượng phim cho một thể loại
+  const getMovieCount = (genreId: string): number => {
+    return movies.filter((movie: Movie) =>
+      movie.genres_movie?.some((g) => g.id === genreId)
+    ).length;
+  };
+
+  const genresWithCount = genres.map((genre: MovieGenre) => ({
+    ...genre,
+    movieCount: getMovieCount(genre.id),
+  }));
+
   const handleAdd = () => {
     setEditingGenre(null);
     setGenreName("");
-    setMovieCount("");
     setShowModal(true);
   };
 
   const handleEdit = (genre: MovieGenre) => {
     setEditingGenre(genre);
     setGenreName(genre.genreName);
-    setMovieCount(genre.movieCount ?? "");
     setShowModal(true);
   };
 
   const handleSave = async () => {
-    
-    // Validate tên thể loại
     if (!genreName.trim()) {
       Swal.fire({
         icon: "warning",
@@ -56,22 +78,8 @@ export function GenresManagement() {
       return;
     }
 
-    // Validate số lượng phim
-    if (movieCount === "" || movieCount < 0) {
-      Swal.fire({
-        icon: "warning",
-        title: "Lỗi",
-        text: "Số lượng phim phải là số không âm",
-        timer: 2000,
-        toast: true,
-        position: "top-end",
-      });
-      return;
-    }
-
     const nameToCheck = genreName.trim().toLowerCase();
 
-    // Kiểm tra trùng tên
     const isDuplicate = genres.some(
       (g) =>
         g.id !== editingGenre?.id &&
@@ -95,21 +103,20 @@ export function GenresManagement() {
         updateGenre({
           id: editingGenre.id,
           genreName: genreName.trim(),
-          movieCount: Number(movieCount),
+          movieCount: 0,
         })
       );
     } else {
       dispatch(
         createGenre({
           genreName: genreName.trim(),
-          movieCount: Number(movieCount),
+          movieCount: 0,
         })
       );
     }
 
     setShowModal(false);
     setGenreName("");
-    setMovieCount("");
     setEditingGenre(null);
   };
 
@@ -153,7 +160,7 @@ export function GenresManagement() {
 
         {/* Table */}
         <div className="bg-[#1e2939] rounded-lg border border-gray-700 overflow-hidden">
-          {status === "loading" || status === "idle" ? (
+          {genreStatus === "loading" || genreStatus === "idle" ? (
             <div className="p-16 text-center">
               <div className="inline-block animate-spin rounded-full h-10 w-10 border-4 border-red-600 border-t-transparent"></div>
               <p className="mt-4 text-gray-400">Đang tải dữ liệu...</p>
@@ -178,7 +185,7 @@ export function GenresManagement() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-700">
-                  {genres.length === 0 ? (
+                  {genresWithCount.length === 0 ? (
                     <tr>
                       <td
                         colSpan={4}
@@ -188,7 +195,7 @@ export function GenresManagement() {
                       </td>
                     </tr>
                   ) : (
-                    genres.map((genre: MovieGenre, index: number) => (
+                    genresWithCount.map((genre: any, index: number) => (
                       <tr
                         key={genre.id}
                         className="hover:bg-[#263445] transition"
@@ -200,7 +207,7 @@ export function GenresManagement() {
                           {genre.genreName}
                         </td>
                         <td className="px-6 py-4 text-gray-400 font-medium">
-                          {genre.movieCount ?? 0}
+                          {genre.movieCount}
                         </td>
                         <td className="px-6 py-4">
                           <div className="flex justify-end gap-3">
@@ -229,7 +236,7 @@ export function GenresManagement() {
           )}
         </div>
 
-        {/* Modal Thêm / Sửa */}
+        {/* Modal thêm/sửa thể loại */}
         {showModal && (
           <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
             <div className="bg-[#1e2939] rounded-2xl shadow-2xl max-w-md w-full p-8 border border-gray-700">
@@ -238,7 +245,6 @@ export function GenresManagement() {
               </h2>
 
               <div className="space-y-6">
-                {/* Tên thể loại */}
                 <div>
                   <label className="block text-gray-400 font-medium mb-2">
                     Tên thể loại <span className="text-red-500">*</span>
@@ -252,35 +258,14 @@ export function GenresManagement() {
                     autoFocus
                   />
                 </div>
-
-                {/* Số lượng phim */}
-                <div>
-                  <label className="block text-gray-400 font-medium mb-2">
-                    Số lượng phim <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="number"
-                    min="0"
-                    value={movieCount}
-                    onChange={(e) =>
-                      setMovieCount(
-                        e.target.value === "" ? "" : Number(e.target.value)
-                      )
-                    }
-                    className="w-full px-5 py-3 rounded-xl bg-[#263445] text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
-                    placeholder="0"
-                  />
-                </div>
               </div>
 
-              {/* Nút hành động */}
               <div className="flex gap-4 mt-8">
                 <button
                   onClick={() => {
                     setShowModal(false);
                     setEditingGenre(null);
                     setGenreName("");
-                    setMovieCount("");
                   }}
                   className="flex-1 py-3 border border-gray-600 text-gray-300 rounded-xl hover:bg-[#263445] transition font-medium"
                 >
@@ -288,11 +273,7 @@ export function GenresManagement() {
                 </button>
                 <button
                   onClick={handleSave}
-                  disabled={
-                    !genreName.trim() ||
-                    movieCount === "" ||
-                    movieCount < 0
-                  }
+                  disabled={!genreName.trim()}
                   className="flex-1 py-3 bg-red-600 text-white font-bold rounded-xl hover:bg-red-700 transition disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {editingGenre ? "Cập nhật" : "Thêm mới"}

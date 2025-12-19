@@ -162,7 +162,7 @@ export default function Layout({ children }: LayoutProps) {
     { name: "Liên hoan phim", link: "/festival" },
   ];
 
-  // ===== PHẦN MỚI: Modal profile với upload avatar =====
+ 
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [previewAvatar, setPreviewAvatar] = useState<string | null>(null);
 
@@ -260,7 +260,6 @@ export default function Layout({ children }: LayoutProps) {
       });
     }
   };
-  // ===== KẾT THÚC PHẦN MỚI =====
 
   return (
     <div className="w-full min-h-screen flex flex-col relative">
@@ -350,7 +349,7 @@ export default function Layout({ children }: LayoutProps) {
         </button>
       </header>
 
-      {/* Mobile Menu giữ nguyên */}
+      {/* Mobile Menu  */}
       {mobileMenuOpen && (
         <div className="lg:hidden fixed top-20 left-0 w-full bg-black/95 backdrop-blur z-30 py-6 px-6 shadow-2xl">
           <nav className="space-y-4 mb-6">
