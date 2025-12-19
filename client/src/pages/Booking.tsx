@@ -8,6 +8,7 @@ import { getAllScreens } from "../api/screen.api";
 import { getAllSeats } from "../api/seat.api";
 import { Armchair } from "lucide-react";
 import DetailModal from "./Detail";
+import type { Seat } from "../types/theater.interface";
 
 export default function ChooseTicket() {
   const [showing, setShowing] = useState(false);
@@ -16,6 +17,12 @@ export default function ChooseTicket() {
   const [hour, setHour] = useState("");
   const [openTrailer, setOpenTrailer] = useState(false);
   const [open, setOpen] = useState(false);
+  const [choosingSeat, setChoosingSeat] = useState<Seat[]>([]);
+  const map: Record<string, number> = {
+    standard: 75000,
+    vip: 90000,
+    sweetbox: 120000,
+  }
   const dispatch = useAppDispatch();
   useEffect(() => {
     document.body.style.overflow = openTrailer ? "hidden" : "auto";
@@ -23,7 +30,6 @@ export default function ChooseTicket() {
   const [searchParams] = useSearchParams();
 
   const showtimeId = searchParams.get("id");
-
   const { data: movies } = useAppSelector((state) => state.movies);
   const { data: showTimes } = useAppSelector((state) => state.showTimes);
   const { data: screens } = useAppSelector((state) => state.screens);
@@ -65,9 +71,32 @@ export default function ChooseTicket() {
   }, [dispatch, seats.length]);
 
   const showTimeNow = showTimes.find((s) => s.id === showtimeId);
-
   const size = screens.find((s) => s.name === showTimeNow?.screen)?.column;
+  const [tempSeats, setTempSeats] = useState<Seat[]>([]);
+  // setTempSeats()
+  useEffect(() => {
+    const list = seats.find(
+      (chair) =>
+        chair.screenId ===
+        screens.find((s) => s.name === showTimeNow?.screen)?.id
+    )?.seats;
+    if (!list) return;
 
+    setTempSeats(list);
+  }, [screens, seats, showTimeNow]);
+  useEffect(() => {
+    const selected = tempSeats.filter((s) => s.booked);
+    setChoosingSeat(selected);
+  }, [tempSeats]);
+  const handleChoose = (seat: Seat) => {
+    setTempSeats((prev) =>
+      prev.map((s) =>
+        s.number == seat.number && s.row == seat.row
+          ? { ...s, booked: !s.booked }
+          : s
+      )
+    );
+  };
   return (
     <div className="bg-black text-white font-sans px-6 min-h-[600px]">
       <div
@@ -98,7 +127,7 @@ export default function ChooseTicket() {
                         .find((m) => m.title === showTimeNow?.movie)
                         ?.genres_movie?.map((g) => g.genre_name)}
                     </span>
-                    {/* <span>{movieNow?.created_at}</span> */}
+                    {/* <span>{movies?.}</span>  */}
                     <span>
                       {
                         movies.find((m) => m.title === showTimeNow?.movie)
@@ -243,21 +272,33 @@ export default function ChooseTicket() {
               <div
                 id="seat"
                 className={`flex justify-between items-center gap-2 mb-4 w-[${
-                  40 * Number(size) + 8 * Number(size) - 1
+                  40 * Number(size) + 8 * (Number(size) - 1)
                 }px] flex-wrap`}
               >
-                {seats
-                  .find(
-                    (chair) =>
-                      chair.screenId ===
-                      screens.find((s) => s.name === showTimeNow?.screen)?.id
-                  )
-                  ?.seats.map((ghe, i) => (
-                    <div className="flex flex-col justify-center items-center size-10">
-                      <Armchair key={i} className={` text-white`} />
-                      {ghe.row + ghe.number}
-                    </div>
-                  ))}
+                {tempSeats.map((ghe, i) => (
+                  <div
+                    className={`flex flex-col justify-center items-center size-10 
+                    `}
+                  >
+                    <Armchair
+                      key={i}
+                      onClick={() => {
+                        handleChoose(ghe);
+                      }}
+                      className={`${
+                        ghe.type == "standard"
+                          ? "text-white"
+                          : ghe.type == "vip"
+                          ? "text-amber-300"
+                          : ghe.type == "sweetbox"
+                          ? "text-pink-500"
+                          : ""
+                      } ${ghe.booked ? "text-[#007AFF]" : ""}
+                       `}
+                    />
+                    {ghe.row + ghe.number}
+                  </div>
+                ))}
               </div>
 
               <div className="flex justify-center gap-6 text-xs mb-4 items-center text-[16px]">
@@ -267,30 +308,31 @@ export default function ChooseTicket() {
                 Đã đặt
                 <div className="size-10 rounded-md bg-[#007AFF]"></div> Ghế bạn
                 chọn
-                <div className="size-10 rounded-md bg-gray-700"></div> Ghế
-                thường
-                <div className="bg-[#F97316] size-10 rounded-md"></div> Ghế VIP
-                <div className="bg-[#DC2626] size-10 rounded-md"></div> Ghế đôi
+                <div className="size-10 rounded-md bg-white"></div> Ghế thường
+                <div className="bg-amber-300 size-10 rounded-md"></div> Ghế VIP
+                <div className="bg-pink-500 size-10 rounded-md"></div> Ghế đôi
               </div>
             </div>
             <div className="text-sm mb-4">
               <p>
                 Ghế đã chọn:
                 <span className="text-green-400 ml-1">
-                  {/* {choosingSeats.map((s, id) =>
-                    id + 1 === choosingSeats.length ? s.seat : s.seat + ","
-                  )} */}
+                  {choosingSeat.map((s, id) =>
+                    id + 1 === choosingSeat.length
+                      ? s.row + s.number
+                      : s.row + s.number + ","
+                  )}
                 </span>
               </p>
               <p>
                 Tổng tiền:
                 <span id="total-price" className="text-yellow-400 ml-1">
-                  {/* {choosingSeats
-                    .reduce((sum, curr) => sum + curr.price, 0)
+                  {choosingSeat
+                    .reduce((sum, curr) => sum + map[curr.type], 0)
                     .toLocaleString("vi", {
                       style: "currency",
                       currency: "VND",
-                    })} */}
+                    })}
                 </span>
               </p>
             </div>
