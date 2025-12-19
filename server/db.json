@@ -1864,7 +1864,6 @@
       ]
     },
     {
-      "id": "af20e4a3-930e-4e48-9af4-a9a21c1ac65f",
       "screenId": "f66d57b3-18ef-45f1-bc08-ba11b7c4bc25",
       "seats": [
         {
@@ -1916,12 +1915,6 @@
           "booked": false
         },
         {
-          "row": "A",
-          "number": 9,
-          "type": "standard",
-          "booked": false
-        },
-        {
           "row": "B",
           "number": 1,
           "type": "standard",
@@ -1970,12 +1963,6 @@
           "booked": false
         },
         {
-          "row": "B",
-          "number": 9,
-          "type": "standard",
-          "booked": false
-        },
-        {
           "row": "C",
           "number": 1,
           "type": "standard",
@@ -1984,48 +1971,42 @@
         {
           "row": "C",
           "number": 2,
-          "type": "standard",
+          "type": "vip",
           "booked": false
         },
         {
           "row": "C",
           "number": 3,
-          "type": "standard",
+          "type": "vip",
           "booked": false
         },
         {
           "row": "C",
           "number": 4,
-          "type": "standard",
+          "type": "vip",
           "booked": false
         },
         {
           "row": "C",
           "number": 5,
-          "type": "standard",
+          "type": "vip",
           "booked": false
         },
         {
           "row": "C",
           "number": 6,
-          "type": "standard",
+          "type": "vip",
           "booked": false
         },
         {
           "row": "C",
           "number": 7,
-          "type": "standard",
+          "type": "vip",
           "booked": false
         },
         {
           "row": "C",
           "number": 8,
-          "type": "standard",
-          "booked": false
-        },
-        {
-          "row": "C",
-          "number": 9,
           "type": "standard",
           "booked": false
         },
@@ -2038,48 +2019,42 @@
         {
           "row": "D",
           "number": 2,
-          "type": "standard",
+          "type": "vip",
           "booked": false
         },
         {
           "row": "D",
           "number": 3,
-          "type": "standard",
+          "type": "vip",
           "booked": false
         },
         {
           "row": "D",
           "number": 4,
-          "type": "standard",
+          "type": "vip",
           "booked": false
         },
         {
           "row": "D",
           "number": 5,
-          "type": "standard",
+          "type": "vip",
           "booked": false
         },
         {
           "row": "D",
           "number": 6,
-          "type": "standard",
+          "type": "vip",
           "booked": false
         },
         {
           "row": "D",
           "number": 7,
-          "type": "standard",
+          "type": "vip",
           "booked": false
         },
         {
           "row": "D",
           "number": 8,
-          "type": "standard",
-          "booked": false
-        },
-        {
-          "row": "D",
-          "number": 9,
           "type": "standard",
           "booked": false
         },
@@ -2132,66 +2107,55 @@
           "booked": false
         },
         {
-          "row": "E",
-          "number": 9,
-          "type": "standard",
-          "booked": false
-        },
-        {
           "row": "F",
           "number": 1,
-          "type": "standard",
+          "type": "sweetbox",
           "booked": false
         },
         {
           "row": "F",
           "number": 2,
-          "type": "standard",
+          "type": "sweetbox",
           "booked": false
         },
         {
           "row": "F",
           "number": 3,
-          "type": "standard",
+          "type": "sweetbox",
           "booked": false
         },
         {
           "row": "F",
           "number": 4,
-          "type": "standard",
+          "type": "sweetbox",
           "booked": false
         },
         {
           "row": "F",
           "number": 5,
-          "type": "standard",
+          "type": "sweetbox",
           "booked": false
         },
         {
           "row": "F",
           "number": 6,
-          "type": "standard",
+          "type": "sweetbox",
           "booked": false
         },
         {
           "row": "F",
           "number": 7,
-          "type": "standard",
+          "type": "sweetbox",
           "booked": false
         },
         {
           "row": "F",
           "number": 8,
-          "type": "standard",
-          "booked": false
-        },
-        {
-          "row": "F",
-          "number": 9,
-          "type": "standard",
+          "type": "sweetbox",
           "booked": false
         }
-      ]
+      ],
+      "id": "af20e4a3-930e-4e48-9af4-a9a21c1ac65f"
     },
     {
       "id": "d9122343-d01a-4059-8be1-0018391719f0",

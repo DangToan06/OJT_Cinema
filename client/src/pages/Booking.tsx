@@ -2,7 +2,7 @@ import screen from "../assets/imgs/screen1.png";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hook/useRedux";
 import { getAllMovies } from "../api/movie.api";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { getAllShowtimes } from "../api/showTime.api";
 import { getAllScreens } from "../api/screen.api";
 import { getAllSeats } from "../api/seat.api";
@@ -18,11 +18,14 @@ export default function ChooseTicket() {
   const [openTrailer, setOpenTrailer] = useState(false);
   const [open, setOpen] = useState(false);
   const [choosingSeat, setChoosingSeat] = useState<Seat[]>([]);
+  const user = JSON.parse(localStorage.getItem("user"));
+  const navigate = useNavigate();
+
   const map: Record<string, number> = {
     standard: 75000,
     vip: 90000,
     sweetbox: 120000,
-  }
+  };
   const dispatch = useAppDispatch();
   useEffect(() => {
     document.body.style.overflow = openTrailer ? "hidden" : "auto";
@@ -341,12 +344,18 @@ export default function ChooseTicket() {
               <button className="bg-gray-600 px-4 py-2 rounded mr-2">
                 Quay lại
               </button>
-              <button className="bg-red-600 px-4 py-2 rounded">
+              <button className="bg-red-600 px-4 py-2 rounded"
+              onClick={() => {
+                if(user){
+                  localStorage.setItem("choosingSeat", JSON.stringify(choosingSeat));
+                  navigate("/payment");
+                }
+              }}>
                 Thanh toán
               </button>
 
-              <div id="login-warning" className={`text-red-600 text-sm mt-2`}>
-                Bạn cần đăng nhập tài khoản để thanh toán.
+              <div className={`text-red-600 text-sm mt-2`}>
+                {user ? "" : "Bạn cần đăng nhập tài khoản để thanh toán."}
               </div>
             </div>
           </div>
