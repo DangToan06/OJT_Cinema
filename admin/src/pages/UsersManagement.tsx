@@ -43,17 +43,22 @@ export function UsersManagement() {
     action: null,
   });
 
-  const filteredUsers = users.filter((user) => {
+  const filteredUsers = users
+  .filter((user) => user.role.role_name !== "admin")
+  .filter((user) => {
     const matchesSearch =
       user.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(searchTerm.toLowerCase());
+
     const matchesStatus =
       filterStatus === "all" ||
       (filterStatus === "active" && user.status === "ACTIVE") ||
       (filterStatus === "banned" && user.status === "BLOCKED");
+
     return matchesSearch && matchesStatus;
   });
+
 
   const getStatusColor = (status: string) => {
     return status === "ACTIVE"

@@ -36,6 +36,7 @@ export default function Layout({ children }: LayoutProps) {
   const [user, setUser] = useState<UserInfo | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const [isShowHistory, setIsShowHistory] = useState<boolean>(false);
 
   const performLogout = (reason: "manual" | "blocked") => {
     localStorage.removeItem("user");
@@ -450,19 +451,45 @@ export default function Layout({ children }: LayoutProps) {
           </div>
 
           <div className="flex flex-wrap justify-center items-center gap-6 mt-10">
-            <img src={fb} className="w-8 h-8 cursor-pointer hover:opacity-80" alt="Facebook" />
-            <img src={zalo} className="w-8 h-8 cursor-pointer hover:opacity-80" alt="Zalo" />
-            <img src={ytb} className="w-8 h-8 cursor-pointer hover:opacity-80" alt="Youtube" />
-            <img src={gp} className="h-11 cursor-pointer hover:opacity-90" alt="Google Play" />
-            <img src={as} className="h-11 cursor-pointer hover:opacity-90" alt="App Store" />
-            <img src={tem} className="h-[50px] cursor-pointer hover:opacity-90" alt="Copyright" />
+            <img
+              src={fb}
+              className="w-8 h-8 cursor-pointer hover:opacity-80"
+              alt="Facebook"
+            />
+            <img
+              src={zalo}
+              className="w-8 h-8 cursor-pointer hover:opacity-80"
+              alt="Zalo"
+            />
+            <img
+              src={ytb}
+              className="w-8 h-8 cursor-pointer hover:opacity-80"
+              alt="Youtube"
+            />
+            <img
+              src={gp}
+              className="h-11 cursor-pointer hover:opacity-90"
+              alt="Google Play"
+            />
+            <img
+              src={as}
+              className="h-11 cursor-pointer hover:opacity-90"
+              alt="App Store"
+            />
+            <img
+              src={tem}
+              className="h-[50px] cursor-pointer hover:opacity-90"
+              alt="Copyright"
+            />
           </div>
 
           <div className="mt-12 text-center flex flex-col gap-2 text-sm md:text-base leading-relaxed opacity-90">
             <p>Cơ quan chủ quản: BỘ VĂN HÓA, THỂ THAO VÀ DU LỊCH</p>
             <p>Bản quyền thuộc Trung tâm Chiếu phim Quốc gia.</p>
             <p>Giấy phép số: 224/GP - TTĐT ngày 31/8/2010</p>
-            <p>Địa chỉ: 87 Láng Hạ, Ba Đình, Hà Nội • Điện thoại: 024.35141791</p>
+            <p>
+              Địa chỉ: 87 Láng Hạ, Ba Đình, Hà Nội • Điện thoại: 024.35141791
+            </p>
             <div className="flex justify-center items-center gap-2 mt-2">
               <span>&copy; 2023 By NCC • All rights reserved.</span>
             </div>
@@ -496,7 +523,7 @@ export default function Layout({ children }: LayoutProps) {
             </button>
 
             <h2 className="text-3xl font-bold text-white text-center mb-8">
-              Chỉnh sửa thông tin cá nhân
+              Thông tin cá nhân
             </h2>
 
             <form onSubmit={handleUpdateProfile} className="space-y-6">
@@ -504,7 +531,7 @@ export default function Layout({ children }: LayoutProps) {
               <div className="flex flex-col items-center mb-8">
                 <div className="relative group">
                   <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white/20 shadow-xl">
-                    {(previewAvatar || user.avatar) ? (
+                    {previewAvatar || user.avatar ? (
                       <img
                         src={previewAvatar || user.avatar}
                         alt="Avatar preview"
@@ -521,7 +548,9 @@ export default function Layout({ children }: LayoutProps) {
                     htmlFor="avatar-upload"
                     className="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition cursor-pointer"
                   >
-                    <span className="text-white text-sm font-medium">Thay đổi</span>
+                    <span className="text-white text-sm font-medium">
+                      Thay đổi
+                    </span>
                   </label>
                 </div>
 
@@ -538,7 +567,9 @@ export default function Layout({ children }: LayoutProps) {
                     }
                   }}
                 />
-                <p className="text-gray-400 text-sm mt-3">Nhấp vào ảnh để thay đổi</p>
+                <p className="text-gray-400 text-sm mt-3">
+                  Nhấp vào ảnh để thay đổi
+                </p>
               </div>
 
               {/* Các trường thông tin */}
@@ -554,7 +585,9 @@ export default function Layout({ children }: LayoutProps) {
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-300 text-sm mb-2">Tên</label>
+                  <label className="block text-gray-300 text-sm mb-2">
+                    Tên
+                  </label>
                   <input
                     name="last_name"
                     type="text"
@@ -566,7 +599,9 @@ export default function Layout({ children }: LayoutProps) {
               </div>
 
               <div>
-                <label className="block text-gray-300 text-sm mb-2">Email</label>
+                <label className="block text-gray-300 text-sm mb-2">
+                  Email
+                </label>
                 <input
                   name="email"
                   type="email"
@@ -577,7 +612,9 @@ export default function Layout({ children }: LayoutProps) {
               </div>
 
               <div>
-                <label className="block text-gray-300 text-sm mb-2">Số điện thoại</label>
+                <label className="block text-gray-300 text-sm mb-2">
+                  Số điện thoại
+                </label>
                 <input
                   name="phone"
                   type="tel"
@@ -585,6 +622,104 @@ export default function Layout({ children }: LayoutProps) {
                   required
                   className="w-full px-5 py-4 bg-[#334155]/50 border border-gray-600 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
                 />
+              </div>
+              <div className="border-t border-t-gray-600">
+                {isShowHistory && (
+                  <div className="bg-black/80 fixed inset-0 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+                    <div className="bg-gray-800 p-5 border border-gray-700 rounded-2xl w-full flex flex-col gap-5">
+                      <div className="text-white font-bold text-2xl flex justify-between items-center">
+                        <p>Lịch sử đặt vé</p>
+                        <X onClick={() => {setIsShowHistory(false)}} className="hover:text-gray-400 cursor-pointer"/>
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <div className="text-white border rounded-lg border-gray-600 p-3 flex justify-between items-center">
+                          <div>
+                            <p className="font-bold">
+                              #1 - Tên Phim{" "}
+                              <span className="border rounded-2xl text-sm border-gray-600 bg-gray-700 px-2 py-0.5">
+                                A1
+                              </span>
+                            </p>
+                            <p className="text-sm text-gray-400">
+                              07:00 - 01/01/2025
+                            </p>
+                          </div>
+                          <div className="text-red-500 font-bold text-lg">
+                            75.000đ
+                          </div>
+                        </div>
+                        <div className="text-white border rounded-lg border-gray-600 p-3 flex justify-between items-center">
+                          <div>
+                            <p className="font-bold">
+                              #1 - Tên Phim{" "}
+                              <span className="border rounded-2xl text-sm border-gray-600 bg-gray-700 px-2 py-0.5">
+                                A1
+                              </span>
+                            </p>
+                            <p className="text-sm text-gray-400">
+                              07:00 - 01/01/2025
+                            </p>
+                          </div>
+                          <div className="text-red-500 font-bold text-lg">
+                            75.000đ
+                          </div>
+                        </div>
+                        <div className="text-white border rounded-lg border-gray-600 p-3 flex justify-between items-center">
+                          <div>
+                            <p className="font-bold">
+                              #1 - Tên Phim{" "}
+                              <span className="border rounded-2xl text-sm border-gray-600 bg-gray-700 px-2 py-0.5">
+                                A1
+                              </span>
+                            </p>
+                            <p className="text-sm text-gray-400">
+                              07:00 - 01/01/2025
+                            </p>
+                          </div>
+                          <div className="text-red-500 font-bold text-lg">
+                            75.000đ
+                          </div>
+                        </div>
+                        <div className="text-white border rounded-lg border-gray-600 p-3 flex justify-between items-center">
+                          <div>
+                            <p className="font-bold">
+                              #1 - Tên Phim{" "}
+                              <span className="border rounded-2xl text-sm border-gray-600 bg-gray-700 px-2 py-0.5">
+                                A1
+                              </span>
+                            </p>
+                            <p className="text-sm text-gray-400">
+                              07:00 - 01/01/2025
+                            </p>
+                          </div>
+                          <div className="text-red-500 font-bold text-lg">
+                            75.000đ
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex justify-end text-white font-semibold gap-3">
+                        <span className="rounded px-1.5 cursor-pointer hover:text-gray-400 hover:scale-105">&lt;</span>
+                        <span className="rounded px-1.5 cursor-pointer hover:bg-red-600 bg-red-500">1</span>
+                        <span className="rounded px-1.5 cursor-pointer hover:text-gray-400 hover:scale-105">&gt;</span>
+                      </div>
+                      <div className="w-full flex justify-end">
+                        <button
+                          onClick={() => setIsShowHistory(false)}
+                          className="text-white rounded-lg px-6 py-3 bg-red-500 font-bold"
+                        >
+                          Đóng
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <p
+                  onClick={() => setIsShowHistory(true)}
+                  className="text-white text-xl font-bold mt-5 mb-5 hover:border-b-red-500 hover:border-b w-fit cursor-pointer hover:text-red-500"
+                >
+                  Lịch sử đặt vé
+                </p>
+                <div className="flex flex-col gap-5"></div>
               </div>
 
               <div className="flex gap-4 mt-8">
