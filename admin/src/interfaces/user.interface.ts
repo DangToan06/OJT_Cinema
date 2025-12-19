@@ -10,6 +10,10 @@ export interface User {
   status: "ACTIVE" | "BLOCKED";
   created_at: string;
   updated_at: string;
+  role: {
+    id: string,
+    role_name: string
+  }
 }
 
 export interface InitialUserState {
