@@ -84,6 +84,23 @@
         "role_name": "user"
       },
       "id": "Ng6iCsq"
+    },
+    {
+      "first_name": "toan",
+      "last_name": "dang",
+      "email": "toan@gmail.com",
+      "phone": "0123998456",
+      "password": "123456",
+      "avatar": "",
+      "address": "",
+      "status": "ACTIVE",
+      "created_at": "2025-12-18T03:11:13.626Z",
+      "updated_at": "2025-12-18T03:11:13.626Z",
+      "role": {
+        "id": 2,
+        "role_name": "user"
+      },
+      "id": "iPAPLlK"
     }
   ],
   "bookings": [
@@ -173,7 +190,7 @@
       "id": "2d-std-0-1",
       "type_seat": "STANDARD",
       "type_movie": "2D",
-      "price": 55000,
+      "price": 55008,
       "day_type": 0,
       "time": 1
     },
@@ -623,7 +640,6 @@
       "showtimes": []
     },
     {
-      "id": "4",
       "title": "Oppenheimer",
       "description": "Câu chuyện về cha đẻ của bom nguyên tử J. Robert Oppenheimer.",
       "author": "Christopher Nolan",
@@ -631,26 +647,21 @@
       "trailer": "https://www.youtube.com/embed/uYPbbksJxIg?si=FWT5C_hfuJJ15qQx",
       "type": "2D",
       "duration": 180,
-      "age": 16,
-      "origin": "Mẽo",
       "genres_movie": [
         {
-          "id": 1,
-          "genre_name": "Lịch sử,"
-        },
-        {
-          "id": 2,
-          "genre_name": " Tâm lý"
+          "genreName": "huy yêu tươi",
+          "movieCount": 0,
+          "id": "_u--Qo3"
         }
       ],
       "status": "DANGCHIEU",
       "release_date": "2023-07-21",
       "created_at": "2023-07-01T08:00:00Z",
       "updated_at": "2023-07-01T08:00:00Z",
+      "id": "4",
       "showtimes": []
     },
     {
-      "id": "5",
       "title": "Barbie",
       "description": "Barbie và Ken có cơ hội khám phá thế giới thực.",
       "author": "Greta Gerwig",
@@ -658,22 +669,18 @@
       "trailer": "https://www.youtube.com/embed/pBk4NYhWNMM",
       "type": "2D",
       "duration": 114,
-      "age": 13,
-      "origin": "Mẽo",
       "genres_movie": [
         {
-          "id": 1,
-          "genre_name": "Hài hước,"
-        },
-        {
-          "id": 2,
-          "genre_name": " Gia đình"
+          "genreName": "Kinh dị",
+          "id": "2",
+          "movieCount": 3
         }
       ],
       "status": "DANGCHIEU",
       "release_date": "2023-07-21",
       "created_at": "2023-07-02T09:00:00Z",
       "updated_at": "2023-07-02T09:00:00Z",
+      "id": "5",
       "showtimes": []
     },
     {
@@ -1079,22 +1086,17 @@
       "id": "3"
     },
     {
-      "id": "1973",
-      "genreName": "1234",
-      "movieCount": 123
-    },
-    {
-      "id": "2cd2",
-      "genreName": "huy",
-      "movieCount": 36
+      "genreName": "huy yêu tươi",
+      "movieCount": 0,
+      "id": "_u--Qo3"
     }
   ],
   "news": [
     {
       "id": "news-1",
       "title": "Chương trình phim kỉ niệm 79 năm ngày giải phóng thủ đô",
-      "content": "Chương trình phim đặc biệt được tổ chức nhằm kỉ niệm 79 năm ngày giải phóng thủ đô.",
-      "created_at": "2025-10-03T00:00:00Z",
+      "content": "Chương trình phim đặc biệt được tổ chức nhằm kỉ niệm 79 năm ngày giải phóng thủ đô....",
+      "created_at": "2025-12-18T03:18:53Z",
       "bannerUrl": "https://images.unsplash.com/photo-1761503390713-a1fd8b8bb6c5",
       "category": "news",
       "dayBegin": "2025-10-01T00:00:00Z",
@@ -1228,9 +1230,9 @@
       "theaterId": "8f4d5c4e-2b7e-4e9b-9c12-4f9a2d3b7c91",
       "theater": "NCC Bà Triệu",
       "type": "Standard",
-      "row": "6",
-      "column": "9",
-      "capacity": 54,
+      "row": 6,
+      "column": 8,
+      "capacity": 48,
       "status": "Đang hoạt động"
     },
     {
@@ -1240,8 +1242,8 @@
       "theater": "NCC Hai Bà Trưng",
       "type": "IMAX",
       "row": 7,
-      "column": 13,
-      "capacity": 91,
+      "column": 14,
+      "capacity": 98,
       "status": "Đang hoạt động"
     },
     {

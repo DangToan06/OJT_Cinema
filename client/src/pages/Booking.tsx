@@ -66,7 +66,7 @@ export default function ChooseTicket() {
 
   const showTimeNow = showTimes.find((s) => s.id === showtimeId);
 
-  console.log(screens.find((s) => s.name === showTimeNow?.screen));
+  const size = screens.find((s) => s.name === showTimeNow?.screen)?.column;
 
   return (
     <div className="bg-black text-white font-sans px-6 min-h-[600px]">
@@ -243,7 +243,7 @@ export default function ChooseTicket() {
               <div
                 id="seat"
                 className={`flex justify-between items-center gap-2 mb-4 w-[${
-                  40 * 15 + 8 * 14
+                  40 * Number(size) + 8 * Number(size) - 1
                 }px] flex-wrap`}
               >
                 {seats
