@@ -98,7 +98,7 @@ export default function ChooseTicket() {
     );
   };
   return (
-    <div className="bg-black text-white font-sans h-auto">
+    <div className="bg-black text-white font-sans px-6 min-h-[600px]">
       <div
         className="relative bg-cover bg-center"
         style={{
