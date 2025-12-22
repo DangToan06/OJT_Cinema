@@ -1,34 +1,35 @@
-import type { ID, BookingStatus } from './enums';
+import type { ID } from './enums';
+import type { Seat } from './theater.interface';
 
 /**
  * Một ghế thuộc đơn booking (chi tiết ghế đặt)
  */
 export interface BookingSeat {
-  id: ID;
-  bookingId: ID;
-  seatId: ID;
-  seatNumber?: string;
-  seatType?: string;
-  price?: number;
-  createdAt?: string;
-  updatedAt?: string;
+    id: ID;
+    bookingId: ID;
+    seatId: ID;
+    seatNumber?: string;
+    seatType?: string;
+    price?: number;
+    createdAt?: string;
+    updatedAt?: string;
 }
 
 /**
  * Đơn đặt vé của người dùng
  */
 export interface Booking {
-  id: ID;
-  userId?: ID; // nếu guest đặt thì null, thường là userId
-  showtimeId: ID;
-  theaterId: ID;
-  screenId: ID;
-  totalSeat: number;
-  totalPriceMovie: number;
-  status: BookingStatus;
-  heldUntil?: string; // thời gian giữ ghế hết hạn
-  seats?: BookingSeat[];
-  qrCode?: string; // vé QR code
-  createdAt?: string;
-  updatedAt?: string;
+    nameFilm: string;
+    showtime: string;
+    nameScreen: string;
+    type: string;
+    seats: Seat[];
+    showTimeId: string;
+    userId:string;
 }
+
+export const seatPrices: Record<string, number> = {
+    standard: 75000,
+    vip: 90000,
+    sweetbox: 120000,
+};

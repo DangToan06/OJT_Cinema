@@ -101,6 +101,23 @@
         "role_name": "user"
       },
       "id": "iPAPLlK"
+    },
+    {
+      "first_name": "Atmin",
+      "last_name": "Trần",
+      "email": "atmin@gmail.com",
+      "phone": "0822817206",
+      "password": "123456@",
+      "avatar": "blob:http://localhost:3000/3ba07f27-f647-4e63-8fa6-90b548879501",
+      "address": "",
+      "status": "ACTIVE",
+      "created_at": "2025-12-21T09:31:16.568Z",
+      "updated_at": "2025-12-21T14:26:28.586Z",
+      "role": {
+        "id": 2,
+        "role_name": "user"
+      },
+      "id": "ZrELDGx"
     }
   ],
   "bookings": [
@@ -592,7 +609,9 @@
       "created_at": "2023-06-01T08:00:00Z",
       "updated_at": "2023-06-01T08:00:00Z",
       "id": "1",
-      "showtimes": []
+      "showtimes": [
+        "8c116d76-f973-4bf8-9545-d84540a56583"
+      ]
     },
     {
       "title": "Titanic",
@@ -637,7 +656,9 @@
       "created_at": "2023-06-03T10:00:00Z",
       "updated_at": "2023-06-03T10:00:00Z",
       "id": "3",
-      "showtimes": []
+      "showtimes": [
+        "ec53d05d-c3b6-43d5-bbb0-7f862948883a"
+      ]
     },
     {
       "title": "Oppenheimer",
@@ -1261,6 +1282,54 @@
       "endTime": "19:06",
       "availableSeats": 54,
       "totalSeats": 54,
+      "status": "active"
+    },
+    {
+      "id": "8c116d76-f973-4bf8-9545-d84540a56583",
+      "movie": "Avengers: Endgame",
+      "theater": "NCC Bà Triệu",
+      "screen": "Phòng 1",
+      "date": "2025-12-20",
+      "startTime": "20:06",
+      "endTime": "23:06",
+      "availableSeats": 48,
+      "totalSeats": 48,
+      "status": "active"
+    },
+    {
+      "id": "ec53d05d-c3b6-43d5-bbb0-7f862948883a",
+      "movie": "Avatar: The Way of Water",
+      "theater": "NCC Bà Triệu",
+      "screen": "Phòng 1",
+      "date": "2025-12-21",
+      "startTime": "18:20",
+      "endTime": "21:32",
+      "availableSeats": 48,
+      "totalSeats": 48,
+      "status": "active"
+    },
+    {
+      "id": "a1d3d5a9-0cfd-4f9f-926a-e3a66beeb9c9",
+      "movie": "Spider-Man: Across the Spider-Verse",
+      "theater": "NCC Bà Triệu",
+      "screen": "Phòng 1",
+      "date": "2025-12-22",
+      "startTime": "00:00",
+      "endTime": "02:20",
+      "availableSeats": 48,
+      "totalSeats": 48,
+      "status": "active"
+    },
+    {
+      "id": "f0ee0a8f-35e7-4e8f-81f8-0a4b82e898e8",
+      "movie": "Spider-Man: Across the Spider-Verse",
+      "theater": "NCC Bà Triệu",
+      "screen": "Phòng 1",
+      "date": "2025-12-22",
+      "startTime": "15:00",
+      "endTime": "17:20",
+      "availableSeats": 48,
+      "totalSeats": 48,
       "status": "active"
     }
   ],
@@ -2371,6 +2440,33 @@
       "date": "10/12/2024 - 15/12/2024",
       "description": "Tuần phim Pháp giới thiệu những tác phẩm điện ảnh đương đại và kinh điển của nền điện ảnh Pháp, một trong những nền điện ảnh có ảnh hưởng lớn nhất thế giới.",
       "image": "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400&h=560&fit=crop"
+    }
+  ],
+  "payment_history": [
+    {
+      "showTimeId": "a1d3d5a9-0cfd-4f9f-926a-e3a66beeb9c9",
+      "seatBooked": [
+        {
+          "row": "A",
+          "number": 5,
+          "type": "standard",
+          "booked": false,
+          "locked": false
+        },
+        {
+          "row": "B",
+          "number": 6,
+          "type": "standard",
+          "booked": false,
+          "locked": false
+        }
+      ],
+      "totalAmount": 150000,
+      "paymentMethod": "vnpay",
+      "bookingDate": "2025-12-22T02:14:00.819Z",
+      "userId": "ZrELDGx",
+      "nameFilm": "Spider-Man: Across the Spider-Verse",
+      "id": 1
     }
   ]
 }
