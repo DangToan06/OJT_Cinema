@@ -4,17 +4,16 @@ import type { Payment } from '../types/payment.interface';
 
 export const getPaymentByShowTimeId = createAsyncThunk(
     'payment/getPaymentByShowTimeId',
-    async (showTimeId: string) => {
-        const res = await axiosInstance.get(
-            `payment_history?showTimeId=${showTimeId}`
-        );
+    async () => {
+        const res = await axiosInstance.get(`payment_history`);
         return res.data;
     }
 );
 
-
 export const createPayment = createAsyncThunk(
     'payment/createPayment',
     async (data: Payment) => {
-        await axiosInstance.post('payment_history', data);}
+        const res = await axiosInstance.post('payment_history', data);
+        return res.data;
+    }
 );

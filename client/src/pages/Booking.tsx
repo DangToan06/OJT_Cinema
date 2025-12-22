@@ -37,12 +37,11 @@ export default function ChooseTicket() {
     }, [openTrailer]);
     const [searchParams, setSearchParams] = useSearchParams();
 
+    const showtimeId = searchParams.get('id');
+
     const changeId = (id: string) => {
         setSearchParams({ id });
-        dispatch(getPaymentByShowTimeId(id));
     };
-
-    const showtimeId = searchParams.get('id');
     const { data: movies } = useAppSelector((state) => state.movies);
     const { data: showTimes } = useAppSelector((state) => state.showTimes);
     const { data: screens } = useAppSelector((state) => state.screens);
@@ -87,7 +86,7 @@ export default function ChooseTicket() {
 
     useEffect(() => {
         if (paymentHistory.length === 0) {
-            dispatch(getPaymentByShowTimeId(showtimeId || ''));
+            dispatch(getPaymentByShowTimeId());
         }
     }, [dispatch, paymentHistory.length, showtimeId]);
 
@@ -110,7 +109,12 @@ export default function ChooseTicket() {
         const seatMap = seats.find((s) => s.screenId === screen.id);
         if (!seatMap) return;
 
-        const bookedSeats: Seat[] = paymentHistory.flatMap((p) => p.seatBooked);
+        const bookedSeats: Seat[] = paymentHistory.flatMap((p) => {
+            if (p.showTimeId === id) {
+                return p.seatBooked;
+            }
+            return [];
+        });
 
         setMapSeat(
             seatMap.seats.map((s) => {
@@ -332,7 +336,6 @@ export default function ChooseTicket() {
                                     setShowing(true);
                                     setMinutes(1);
                                     setSeconds(0);
-
                                     changeId(d.id);
                                     setChoosingSeat([]);
                                     setMapSeat([]);

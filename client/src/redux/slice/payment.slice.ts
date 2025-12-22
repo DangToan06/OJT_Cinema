@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import { createPayment,  getPaymentByShowTimeId } from '../../api/payment.api';
+import { createPayment, getPaymentByShowTimeId } from '../../api/payment.api';
 import type {
     InitialPaymentState,
     Payment,
@@ -24,9 +24,13 @@ const paymentSlice = createSlice({
                     state.payments = action.payload;
                 }
             )
-            .addCase(createPayment.fulfilled, (state) => {
-                state.status = 'success';
-            });
+            .addCase(
+                createPayment.fulfilled,
+                (state, action: PayloadAction<Payment>) => {
+                    state.status = 'success';
+                    state.payments.push(action.payload);
+                }
+            );
     },
 });
 

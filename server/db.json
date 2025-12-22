@@ -2467,6 +2467,52 @@
       "userId": "ZrELDGx",
       "nameFilm": "Spider-Man: Across the Spider-Verse",
       "id": 1
+    },
+    {
+      "showTimeId": "f0ee0a8f-35e7-4e8f-81f8-0a4b82e898e8",
+      "seatBooked": [
+        {
+          "row": "A",
+          "number": 5,
+          "type": "standard",
+          "booked": false,
+          "locked": false
+        },
+        {
+          "row": "B",
+          "number": 6,
+          "type": "standard",
+          "booked": false,
+          "locked": false
+        },
+        {
+          "row": "B",
+          "number": 3,
+          "type": "standard",
+          "booked": false,
+          "locked": false
+        },
+        {
+          "row": "A",
+          "number": 3,
+          "type": "standard",
+          "booked": false,
+          "locked": false
+        },
+        {
+          "row": "E",
+          "number": 3,
+          "type": "standard",
+          "booked": false,
+          "locked": false
+        }
+      ],
+      "totalAmount": 375000,
+      "paymentMethod": "viettel",
+      "bookingDate": "2025-12-22T08:58:34.779Z",
+      "userId": "ZrELDGx",
+      "nameFilm": "Spider-Man: Across the Spider-Verse",
+      "id": 2
     }
   ]
 }
