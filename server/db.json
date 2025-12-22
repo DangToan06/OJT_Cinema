@@ -23,12 +23,12 @@
       "last_name": "Van A",
       "email": "vana@gmail.com",
       "password": "123456",
-      "avatar": "https://example.com/avatars/user2.jpg",
+      "avatar": "blob:http://localhost:3000/09039d4d-6c07-462b-b9f9-d9790a07f557",
       "phone": "0987654321",
       "address": "456 Danang, Vietnam",
       "status": "ACTIVE",
       "created_at": "2023-05-15T14:30:00Z",
-      "updated_at": "2023-05-15T14:30:00Z",
+      "updated_at": "2025-12-22T15:05:45.358Z",
       "role": {
         "id": 2,
         "role_name": "user"
@@ -2467,6 +2467,117 @@
       "userId": "ZrELDGx",
       "nameFilm": "Spider-Man: Across the Spider-Verse",
       "id": 1
+    },
+    {
+      "showTimeId": "a1d3d5a9-0cfd-4f9f-926a-e3a66beeb9c9",
+      "seatBooked": [
+        {
+          "row": "B",
+          "number": 7,
+          "type": "standard",
+          "booked": false,
+          "locked": false
+        }
+      ],
+      "totalAmount": 75000,
+      "paymentMethod": "vnpay",
+      "bookingDate": "2025-12-22T08:57:48.939Z",
+      "userId": "2",
+      "nameFilm": "Spider-Man: Across the Spider-Verse",
+      "id": 2
+    },
+    {
+      "showTimeId": "a1d3d5a9-0cfd-4f9f-926a-e3a66beeb9c9",
+      "seatBooked": [
+        {
+          "row": "D",
+          "number": 4,
+          "type": "vip",
+          "booked": false,
+          "locked": false
+        }
+      ],
+      "totalAmount": 90000,
+      "paymentMethod": "payoo",
+      "bookingDate": "2025-12-22T15:28:53.068Z",
+      "userId": "2",
+      "nameFilm": "Spider-Man: Across the Spider-Verse",
+      "id": 3
+    },
+    {
+      "showTimeId": "a1d3d5a9-0cfd-4f9f-926a-e3a66beeb9c9",
+      "seatBooked": [
+        {
+          "row": "C",
+          "number": 3,
+          "type": "vip",
+          "booked": false,
+          "locked": false
+        },
+        {
+          "row": "C",
+          "number": 4,
+          "type": "vip",
+          "booked": false,
+          "locked": false
+        },
+        {
+          "row": "B",
+          "number": 3,
+          "type": "standard",
+          "booked": false,
+          "locked": false
+        }
+      ],
+      "totalAmount": 255000,
+      "paymentMethod": "viettel",
+      "bookingDate": "2025-12-22T15:30:57.090Z",
+      "userId": "2",
+      "nameFilm": "Spider-Man: Across the Spider-Verse",
+      "id": 4
+    },
+    {
+      "showTimeId": "f0ee0a8f-35e7-4e8f-81f8-0a4b82e898e8",
+      "seatBooked": [
+        {
+          "row": "B",
+          "number": 4,
+          "type": "standard",
+          "booked": false,
+          "locked": false
+        }
+      ],
+      "totalAmount": 75000,
+      "paymentMethod": "vietqr",
+      "bookingDate": "2025-12-22T15:37:29.953Z",
+      "userId": "2",
+      "nameFilm": "Spider-Man: Across the Spider-Verse",
+      "id": 5
+    },
+    {
+      "showTimeId": "f0ee0a8f-35e7-4e8f-81f8-0a4b82e898e8",
+      "seatBooked": [
+        {
+          "row": "F",
+          "number": 3,
+          "type": "sweetbox",
+          "booked": false,
+          "locked": false
+        },
+        {
+          "row": "F",
+          "number": 5,
+          "type": "sweetbox",
+          "booked": false,
+          "locked": false
+        }
+      ],
+      "totalAmount": 240000,
+      "paymentMethod": "payoo",
+      "bookingDate": "2025-12-22T15:47:31.181Z",
+      "userId": "2",
+      "nameFilm": "Spider-Man: Across the Spider-Verse",
+      "id": 6
     }
   ]
 }

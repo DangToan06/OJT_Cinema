@@ -17,7 +17,7 @@ export default function HomePage() {
             </div>
 
             <div className="flex items-center gap-6 text-sm text-gray-300">
-              <Link to={""} className="hover:underline">
+              <Link to={"/movie-calendar"} className="hover:underline">
                 Xem tất cả
               </Link>
             </div>
@@ -30,7 +30,7 @@ export default function HomePage() {
               <span>Phim sắp chiếu</span>
             </div>
             <div className="flex items-center gap-6 text-sm text-gray-300">
-              <Link to={""} className="hover:underline">
+              <Link to={"/movie-calendar"} className="hover:underline">
                 Xem tất cả
               </Link>
             </div>
@@ -43,7 +43,10 @@ export default function HomePage() {
             <h3 className="text-white text-lg font-semibold text-start m-0">
               Khuyến mãi
             </h3>
-            <Link to={""} className="text-sm text-gray-300 hover:underline">
+            <Link
+              to={"/promotions"}
+              className="text-sm text-gray-300 hover:underline"
+            >
               Xem tất cả
             </Link>
           </div>
@@ -51,7 +54,10 @@ export default function HomePage() {
 
           <div className="flex justify-between items-center">
             <h3 className="text-white text-lg font-semibold m-0">Sự kiện</h3>
-            <Link to={""} className="text-sm text-gray-300 hover:underline">
+            <Link
+              to={"/news"}
+              className="text-sm text-gray-300 hover:underline"
+            >
               Xem tất cả
             </Link>
           </div>

@@ -1,22 +1,24 @@
-import { configureStore } from '@reduxjs/toolkit';
-import movieSlice from '../slice/movie.slice';
-import priceSlice from '../slice/price.slice';
-import showtimeSlice from '../slice/showtimes.slice';
-import seatSlice from '../slice/seats.slice';
-import screenSlice from '../slice/screens.slice';
-import { bookingStore } from '../slice/booking.slice';
-import { paymentStore } from '../slice/payment.slice';
+import { configureStore } from "@reduxjs/toolkit";
+import movieSlice from "../slice/movie.slice";
+import priceSlice from "../slice/price.slice";
+import showtimeSlice from "../slice/showtimes.slice";
+import seatSlice from "../slice/seats.slice";
+import screenSlice from "../slice/screens.slice";
+import { bookingStore } from "../slice/booking.slice";
+import { paymentStore } from "../slice/payment.slice";
+import historySlice from "../slice/historyPayment.slice";
 
 export const store = configureStore({
-    reducer: {
-        movies: movieSlice,
-        price: priceSlice,
-        showTimes: showtimeSlice,
-        screens: screenSlice,
-        seats: seatSlice,
-        booking: bookingStore,
-        payment: paymentStore,
-    },
+  reducer: {
+    movies: movieSlice,
+    price: priceSlice,
+    showTimes: showtimeSlice,
+    screens: screenSlice,
+    seats: seatSlice,
+    booking: bookingStore,
+    payment: paymentStore,
+    history: historySlice,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

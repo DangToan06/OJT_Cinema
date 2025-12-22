@@ -1,3 +1,5 @@
+import type { Seat } from "../interfaces/seat.interface";
+
 export interface InitialStateType<T> {
   status: "idle" | "pending" | "success" | "failed";
   data: T[];
@@ -42,4 +44,15 @@ export interface Movie {
 
 export interface MovieResponse {
   movies: Movie[];
+}
+
+export interface Payment {
+  id: number;
+  showTimeId: string;
+  seatBooked: Seat[];
+  totalAmount: number;
+  paymentMethod: string;
+  bookingDate: string;
+  userId: string;
+  nameFilm: string;
 }

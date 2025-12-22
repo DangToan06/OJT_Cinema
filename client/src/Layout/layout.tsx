@@ -14,6 +14,9 @@ import tem from "../assets/Copyright.png";
 import LoginModal from "../components/Login";
 import RegisterModal from "../components/Register";
 import { ToastContainer } from "react-toastify";
+import { useAppDispatch, useAppSelector } from "../hook/useRedux";
+import { getAllHistoryPayment } from "../api/historyPayment.api";
+import ScrollToTop from "../util/ScrollToTop";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -38,6 +41,16 @@ export default function Layout({ children }: LayoutProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const [isShowHistory, setIsShowHistory] = useState<boolean>(false);
+
+  const dispatch = useAppDispatch();
+
+  const { data: historyPayment } = useAppSelector((state) => state.history);
+
+  useEffect(() => {
+    if (historyPayment.length === 0) {
+      dispatch(getAllHistoryPayment());
+    }
+  }, [historyPayment.length, dispatch]);
 
   const performLogout = (reason: "manual" | "blocked") => {
     localStorage.removeItem("user");
@@ -163,7 +176,6 @@ export default function Layout({ children }: LayoutProps) {
     { name: "Liên hoan phim", link: "/festival" },
   ];
 
- 
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [previewAvatar, setPreviewAvatar] = useState<string | null>(null);
 
@@ -262,8 +274,20 @@ export default function Layout({ children }: LayoutProps) {
     }
   };
 
+  const formatDate = (dateString: string) => {
+    if (!dateString) return "N/A";
+    return new Date(dateString).toLocaleString("vi-VN", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
   return (
     <div className="w-full min-h-screen flex flex-col relative">
+      <ScrollToTop />
       {(isLoginModalOpen || isRegisterModalOpen) && (
         <div className="fixed inset-0 bg-black/80 z-30" />
       )}
@@ -629,78 +653,48 @@ export default function Layout({ children }: LayoutProps) {
                     <div className="bg-gray-800 p-5 border border-gray-700 rounded-2xl w-full flex flex-col gap-5">
                       <div className="text-white font-bold text-2xl flex justify-between items-center">
                         <p>Lịch sử đặt vé</p>
-                        <X onClick={() => {setIsShowHistory(false)}} className="hover:text-gray-400 cursor-pointer"/>
+                        <X
+                          onClick={() => {
+                            setIsShowHistory(false);
+                          }}
+                          className="hover:text-gray-400 cursor-pointer"
+                        />
                       </div>
                       <div className="flex flex-col gap-2">
-                        <div className="text-white border rounded-lg border-gray-600 p-3 flex justify-between items-center">
-                          <div>
-                            <p className="font-bold">
-                              #1 - Tên Phim{" "}
-                              <span className="border rounded-2xl text-sm border-gray-600 bg-gray-700 px-2 py-0.5">
-                                A1
-                              </span>
-                            </p>
-                            <p className="text-sm text-gray-400">
-                              07:00 - 01/01/2025
-                            </p>
-                          </div>
-                          <div className="text-red-500 font-bold text-lg">
-                            75.000đ
-                          </div>
-                        </div>
-                        <div className="text-white border rounded-lg border-gray-600 p-3 flex justify-between items-center">
-                          <div>
-                            <p className="font-bold">
-                              #1 - Tên Phim{" "}
-                              <span className="border rounded-2xl text-sm border-gray-600 bg-gray-700 px-2 py-0.5">
-                                A1
-                              </span>
-                            </p>
-                            <p className="text-sm text-gray-400">
-                              07:00 - 01/01/2025
-                            </p>
-                          </div>
-                          <div className="text-red-500 font-bold text-lg">
-                            75.000đ
-                          </div>
-                        </div>
-                        <div className="text-white border rounded-lg border-gray-600 p-3 flex justify-between items-center">
-                          <div>
-                            <p className="font-bold">
-                              #1 - Tên Phim{" "}
-                              <span className="border rounded-2xl text-sm border-gray-600 bg-gray-700 px-2 py-0.5">
-                                A1
-                              </span>
-                            </p>
-                            <p className="text-sm text-gray-400">
-                              07:00 - 01/01/2025
-                            </p>
-                          </div>
-                          <div className="text-red-500 font-bold text-lg">
-                            75.000đ
-                          </div>
-                        </div>
-                        <div className="text-white border rounded-lg border-gray-600 p-3 flex justify-between items-center">
-                          <div>
-                            <p className="font-bold">
-                              #1 - Tên Phim{" "}
-                              <span className="border rounded-2xl text-sm border-gray-600 bg-gray-700 px-2 py-0.5">
-                                A1
-                              </span>
-                            </p>
-                            <p className="text-sm text-gray-400">
-                              07:00 - 01/01/2025
-                            </p>
-                          </div>
-                          <div className="text-red-500 font-bold text-lg">
-                            75.000đ
-                          </div>
-                        </div>
+                        {historyPayment
+                          .filter((h) => h.userId === user.id)
+                          .map((u, i) => (
+                            <div
+                              key={i}
+                              className="text-white border rounded-lg border-gray-600 p-3 flex justify-between items-center"
+                            >
+                              <div>
+                                <p className="font-bold">
+                                  # {i + 1} - {u.nameFilm}
+                                  <span className="border rounded-2xl text-sm border-gray-600 bg-gray-700 px-2 py-0.5">
+                                    {u.seatBooked.map((s) => s.row + s.number)}
+                                  </span>
+                                </p>
+                                <p className="text-sm text-gray-400">
+                                  {formatDate(u.bookingDate)}
+                                </p>
+                              </div>
+                              <div className="text-red-500 font-bold text-lg">
+                                {u.totalAmount} vnđ
+                              </div>
+                            </div>
+                          ))}
                       </div>
                       <div className="flex justify-end text-white font-semibold gap-3">
-                        <span className="rounded px-1.5 cursor-pointer hover:text-gray-400 hover:scale-105">&lt;</span>
-                        <span className="rounded px-1.5 cursor-pointer hover:bg-red-600 bg-red-500">1</span>
-                        <span className="rounded px-1.5 cursor-pointer hover:text-gray-400 hover:scale-105">&gt;</span>
+                        <span className="rounded px-1.5 cursor-pointer hover:text-gray-400 hover:scale-105">
+                          &lt;
+                        </span>
+                        <span className="rounded px-1.5 cursor-pointer hover:bg-red-600 bg-red-500">
+                          1
+                        </span>
+                        <span className="rounded px-1.5 cursor-pointer hover:text-gray-400 hover:scale-105">
+                          &gt;
+                        </span>
                       </div>
                       <div className="w-full flex justify-end">
                         <button
@@ -748,15 +742,15 @@ export default function Layout({ children }: LayoutProps) {
         </div>
       )}
       <ToastContainer
-                position="top-right"
-                autoClose={1000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                pauseOnHover
-                draggable
-                theme="colored"
-              />
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+        theme="colored"
+      />
 
       <RegisterModal
         isOpen={isRegisterModalOpen}

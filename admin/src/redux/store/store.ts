@@ -9,6 +9,7 @@ import priceSlice from "../slice/price.slice";
 import userSlice from "../slice/user.slice";
 import bookingSlice from "../slice/booking.slice";
 import seatSlice from "../slice/seat.slice";
+import historySlice from "../slice/historyPayment.slice";
 
 export const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ export const store = configureStore({
     price: priceSlice,
     user: userSlice,
     booking: bookingSlice,
+    history: historySlice,
   },
 });
 
