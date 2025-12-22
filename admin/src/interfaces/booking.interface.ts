@@ -8,8 +8,8 @@ export interface Booking {
 }
 
 export interface InitialBookingState {
-  status: "idle" | "pending" | "success" | "failed";
   data: Booking[];
+  status: "idle" | "pending" | "success" | "failed";
   error: string | null | undefined;
   booking: Booking | null;
 }

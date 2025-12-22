@@ -1,252 +1,213 @@
-import { useState } from "react";
-import vietqr from "../assets/imgs/079bbb2cb9bed5ffebb0429a5a70b039362828c2.png";
-import vnpay from "../assets/imgs/vnpay 1.svg";
-import viettel from "../assets/imgs/viettel1 1.png";
-import payoo from "../assets/imgs/payoo 1.svg";
-import QRCode from "react-qr-code";
-import success from "../assets/imgs/Group.png";
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+import { useState } from 'react';
+import vietqr from '../assets/imgs/079bbb2cb9bed5ffebb0429a5a70b039362828c2.png';
+import vnpay from '../assets/imgs/vnpay 1.svg';
+import viettel from '../assets/imgs/viettel1 1.png';
+import payoo from '../assets/imgs/payoo 1.svg';
+import QRCode from 'react-qr-code';
+import success from '../assets/imgs/Group.png';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../hook/useRedux';
+import { seatPrices, type Booking } from '../types/booking.interface';
+import { notify } from '../util/toast';
+import { createPayment } from '../api/payment.api';
+
+type PaymentStep = 'select' | 'qr' | 'success';
+
 function generateRandomValue(amount: number, billId: string) {
-  const qrData = `0002010102115303764...54${amount.toFixed(
-    0
-  )}...59NCC60Hanoi62${billId}6304XXXX`;
-  return qrData;
+    return `0002010102115303764...54${amount.toFixed(
+        0
+    )}...59NCC60Hanoi62${billId}6304XXXX`;
 }
+
 export default function Payment() {
-  const [isPayment, setIsPayment] = useState(false);
-  const navigate = useNavigate();
-  const [qr, setQr] = useState(generateRandomValue(50000, Date.now.toString()));
-  const [paymentMethods, setPaymentMethods] = useState([
-    {
-      id: "vietqr",
-      name: "VietQR",
-      logo: "VietQR",
-      img: vietqr,
-      selected: false,
-    },
-    { id: "vnpay", name: "VNPAY", logo: "VNPAY", img: vnpay, selected: false },
-    {
-      id: "viettel",
-      name: "ViettelMoney",
-      logo: "Viettel Money",
-      img: viettel,
-      selected: false,
-    },
-    { id: "payoo", name: "Payoo", logo: "Payoo", img: payoo, selected: false },
-  ]);
+    const navigate = useNavigate();
+    const booking: Booking = useAppSelector((s) => s.booking);
+    const dispatch = useAppDispatch();
 
-  const handleGenerate = () => {
-    setQr(generateRandomValue(50000, Date.now.toString()));
-  };
-  return (
-    <div className="container-fluid relative bg-gray-900 w-full h-max-screen">
-      {/* Header */}
-      {/* Body */}
-      <div className="paymentSuccess flex-col justify-center items-center gap-3 hidden py-10 h-screen">
-        <img src={success} width="100px" height="100px" />
-        <span className="font-bold text-[24px] text-white">
-          Đặt vé thành công!
-        </span>
-        <span className="text-[#F97316]">
-          Lưu ý: Hãy đến đúng giờ của suất chiếu và tận hưởng bộ phim
-        </span>
-        <button
-          className="h-10 px-8 py-2.5 bg-red-500 rounded-full flex justify-center items-center text-white px-40"
-          onClick={() => {
-            navigate("/");
-          }}
-        >
-          Về trang chủ
-        </button>
-      </div>
-      <div className="py-10 flex justify-center gap-10 w-full body h-max-screen">
-        <div className="flex flex-col gap-5">
-          <div className="text-white gap-3 rounded-lg bg-[#1A1D23] p-7">
-            <div>Thông tin phim</div>
-            <div className="flex flex-col gap-1">
-              <span className="text-gray-400">Phim</span>
-              <span>Tên Phim</span>
-            </div>
-            <div className="flex flex-row justify-between gap-40">
-              <div className="flex flex-col">
-                <div className="flex flex-col gap-1 w-full pr-30">
-                  <span className="text-gray-400">Ngày giờ chiếu</span>
-                  <span>Giờ chiếu</span>
-                </div>
-                <div className="flex flex-col gap-1 w-full pr-30">
-                  <span className="text-gray-400">Định dạng</span>
-                  <span>2D</span>
-                </div>
-              </div>
-              <div className="flex flex-col pr-30">
-                <div className="flex flex-col gap-1 w-full pr-30">
-                  <span className="text-gray-400">Ghế</span>
-                  <span>Ghế</span>
-                </div>
-                <div className="flex flex-col gap-1 w-full pr-30">
-                  <span className="text-gray-400">Phòng chiếu</span>
-                  <span>12</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="text-white gap-3 rounded-lg bg-[#1A1D23] p-7">
-            Thông tin thanh toán
-            <div className="border border-white rounded-lg">
-              <table className="w-full h-20 text-left">
-                {/* Header */}
-                <thead>
-                  <tr className="border-b border-white">
-                    <th className="px-5 py-3 text-xs font-medium text-gray-400">
-                      Danh mục
-                    </th>
-                    <th className="px-5 py-3 text-xs font-medium text-gray-400 text-center">
-                      Số lượng
-                    </th>
-                    <th className="px-5 py-3 text-xs font-medium text-gray-400 text-right">
-                      Tổng tiền
-                    </th>
-                  </tr>
-                </thead>
+    const listSeats = booking.seats
+        .map((seat) => seat.row + seat.number)
+        .join(',');
 
-                {/* Body */}
-                <tbody>
-                  <tr className="border-b border-gray-800/50">
-                    <td className="px-5 py-4 text-sm text-white font-medium">
-                      Ghế (B1,B2)
-                    </td>
-                    <td className="px-5 py-4 text-sm text-gray-300 text-center">
-                      2
-                    </td>
-                    <td className="px-5 py-4 text-sm text-white font-semibold text-right">
-                      160.000đ
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+    const totalMoney = booking.seats.reduce(
+        (acc, seat) => acc + seatPrices[seat.type],
+        0
+    );
+
+    const [step, setStep] = useState<PaymentStep>('select');
+    const [qr] = useState(() =>
+        generateRandomValue(totalMoney, new Date().getTime().toString())
+    );
+    const [selectedMethod, setSelectedMethod] = useState<string | null>(null);
+
+    const paymentMethods = [
+        { id: 'vietqr', name: 'VietQR', img: vietqr },
+        { id: 'vnpay', name: 'VNPAY', img: vnpay },
+        { id: 'viettel', name: 'ViettelMoney', img: viettel },
+        { id: 'payoo', name: 'Payoo', img: payoo },
+    ];
+
+    const handlePayment = () => {
+        if (!selectedMethod) {
+            notify.error('Vui lòng chọn phương thức thanh toán');
+            return;
+        }
+        setStep('qr');
+        dispatch(
+            createPayment({
+                showTimeId: booking.showTimeId,
+                seatBooked: booking.seats,
+                totalAmount: totalMoney,
+                paymentMethod: selectedMethod,
+                bookingDate: new Date().toISOString(),
+                userId: booking.userId,
+                nameFilm: booking.nameFilm
+            })
+        );
+    };
+
+    return (
+        <div className="bg-gray-900 min-h-screen text-white">
+            {/* ===== SUCCESS ===== */}
+            {step === 'success' && (
+                <div className="flex flex-col items-center justify-center h-screen gap-4">
+                    <img src={success} width={100} />
+                    <h2 className="text-2xl font-bold">Đặt vé thành công!</h2>
+                    <p className="text-orange-400 text-center">
+                        Hãy đến đúng giờ và tận hưởng bộ phim 🎬
+                    </p>
+                    <button
+                        className="px-20 py-2 bg-red-600 rounded-full"
+                        onClick={() => navigate('/')}
+                    >
+                        Về trang chủ
+                    </button>
+                </div>
+            )}
+
+            {/* ===== BODY ===== */}
+            {step !== 'success' && (
+                <div className="py-10 flex justify-center gap-10">
+                    {/* LEFT */}
+                    <div className="flex flex-col gap-5 w-[600px]">
+                        {/* Thông tin phim */}
+                        <div className="bg-[#1A1D23] p-6 rounded-lg">
+                            <h3 className="mb-3">Thông tin phim</h3>
+                            <div className="text-gray-400">Phim</div>
+                            <div>{booking.nameFilm}</div>
+
+                            <div className="flex justify-between mt-4">
+                                <div>
+                                    <div className="text-gray-400">
+                                        Ngày giờ chiếu
+                                    </div>
+                                    <div>{booking.showtime}</div>
+                                    <div className="text-gray-400 mt-2">
+                                        Định dạng
+                                    </div>
+                                    <div>{booking.type}</div>
+                                </div>
+                                <div>
+                                    <div className="text-gray-400">Ghế</div>
+                                    <div>{listSeats}</div>
+                                    <div className="text-gray-400 mt-2">
+                                        Phòng chiếu
+                                    </div>
+                                    <div>{booking.nameScreen}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Thông tin thanh toán */}
+                        <div className="bg-[#1A1D23] p-6 rounded-lg">
+                            <table className="w-full">
+                                <thead>
+                                    <tr className="border-b border-gray-700">
+                                        <th className="text-left py-2">
+                                            Danh mục
+                                        </th>
+                                        <th className="text-center">
+                                            Số lượng
+                                        </th>
+                                        <th className="text-right">
+                                            Tổng tiền
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Ghế ({listSeats})</td>
+                                        <td className="text-center">
+                                            {booking.seats.length}
+                                        </td>
+                                        <td className="text-right font-semibold">
+                                            {totalMoney.toLocaleString('vi-VN')}{' '}
+                                            đ
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    {/* RIGHT */}
+                    <div className="w-80 bg-black rounded-lg">
+                        <div className="p-5 space-y-3">
+                            <h3>Phương thức thanh toán</h3>
+
+                            {paymentMethods.map((m) => (
+                                <label
+                                    key={m.id}
+                                    className={`flex items-center gap-3 p-3 border-2 rounded-xl cursor-pointer ${
+                                        selectedMethod === m.id
+                                            ? 'border-red-500'
+                                            : 'border-transparent'
+                                    }`}
+                                >
+                                    <input
+                                        type="radio"
+                                        name="method"
+                                        checked={selectedMethod === m.id}
+                                        onChange={() => setSelectedMethod(m.id)}
+                                        className="accent-red-500"
+                                    />
+                                    <img src={m.img} width={60} />
+                                    {m.name}
+                                </label>
+                            ))}
+
+                            {/* PRICE / QR */}
+                            {step === 'select' && (
+                                <div className="border-t border-gray-700 pt-4">
+                                    <div className="flex justify-between">
+                                        <span>Tổng cộng</span>
+                                        <span className="text-red-500 font-bold">
+                                            {totalMoney.toLocaleString('vi-VN')}{' '}
+                                            đ
+                                        </span>
+                                    </div>
+                                </div>
+                            )}
+
+                            {step === 'qr' && (
+                                <div className="flex justify-center py-4">
+                                    <QRCode value={qr} size={240} />
+                                </div>
+                            )}
+
+                            {/* BUTTON */}
+                            <button
+                                className="w-full bg-red-600 py-2 rounded-xl font-bold"
+                                onClick={() => {
+                                    if (step === 'select') handlePayment();
+                                    else setStep('success');
+                                }}
+                            >
+                                {step === 'select' ? 'Thanh toán' : 'Xác nhận'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
-        {/* Right */}
-        <div className="w-80">
-          <div className="h-fit bg-black text-white flex flex-col rounded-lg">
-            {/* Header */}
-            <div className="px-5 pt-6 pb-3">
-              <h1 className="text-lg font-medium">Phương thức thanh toán</h1>
-            </div>
-
-            {/* Danh sách phương thức */}
-            <div className="px-5 space-y-2">
-              {paymentMethods.map((method) => (
-                <label
-                  key={method.id}
-                  className={`flex items-center h-16 px-4 rounded-xl border-2 cursor-pointer transition-all ${
-                    method.selected ? "border-red-500" : ""
-                  }`}
-                >
-                  <div
-                    className={`flex items-center flex-1 gap-3 ${
-                      method.selected ? "border-red-500" : ""
-                    }`}
-                  >
-                    <input
-                      className="text-base w-5 h-5 rounded-full appearance-auto accent-red-500"
-                      type="radio"
-                      name="method"
-                      onClick={() => {
-                        setPaymentMethods((prev) =>
-                          prev.map((p) =>
-                            p.id === method.id
-                              ? { ...p, selected: true }
-                              : { ...p, selected: false }
-                          )
-                        );
-                      }}
-                    />
-                    <img src={method.img} width="64px" height="21px" />
-                    {method.name}
-                  </div>
-                </label>
-              ))}
-            </div>
-
-            {/* Tổng tiền */}
-            <div className="px-5 py-4 border-gray-800">
-              <div className="price">
-                <div className="price">Chi phí</div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Thanh toán</span>
-                  <span>160.000đ</span>
-                </div>
-                <div className="flex justify-between text-sm mt-1">
-                  <span className="text-gray-400">Phí</span>
-                  <span>0đ</span>
-                </div>
-              </div>
-              <QRCode
-                value={qr}
-                size={280}
-                fgColor="#000000"
-                bgColor="#fff"
-                className="qr hidden"
-              ></QRCode>
-              <div className="flex justify-between items-baseline mt-3 pt-3 border-t border-gray-800">
-                <span className="text-base">Tổng cộng</span>
-                <span className="text-xl font-bold text-red-500">160.000đ</span>
-              </div>
-            </div>
-
-            {/* Nút */}
-            <div className="px-5 pb-6">
-              <button
-                className="w-full bg-red-600 hover:bg-red-700 text-white font-bold text-base py-2 rounded-2xl active:scale-98 transition"
-                onClick={() => {
-                  if (!isPayment) {
-                    if (paymentMethods.some((p) => p.selected)) {
-                      handleGenerate();
-                      document.querySelector(".price")?.classList.add("hidden");
-                      document.querySelector(".qr")?.classList.remove("hidden");
-                      setIsPayment(true);
-                    } else {
-                      Swal.fire({
-                        position: "center",
-                        icon: "error",
-                        title: "Vui lòng chọn ngân hàng thanh toán!",
-                        showConfirmButton: false,
-                        timer: 1500,
-                      });
-                    }
-                  } else {
-                    document
-                      .querySelector(".paymentSuccess")
-                      ?.classList.remove("hidden");
-                    document
-                      .querySelector(".paymentSuccess")
-                      ?.classList.add("flex");
-                    document.querySelector(".body")?.classList.add("hidden");
-                  }
-                }}
-              >
-                {!isPayment ? "Thanh toán" : "Xác nhận"}
-              </button>
-              <button className="w-full mt-3 text-gray-400 text-center py-2 text-sm">
-                Quay lại
-              </button>
-            </div>
-
-            {/* Lưu ý */}
-            <div className="px-6 pb-8 text-center">
-              <p className="text-xs leading-4 text-[#F97316]">
-                Lưu ý: Không mua vé cho trẻ em dưới 14 tuổi với suất chiếu kết
-                thúc sau 22h00 và dưới 16 tuổi với suất chiếu kết thúc sau
-                23h00.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* Footer */}
-    </div>
-  );
+    );
 }

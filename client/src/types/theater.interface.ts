@@ -29,6 +29,14 @@ export interface Seat {
   booked: boolean;
 }
 
+export interface SeatVersion2 {
+  row: string;
+  number: number;
+  type: SeatType;
+  booked: boolean;
+  locked: boolean;
+}
+
 export interface SeatsMapEntity {
   screenId: string;
   seats: Seat[];

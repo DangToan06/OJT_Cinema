@@ -13,6 +13,7 @@ import tem from "../assets/Copyright.png";
 
 import LoginModal from "../components/Login";
 import RegisterModal from "../components/Register";
+import { ToastContainer } from "react-toastify";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -746,6 +747,16 @@ export default function Layout({ children }: LayoutProps) {
           </div>
         </div>
       )}
+      <ToastContainer
+                position="top-right"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                pauseOnHover
+                draggable
+                theme="colored"
+              />
 
       <RegisterModal
         isOpen={isRegisterModalOpen}
