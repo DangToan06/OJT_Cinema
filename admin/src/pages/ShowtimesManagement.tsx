@@ -83,7 +83,6 @@ export function ShowtimesManagement() {
     : [];
 
   const getOccupancyColor = (available: number, total: number) => {
-    const percentage = ((total - available) / total) * 100;
     if (percentage >= 80) return "text-red-500 font-bold shadow-red-500/20";
     if (percentage >= 50) return "text-orange-500 font-bold";
     return "text-green-500 font-bold";

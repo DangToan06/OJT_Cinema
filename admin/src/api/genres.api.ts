@@ -101,6 +101,7 @@ export const updateGenre = createAsyncThunk<
 );
 
 // XÓA thể loại
+
 export const deleteGenre = createAsyncThunk<string, string>(
   "genres/delete",
   async (id, { rejectWithValue }) => {
