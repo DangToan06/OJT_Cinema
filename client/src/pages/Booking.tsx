@@ -1,5 +1,5 @@
 import screen from '../assets/imgs/screen1.png';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '../hook/useRedux';
 import { getAllMovies } from '../api/movie.api';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -93,53 +93,72 @@ export default function ChooseTicket() {
     const showTimeNow = showTimes.find((s) => s.id === showtimeId);
     const size = screens.find((s) => s.name === showTimeNow?.screen)?.column;
 
-    const [mapSeat, setMapSeat] = useState<SeatVersion2[]>([]);
+    // Tự động tính toán mapSeat khi showtimeId thay đổi
+    const initialMapSeat = useMemo(() => {
+        if (!showtimeId || showTimes.length === 0 || screens.length === 0 || seats.length === 0) {
+            return [];
+        }
 
-    useEffect(() => {
-        console.log(choosingSeat);
-    }, [choosingSeat]);
-
-    const loadInitSeat = (id: string) => {
-        const showTime = showTimes.find((s) => s.id === id);
-        if (!showTime) return;
+        const showTime = showTimes.find((s) => s.id === showtimeId);
+        if (!showTime) return [];
 
         const screen = screens.find((s) => s.name === showTime.screen);
-        if (!screen) return;
+        if (!screen) return [];
 
         const seatMap = seats.find((s) => s.screenId === screen.id);
-        if (!seatMap) return;
+        if (!seatMap) return [];
 
         const bookedSeats: Seat[] = paymentHistory.flatMap((p) => {
-            if (p.showTimeId === id) {
+            if (p.showTimeId === showtimeId) {
                 return p.seatBooked;
             }
             return [];
         });
 
-        setMapSeat(
-            seatMap.seats.map((s) => {
-                const isBooked = bookedSeats.some(
-                    (bs) => bs.row === s.row && bs.number === s.number
-                );
+        return seatMap.seats.map((s) => {
+            const isBooked = bookedSeats.some(
+                (bs) => bs.row === s.row && bs.number === s.number
+            );
 
-                return isBooked
-                    ? { ...s, booked: true, locked: true }
-                    : { ...s, booked: false, locked: false };
-            })
-        );
-    };
+            return isBooked
+                ? { ...s, booked: true, locked: true }
+                : { ...s, booked: false, locked: false };
+        });
+    }, [showtimeId, showTimes, screens, seats, paymentHistory]);
+
+    // State riêng để track ghế user đang chọn (không bị reset khi useMemo chạy lại)
+    const [selectedSeatsMap, setSelectedSeatsMap] = useState<Map<string, boolean>>(new Map());
+
+    // Kết hợp initialMapSeat với selectedSeatsMap
+    const mapSeat = useMemo(() => {
+        return initialMapSeat.map((seat) => {
+            const key = `${seat.row}${seat.number}`;
+            const isSelected = selectedSeatsMap.get(key) || false;
+            return {
+                ...seat,
+                booked: seat.locked ? seat.booked : isSelected
+            };
+        });
+    }, [initialMapSeat, selectedSeatsMap]);
 
     const handleSeatClick = (seat: SeatVersion2) => {
-        // ===== 3. TOGGLE GHẾ ĐANG CHỌN =====
-        setMapSeat((prev) =>
-            prev.map((s) =>
-                s.row === seat.row && s.number === seat.number
-                    ? { ...s, booked: !s.booked }
-                    : s
-            )
-        );
+        if (seat.locked) return; // Không cho click ghế đã bị lock
 
-        // ===== 4. CẬP NHẬT DANH SÁCH GHẾ ĐANG CHỌN =====
+        const key = `${seat.row}${seat.number}`;
+        const isCurrentlySelected = selectedSeatsMap.get(key) || false;
+
+        // Toggle ghế trong map
+        setSelectedSeatsMap((prev) => {
+            const newMap = new Map(prev);
+            if (isCurrentlySelected) {
+                newMap.delete(key);
+            } else {
+                newMap.set(key, true);
+            }
+            return newMap;
+        });
+
+        // Cập nhật danh sách ghế đang chọn
         setChoosingSeat((prev) => {
             const isChosen = prev.some(
                 (s) => s.row === seat.row && s.number === seat.number
@@ -152,9 +171,6 @@ export default function ChooseTicket() {
                 : [...prev, seat];
         });
     };
-    useEffect(() => {
-        console.log(mapSeat);
-    }, [mapSeat]);
 
     return (
         <div className="bg-black text-white font-sans px-6 min-h-[600px]">
@@ -338,8 +354,7 @@ export default function ChooseTicket() {
                                     setSeconds(0);
                                     changeId(d.id);
                                     setChoosingSeat([]);
-                                    setMapSeat([]);
-                                    loadInitSeat(d.id);
+                                    setSelectedSeatsMap(new Map()); // Reset ghế đã chọn
                                 }}
                             >
                                 {d.startTime}
