@@ -53,7 +53,7 @@ export default function HomePage() {
           <PromoList />
 
           <div className="flex justify-between items-center">
-            <h3 className="text-white text-lg font-semibold m-0">Sự kiện</h3>
+            <h3 className="text-white text-lg font-semibold m-0">Tin Tức</h3>
             <Link
               to={"/news"}
               className="text-sm text-gray-300 hover:underline"
