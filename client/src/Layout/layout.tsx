@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Menu, X, LogOut } from "lucide-react";
+import { Menu, X, LogOut, Ticket, Calendar, Clock } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -38,10 +38,12 @@ export default function Layout({ children }: LayoutProps) {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState<UserInfo | null>(null);
-  const navigate = useNavigate();
-  const location = useLocation();
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [previewAvatar, setPreviewAvatar] = useState<string | null>(null);
   const [isShowHistory, setIsShowHistory] = useState<boolean>(false);
 
+  const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useAppDispatch();
 
   const { data: historyPayment } = useAppSelector((state) => state.history);
@@ -52,6 +54,7 @@ export default function Layout({ children }: LayoutProps) {
     }
   }, [historyPayment.length, dispatch]);
 
+  // Các hàm logout, check status, update profile... giữ nguyên như cũ
   const performLogout = (reason: "manual" | "blocked") => {
     localStorage.removeItem("user");
     setUser(null);
@@ -60,7 +63,7 @@ export default function Layout({ children }: LayoutProps) {
       Swal.fire({
         icon: "error",
         title: "Tài khoản bị chặn",
-        text: "Tài khoản của bạn đã bị chặn , bạn đã bị đăng xuất ",
+        text: "Tài khoản của bạn đã bị chặn, bạn đã bị đăng xuất.",
         confirmButtonText: "OK",
         background: "#1e293b",
         color: "#fff",
@@ -167,18 +170,6 @@ export default function Layout({ children }: LayoutProps) {
     }
   };
 
-  const menuItems = [
-    { name: "Trang chủ", link: "/" },
-    { name: "Lịch chiếu", link: "/movie-calendar" },
-    { name: "Tin tức", link: "/news" },
-    { name: "Khuyến mãi", link: "/promotions" },
-    { name: "Giá vé", link: "/ticketPrice" },
-    { name: "Liên hoan phim", link: "/festival" },
-  ];
-
-  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
-  const [previewAvatar, setPreviewAvatar] = useState<string | null>(null);
-
   const handleUpdateProfile = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!user?.id) return;
@@ -221,11 +212,8 @@ export default function Layout({ children }: LayoutProps) {
     }
 
     let avatarUrl = user.avatar || "";
-
-    // Nếu có chọn ảnh mới → tạo URL tạm (ở đây giả lập, nếu backend hỗ trợ upload thật thì cần thêm API upload riêng)
     if (avatarFile && avatarFile.size > 0) {
-      avatarUrl = URL.createObjectURL(avatarFile); // Chỉ preview, thực tế cần upload lên server
-      // TODO: Nếu backend có endpoint upload avatar riêng, gọi ở đây
+      avatarUrl = URL.createObjectURL(avatarFile);
     }
 
     try {
@@ -285,6 +273,15 @@ export default function Layout({ children }: LayoutProps) {
     });
   };
 
+  const menuItems = [
+    { name: "Trang chủ", link: "/" },
+    { name: "Lịch chiếu", link: "/movie-calendar" },
+    { name: "Tin tức", link: "/news" },
+    { name: "Khuyến mãi", link: "/promotions" },
+    { name: "Giá vé", link: "/ticketPrice" },
+    { name: "Liên hoan phim", link: "/festival" },
+  ];
+
   return (
     <div className="w-full min-h-screen flex flex-col relative">
       <ScrollToTop />
@@ -292,6 +289,7 @@ export default function Layout({ children }: LayoutProps) {
         <div className="fixed inset-0 bg-black/80 z-30" />
       )}
 
+      {/* Header */}
       <header className="fixed top-0 left-0 w-full bg-black h-20 z-40 flex items-center px-6 shadow-2xl">
         <img src={logo} alt="Logo" className="w-[60px] h-[45px]" />
 
@@ -323,7 +321,7 @@ export default function Layout({ children }: LayoutProps) {
                     className="w-9 h-9 rounded-full object-cover border-2 border-white/30"
                   />
                 ) : (
-                  <div className="w-9 h-9 bg-gradient-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md">
+                  <div className="w-9 h-9 bg-linear-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md">
                     {(user.first_name || "?")[0].toUpperCase()}
                   </div>
                 )}
@@ -374,7 +372,7 @@ export default function Layout({ children }: LayoutProps) {
         </button>
       </header>
 
-      {/* Mobile Menu  */}
+      {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden fixed top-20 left-0 w-full bg-black/95 backdrop-blur z-30 py-6 px-6 shadow-2xl">
           <nav className="space-y-4 mb-6">
@@ -403,7 +401,7 @@ export default function Layout({ children }: LayoutProps) {
                       className="w-14 h-14 rounded-full object-cover"
                     />
                   ) : (
-                    <div className="w-14 h-14 bg-gradient-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white font-bold text-2xl">
+                    <div className="w-14 h-14 bg-linear-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white font-bold text-2xl">
                       {(user.first_name || "?")[0].toUpperCase()}
                     </div>
                   )}
@@ -454,6 +452,7 @@ export default function Layout({ children }: LayoutProps) {
 
       <main className="flex-1 mt-20">{children}</main>
 
+      {/* Footer */}
       <footer className="bg-black text-white py-16 z-10">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex flex-wrap justify-center gap-x-10 gap-y-3 text-sm md:text-base font-medium">
@@ -475,53 +474,27 @@ export default function Layout({ children }: LayoutProps) {
           </div>
 
           <div className="flex flex-wrap justify-center items-center gap-6 mt-10">
-            <img
-              src={fb}
-              className="w-8 h-8 cursor-pointer hover:opacity-80"
-              alt="Facebook"
-            />
-            <img
-              src={zalo}
-              className="w-8 h-8 cursor-pointer hover:opacity-80"
-              alt="Zalo"
-            />
-            <img
-              src={ytb}
-              className="w-8 h-8 cursor-pointer hover:opacity-80"
-              alt="Youtube"
-            />
-            <img
-              src={gp}
-              className="h-11 cursor-pointer hover:opacity-90"
-              alt="Google Play"
-            />
-            <img
-              src={as}
-              className="h-11 cursor-pointer hover:opacity-90"
-              alt="App Store"
-            />
-            <img
-              src={tem}
-              className="h-[50px] cursor-pointer hover:opacity-90"
-              alt="Copyright"
-            />
+            <img src={fb} className="w-8 h-8 cursor-pointer hover:opacity-80" alt="Facebook" />
+            <img src={zalo} className="w-8 h-8 cursor-pointer hover:opacity-80" alt="Zalo" />
+            <img src={ytb} className="w-8 h-8 cursor-pointer hover:opacity-80" alt="Youtube" />
+            <img src={gp} className="h-11 cursor-pointer hover:opacity-90" alt="Google Play" />
+            <img src={as} className="h-11 cursor-pointer hover:opacity-90" alt="App Store" />
+            <img src={tem} className="h-[50px] cursor-pointer hover:opacity-90" alt="Copyright" />
           </div>
 
           <div className="mt-12 text-center flex flex-col gap-2 text-sm md:text-base leading-relaxed opacity-90">
             <p>Cơ quan chủ quản: BỘ VĂN HÓA, THỂ THAO VÀ DU LỊCH</p>
             <p>Bản quyền thuộc Trung tâm Chiếu phim Quốc gia.</p>
             <p>Giấy phép số: 224/GP - TTĐT ngày 31/8/2010</p>
-            <p>
-              Địa chỉ: 87 Láng Hạ, Ba Đình, Hà Nội • Điện thoại: 024.35141791
-            </p>
+            <p>Địa chỉ: 87 Láng Hạ, Ba Đình, Hà Nội • Điện thoại: 024.35141791</p>
             <div className="flex justify-center items-center gap-2 mt-2">
-              <span>&copy; 2023 By NCC • All rights reserved.</span>
+              <span>© 2023 By NCC • All rights reserved.</span>
             </div>
           </div>
         </div>
       </footer>
 
-      {/* ===== MODAL CHỈNH SỬA PROFILE VỚI UPLOAD AVATAR ===== */}
+      {/* ===== Modal Profile + Lịch sử đặt vé ===== */}
       {isProfileModalOpen && user && (
         <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
           <div
@@ -533,7 +506,7 @@ export default function Layout({ children }: LayoutProps) {
           />
 
           <div
-            className="relative bg-[#1e293b]/90 backdrop-blur-lg rounded-3xl p-8 w-full max-w-2xl shadow-2xl border border-white/5 max-h-screen overflow-y-auto"
+            className="relative bg-[#1e293b]/90 backdrop-blur-lg rounded-3xl p-8 w-full max-w-2xl shadow-2xl border border-white/5 max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -562,7 +535,7 @@ export default function Layout({ children }: LayoutProps) {
                         className="w-full h-full object-cover"
                       />
                     ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-red-500 to-pink-600 flex items-center justify-center text-white font-bold text-5xl">
+                      <div className="w-full h-full bg-linear-to-br from-red-500 to-pink-600 flex items-center justify-center text-white font-bold text-5xl">
                         {(user.first_name || "?")[0].toUpperCase()}
                       </div>
                     )}
@@ -572,9 +545,7 @@ export default function Layout({ children }: LayoutProps) {
                     htmlFor="avatar-upload"
                     className="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition cursor-pointer"
                   >
-                    <span className="text-white text-sm font-medium">
-                      Thay đổi
-                    </span>
+                    <span className="text-white text-sm font-medium">Thay đổi</span>
                   </label>
                 </div>
 
@@ -586,17 +557,13 @@ export default function Layout({ children }: LayoutProps) {
                   className="hidden"
                   onChange={(e) => {
                     const file = e.target.files?.[0];
-                    if (file) {
-                      setPreviewAvatar(URL.createObjectURL(file));
-                    }
+                    if (file) setPreviewAvatar(URL.createObjectURL(file));
                   }}
                 />
-                <p className="text-gray-400 text-sm mt-3">
-                  Nhấp vào ảnh để thay đổi
-                </p>
+                <p className="text-gray-400 text-sm mt-3">Nhấp vào ảnh để thay đổi</p>
               </div>
 
-              {/* Các trường thông tin */}
+              {/* Thông tin */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-gray-300 text-sm mb-2">Họ</label>
@@ -609,9 +576,7 @@ export default function Layout({ children }: LayoutProps) {
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-300 text-sm mb-2">
-                    Tên
-                  </label>
+                  <label className="block text-gray-300 text-sm mb-2">Tên</label>
                   <input
                     name="last_name"
                     type="text"
@@ -623,9 +588,7 @@ export default function Layout({ children }: LayoutProps) {
               </div>
 
               <div>
-                <label className="block text-gray-300 text-sm mb-2">
-                  Email
-                </label>
+                <label className="block text-gray-300 text-sm mb-2">Email</label>
                 <input
                   name="email"
                   type="email"
@@ -636,9 +599,7 @@ export default function Layout({ children }: LayoutProps) {
               </div>
 
               <div>
-                <label className="block text-gray-300 text-sm mb-2">
-                  Số điện thoại
-                </label>
+                <label className="block text-gray-300 text-sm mb-2">Số điện thoại</label>
                 <input
                   name="phone"
                   type="tel"
@@ -647,59 +608,90 @@ export default function Layout({ children }: LayoutProps) {
                   className="w-full px-5 py-4 bg-[#334155]/50 border border-gray-600 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
                 />
               </div>
-              <div className="border-t border-t-gray-600">
+
+              {/* Lịch sử đặt vé */}
+              <div className="border-t border-gray-600 pt-6">
+                <p
+                  onClick={() => setIsShowHistory(true)}
+                  className="text-white text-xl font-bold hover:border-b-red-500 hover:border-b w-fit cursor-pointer hover:text-red-500 transition"
+                >
+                  Lịch sử đặt vé
+                </p>
+
                 {isShowHistory && (
-                  <div className="bg-black/80 fixed inset-0 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-                    <div className="bg-gray-800 p-5 border border-gray-700 rounded-2xl w-full flex flex-col gap-5">
-                      <div className="text-white font-bold text-2xl flex justify-between items-center">
-                        <p>Lịch sử đặt vé</p>
-                        <X
-                          onClick={() => {
-                            setIsShowHistory(false);
-                          }}
-                          className="hover:text-gray-400 cursor-pointer"
-                        />
-                      </div>
-                      <div className="flex flex-col gap-2">
-                        {historyPayment
-                          .filter((h) => h.userId === user.id)
-                          .map((u, i) => (
-                            <div
-                              key={i}
-                              className="text-white border rounded-lg border-gray-600 p-3 flex justify-between items-center"
-                            >
-                              <div>
-                                <p className="font-bold">
-                                  # {i + 1} - {u.nameFilm}
-                                  <span className="border rounded-2xl text-sm border-gray-600 bg-gray-700 px-2 py-0.5">
-                                    {u.seatBooked.map((s) => s.row + s.number)}
-                                  </span>
-                                </p>
-                                <p className="text-sm text-gray-400">
-                                  {formatDate(u.bookingDate)}
-                                </p>
-                              </div>
-                              <div className="text-red-500 font-bold text-lg">
-                                {u.totalAmount} vnđ
-                              </div>
-                            </div>
-                          ))}
-                      </div>
-                      <div className="flex justify-end text-white font-semibold gap-3">
-                        <span className="rounded px-1.5 cursor-pointer hover:text-gray-400 hover:scale-105">
-                          &lt;
-                        </span>
-                        <span className="rounded px-1.5 cursor-pointer hover:bg-red-600 bg-red-500">
-                          1
-                        </span>
-                        <span className="rounded px-1.5 cursor-pointer hover:text-gray-400 hover:scale-105">
-                          &gt;
-                        </span>
-                      </div>
-                      <div className="w-full flex justify-end">
+                  <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+                    <div className="bg-gray-800 rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-hidden flex flex-col border border-gray-700">
+                      <div className="p-6 border-b border-gray-700 flex justify-between items-center bg-gray-900">
+                        <h3 className="text-white font-bold text-2xl flex items-center gap-3">
+                          <Ticket className="w-7 h-7 text-red-500" />
+                          Lịch sử đặt vé
+                        </h3>
                         <button
                           onClick={() => setIsShowHistory(false)}
-                          className="text-white rounded-lg px-6 py-3 bg-red-500 font-bold"
+                          className="text-gray-400 hover:text-white"
+                        >
+                          <X size={28} />
+                        </button>
+                      </div>
+
+                      <div className="flex-1 p-6 overflow-y-auto custom-scrollbar">
+                        {historyPayment.filter((h) => h.userId === user.id).length === 0 ? (
+                          <div className="text-center py-12 text-gray-400">
+                            Bạn chưa có giao dịch nào.
+                          </div>
+                        ) : (
+                          historyPayment
+                            .filter((h) => h.userId === user.id)
+                            .sort((a, b) => new Date(b.bookingDate).getTime() - new Date(a.bookingDate).getTime())
+                            .map((payment) => (
+                              <div
+                                key={payment.id}
+                                className="mb-4 p-5 bg-gray-900 rounded-xl border border-gray-700 hover:border-red-500/50 transition-all"
+                              >
+                                <div className="flex justify-between items-start">
+                                  <div>
+                                    <p className="text-lg font-bold text-white mb-1">
+                                      {payment.nameFilm}
+                                    </p>
+                                    <div className="flex items-center gap-3 text-sm text-gray-400">
+                                      <Calendar className="w-4 h-4" />
+                                      <span>{formatDate(payment.bookingDate)}</span>
+                                      <Clock className="w-4 h-4" />
+                                      <span>
+                                        {payment.seatBooked.length} ghế
+                                      </span>
+                                    </div>
+                                    <div className="mt-2 flex flex-wrap gap-2">
+                                      {payment.seatBooked.map((seat, idx) => (
+                                        <span
+                                          key={idx}
+                                          className="px-2 py-1 bg-gray-700 text-xs rounded text-gray-300"
+                                        >
+                                          {seat.row}
+                                          {seat.number}
+                                        </span>
+                                      ))}
+                                    </div>
+                                  </div>
+
+                                  <div className="text-right">
+                                    <p className="text-2xl font-bold text-red-500">
+                                      {payment.totalAmount.toLocaleString()} VNĐ
+                                    </p>
+                                    <p className="text-xs text-gray-500 mt-1">
+                                      Thanh toán: {payment.paymentMethod.toUpperCase()}
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            ))
+                        )}
+                      </div>
+
+                      <div className="p-6 border-t border-gray-700 flex justify-end">
+                        <button
+                          onClick={() => setIsShowHistory(false)}
+                          className="px-8 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition"
                         >
                           Đóng
                         </button>
@@ -707,15 +699,9 @@ export default function Layout({ children }: LayoutProps) {
                     </div>
                   </div>
                 )}
-                <p
-                  onClick={() => setIsShowHistory(true)}
-                  className="text-white text-xl font-bold mt-5 mb-5 hover:border-b-red-500 hover:border-b w-fit cursor-pointer hover:text-red-500"
-                >
-                  Lịch sử đặt vé
-                </p>
-                <div className="flex flex-col gap-5"></div>
               </div>
 
+              {/* Nút Lưu */}
               <div className="flex gap-4 mt-8">
                 <button
                   type="button"
@@ -741,6 +727,7 @@ export default function Layout({ children }: LayoutProps) {
           </div>
         </div>
       )}
+
       <ToastContainer
         position="top-right"
         autoClose={1000}
