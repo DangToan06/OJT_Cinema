@@ -74,11 +74,11 @@
       "email": "duong@gmail.com",
       "phone": "0123456789",
       "password": "123456",
-      "avatar": "blob:http://localhost:3000/24eb6340-10f7-47cd-8519-6a883bde8242",
+      "avatar": "blob:http://localhost:3000/25aeec68-17fb-463c-a334-b9755ae8600e",
       "address": "",
       "status": "ACTIVE",
       "created_at": "2025-12-18T02:24:25.078Z",
-      "updated_at": "2025-12-18T02:24:57.178Z",
+      "updated_at": "2025-12-23T01:33:08.997Z",
       "role": {
         "id": 2,
         "role_name": "user"
@@ -633,6 +633,7 @@
       "updated_at": "2023-06-02T09:00:00Z",
       "id": "2",
       "showtimes": [
+        "619eaf52-e6f5-42e6-8627-df68b727daab",
         "oxcbyFE"
       ]
     },
@@ -1146,11 +1147,6 @@
     {
       "genreName": "Romantic",
       "id": "3"
-    },
-    {
-      "genreName": "huy yêu tươi",
-      "movieCount": 0,
-      "id": "_u--Qo3"
     }
   ],
   "news": [
@@ -1240,11 +1236,11 @@
       "movie": "Frozen II",
       "theater": "NCC Bà Triệu",
       "screen": "Phòng 1",
-      "date": "2025-12-19",
+      "date": "2025-12-26",
       "startTime": "11:11",
-      "endTime": "14:11",
-      "availableSeats": 54,
-      "totalSeats": 54,
+      "endTime": "12:54",
+      "availableSeats": 48,
+      "totalSeats": 48,
       "status": "active",
       "id": "MbHMR9n"
     },
@@ -1252,11 +1248,11 @@
       "movie": "Dune: Part Two",
       "theater": "NCC Hai Bà Trưng",
       "screen": "Phòng 12",
-      "date": "2025-12-19",
+      "date": "2025-12-27",
       "startTime": "12:12",
-      "endTime": "15:12",
-      "availableSeats": 91,
-      "totalSeats": 91,
+      "endTime": "14:58",
+      "availableSeats": 98,
+      "totalSeats": 98,
       "status": "active",
       "id": "YBsvBTv"
     },
@@ -1264,72 +1260,84 @@
       "movie": "Titanic",
       "theater": "NCC Hai Bà Trưng",
       "screen": "Phòng 12",
-      "date": "2025-12-18",
+      "date": "2025-12-23",
       "startTime": "11:06",
-      "endTime": "14:06",
-      "availableSeats": 91,
-      "totalSeats": 91,
+      "endTime": "14:21",
+      "availableSeats": 98,
+      "totalSeats": 98,
       "status": "active",
       "id": "oxcbyFE"
     },
     {
-      "id": "0531ba2c-eeff-48a5-ad9b-912e6aac9561",
       "movie": "Frozen II",
       "theater": "NCC Bà Triệu",
       "screen": "Phòng 1",
-      "date": "2025-12-19",
+      "date": "2025-12-24",
       "startTime": "17:23",
       "endTime": "19:06",
-      "availableSeats": 54,
-      "totalSeats": 54,
-      "status": "active"
+      "availableSeats": 48,
+      "totalSeats": 48,
+      "status": "active",
+      "id": "0531ba2c-eeff-48a5-ad9b-912e6aac9561"
     },
     {
-      "id": "8c116d76-f973-4bf8-9545-d84540a56583",
       "movie": "Avengers: Endgame",
       "theater": "NCC Bà Triệu",
       "screen": "Phòng 1",
-      "date": "2025-12-20",
+      "date": "2025-12-30",
       "startTime": "20:06",
       "endTime": "23:06",
       "availableSeats": 48,
       "totalSeats": 48,
-      "status": "active"
+      "status": "active",
+      "id": "8c116d76-f973-4bf8-9545-d84540a56583"
     },
     {
-      "id": "ec53d05d-c3b6-43d5-bbb0-7f862948883a",
       "movie": "Avatar: The Way of Water",
       "theater": "NCC Bà Triệu",
       "screen": "Phòng 1",
-      "date": "2025-12-21",
+      "date": "2025-12-23",
       "startTime": "18:20",
       "endTime": "21:32",
       "availableSeats": 48,
       "totalSeats": 48,
-      "status": "active"
+      "status": "active",
+      "id": "ec53d05d-c3b6-43d5-bbb0-7f862948883a"
     },
     {
-      "id": "a1d3d5a9-0cfd-4f9f-926a-e3a66beeb9c9",
       "movie": "Spider-Man: Across the Spider-Verse",
       "theater": "NCC Bà Triệu",
       "screen": "Phòng 1",
-      "date": "2025-12-22",
+      "date": "2025-12-25",
       "startTime": "00:00",
       "endTime": "02:20",
       "availableSeats": 48,
       "totalSeats": 48,
-      "status": "active"
+      "status": "active",
+      "id": "a1d3d5a9-0cfd-4f9f-926a-e3a66beeb9c9"
     },
     {
-      "id": "f0ee0a8f-35e7-4e8f-81f8-0a4b82e898e8",
       "movie": "Spider-Man: Across the Spider-Verse",
       "theater": "NCC Bà Triệu",
       "screen": "Phòng 1",
-      "date": "2025-12-22",
+      "date": "2025-12-28",
       "startTime": "15:00",
       "endTime": "17:20",
       "availableSeats": 48,
       "totalSeats": 48,
+      "status": "active",
+      "id": "f0ee0a8f-35e7-4e8f-81f8-0a4b82e898e8"
+    },
+    {
+      "id": "619eaf52-e6f5-42e6-8627-df68b727daab",
+      "movie": "Titanic",
+      "theater": "NCC Hai Bà Trưng",
+      "screen": "Phòng 12",
+      "date": "2025-12-23",
+      "startTime": "00:14",
+      "endTime": "03:29",
+      "availableSeats": 98,
+      "totalSeats": 98,
       "status": "active"
     }
   ],
@@ -1381,7 +1389,6 @@
   ],
   "seat_map": [
     {
-      "id": "c7c03767-7de6-4016-b80a-c934d3f8dbd1",
       "screenId": "5a0d8bd4-33f4-4796-aeb5-84a1a02a772b",
       "seats": [
         {
@@ -1463,6 +1470,12 @@
           "booked": false
         },
         {
+          "row": "A",
+          "number": 14,
+          "type": "standard",
+          "booked": false
+        },
+        {
           "row": "B",
           "number": 1,
           "type": "standard",
@@ -1541,6 +1554,12 @@
           "booked": false
         },
         {
+          "row": "B",
+          "number": 14,
+          "type": "standard",
+          "booked": false
+        },
+        {
           "row": "C",
           "number": 1,
           "type": "standard",
@@ -1619,6 +1638,12 @@
           "booked": false
         },
         {
+          "row": "C",
+          "number": 14,
+          "type": "standard",
+          "booked": false
+        },
+        {
           "row": "D",
           "number": 1,
           "type": "standard",
@@ -1645,31 +1670,31 @@
         {
           "row": "D",
           "number": 5,
-          "type": "vip",
+          "type": "standard",
           "booked": false
         },
         {
           "row": "D",
           "number": 6,
-          "type": "vip",
+          "type": "standard",
           "booked": false
         },
         {
           "row": "D",
           "number": 7,
-          "type": "vip",
+          "type": "standard",
           "booked": false
         },
         {
           "row": "D",
           "number": 8,
-          "type": "vip",
+          "type": "standard",
           "booked": false
         },
         {
           "row": "D",
           "number": 9,
-          "type": "vip",
+          "type": "standard",
           "booked": false
         },
         {
@@ -1697,6 +1722,12 @@
           "booked": false
         },
         {
+          "row": "D",
+          "number": 14,
+          "type": "standard",
+          "booked": false
+        },
+        {
           "row": "E",
           "number": 1,
           "type": "standard",
@@ -1723,31 +1754,31 @@
         {
           "row": "E",
           "number": 5,
-          "type": "vip",
+          "type": "standard",
           "booked": false
         },
         {
           "row": "E",
           "number": 6,
-          "type": "vip",
+          "type": "standard",
           "booked": false
         },
         {
           "row": "E",
           "number": 7,
-          "type": "vip",
+          "type": "standard",
           "booked": false
         },
         {
           "row": "E",
           "number": 8,
-          "type": "vip",
+          "type": "standard",
           "booked": false
         },
         {
           "row": "E",
           "number": 9,
-          "type": "vip",
+          "type": "standard",
           "booked": false
         },
         {
@@ -1775,6 +1806,12 @@
           "booked": false
         },
         {
+          "row": "E",
+          "number": 14,
+          "type": "standard",
+          "booked": false
+        },
+        {
           "row": "F",
           "number": 1,
           "type": "standard",
@@ -1853,84 +1890,97 @@
           "booked": false
         },
         {
+          "row": "F",
+          "number": 14,
+          "type": "standard",
+          "booked": false
+        },
+        {
           "row": "G",
           "number": 1,
-          "type": "sweetbox",
+          "type": "standard",
           "booked": false
         },
         {
           "row": "G",
           "number": 2,
-          "type": "sweetbox",
+          "type": "standard",
           "booked": false
         },
         {
           "row": "G",
           "number": 3,
-          "type": "sweetbox",
+          "type": "standard",
           "booked": false
         },
         {
           "row": "G",
           "number": 4,
-          "type": "sweetbox",
+          "type": "standard",
           "booked": false
         },
         {
           "row": "G",
           "number": 5,
-          "type": "sweetbox",
+          "type": "standard",
           "booked": false
         },
         {
           "row": "G",
           "number": 6,
-          "type": "sweetbox",
+          "type": "standard",
           "booked": false
         },
         {
           "row": "G",
           "number": 7,
-          "type": "sweetbox",
+          "type": "standard",
           "booked": false
         },
         {
           "row": "G",
           "number": 8,
-          "type": "sweetbox",
+          "type": "standard",
           "booked": false
         },
         {
           "row": "G",
           "number": 9,
-          "type": "sweetbox",
+          "type": "standard",
           "booked": false
         },
         {
           "row": "G",
           "number": 10,
-          "type": "sweetbox",
+          "type": "standard",
           "booked": false
         },
         {
           "row": "G",
           "number": 11,
-          "type": "sweetbox",
+          "type": "standard",
           "booked": false
         },
         {
           "row": "G",
           "number": 12,
-          "type": "sweetbox",
+          "type": "standard",
           "booked": false
         },
         {
           "row": "G",
           "number": 13,
-          "type": "sweetbox",
+          "type": "standard",
+          "booked": false
+        },
+        {
+          "row": "G",
+          "number": 14,
+          "type": "standard",
           "booked": false
         }
-      ]
+      ],
+      "id": "c7c03767-7de6-4016-b80a-c934d3f8dbd1"
     },
     {
       "screenId": "f66d57b3-18ef-45f1-bc08-ba11b7c4bc25",
@@ -2578,6 +2628,92 @@
       "userId": "2",
       "nameFilm": "Spider-Man: Across the Spider-Verse",
       "id": 6
+    },
+    {
+      "showTimeId": "ec53d05d-c3b6-43d5-bbb0-7f862948883a",
+      "seatBooked": [
+        {
+          "row": "A",
+          "number": 1,
+          "type": "standard",
+          "booked": false,
+          "locked": false
+        }
+      ],
+      "totalAmount": 75000,
+      "paymentMethod": "vnpay",
+      "bookingDate": "2025-12-22T23:52:24.896Z",
+      "userId": "Ng6iCsq",
+      "nameFilm": "Avatar: The Way of Water",
+      "id": 7
+    },
+    {
+      "showTimeId": "0531ba2c-eeff-48a5-ad9b-912e6aac9561",
+      "seatBooked": [
+        {
+          "row": "F",
+          "number": 8,
+          "type": "sweetbox",
+          "booked": false,
+          "locked": false
+        },
+        {
+          "row": "F",
+          "number": 7,
+          "type": "sweetbox",
+          "booked": false,
+          "locked": false
+        }
+      ],
+      "totalAmount": 240000,
+      "paymentMethod": "payoo",
+      "bookingDate": "2025-12-23T00:41:48.806Z",
+      "userId": "Ng6iCsq",
+      "nameFilm": "Frozen II",
+      "id": 8
+    },
+    {
+      "showTimeId": "oxcbyFE",
+      "seatBooked": [
+        {
+          "row": "E",
+          "number": 6,
+          "type": "standard",
+          "booked": false,
+          "locked": false
+        }
+      ],
+      "totalAmount": 75000,
+      "paymentMethod": "payoo",
+      "bookingDate": "2025-12-23T02:12:44.540Z",
+      "userId": "Ng6iCsq",
+      "nameFilm": "Titanic",
+      "id": 9
+    },
+    {
+      "showTimeId": "oxcbyFE",
+      "seatBooked": [
+        {
+          "row": "B",
+          "number": 4,
+          "type": "standard",
+          "booked": false,
+          "locked": false
+        },
+        {
+          "row": "B",
+          "number": 5,
+          "type": "standard",
+          "booked": false,
+          "locked": false
+        }
+      ],
+      "totalAmount": 150000,
+      "paymentMethod": "viettel",
+      "bookingDate": "2025-12-23T02:15:19.318Z",
+      "userId": "Ng6iCsq",
+      "nameFilm": "Titanic",
+      "id": 10
     }
   ]
 }
